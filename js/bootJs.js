@@ -420,31 +420,20 @@ $(function () {
 function clearScrollTimerpub() {
     $("#popScrollPubNo").hide();
     $("#popScrollPubYes").show();
-    clearInterval(scrollTimerpub);
+    uu89pub.autoscroll=false;
 }
 
 function beginScrollTimerpub() {
     $("#popScrollPubNo").show();
     $("#popScrollPubYes").hide();
-    var time = 500;
-
-    function scrollBottom(para) {
-        var eleId = document.getElementById(para);
-        if (eleId) {
-            eleId.scrollTop = eleId.scrollHeight - 5;
-        }
-    };
-    scrollTimerpub = window.setInterval(function () {
-        //scrollBottom("reportBox");
-        scrollBottom("liuyan");
-        //scrollBottom("guanli");
-    }, time);
+    uu89pub.autoscroll=true;
+    xMessager.scrollBottom("liuyan");
 }
 
 function clearScrollTimerprv() {
     $("#popScrollPrvYes").show();
     $("#popScrollPrvNo").hide();
-    clearInterval(scrollTimer);
+    xMessager.isScroll=true;
 }
 
 function beginScrollTimerprv() {

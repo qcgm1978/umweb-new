@@ -637,6 +637,7 @@ var persist = {
  * @class xMessager
  * */
 var xMessager = {
+    isScroll:true,
     logined: false,
     room_id: 0,
     uid: 0,
@@ -761,12 +762,6 @@ var xMessager = {
             location.reload(true);
         }, 5000);
     },
-    scrollBottom: function (para) {
-        var eleId = document.getElementById(para);
-        if (eleId) {
-            eleId.scrollTop = eleId.scrollHeight - 5;
-        }
-    },
     OnData: function (data) {
         switch (data.type) {
             case 'C':
@@ -791,8 +786,6 @@ var xMessager = {
                 this.OnSetAdmin(data.data);
                 break;
         }
-
-        this.scrollBottom("liuyan");
     },
 
     message: function (msg, secret) {
