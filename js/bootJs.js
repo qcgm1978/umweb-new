@@ -413,22 +413,8 @@ $(function () {
 
 });
 
-var scrollTimer;
 $(function () {
     $("#popScrollPrvYes").hide();
-    var time = 500;
-
-    function scrollBottom(para) {
-        var eleId = document.getElementById(para);
-        if (eleId) {
-            eleId.scrollTop = eleId.scrollHeight - 5;
-        }
-    };
-    scrollTimer = window.setInterval(function () {
-        //scrollBottom("reportBox");
-        scrollBottom("xitong");
-        //scrollBottom("guanli");
-    }, time);
 });
 
 function clearScrollTimerpub() {
