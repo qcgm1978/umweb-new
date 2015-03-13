@@ -85,28 +85,18 @@ module.exports = function (grunt) {
                 url: '<%= pkg.homepage %>',
                 options: {
                     linkNatives:true,
-                    attributesEmit:true,
+                    //attributesEmit:true,
                     exclude:'',
                     paths: ['js/','room/script/'],
                     //themedir: 'path/to/custom/theme/',
-                    outdir: 'docs/docs/',
-                    'no-sort':''
+                    outdir: 'docs/docs/'
+                    //'no-sort':''
                 }
             }
         }
     });
-
-    // These plugins provide necessary tasks
-    //grunt.loadNpmTasks('grunt-contrib-concat');
-    //grunt.loadNpmTasks('grunt-contrib-uglify');
-    //grunt.loadNpmTasks('grunt-contrib-qunit');
-    //grunt.loadNpmTasks('grunt-contrib-jshint');
-    //grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
     grunt.loadNpmTasks('grunt-readme');
-    //// Default task
-    //grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
-    //var target = grunt.option('no-sort')
     //grunt.registerTask('doc', ['yuidoc']);
 
 };

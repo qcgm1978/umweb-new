@@ -644,7 +644,6 @@ var persist = {
  * @class xMessager
  * */
 var xMessager = {
-    isScroll:true,
     logined: false,
     room_id: 0,
     uid: 0,
