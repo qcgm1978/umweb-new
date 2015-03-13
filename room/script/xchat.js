@@ -297,8 +297,15 @@ User.prototype = {
     },
 
     RemoveFromListUI: function () {
-        $("#" + this.uid).remove();
-        $("#a_" + this.uid).remove();
+        var uid = this.uid;
+        $("#" + uid).remove();
+        $("#a_" + uid).remove();
+        $.each($('#message_to option'), function (i,n) {
+          if($(n).val()==uid){
+              $(n).remove()
+              return false
+          }
+        })
     }
 };
 

@@ -427,31 +427,20 @@ function beginScrollTimerpub() {
     $("#popScrollPubNo").show();
     $("#popScrollPubYes").hide();
     uu89pub.autoscroll=true;
-    xMessager.scrollBottom("liuyan");
+    uu89pub.rolling();
 }
 
 function clearScrollTimerprv() {
     $("#popScrollPrvYes").show();
     $("#popScrollPrvNo").hide();
-    xMessager.isScroll=true;
+    uu89prv.autoscroll=false;
 }
 
 function beginScrollTimerprv() {
     $("#popScrollPrvNo").show();
     $("#popScrollPrvYes").hide();
-    var time = 500;
-
-    function scrollBottom(para) {
-        var eleId = document.getElementById(para);
-        if (eleId) {
-            eleId.scrollTop = eleId.scrollHeight - 5;
-        }
-    };
-    scrollTimer = window.setInterval(function () {
-        //scrollBottom("reportBox");
-        scrollBottom("xitong");
-        //scrollBottom("guanli");
-    }, time);
+    uu89prv.autoscroll=true;
+    uu89prv.rolling();
 }
 //pos(obj)
 function pos(obj) {

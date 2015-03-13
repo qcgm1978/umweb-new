@@ -777,9 +777,9 @@
 
     });
 
-    var uu89pub = new chat('content_pub',1);
+    var uu89pub = new chat('content_pub',1,$('#liuyan'));
 
-    var uu89prv = new chat('content_prv',1);
+    var uu89prv = new chat('content_prv',1,$('#xitong'));
 
     uu89prv.kw_filter = /<?php echo $common_info['word_banned'] ?>/ig;
 

@@ -121,15 +121,6 @@ chat.prototype = {
             this.$scrollEle[0].scrollTop = this.$scrollEle[0].scrollHeight - 5;
         }
     },
-    scrollBottom: function (para) {
-        if (!this.isScroll) {
-            return
-        }
-        var eleId = document.getElementById(para);
-        if (eleId) {
-            eleId.scrollTop = eleId.scrollHeight - 5;
-        }
-    },
     // 小礼物
     sgift: function (text, img, sum, unit) {
         var sgimg = '';
