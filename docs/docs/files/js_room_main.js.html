@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>js\room_main.js - umweb-remote</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="umweb-remote" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.0</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/chat_panel.html">chat_panel</a></li>
+                                <li><a href="../classes/g_UserList.html">g_UserList</a></li>
+                                <li><a href="../classes/message_display.html">message_display</a></li>
+                                <li><a href="../classes/persist.html">persist</a></li>
+                                <li><a href="../classes/room.html">room</a></li>
+                                <li><a href="../classes/SendGift.html">SendGift</a></li>
+                                <li><a href="../classes/User.html">User</a></li>
+                                <li><a href="../classes/xchat_swf.html">xchat_swf</a></li>
+                                <li><a href="../classes/xMessager.html">xMessager</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/ng.html">ng</a></li>
+                                <li><a href="../modules/room.html">room</a></li>
+                                <li><a href="../modules/SendGift.html">SendGift</a></li>
+                                <li><a href="../modules/xchat_swf.html">xchat_swf</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: js\room_main.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * Room page module
+ *
+ * @module room
+ * @class room
+
+ */
+/**
+ * Description: program entry
+ *
+ * @method jquery.ready
+ */
+$(function () {
+    if (userpara.gid == 32001618 || userpara.gid == 32020247 || userpara.gid == 32000076) {
+        //open_my_console();
+        open_window_console();
+    }
+    load_emotion();
+    load_gift_list();
+    load_gift_message();
+    load_room_data();
+    xchat_start();
+    var splash_base = &#x27;/room/images/&#x27;;
+    var video_swf_param = {
+        server: roompara.mserverip + &quot;:19350&quot;,
+        room_id: room_id,
+        uid: userpara.gid,
+        level: userpara.levelinroom,
+        token: &quot;video_token&quot;,
+        nickname: Base64.decode(userpara.nickname_b64),
+        splash: [splash_base + &quot;splash.png&quot;, splash_base + &quot;mic_free.png&quot;, splash_base + &quot;mic_chairman.png&quot;],
+        bps: roompara.m_bitrate,
+        vq: 90
+    };
+    video_start(video_swf_param, userpara.roomer);
+    autologin();
+    load_speak_data();
+    load_anchor_fans();
+    load_room_bullet();
+});
+/**
+ * Ini video, Requiring attributes from server
+ *
+ * @method video_start
+ * @return {Undefined}
+ *
+ * @param userpara.roomer {Number}
+ * example
+ *     0
+ * @param swfParam {Object}
+ * @example
+ *     {&quot;server&quot;:&quot;112.124.12.112:19350&quot;,&quot;room_id&quot;:201849,&quot;uid&quot;:0,&quot;level&quot;:1,&quot;token&quot;:&quot;video_token&quot;,&quot;nickname&quot;:&quot;游客&quot;,&quot;splash&quot;:[&quot;/room/images/splash.png&quot;,&quot;/room/images/mic_free.png&quot;,&quot;/room/images/mic_chairman.png&quot;],&quot;bps&quot;:500,&quot;vq&quot;:90}
+ * @param swfParam.room_id {Number}
+ * example
+ *     201855
+ * @param swfParam.bps {Number}
+ * example
+ *     150000
+ * @param swfParam.uid {Number}
+ * example
+ *     150830239
+ * @param swfParam.levelinroom {Number}
+ * example
+ *     1
+ * @param swfParam.nickname_b64 {String}
+ * example
+ *     &quot;5ri45a6iMDIzOQ==&quot;
+ */
+function video_start(swfParam, roomer) {
+    if (roomer) {
+        video_swf.Init(swfParam, &quot;video_zone&quot;, 1, null);
+    }
+    else {
+        video_swf.Init(swfParam, &quot;video_zone&quot;, 0, null);
+    }
+}
+setTimeout(function () {
+    document.getElementById(&#x27;p1&#x27;).scrollIntoView();
+}, 1000);
+function SendspeakerCB(r) {
+    console.log(&#x27;SendspeakerCB Called.&#x27;);
+    console.log(r);
+    if (r.RES == 0) {
+        alert(r.HINT);
+    }
+    if (r.RES == 1) {
+        xMessager.speakermessage(JSON.parse(r.PARAM1));
+    }
+}
+function SendGiftCB(r) {
+    console.log(&#x27;SendGiftCB Called.&#x27;);
+    console.log(r);
+    if (r.RES == 0) {
+        $(&quot;#returnmsg&quot;).html(r.HINT);
+        $(&quot;#tips02&quot;).click();
+        //alert(r.HINT);
+    }
+    if (r.RES == 1) {
+        $(&#x27;#mycoin&#x27;).html(jQuery.parseJSON(r.PARAM1).coin_after);
+        xMessager.giftmessage(r.PARAM0, JSON.parse(r.PARAM1), r.PARAM2);
+    }
+}
+function xchat_start() {
+    var xconf_swf_param = {
+        ip: roompara.serverip,		//&quot;192.168.0.120&quot;,
+        port: 19188,	//roompara.serverport,
+        room_id: room_id,
+        uid: userpara.gid,
+        level: userpara.levelinroom,
+        token: &quot;gtoken&quot;,
+        nickname: Base64.decode(userpara.nickname_b64),
+        chatdisable: userpara.chatdisable,
+        appdata: Base64.encode(JSON.stringify(userpara))
+    };
+    chat_panel.init();
+    var swfParam = xconf_swf_param;
+    if (/^游客/.test(swfParam.nickname)) {
+        swfParam.uid = 0
+    }
+    xMessager.init(swfParam);
+    xchat_swf.Init(swfParam, &#x27;xchat&#x27;, null);
+}
+var objTimer;
+function autologin() {
+    if (userpara.levelinroom == 1) {
+        clearInterval(objTimer);
+        objTimer = setInterval(function () {
+            if (jQuery(&quot;.masterEle&quot;).css(&quot;display&quot;) == &quot;none&quot;) {
+                jQuery(&quot;#loginBox&quot;).click();
+            }
+        }, 120000);
+    }
+}
+function load_gift_list() {
+    var url = &#x27;/room/giftList&#x27;;
+    $.get(url, function (result) {
+            //console.log(&#x27;load_gift_message. &#x27; + result);
+            $(&#x27;#liwu&#x27;).html(result);
+        }
+    );
+}
+function load_gift_message() {
+    var url = &#x27;/room/gift_message.php&#x27;;
+    $.post(url, function (result) {
+            $(&#x27;#gift_message&#x27;).html(result);
+        }
+    );
+}
+/**
+ * Description: load speak data for scroll in the bottom
+ *
+ * @method load_speak_data
+ */
+function load_speak_data() {
+    var url = &#x27;/room/broadcast&#x27;;
+    $.post(url, function (result) {
+            $(&#x27;#spmsg&#x27;).html(result);
+        }
+    );
+}
+function fill_gift_list(gift_list) {
+    s = &#x27;&#x27;;
+    for (var i = 0; i &lt; gift_list.length; i++) {
+        s += &#x27;&lt;li&gt;&lt;span&gt;&lt;img src=&quot;&#x27; + gift_list[i].gift_img + &#x27;&quot;&gt;&lt;/span&gt;&#x27;;
+        s += &#x27;&lt;span class=&quot;clGiftList01&quot;&gt;&#x27; + gift_list[i].gift_sum + &#x27;个&lt;/span&gt;&#x27;;
+        s += &#x27;&lt;span class=&quot;clGiftList02&quot;&gt;&#x27; + gift_list[i].from_nickname + &#x27;&lt;/span&gt;&#x27;;
+        s += &#x27;&lt;span class=&quot;clCoin&quot;&gt;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;U&#x27; + gift_list[i].total_price + &#x27;&lt;/span&gt;&lt;/li&gt;&#x27;;
+    }
+    if (s == &#x27;&#x27;) {
+        s = &#x27;&lt;li&gt;&lt;span&gt;还没有收到礼物！&lt;/span&gt;&lt;/li&gt;&#x27;;
+    }
+    $(&#x27;#clGiftList&#x27;).html(s);
+}
+/**
+ * Description: common method to construct list of today and total
+ *
+ * @method fill_fan
+ */
+function fill_fan(fans, d_id) {
+    s = &#x27;&#x27;;
+    s1 = &#x27;&#x27;;
+    for (var i = 0; i &lt; fans.length; i++) {
+        var isThree = false;
+        if (i == 0) {
+            s = &#x27;&lt;span class=&quot;lrtPic&quot;&gt;&lt;img src=&quot;&#x27; + fans[i].avatar + &#x27;&quot; alt=&quot;&quot;/&gt;&lt;i class=&quot;zzMaster&quot;&gt;&lt;/i&gt;&lt;em class=&quot;lrtTu&quot;&gt;&lt;i class=&quot;rankIco rankFirst&quot;&gt;&lt;/i&gt;&lt;/em&gt;&lt;/span&gt;&lt;strong&gt;&#x27; + fans[i].from_nickname + &#x27;&lt;/strong&gt;&lt;p&gt;&lt;b&gt;&#x27; + fans[i].total_coin + &#x27;&lt;/b&gt;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;&lt;/p&gt;&#x27;;
+            jQuery(d_id + &#x27; .lrtSecond&#x27;).html(s);
+            if (d_id == &#x27;#con_fan_1&#x27;) {
+                jQuery(&#x27;#todayfirst&#x27;).html(&#x27;&lt;strong class=&quot;ellipsis&quot;&gt;&#x27; + fans[i].from_nickname + &#x27;&lt;/strong&gt;&lt;p&gt;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;&lt;span&gt;&#x27; + fans[i].total_coin + &#x27;&lt;/span&gt;&lt;/p&gt;&#x27;);
+            } else if (d_id == &#x27;#con_fan_3&#x27;) {
+                jQuery(&#x27;#allfirst&#x27;).html(&#x27;&lt;strong class=&quot;ellipsis&quot;&gt;&#x27; + fans[i].from_nickname + &#x27;&lt;/strong&gt;&lt;p&gt;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;&lt;span&gt;&#x27; + fans[i].total_coin + &#x27;&lt;/span&gt;&lt;/p&gt;&#x27;);
+            }
+        } else if (i == 1) {
+            s = &#x27;&lt;span class=&quot;lrtPic&quot;&gt;&lt;img src=&quot;&#x27; + fans[i].avatar + &#x27;&quot; alt=&quot;&quot;/&gt;&lt;i class=&quot;zzMaster&quot;&gt;&lt;/i&gt;&lt;em class=&quot;lrtTu&quot;&gt;&lt;i class=&quot;rankIco rankSecond&quot;&gt;&lt;/i&gt;&lt;/em&gt;&lt;/span&gt;&lt;strong&gt;&#x27; + fans[i].from_nickname + &#x27;&lt;/strong&gt;&lt;p&gt;&lt;b&gt;&#x27; + fans[i].total_coin + &#x27;&lt;/b&gt;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;&lt;/p&gt;&#x27;;
+            jQuery(d_id + &#x27; .lrtFirst&#x27;).html(s);
+        } else if (i == 2) {
+            s = &#x27;&lt;span class=&quot;lrtPic&quot;&gt;&lt;img src=&quot;&#x27; + fans[i].avatar + &#x27;&quot; alt=&quot;&quot;/&gt;&lt;i class=&quot;zzMaster&quot;&gt;&lt;/i&gt;&lt;em class=&quot;lrtTu&quot;&gt;&lt;i class=&quot;rankIco rankThird&quot;&gt;&lt;/i&gt;&lt;/em&gt;&lt;/span&gt;&lt;strong&gt;&#x27; + fans[i].from_nickname + &#x27;&lt;/strong&gt;&lt;p&gt;&lt;b&gt;&#x27; + fans[i].total_coin + &#x27;&lt;/b&gt;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;&lt;/p&gt;&#x27;;
+            jQuery(d_id + &#x27; .lrtThird&#x27;).html(s);
+        } else {
+            s1 += &#x27;&lt;li&gt;&lt;span class=&quot;lrbNum&quot;&gt;&#x27; + (i + 1) + &#x27;.&lt;/span&gt;&lt;span class=&quot;lrbName&quot;&gt;&#x27; + fans[i].from_nickname + &#x27;&lt;/span&gt;&lt;span class=&quot;lrbUIco&quot;&gt;&#x27; + fans[i].total_coin + &#x27;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/li&gt;&#x27;;
+        }
+        //s += &#x27;&lt;li class=&quot;f-cb&quot;&gt;&lt;span class=&quot;fl&quot;&gt;&lt;img src=&quot;/room/images/&#x27;+(i+1)+&#x27;.png&quot; alt=&quot;one&quot; /&gt;&lt;/span&gt;&lt;span class=&quot;l-pic&quot;&gt;&lt;/span&gt;&lt;span class=&quot;l-name&quot;&gt;&#x27;;
+        //if (fans[i].vip){
+        //	s += &#x27;&lt;img src=&quot;/room/images/vip/v&#x27; + fans[i].vip + &#x27;.gif&quot;&gt;&#x27;;
+        //}
+    }
+    jQuery(d_id + &#x27; .other&#x27;).html(s1);
+}
+/**
+ * Description: load data for left and right columns
+ *
+ * @method load_room_data
+ */
+function load_room_data() {
+    var url = &#x27;/room/room_data.php?room_id=&#x27; + room_id;
+    $.post(url, function (result) {
+        if (result.res == 0) {
+            return;
+        }
+        var result = jQuery.parseJSON(result);
+        var s = &#x27;&#x27;;
+        if (result.glamour &gt; 0) {
+            //s = &#x27;&lt;font color=&quot;#EE3A8C&quot;&gt;离&lt;/font&gt;&lt;span class=&quot;star_icon star_&#x27;+result.glamour_next+&#x27;&quot;&gt;&lt;/span&gt;&lt;font color=&quot;#EE3A8C&quot;&gt;还差&lt;/font&gt;&#x27; + result.glamour_need + &#x27;U豆&#x27;;
+            //s += &#x27;&lt;span class=&quot;star_icon star_&#x27; + result.glamour + &#x27;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;l-dj&#x27; + result.glamour_need_percent+ &#x27;&quot;&gt;还差&#x27; + result.glamour_need + &#x27;Ｕ豆,升级到&lt;/span&gt;&lt;span class=&quot;star_icon star_&#x27; + result.glamour_next + &#x27;&quot;&gt;&lt;/span&gt;&#x27;;
+            s = &#x27;&lt;span class=&quot;lpLevelStart&quot;&gt;&lt;i class=&quot;zhuboIco zb&#x27; + result.glamour + &#x27;&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;div class=&quot;lpLevelPro&quot;&gt;&lt;p class=&quot;lpLevleData&quot; &gt;还差&lt;b&gt;&#x27; + result.glamour_need + &#x27;&lt;/b&gt;U豆到&lt;/p&gt;&lt;span&gt;&lt;i style=&quot;width:&#x27; + result.glamour_need_percent + &#x27;%;&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/div&gt;&lt;span class=&quot;lpLevelEnd&quot;&gt;&lt;i class=&quot;zhuboIco zb&#x27; + result.glamour_next + &#x27;&quot;&gt;&lt;/i&gt;&lt;/span&gt;&#x27;;
+            $(&#x27;#star_levl_next&#x27;).html(s);
+            //s = &#x27;&lt;span class=&quot;star_icon star_&#x27; + result.glamour + &#x27;&quot;&gt;&lt;/span&gt;&#x27;;
+            //$(&#x27;#star_levl_now&#x27;).html(s);
+        }
+        s = &#x27;富豪等级：&#x27;;
+        if (result.rich) {
+            s += &#x27;&lt;span class=&quot;rich_icon rich_&#x27; + result.rich + &#x27;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;l-dj&#x27; + result.rich_need_percent + &#x27;&quot;&gt;还差&#x27; + result.rich_need + &#x27;Ｕ币,升级到&lt;/span&gt;&lt;span class=&quot;rich_icon rich_&#x27; + result.rich_next + &#x27;&quot;&gt;&lt;/span&gt;&#x27;;
+            $(&#x27;#roomer_title&#x27;).html(s);
+        }
+        fill_fan(result.fans[0], &#x27;#con_fan_1&#x27;);
+        //fill_fan(result.fans[1],&#x27;#con_fan_2&#x27;);
+        fill_fan(result.fans[2], &#x27;#con_fan_3&#x27;);
+        fill_gift_list(result.gift_list);
+    });
+}
+function emotion_it(i) {
+    //console.log(&#x27;emotion_it:&#x27;+i);
+    var s = $(&quot;#message_input&quot;).val() + &quot;/b&quot; + i;
+    jQuery(&quot;#message_input&quot;).val(s);
+    jQuery(&quot;.lwfFaceList&quot;).hide();
+}
+function emotion_it_o(i) {
+    //console.log(&#x27;emotion_it:&#x27;+i);
+    var s = $(&quot;#sperkercont&quot;).val() + &quot;/b&quot; + i;
+    jQuery(&quot;#sperkercont&quot;).val(s);
+    jQuery(&quot;.gbFaceList&quot;).hide();
+}
+function load_emotion() {
+    var s = &#x27;&#x27;;
+    var count = 60;
+    for (var i = 0; i &lt; count; i++) {
+        s += &#x27;&lt;a href=&quot;javascript:emotion_it(&#x27; + i + &#x27;)&quot;&gt;&lt;img src=&quot;/room/images/emotion/&#x27; + i + &#x27;.gif&quot; &gt;&lt;/a&gt;&#x27;;
+    }
+    jQuery(&quot;.lwfFaceList&quot;).html(s);
+    s = s.replace(/emotion_it/g, &quot;emotion_it_o&quot;)
+    jQuery(&quot;.gbFaceList&quot;).html(s);
+}
+/**
+ * Description: show cars when page loaded
+ *
+ * @owshowcar
+ * @deprecated Use chat.showCar
+ * instead
+ */
+function owshowcar() {
+    if (userpara.car_id &gt; 0) {
+        userpara.nickname = &#x27;{$userinfo.nickname}&#x27;;
+        showcar(userpara);
+    } else {
+        userpara.nickname = Base64.decode(userpara.nickname_b64);
+        member_in_out_hint(userpara, 1);
+    }
+}
+function showcar(appdata) {
+    var url = &#x27;/room/car/id/&#x27; + appdata.car_id;
+    $.get(url, function (result) {
+            var ms = JSON.parse(result);
+            if (ms.error == 0) {
+                appdata.carmsg = ms.content.msg;
+                member_in_out_hint(appdata, 1);
+                //message_display.pub(ms.content.msg);
+                car_center.show_car(ms.content.swf, 1, ms.content.swf_life);
+            }
+        }
+    );
+}
+/**
+ * Description: load and render fans num on left-top about anchor info
+ *
+ * @method load_anchor_fans
+ * @deprecated Use load_room_data
+ * @since next version
+ */
+
+function addfav(roomid) {
+    if (!checklogin()) {
+        return false;
+    }
+    jQuery.ajax({
+        type: &quot;post&quot;,
+        data: {&quot;act&quot;: &quot;addfav&quot;, &quot;room_id&quot;: roomid},
+        url: &quot;/account.php&quot;,
+        success: function (data, status) {
+            var ms = JSON.parse(data);
+            if (ms.error == 0) {
+                var str = &#x27;&lt;a href=&quot;javascript:;&quot; onclick=&quot;delfav(&#x27; + roomid + &#x27;);&quot; class=&quot;orangeBtn&quot;&gt;&lt;i&gt;取消关注&lt;/i&gt;&lt;/a&gt;&#x27;;
+                jQuery(&quot;#userfav&quot;).html(str);
+                xMessager.anchorfans();
+            }
+        }
+    });
+}
+function delfav(roomid) {
+    jQuery.ajax({
+        type: &quot;post&quot;,
+        data: {&quot;act&quot;: &quot;delfav&quot;, &quot;room_id&quot;: roomid},
+        url: &quot;/account.php&quot;,
+        success: function (data, status) {
+            var ms = JSON.parse(data);
+            if (ms.error == 0) {
+                var str = &#x27;&lt;a href=&quot;javascript:;&quot; onclick=&quot;addfav(&#x27; + roomid + &#x27;);&quot; class=&quot;orangeBtn&quot;&gt;&lt;i&gt;添加关注&lt;/i&gt;&lt;/a&gt;&#x27;;
+                jQuery(&quot;#userfav&quot;).html(str);
+                xMessager.anchorfans();
+            }
+        }
+    });
+}
+/**
+ * Loading recommended rooms if broadcast not starts, to refactor
+ * @method load_room_recommended
+ * @deprecated Use message_display.load_room_recommended
+ *
+ * */
+function load_room_recommended() {
+    var url = &quot;/room/recommend&quot;;
+    jQuery.post(url, function (result) {
+            jQuery(&quot;#room_recommended&quot;).html(result);
+        }
+    );
+}
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

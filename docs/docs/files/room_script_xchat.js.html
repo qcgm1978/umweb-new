@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>room\script\xchat.js - umweb-remote</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="umweb-remote" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.0</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/chat_panel.html">chat_panel</a></li>
+                                <li><a href="../classes/g_UserList.html">g_UserList</a></li>
+                                <li><a href="../classes/message_display.html">message_display</a></li>
+                                <li><a href="../classes/persist.html">persist</a></li>
+                                <li><a href="../classes/room.html">room</a></li>
+                                <li><a href="../classes/SendGift.html">SendGift</a></li>
+                                <li><a href="../classes/User.html">User</a></li>
+                                <li><a href="../classes/xchat_swf.html">xchat_swf</a></li>
+                                <li><a href="../classes/xMessager.html">xMessager</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/ng.html">ng</a></li>
+                                <li><a href="../modules/room.html">room</a></li>
+                                <li><a href="../modules/SendGift.html">SendGift</a></li>
+                                <li><a href="../modules/xchat_swf.html">xchat_swf</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: room\script\xchat.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * Provides chat interaction
+ *
+ * @module xchat_swf
+ */
+function CalcRank(appdata) {
+    var score = 0;
+
+    if (appdata.roomer) {
+        score = 2147483648; //0x80000000
+        return score;
+    }
+
+    if (appdata.watchman) {
+        score = 1048576 * 7;//0x40000,1&lt;&lt;18
+    }
+    //if (appdata.vip&gt;=28){
+    if (appdata.vip &amp;&amp; appdata.vip &lt; 100) {
+        score += appdata.vip * 524288;//0x100000
+    }
+    //}
+
+
+    //if (appdata.agency){
+    //score += 524288;//0x80000,1&lt;&lt;19
+    //}
+
+
+    if (appdata.vip2) {
+        score += appdata.vip2 * 262144;//0x100000
+    }
+    if (appdata.levelinroom == 900) {
+        score += 131072;//0x20000,1&lt;&lt;17
+    }
+    //score += appdata.vip;
+    if (appdata.levelinroom == 100) {
+        score += 65535;//0x10000,1&lt;&lt;16
+    }
+
+    if (appdata.vip &amp;&amp; appdata.vip &gt;= 100) {
+        score += appdata.vip;//0x100000
+    }
+    //score += appdata.title*8;
+
+    /*if (appdata.vip&lt;=5){
+     score += appdata.vip;
+     }*/
+
+    return score;
+}
+/**
+ * Description: Rendering users list
+ *
+ * @class User
+ * @static
+ * @param {Number} uid {Number} level {Object} appdata
+ * @example
+ *  var user = new User(32035941,4,{...});
+ *
+ */
+function User(uid, level, appdata) {
+    this.uid = uid;
+    this.level = level;
+    this.init_level = level;
+    this.appdata = appdata;
+    this.rank = CalcRank(appdata);
+    
+}
+
+User.prototype = {
+    hint: function () {
+        //return this.appdata.nickname;
+
+        var s;
+
+        s = &#x27;&lt;li&#x27;;
+        if ((this.appdata.nicegid + &quot;&quot;).length &lt; 8) {
+            s += &#x27; class=&quot;lianghao&quot;&#x27;;
+        }
+        s += &#x27;&gt;&lt;div class=&quot;lvlName&quot;&gt;&lt;span&gt;&#x27; + this.appdata.nickname + &#x27;&lt;/span&gt;&lt;i&gt;(&#x27; + this.appdata.nicegid + &#x27;)&#x27;;
+        if ((this.appdata.nicegid + &quot;&quot;).length &lt; 8) {
+            s += &#x27;&lt;em class=&quot;lhIco&quot;&gt;&lt;/em&gt;&#x27;;
+        }
+        s += &#x27;&lt;/i&gt;&lt;/div&gt;&#x27;;
+        s += &#x27;&lt;div class=&quot;lmlInfor&quot;&gt;&#x27;;
+        //if (this.appdata.roomer || this.appdata.title&gt;0 || this.appdata.vip&gt;0 || this.appdata.vip2&gt;0 || this.appdata.watchman&gt;0 || this.level==900 || this.appdata.agency&gt;0){
+        if (this.appdata.roomer) {
+            s += &#x27;&lt;i class=&quot;zhuboIco zb&#x27; + this.appdata.starlevel + &#x27;&quot;&gt;&lt;/i&gt;&#x27;;
+        }
+        else {
+            if (this.appdata.title &gt; 999999999) {
+                s += &#x27;&lt;img src=&quot;/room/images/title/t&#x27; + this.appdata.title + &#x27;.gif&quot;&gt;&#x27;;
+            }
+            if (this.appdata.vip &gt; 0) {
+                s += &#x27;&lt;i class=&quot;jwIco V&#x27; + this.appdata.vip + &#x27;&quot;&gt;&lt;/i&gt;&#x27;;
+            } else {
+                if ((this.appdata.nicegid + &quot;&quot;).length &lt; 9 &amp;&amp; this.appdata.watchman &lt;= 0 &amp;&amp; !this.appdata.roomer) {
+                    s += &#x27;&lt;i class=&quot;lmIco&quot;&gt;&lt;/i&gt;&#x27;;
+                }
+            }
+            if (this.appdata.vip2 &gt; 0) {
+                s += &#x27;&lt;i class=&quot;vipIco&quot;&gt;&lt;/i&gt;&#x27;;
+            }
+            if (this.appdata.watchman &gt; 0) {
+                s += &#x27;&lt;i class=&quot;xunIco&quot;&gt;&lt;/i&gt;&#x27;;
+            }
+            else {
+                if (this.level == 900) {
+                    s += &#x27;&lt;i class=&quot;manageIco&quot;&gt;&lt;/i&gt;&#x27;;
+                }
+            }
+            if (this.appdata.agency &gt; 0) {
+                s += &#x27;&lt;img src=&quot;/room/images/role/r128.gif&quot;&gt;&#x27;;
+            }
+        }
+
+        //}
+        if (this.appdata.family_name &amp;&amp; Base64.decode(this.appdata.family_name) != &quot;0&quot;) {
+            s += &#x27;&lt;i class=&quot;clubIcoText&quot;&gt;&lt;em&gt;&#x27; + Base64.decode(this.appdata.family_name) + &#x27;&lt;/em&gt;&lt;/i&gt;&#x27;;
+        }
+        //if (this.appdata.family_id){
+        //	s += &#x27;&lt;img src=&quot;/upload/family_img/&#x27;+this.appdata.family_id+&#x27;.png&quot;&gt;&#x27;;
+        //}
+        s += &#x27;&lt;/div&gt;&lt;/li&gt;&#x27;;
+        return s;
+    },
+
+    IsAdmin: function () {
+        if (this.level == 900)
+            return true;
+        if (this.appdata.watchman &gt; 0)
+            return true;
+        return false;
+    },
+
+    Selected: function () {
+        if ($(&quot;#message_to option[value=&#x27;&quot; + this.uid + &quot;&#x27;]&quot;).length == 0) {
+            //$(&quot;#message_to&quot;).val(this.appdata.nickname);
+            $(&quot;#message_to&quot;).append(new Option(this.appdata.nickname, this.uid))
+        }
+        $(&quot;#message_to&quot;).val(this.uid);
+        g_UserList.UserSelected(this.uid);
+    },
+
+    AddToAdminListUI: function () {
+        var element = $(&quot;&lt;li&gt;&quot;).attr(&quot;id&quot;, &#x27;a_&#x27; + this.uid).append(this.hint()
+        );
+        var room_member_list = &#x27;#con_th_2&#x27;;
+        $(room_member_list).append(element);
+
+
+        var CB_Para = this;
+        $(&quot;#a_&quot; + this.uid).click(function (e) {
+
+            var cb_para = CB_Para;
+            cb_para.DisplayMenu(cb_para, e.pageX, e.pageY);
+        });
+    },
+
+    AddToMemberListUI: function (before_user) {
+        var data = {user: this};
+        var element = $(&quot;&lt;li&gt;&quot;).attr(&quot;id&quot;, this.uid).append(this.hint()
+        ).click(data, function (event) {
+                //$(this).addClass(&quot;active&quot;);
+                ////event.data.user.Selected();
+            });
+        if (before_user == null) {
+            var room_member_list = &#x27;#con_th_1&#x27;;
+            $(room_member_list).append(element);
+
+        }
+        else {
+            $(&quot;#&quot; + before_user.uid).before(element);
+
+        }
+
+        var CB_Para = this;
+        $(&quot;#&quot; + this.uid).mouseenter(function (e) {
+            var cb_para = CB_Para;
+            //cb_para.DisplayMenu(cb_para);
+        });
+        $(&quot;#&quot; + this.uid).mouseout(function (e) {
+            //chat_panel.set_hidemenu_flag();
+        });
+        $(&quot;#&quot; + this.uid).click(function (e) {
+
+            var cb_para = CB_Para;
+            cb_para.DisplayMenu(cb_para, e.pageX, e.pageY);
+        });
+
+        if (this.IsAdmin()) {
+            this.AddToAdminListUI();
+        }
+    },
+
+    DisplayMenu: function (para, x, y) {
+
+        g_UserList.menu_selected_uid = para.uid;
+
+        this.ControlMenuItem(para);
+
+        var viewHeight = $(window).height();
+        var useMeHeight = $(&quot;.userMenu&quot;).height();
+        var userMenu = $(&quot;.userMenu&quot;);
+        var info = &#x27;&lt;h2&gt;&lt;strong&gt;&#x27; + para.appdata.nickname + &#x27;&lt;/strong&gt;&lt;span&gt;&#x27; + para.uid + &#x27;&lt;/span&gt;&lt;/h2&gt;&lt;p&gt;&#x27;;
+        if (para.appdata.roomer) {
+            info += &#x27;&lt;i class=&quot;zhuboIco zb&#x27; + para.appdata.starlevel + &#x27;&quot;&gt;&lt;/i&gt;&#x27;;
+        }
+        if (para.appdata.vip &gt; 0) {
+            info += &#x27;&lt;i class=&quot;jwIco V&#x27; + para.appdata.vip + &#x27;&quot;&gt;&lt;/i&gt;&#x27;;
+        } else {
+            if ((para.appdata.nicegid + &quot;&quot;).length &lt; 9 &amp;&amp; para.appdata.watchman &lt;= 0 &amp;&amp; !para.appdata.roomer) {
+                info += &#x27;&lt;i class=&quot;lmIco&quot;&gt;&lt;/i&gt;&#x27;;
+            }
+        }
+        if (para.appdata.vip2 &gt; 0) {
+            info += &#x27;&lt;i class=&quot;vipIco&quot;&gt;&lt;/i&gt;&#x27;;
+        }
+        if (para.appdata.watchman &gt; 0) {
+            info += &#x27;&lt;i class=&quot;xunIco&quot;&gt;&lt;/i&gt;&#x27;;
+        }
+        else {
+            if (para.level == 900) {
+                info += &#x27;&lt;i class=&quot;manageIco&quot;&gt;&lt;/i&gt;&#x27;;
+            }
+        }
+        if (para.appdata.family_name &amp;&amp; Base64.decode(para.appdata.family_name) != &quot;0&quot;) {
+            info += &#x27;&lt;i class=&quot;clubIcoText&quot;&gt;&lt;em&gt;&#x27; + Base64.decode(para.appdata.family_name) + &#x27;&lt;/em&gt;&lt;/i&gt;&#x27;;
+        }
+        info += &#x27;&lt;/p&gt;&lt;span class=&quot;umInforCorner&quot;&gt;&lt;/span&gt;&#x27;;
+        $(&quot;.umInfor&quot;).html(info);
+        viewHeight = $(window).height();
+        //$(this).addClass(&quot;current&quot;).siblings().removeClass(&quot;current&quot;);
+        $(userMenu).css({&quot;display&quot;: &quot;block&quot;, &quot;left&quot;: x + 10, &quot;top&quot;: y + 10});
+        //alert(viewHeight);
+        if (y + 10 &lt; viewHeight) {
+            $(userMenu).css({&quot;left&quot;: x + 10, &quot;top&quot;: y + 10});
+        } else {
+            $(userMenu).css({&quot;left&quot;: x + 10, &quot;top&quot;: 315});
+        }
+
+        //$(&quot;.m_nickname&quot;).html(para.appdata.nickname);
+        //$(this.menu_id).css({ top: y, left: x })
+        //$(this.menu_id).show();
+        /*
+         window.setTimeout(function(){
+         document.onclick = function (){
+         //关闭右键菜单
+         $(&quot;#MemberMenu&quot;).hide();
+
+         document.onclick = function (){};
+         };
+         },1000);
+         */
+        /*
+         if (chat_panel.get_menu_flag()==0){
+         chat_panel.set_menu_flag(1);
+         $(&quot;#MemberMenu&quot;).show();
+         }
+         else{
+         chat_panel.set_menu_flag(0);
+         $(&quot;#MemberMenu&quot;).hide();
+         }
+         */
+    },
+
+    ControlMenuItem: function (para) {
+        var ADMIN_LEVEL = 900;
+
+        if (xMessager.level == 2000) {
+            if (xMessager.uid != para.uid) {
+                if (para.level == ADMIN_LEVEL) {
+                    $(&#x27;.m_setadmin&#x27;).text(&#x27;把Ta的管理取消&#x27;);
+                }
+                else {
+                    $(&#x27;.m_setadmin&#x27;).text(&#x27;把Ta设置为管理&#x27;);
+                }
+                this.menu_id = &#x27;#MemberMenu_Roomer&#x27;;
+            }
+            else {
+                this.menu_id = &#x27;#MemberMenu&#x27;;
+            }
+            return;
+        }
+
+        if (xMessager.level &lt; ADMIN_LEVEL) {
+            this.menu_id = &#x27;#MemberMenu&#x27;;
+            return;
+        }
+
+        if (xMessager.level &gt;= ADMIN_LEVEL &amp;&amp; xMessager.level &gt; para.level) {
+            this.menu_id = &#x27;#MemberMenu_Admin&#x27;;
+        }
+        else {
+            this.menu_id = &#x27;#MemberMenu&#x27;;
+        }
+    },
+
+    RemoveFromListUI: function () {
+        $(&quot;#&quot; + this.uid).remove();
+        $(&quot;#a_&quot; + this.uid).remove();
+    }
+};
+
+function chat_zone_display_user_memu(type, x, y, uid) {
+    //alert(type+&#x27;,&#x27;+x+&#x27;,&#x27;+y+&#x27;,&#x27;+uid);
+    var u = g_UserList.GetUser(uid);
+    //$(this).click(function(event){
+    if (u) {
+        u.DisplayMenu(u, x, y);
+    }
+}
+/**
+ * handling user popup panel
+ * @class chat_panel
+ * */
+var chat_panel = {
+    menu_flag: 0,
+
+    init: function () {
+        $(&quot;#message_btn&quot;).click(function (event) {
+
+            xMessager.message($(&quot;#message_input&quot;).val(), $(&quot;#secret_check&quot;).is(&#x27;:checked&#x27;));
+            $(&quot;#message_input&quot;).val(&quot;&quot;);
+        });
+
+        $(&quot;#message_to&quot;).change(function () {
+
+            g_UserList.UserSelected(parseInt($(this).val()));
+
+        });
+
+        RoomCommon.setChatDialog($(&quot;#message_input&quot;), function ($ele) {
+
+            xMessager.message($ele.val(), $(&quot;#secret_check&quot;).is(&#x27;:checked&#x27;));
+            $ele.val(&quot;&quot;);
+        });
+
+        $(&quot;#m_gift&quot;).click(function (event) {
+
+            chat_panel.set_gift_target();
+            chat_panel.HideMenu();
+        });
+
+        $(&quot;#m_chat&quot;).click(function (event) {
+
+            chat_panel.selected(false);
+            chat_panel.HideMenu();
+        });
+
+        $(&quot;#m_chat_p&quot;).click(function (event) {
+
+            chat_panel.selected(true);
+            chat_panel.HideMenu();
+        });
+
+        $(&quot;#m_freeflower&quot;).unbind(&#x27;click&#x27;).click(function (event) {
+
+            xMessager.freeflower();
+            chat_panel.HideMenu();
+        });
+        /**
+         * Description: bind disabling chat item click event
+         *
+         * @event
+         */
+        $(&quot;#m_disable_chat&quot;).unbind(&#x27;click&#x27;).click(function () {
+
+            xMessager.disablechat();
+            chat_panel.HideMenu();
+        });
+
+        $(&quot;#m_kick&quot;).unbind(&#x27;click&#x27;).click(function (event) {
+
+            xMessager.kickout();
+            chat_panel.HideMenu();
+        });
+
+        $(&quot;#m_setadmin&quot;).unbind(&#x27;click&#x27;).click(function (event) {
+
+            xMessager.setadmin();
+            chat_panel.HideMenu();
+        });
+
+        $(&quot;.m_close&quot;).click(function (event) {
+            chat_panel.HideMenu();
+        });
+    },
+
+    HideMenu: function () {
+        $(&quot;.userMenu&quot;).hide();
+        //$(&quot;#MemberMenu_Admin&quot;).hide();
+        //$(&quot;#MemberMenu_Roomer&quot;).hide();
+    },
+
+
+    set_menu_flag: function (flag) {
+        var d = new Date();
+        this.menu_flag = flag;
+
+    },
+
+    get_menu_flag: function () {
+        return this.menu_flag;
+    },
+
+    selected: function (secret) {
+        var uid = g_UserList.menu_selected_uid;
+        var u = g_UserList.GetUser(uid);
+        if (!u) {
+            return;
+        }
+        if ($(&quot;#message_to option[value=&#x27;&quot; + uid + &quot;&#x27;]&quot;).length == 0) {
+            //$(&quot;#message_to&quot;).append(new Option(u.appdata.nickname,uid));
+            var objOption = document.createElement(&quot;OPTION&quot;);
+            objOption.text = u.appdata.nickname;
+            objOption.value = uid;
+            document.getElementById(&quot;message_to&quot;).options.add(objOption);
+        }
+        $(&quot;#message_to&quot;).val(uid);
+        if (secret) {
+            $(&quot;#secret_check&quot;).prop(&quot;checked&quot;, true);
+        }
+        else {
+            $(&quot;#secret_check&quot;).prop(&quot;checked&quot;, false);
+        }
+        g_UserList.UserSelected(uid);
+    },
+
+    set_gift_target: function () {
+        var uid = g_UserList.menu_selected_uid;
+        var u = g_UserList.GetUser(uid)
+        if (u) {
+            SetGiftRX(uid, u.appdata.nickname);
+        }
+    }
+};
+
+Array.prototype.insert = function (index, item) {
+    this.splice(index, 0, item);
+};
+Array.prototype.remove = function (from, to) {
+    var rest = this.slice((to || from) + 1 || this.length);
+    this.length = from &lt; 0 ? this.length + from : from;
+    return this.push.apply(this, rest);
+};
+/**
+ * Description: Controlling business logic of users
+ *
+ * @class g_UserList
+ * @static
+ */
+var g_UserList = {
+    members: {},
+    member_ui_array: [],
+    selected_uid: 0,
+    menu_selected_uid: 0,
+    admin_count: 0,
+
+    GetUser: function (uid) {
+        if (uid in this.members) {
+            return this.members[uid];
+        }
+        return null;
+    },
+
+    GetSelectedUser: function () {
+        if (this.selected_uid == 0) {
+            return null;
+        }
+        return this.members[this.selected_uid];
+    },
+
+    UserSelected: function (uid) {
+        this.selected_uid = uid;
+        if ($(&#x27;#message_to&#x27;).val()==0) {
+            $(&#x27;#secret_check&#x27;).attr(&#x27;disabled&#x27;,&#x27;disabled&#x27;).removeAttr(&#x27;checked&#x27;)
+        } else {
+            $(&#x27;#secret_check&#x27;).removeAttr(&#x27;disabled&#x27;)
+        }
+    },
+
+    UserIn: function (user) {
+
+        this.members[user.uid] = user;
+        var before_u = null;
+
+        var arrayLength = this.member_ui_array.length;
+        for (var i = 0; i &lt; arrayLength; i++) {
+            var u = this.member_ui_array[i];
+
+            if (user.rank &gt; u.rank || (user.rank == u.rank &amp;&amp; user.appdata.nicegid &lt; u.appdata.nicegid)) {
+                before_u = u;
+                this.member_ui_array.insert(i, user);
+                break;
+            }
+        }
+
+        user.AddToMemberListUI(before_u);
+
+        if (before_u == null) {
+            this.member_ui_array.push(user);
+        }
+
+        /*
+         this.member_ui_array.push(user);
+         this.member_ui_array.sort(function (a, b){
+         if (a.rank &gt; b.rank || (a.rank == b.rank &amp;&amp; a.uid &lt; a.uid)){
+         return false;
+         }
+         return true;
+         });
+
+         var index = jQuery.inArray(user,this.member_ui_array);
+         if (index &lt; this.member_ui_array.length-1){
+         before_u = this.member_ui_array[index+1];
+         }
+
+         user.AddToMemberListUI(before_u);
+         */
+
+        $(&#x27;#user_count&#x27;).html(&#x27;(&#x27; + this.member_ui_array.length + &#x27;)&#x27;);
+
+        if (user.IsAdmin()) {
+            this.admin_count += 1;
+            $(&#x27;#admin_count&#x27;).html(&#x27;(&#x27; + this.admin_count + &#x27;)&#x27;);
+        }
+    },
+
+    UserOut: function (uid) {
+
+        if (this.members[uid] == null) {
+            return;
+        }
+
+        this.members[uid].RemoveFromListUI();
+        /*
+         if (uid&gt;0){
+         $(&quot;#message_to option[value=&#x27;&quot; + uid + &quot;&#x27;]&quot;).remove();
+         }
+         if (this.selected_uid == uid){
+         $(&quot;#message_to&quot;).val(0);
+         }
+         */
+        var arrayLength = this.member_ui_array.length;
+        for (var i = 0; i &lt; arrayLength; i++) {
+            var u = this.member_ui_array[i];
+            if (uid == u.uid) {
+                this.member_ui_array.remove(i);
+                break;
+            }
+        }
+
+        if (this.members[uid].IsAdmin()) {
+            this.admin_count -= 1;
+            $(&#x27;#admin_count&#x27;).html(&#x27;(&#x27; + this.admin_count + &#x27;)&#x27;);
+        }
+
+        delete this.members[uid];
+
+        $(&#x27;#user_count&#x27;).html(&#x27;(&#x27; + this.member_ui_array.length + &#x27;)&#x27;);
+    },
+
+    ChangeLevel: function (uid, level) {
+        if (this.members[uid] == null) {
+            return;
+        }
+        this.members[uid].level = level;
+        //this.members[uid].RefeshUI();
+    },
+
+    Clear: function () {
+        for (var uid in this.members) {
+            this.UserOut(uid);
+        }
+        this.members = {};
+        this.member_ui_array = [];
+    }
+};
+/**
+ * Description: communication with server when chatting
+ *
+ * @class persist
+ * @deprecated Use xchat_swf.disablechat
+ * instead
+ */
+var persist = {
+    url: &quot;/room/persist.php&quot;,
+
+    doit: function (type, room_id, touid) {
+        var data = {
+            &#x27;TYPE&#x27;: type,
+            &#x27;TOGID&#x27;: touid,
+            &#x27;ROOMID&#x27;: room_id
+        };
+
+        $.post(this.url, JSON.stringify(data), function (result) {
+
+            var r = jQuery.parseJSON(result);
+            if (r.RES == 0) {
+                alert(r.HINT);
+                return;
+            }
+            if (r.RES == 1) {
+                alert(&#x27;操作成功！&#x27;);
+            }
+        })
+            .fail(function () {
+
+                alert(&#x27;操作发生错误！&#x27;);
+            });
+    },
+
+    fav: function (room_id) {
+        this.doit(10, room_id, 0);
+    },
+
+    disablechat: function (room_id, touid) {
+        this.doit(5, room_id, touid);
+    },
+
+    kickout: function (room_id, touid) {
+        this.doit(3, room_id, touid);
+    },
+
+    setadmin: function (room_id, touid, be_admin) {
+        if (be_admin) {
+            this.doit(6, room_id, touid);
+        }
+        else {
+            this.doit(7, room_id, touid);
+        }
+    }
+};
+/**
+ * handle chat messages
+ * @class xMessager
+ * */
+var xMessager = {
+    logined: false,
+    room_id: 0,
+    uid: 0,
+    level: 0,
+    param: {},
+    nickname: &#x27;&#x27;,
+    chatdisable: 0,
+
+    init: function (param) {
+        this.uid = param.uid;
+        this.room_id = param.room_id;
+        this.level = param.level;
+        this.nickname = param.nickname;
+        this.chatdisable = param.chatdisable;
+        this.param = param;
+        if (this.chatdisable &gt; 0) {
+            window.setTimeout(function () {
+                message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你的禁止发言已经解除!&lt;/font&gt;&#x27;);
+                xMessager.chatdisable = 0;
+            }, this.chatdisable * 60 * 1000);
+        }
+    },
+
+    SocketError: function () {
+
+        if (!xMessager.logined) {
+            //message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;连接服务器失败！&lt;/font&gt;&#x27;);
+        }
+        else {
+            //message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;与服务器的连接断开了，请重新登入房间！&lt;/font&gt;&#x27;);
+        }
+        message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;玩命加载中，请稍后。。。&lt;/font&gt;&#x27;);
+        g_UserList.Clear();
+        xchat_start();
+    },
+
+    OnChat: function (chatdata) {
+
+
+        var is_my_message = false;
+        //if (chatdata.uid == this.uid || chatdata.touid == this.uid){
+        //	is_my_message = true;
+        //}
+        if (chatdata.uid == this.uid) {
+            is_my_message = true;
+            chatdata.nickname = &quot;我&quot;;
+            chatdata.is_my = true;
+        }
+        if (chatdata.touid == this.uid) {
+            is_my_message = true;
+            chatdata.to_nickname = &quot;我&quot;;
+            chatdata.is_my_to = true;
+        }
+        chatdata.fromu = g_UserList.GetUser(chatdata.uid);
+        if (chatdata.touid) {
+            chatdata.tou = g_UserList.GetUser(chatdata.touid);
+        }
+        message_display.chat(chatdata, is_my_message);
+
+        //generate_small_gift();
+        //gift_center.show_gift(&quot;S&quot;,&quot;small.swf&quot;,102,8);
+
+    },
+
+    OnFreeFlower: function (data) {
+
+        var is_my_message = false;
+        if (data.fromwho.uid == this.uid || data.sendwho.uid == this.uid) {
+            is_my_message = true;
+        }
+        message_display.freeflower(data, is_my_message);
+
+        //generate_big_gift();
+        //gift_center.show_gift(&quot;B&quot;,&quot;big.swf&quot;,1,15);
+    },
+
+    OnGift: function (data) {
+        console.log(&#x27;OnGift&#x27;);
+        var is_my_message = false;
+        if (data.from_uid == this.uid || data.to_uid == this.uid) {
+            is_my_message = true;
+        }
+        data.fromu = g_UserList.GetUser(data.from_uid)
+        if (data.to_uid) {
+            data.tou = g_UserList.GetUser(data.to_uid);
+        }
+        message_display.gift(data, is_my_message);
+        gift_center.show_gift(data.type, data.gift_swf, data.sum, data.gift_swf_life, data);
+
+        if (data.from_uid == room_owner_uid || data.to_uid == room_owner_uid) {
+            console.log(&#x27;room_owner data need change!&#x27;);
+            load_room_data();
+        }
+    },
+
+    OnSpeaker: function (data) {
+        console.log(&#x27;OnSpeaker&#x27;);
+        load_speak_data();
+    },
+
+    OnAnchorFans: function (data) {
+        console.log(&#x27;OnAnchorFans&#x27;);
+        load_anchor_fans();
+    },
+
+    OnBanner: function () {
+        console.log(&#x27;OnBanner&#x27;);
+        load_gift_message();
+    },
+
+    OnSetAdmin: function (param) {
+        if (this.level == 2000) {
+            return;
+        }
+        if (param == 1) {
+            message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你被房主设置为房间管理员了，将重新进入房间改变身份！&lt;/font&gt;&#x27;);
+        }
+        else {
+            message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你的房间管理员身份被房主取消了，将重新进入房间改变身份！&lt;/font&gt;&#x27;);
+        }
+        setTimeout(function () {
+            location.reload(true);
+        }, 5000);
+    },
+    scrollBottom: function (para) {
+        var eleId = document.getElementById(para);
+        if (eleId) {
+            eleId.scrollTop = eleId.scrollHeight - 5;
+        }
+    },
+    OnData: function (data) {
+        switch (data.type) {
+            case &#x27;C&#x27;:
+                this.OnChat(data.data);
+                break;
+            case &#x27;F&#x27;:
+                this.OnFreeFlower(data.data);
+                break;
+            case &#x27;G&#x27;:
+                this.OnGift(data.data);
+                break;
+            case &#x27;LS&#x27;:
+                this.OnSpeaker(data.data);
+                break;
+            case &#x27;AFANS&#x27;:
+                this.OnAnchorFans(data.data);
+                break;
+            case &#x27;BANNER&#x27;:
+                this.OnBanner();
+                break;
+            case &#x27;ROOM_SET_ADMIN&#x27;:
+                this.OnSetAdmin(data.data);
+                break;
+        }
+
+        this.scrollBottom(&quot;liuyan&quot;);
+    },
+
+    message: function (msg, secret) {
+        if (!this.logined) {
+            return;
+        }
+
+        if (msg == &quot;&quot;) {
+            return;
+        }
+        if (this.level &lt; 100) {
+            //alert(&#x27;游客不能发言！&#x27;);
+            checklogin();
+            return;
+        }
+        if (this.level &lt; 100 &amp;&amp; secret) {
+            //alert(&#x27;游客不能说悄悄话！&#x27;);
+            checklogin();
+            return;
+        }
+        if (this.chatdisable &gt; 0) {
+            alert(&#x27;你目前处于禁止发言状态，不能发言！&#x27;);
+            return;
+        }
+
+        var chatdata = {
+            uid: this.uid,
+            nickname: this.nickname,
+            touid: g_UserList.selected_uid,
+            secret: secret,
+            message: msg.replace(/&lt;/g, &#x27;&amp;#60;&#x27;).replace(/&gt;/g, &#x27;&amp;#62;&#x27;).replace(/\//g, &#x27;&amp;#47;&#x27;)
+        };
+
+        var selected_user = g_UserList.GetSelectedUser();
+        if (selected_user == null) {
+            chatdata.to_nickname = &quot;所有人&quot;;
+            chatdata.secret = false;
+        }
+        else {
+            chatdata.to_nickname = selected_user.appdata.nickname;
+        }
+
+        var data = {
+            type: &#x27;C&#x27;,
+            data: chatdata
+        };
+
+        var to_uid = g_UserList.selected_uid;
+        if (!secret) {
+            to_uid = 0;
+        }
+
+
+        xchat_swf.send(to_uid, Base64.encode(JSON.stringify(data)));
+    },
+
+    freeflower: function () {
+        if (this.level &lt; 100) {
+            //alert(&#x27;游客不能免费献花！&#x27;);
+            checklogin();
+            return;
+        }
+
+        var my_u = g_UserList.GetUser(this.uid);
+        var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
+        if (my_u &amp;&amp; to_u) {
+            var data = {
+                type: &#x27;F&#x27;,
+                data: {
+                    fromwho: {gid: my_u.appdata.gid, nickname: my_u.appdata.nickname},
+                    sendwho: {gid: to_u.appdata.gid, nickname: to_u.appdata.nickname}
+                }
+            }
+
+            xchat_swf.send(0, Base64.encode(JSON.stringify(data)));
+        }
+    },
+
+    disablechat: function () {
+        var mins = 5;
+        var from_u = g_UserList.GetUser(this.uid);
+        var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
+        if (to_u.appdata.watchman) {
+            $(&quot;#returnmsg&quot;).html(&#x27;小样，对巡管操作，想造反么。。。&#x27;);
+            $(&quot;#tips02Pop .pinkBtn&quot;).removeAttr(&quot;onclick&quot;);
+            $(&quot;#tips02Pop .pinkBtn&quot;).click(function () {
+                $(&quot;#tips02Pop .popPubClose&quot;)[0].click();
+            });
+            $(&quot;#tips02&quot;).click();
+            return;
+        }
+        if (to_u.appdata.vip2 &amp;&amp; (!from_u.appdata.roomer &amp;&amp; !from_u.appdata.watchman)) {
+            $(&quot;#returnmsg&quot;).html(&#x27;用户享有&lt;img src=&quot;/room/images/vip/vip.gif&quot; style=&quot;width:27px;height:15px&quot;&gt;，无法操作&#x27;);
+            $(&quot;#tips02Pop .pinkBtn&quot;).removeAttr(&quot;onclick&quot;);
+            $(&quot;#tips02Pop .pinkBtn&quot;).click(function () {
+                $(&quot;#tips02Pop .popPubClose&quot;)[0].click();
+            });
+            $(&quot;#tips02&quot;).click();
+            return;
+        }
+        if (to_u) {
+            //todo to del because xchat_swf.disablechat is responsible to communicate with server
+            persist.disablechat(this.room_id, to_u.uid);
+            xchat_swf.disablechat(to_u.uid, mins);
+        }
+    },
+
+    kickout: function () {
+        var from_u = g_UserList.GetUser(this.uid);
+        var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
+        if (to_u.appdata.watchman) {
+            $(&quot;#returnmsg&quot;).html(&#x27;小样，对巡管操作，想造反么。。。&#x27;);
+            $(&quot;#tips02Pop .pinkBtn&quot;).removeAttr(&quot;onclick&quot;);
+            $(&quot;#tips02Pop .pinkBtn&quot;).click(function () {
+                $(&quot;#tips02Pop .popPubClose&quot;)[0].click();
+            });
+            $(&quot;#tips02&quot;).click();
+            return;
+        }
+        if (to_u.appdata.vip2 &amp;&amp; (!from_u.appdata.roomer &amp;&amp; !from_u.appdata.watchman)) {
+            $(&quot;#returnmsg&quot;).html(&#x27;用户享有&lt;img src=&quot;/room/images/vip/vip.gif&quot; style=&quot;width:27px;height:15px&quot;&gt;，无法操作&#x27;);
+            $(&quot;#tips02Pop .pinkBtn&quot;).removeAttr(&quot;onclick&quot;);
+            $(&quot;#tips02Pop .pinkBtn&quot;).click(function () {
+                $(&quot;#tips02Pop .popPubClose&quot;)[0].click();
+            });
+            $(&quot;#tips02&quot;).click();
+            return;
+        }
+        if (to_u) {
+            persist.kickout(this.room_id, to_u.uid);
+            xchat_swf.kickout(to_u.uid);
+        }
+    },
+
+    setadmin: function () {
+        var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
+        if (to_u) {
+            var be_admin = (to_u.level &lt; 900 ? 1 : 0);
+            persist.setadmin(this.room_id, to_u.uid, be_admin);
+            var data = {
+                type: &#x27;ROOM_SET_ADMIN&#x27;,
+                data: be_admin
+            }
+            xchat_swf.send(to_u.uid, Base64.encode(JSON.stringify(data)));
+        }
+    },
+
+    giftmessage: function (type, param, banner) {
+        var data = {
+            type: &#x27;G&#x27;,
+            data: param
+        }
+
+        xchat_swf.send(0, Base64.encode(JSON.stringify(data)));
+
+        if (banner == &#x27;B&#x27;) {
+            var data = {
+                type: &#x27;BANNER&#x27;
+            }
+
+            xchat_swf.send(-1, Base64.encode(JSON.stringify(data)));
+        }
+    },
+
+    speakermessage: function (param) {
+        var data = {
+            type: &#x27;LS&#x27;,
+            data: param
+        }
+        xchat_swf.send(-1, Base64.encode(JSON.stringify(data)));
+    },
+
+    anchorfans: function () {
+        var data = {
+            type: &#x27;AFANS&#x27;
+        }
+        xchat_swf.send(0, Base64.encode(JSON.stringify(data)));
+
+    },
+
+    ReEnter: function () {
+
+        message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你已被同一账号挤出本房间！&lt;/font&gt;&#x27;);
+    },
+
+    LoginACK: function (param) {
+        if (param.loginack == 0) {
+            switch (param.reason) {
+                case 2:
+                    message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;服务器人数满了！&lt;/font&gt;&#x27;);
+                    break;
+                case 3:
+                    message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;房间人数满了！&lt;/font&gt;&#x27;);
+                    break;
+            }
+        }
+    }
+};
+/**
+ * Description: display messages on screen
+ *
+ * @class message_display
+ * @static
+ */
+var message_display = {
+    /**
+     * Description: insert
+     *
+     * @
+     * @
+     */
+    prv: function (msg) {
+        uu89prv.insert(msg);
+    },
+
+    pub: function (msg) {
+        uu89pub.insert(msg);
+    },
+
+    chat: function (chatdata, is_my_message) {
+        if (is_my_message) {
+
+            uu89prv.display_chatmessage(chatdata);
+            if (chatdata.touid == 0) {
+                uu89pub.display_chatmessage(chatdata);
+            }
+        }
+        else {
+
+            uu89pub.display_chatmessage(chatdata);
+        }
+    },
+
+    freeflower: function (data, is_my_message) {
+        if (is_my_message) {
+            document.getElementById(&#x27;chat_prv&#x27;).contentWindow.FreeFlower(data);
+        }
+        else {
+            document.getElementById(&#x27;chat_pub&#x27;).contentWindow.FreeFlower(data);
+        }
+    },
+
+    gift: function (data, is_my_message) {
+        if (is_my_message) {
+            uu89prv.disgift(data, 0);
+        }
+        else {
+            uu89pub.disgift(data, 1);
+        }
+    }
+}
+/**
+ * Interacting between Js and Flash
+ * @class xchat_swf
+
+ * */
+var xchat_swf = {
+    /**
+     * Init interaction event
+     *
+     * @method Init
+     * @return {Undefined}
+     * @example
+     *    xchat_swf.Init(xconf_swf_param,&#x27;xchat&#x27;,null);
+     * */
+    Init: function (swf_param, div_id, callbackFn) {
+        if (callbackFn == null) {
+            callbackFn = this.Created_cb;
+        }
+        var swfVersionStr = &quot;11.0.0&quot;;
+        // To use express install, set to playerProductInstall.swf, otherwise the empty string.
+        var xiSwfUrlStr = &quot;playerProductInstall.swf&quot;;
+        var flashvars = {};
+        flashvars = {
+            ip: swf_param.ip,
+            port: swf_param.port,
+            gid: swf_param.room_id,
+            uid: swf_param.uid,
+            level: swf_param.level,
+            token: swf_param.token,
+            appdata: swf_param.appdata
+        };
+        var params = {};
+        params.quality = &quot;high&quot;;
+        params.bgcolor = &quot;#57799c&quot;;
+        params.allowscriptaccess = &quot;always&quot;;
+        params.allowfullscreen = &quot;true&quot;;
+        params.wmode = &quot;transparent&quot;;
+        var attributes = {};
+        attributes.id = &quot;xchat&quot;;
+        attributes.name = &quot;xchat&quot;;
+        attributes.align = &quot;middle&quot;;
+        attributes.wmode = &#x27;transparent&#x27;
+        /**
+         * Description: embed swf in doc, ref: https://code.google.com/p/swfobject/wiki/documentation
+         *
+         * @method swfobject.embedSWF
+         */
+        var swfmame = &quot;/room/old_xchat.swf&quot;;
+        swfmame = &quot;/room/new_xchat.swf&quot;;
+        swfobject.embedSWF(
+            swfmame, div_id,
+            $(&quot;#&quot; + div_id).width(), $(&quot;#&quot; + div_id).height(),
+            swfVersionStr, xiSwfUrlStr,
+            flashvars, params, attributes, callbackFn);
+        // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
+        //swfobject.createCSS(&quot;#flashContent&quot;, &quot;display:block;text-align:center;&quot;);
+    },
+
+    alertNoSwf: function () {
+        alert(&quot;flash初始化失败.&quot;);
+    },
+    Created_cb: function (cbobj) {
+        if (cbobj.success) {
+        }
+        else {
+            xchat_swf.alertNoSwf();
+        }
+    },
+
+    swf: function () {
+        return swfobject.getObjectById(&quot;xchat&quot;);
+    },
+
+    send: function (to_uid, data) {
+        try {
+            this.swf().Chat(to_uid, data);
+        } catch (e) {
+            xchat_swf.alertNoSwf();
+        }
+    },
+
+    disablechat: function (touid, mins) {
+        this.swf().DisableChat(touid, mins);
+    },
+
+    kickout: function (touid) {
+        this.swf().Kickout(touid);
+    },
+    /**
+     * Description: prompting when broadcast ends
+     *
+     * @deprecated Use xchat_swf_message
+     * instead
+     */
+    tokenop: function (type) {
+        if (type == &#x27;0&#x27;) {
+            this.swf().TokenOp(0);
+            $(&#x27;#live_time&#x27;).html(&#x27;开播时间：直播未开始&#x27;);
+        }
+        if (type == &#x27;1&#x27;) {
+            this.swf().TokenOp(1);
+            var currentdate = new Date();
+            var datetime = currentdate.getHours() + &quot;:&quot; + currentdate.getMinutes();
+            $(&#x27;#live_time&#x27;).html(&#x27;开播时间：&#x27; + datetime);
+        }
+
+    }
+};
+
+function xchat_swf_debug(info) {
+
+}
+
+function xchat_swf_error(Error) {
+
+    xMessager.SocketError();
+}
+
+function member_in_out_hint(appdata, type) {
+    appdata.type = type;
+    uu89pub.disinout(appdata);
+}
+/**
+ * Description: callback by Flash
+ *
+ * @xchat_swf_message
+ * @
+ */
+function xchat_swf_message(type, param) {
+
+
+    switch (type) {
+        case &#x27;MSG_LOGIN_ACK&#x27;:
+            xMessager.LoginACK(param);
+            break;
+        case &#x27;MSG_REENTER&#x27;:
+            xMessager.ReEnter();
+            break;
+        case &#x27;MSG_SESSION_PARAM&#x27;:
+            message_display.prv(&#x27;连接服务器成功.&#x27;);
+            message_display.prv(&#x27;&lt;font color=&quot;#FF4444&quot;&gt;主播欢迎你:&lt;/font&gt;&#x27; + room_welcome + &#x27;&#x27;);
+            xMessager.logined = true;
+            /*
+             if (video_start){
+             }
+             video_start();
+             */
+            owshowcar();
+            break;
+        case &#x27;MSG_USER_LIST_PRE&#x27;:
+            setTimeout(function () {
+                if (!$.isArray(param)) {
+                    return;
+                }
+                for (var i = 0; i &lt; param.length; i++) {
+                    if (typeof param[i] == &#x27;object&#x27;) {
+                        xchat_swf_message(&#x27;MSG_SOMEBODY_IN&#x27;, param[i]);
+                    }
+                }
+            }, 100);
+            break;
+        case &#x27;MSG_SOMEBODY_IN&#x27;:
+
+            /**
+             * Description: decode 64 coded string
+             * @method Base64.decode
+             * @param {String}
+             * @example
+             *  &quot;5a6Y5pa55rWL6K+VMDAx&quot;
+             * @return {String}
+             * @example
+             *  &quot;官方测试001&quot;
+             */
+
+            var appdata = jQuery.parseJSON(Base64.decode(param.appdata));
+            appdata.nickname = Base64.decode(appdata.nickname_b64);
+
+            var user = new User(param.uid, param.level, appdata);
+            g_UserList.UserIn(user);
+            if (param.in_out_hint) {
+                if (parseInt(appdata.car_id) &gt; 0) {
+                    showcar(appdata);
+                } else {
+                    member_in_out_hint(appdata, 1);
+                }
+
+            }
+            break;
+        case &#x27;MSG_SOMEBODY_OUT&#x27;:
+
+            u = g_UserList.GetUser(param.uid)
+            if (param.in_out_hint &amp;&amp; u) {
+                member_in_out_hint(u.appdata, 0);
+            }
+            g_UserList.UserOut(param.uid);
+            break;
+        case &#x27;MSG_SOMEBODY_CHANGELEVEL&#x27;:
+            break;
+        case &#x27;MSG_SOMEBODY_CHANGEAPPDATA&#x27;:
+            break;
+        case &#x27;MSG_SOMEBODY_CHATENABLE&#x27;:
+            if (param.uid == xMessager.uid) {
+                if (param.chatenable) {
+                    message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你的禁止发言已经解除!&lt;/font&gt;&#x27;);
+                    xMessager.chatdisable = 0;
+                }
+                else {
+                    message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你被管理员禁止发言5分钟!&lt;/font&gt;&#x27;);
+                    xMessager.chatdisable = 1;
+                }
+            }
+            else {
+                u = g_UserList.GetUser(param.uid);
+                if (u) {
+                    if (!param.chatenable) {
+                        var s = &#x27;&lt;font class=&quot;warning&quot;&gt;【&#x27; + u.appdata.nickname + &quot;】被被管理员禁止发言5分钟!&lt;/font&gt;&quot;;
+                        message_display.pub(s);
+                    }
+                }
+            }
+            break;
+        case &#x27;MSG_KICKOUT&#x27;:
+            if (param.uid == xMessager.uid) {
+                message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你被管理员踢出了！15分钟内不允许进入本房间！&lt;/font&gt;&#x27;);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 5000);
+
+            }
+            else {
+                u = g_UserList.GetUser(param.uid);
+                if (u) {
+                    var s = &#x27;&lt;font class=&quot;warning&quot;&gt;【&#x27; + u.appdata.nickname + &#x27;(&#x27; + u.appdata.uid + &quot;)】被管理员踢出房间了。15分钟内不允许进入本房间。&lt;/font&gt;&quot;;
+                    message_display.pub(s);
+                }
+            }
+            break;
+        case &#x27;MSG_MESSAGE&#x27;:
+            var data = jQuery.parseJSON(Base64.decode(param.chatdata));
+            
+            
+            xMessager.OnData(data);
+            break;
+        case &#x27;MSG_TOKEN_INFO&#x27;:
+            if (param.tokenid == 1) {
+                if (param.tokenstatus == 1) {
+                    if ($(&#x27;#live_time&#x27;).html() == &#x27;开播时间：直播未开始&#x27;) {
+                        var currentdate = new Date();
+                        var datetime = currentdate.getHours() + &quot;:&quot; + currentdate.getMinutes();
+                        $(&#x27;#live_time&#x27;).html(&#x27;开播时间：&#x27; + datetime);
+                    }
+                    $(&quot;.noliveVideo&quot;).show();
+                    $(&quot;.liveVideo&quot;).hide();
+                    video_swf.LiveState(1);
+                }
+                else {
+                    $(&#x27;#live_time&#x27;).html(&#x27;开播时间：直播未开始&#x27;);
+                    if (!userpara.roomer) {
+                        load_room_recommended();
+                        $(&quot;.noliveVideo&quot;).hide();
+                        $(&quot;.liveVideo&quot;).show();
+                    }
+                    video_swf.LiveState(0);
+                }
+            }
+            break;
+    }
+}
+
+
+function xchat_swf_message_new(pid, param) {
+    switch (pid) {
+        case 121:
+            if (param.result == 0) {
+                message_display.prv(&#x27;连接服务器成功.&#x27;);
+                message_display.prv(&#x27;&lt;font color=&quot;#FF4444&quot;&gt;主播欢迎你:&lt;/font&gt;&#x27; + room_welcome + &#x27;&#x27;);
+                xMessager.logined = true;
+                xMessager.uid = param.uid;
+                owshowcar();
+            }
+            break;
+        case 122:
+
+            var user;
+            if (param.in_out_hint) {
+                user = new User(param.uid, param.level, param);
+                g_UserList.UserIn(user);
+                if (parseInt(param.car_id) &gt; 0) {
+                    showcar(param);
+                } else {
+                    member_in_out_hint(param, 1);
+                }
+            } else {
+                user = g_UserList.GetUser(param.uid)
+                if (user) {
+                    member_in_out_hint(param, 0);
+                }
+                g_UserList.UserOut(param.uid);
+            }
+            break;
+        case 123:
+            var user = new User(param.uid, param.level, param);
+            g_UserList.UserIn(user);
+            break;
+        case 132:
+            xMessager.OnData({&quot;type&quot;: &quot;C&quot;, &quot;data&quot;: param});
+            break;
+        case 142:
+            /*param.id=10310;
+             param.gift_swf=&quot;1423138795599345975.swf&quot;;
+             param.img=&quot;/upload/gift_img/1423138795201857397.png&quot;;
+             param.text=&quot;&lt;font class=red&gt;[礼物]&lt;/font&gt;&lt;a id=&#x27;32035942&#x27;&gt;www123&lt;/a&gt; 向 &lt;a id=&#x27;32035937&#x27;&gt;官方测试001&lt;/a&gt; 送：1个新年快乐&quot;;
+             */
+            xMessager.OnData({&quot;type&quot;: &quot;G&quot;, &quot;data&quot;: param});
+            break;
+        case 151:
+            break;
+        case 152:
+            xMessager.OnData({&quot;type&quot;: &quot;ROOM_SET_ADMIN&quot;, &quot;data&quot;: param});
+            break;
+        case 161:
+            break;
+        case 162:
+            if (param.uid == xMessager.uid) {
+                if (param.chatenable) {
+                    message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你的禁止发言已经解除!&lt;/font&gt;&#x27;);
+                    xMessager.chatdisable = 0;
+                }
+                else {
+                    message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你被管理员禁止发言5分钟!&lt;/font&gt;&#x27;);
+                    xMessager.chatdisable = 1;
+                }
+            }
+            else {
+                var u = g_UserList.GetUser(param.uid);
+                if (u) {
+                    if (!param.chatenable) {
+                        var s = &#x27;&lt;font class=&quot;warning&quot;&gt;【&#x27; + u.appdata.nickname + &quot;】被被管理员禁止发言5分钟!&lt;/font&gt;&quot;;
+                        message_display.pub(s);
+                    }
+                }
+            }
+            break;
+        case 171:
+            break;
+        case 172:
+            if (param.uid == xMessager.uid) {
+                message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你被管理员踢出了！15分钟内不允许进入本房间！&lt;/font&gt;&#x27;);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 5000);
+
+            }
+            else {
+                u = g_UserList.GetUser(param.uid);
+                if (u) {
+                    var s = &#x27;&lt;font class=&quot;warning&quot;&gt;【&#x27; + u.appdata.nickname + &#x27;(&#x27; + u.appdata.uid + &quot;)】被管理员踢出房间了。15分钟内不允许进入本房间。&lt;/font&gt;&quot;;
+                    message_display.pub(s);
+                }
+            }
+            break;
+        case 182 :
+            if (param.tokenid == 1) {
+                if (param.tokenstatus == 1) {
+                    if ($(&#x27;#live_time&#x27;).html() == &#x27;开播时间：直播未开始&#x27;) {
+                        var currentdate = new Date();
+                        var datetime = currentdate.getHours() + &quot;:&quot; + currentdate.getMinutes();
+                        $(&#x27;#live_time&#x27;).html(&#x27;开播时间：&#x27; + datetime);
+                    }
+                    $(&quot;.noliveVideo&quot;).show();
+                    $(&quot;.liveVideo&quot;).hide();
+                    video_swf.LiveState(1);
+                }
+                else {
+                    $(&#x27;#live_time&#x27;).html(&#x27;开播时间：直播未开始&#x27;);
+                    if (!userpara.roomer) {
+                        load_room_recommended();
+                        $(&quot;.noliveVideo&quot;).hide();
+                        $(&quot;.liveVideo&quot;).show();
+                    }
+                    video_swf.LiveState(0);
+                }
+            }
+            break;
+
+    }
+}
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

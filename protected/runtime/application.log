@@ -1,0 +1,2384 @@
+2015/03/01 23:07:57 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[42000] [1049] Unknown database 'umei'' in /data/www/yii-1.1.15.022a51/framework/db/CDbConnection.php:382
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /data/www/yii-1.1.15.022a51/framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /data/www/yii-1.1.15.022a51/framework/base/CModule.php(387): CDbConnection->init()
+#3 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(450): CModule->getComponent('db')
+#4 /data/www/yii-1.1.15.022a51/framework/db/ar/CActiveRecord.php(634): CApplication->getDb()
+#5 /data/www/yii-1.1.15.022a51/framework/db/ar/CActiveRecord.php(667): CActiveRecord->getDbConnection()
+#6 /data/www/yii-1.1.15.022a51/framework/db/ar/CActiveRecord.php(1469): CActiveRecord->getCommandBuilder()
+#7 /data/www/umweb/protected/models/Room.php(16): CActiveRecord->findAll(Object(CDbCriteria))
+#8 /data/www/umweb/protected/views/site/index.php(224): Room::recommend()
+#9 /data/www/yii-1.1.15.022a51/framework/web/CBaseController.php(126): require('/data/www/umweb...')
+#10 /data/www/yii-1.1.15.022a51/framework/web/CBaseController.php(95): CBaseController->renderInternal('/data/www/umweb...', Array, true)
+#11 /data/www/yii-1.1.15.022a51/framework/web/CController.php(869): CBaseController->renderFile('/data/www/umweb...', Array, true)
+#12 /data/www/yii-1.1.15.022a51/framework/web/CController.php(782): CController->renderPartial('index', Array, true)
+#13 /data/www/umweb/protected/controllers/SiteController.php(31): CController->render('index', Array)
+#14 /data/www/yii-1.1.15.022a51/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#15 /data/www/yii-1.1.15.022a51/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#16 /data/www/yii-1.1.15.022a51/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#17 /data/www/yii-1.1.15.022a51/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#18 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(282): CController->run('')
+#19 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#20 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#21 /data/www/umweb/index.php(13): CApplication->run()
+#22 {main}
+REQUEST_URI=/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:41 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32065313_1cfbfd354fdc280cdad10fd0d910fc04
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 17:36:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 18:49:06 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[42000] [1049] Unknown database 'umei'' in /data/www/yii-1.1.15.022a51/framework/db/CDbConnection.php:382
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /data/www/yii-1.1.15.022a51/framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /data/www/yii-1.1.15.022a51/framework/base/CModule.php(387): CDbConnection->init()
+#3 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(450): CModule->getComponent('db')
+#4 /data/www/yii-1.1.15.022a51/framework/db/ar/CActiveRecord.php(634): CApplication->getDb()
+#5 /data/www/yii-1.1.15.022a51/framework/db/ar/CActiveRecord.php(1428): CActiveRecord->getDbConnection()
+#6 /data/www/yii-1.1.15.022a51/framework/db/ar/CActiveRecord.php(1517): CActiveRecord->getTableAlias(true)
+#7 /data/www/umweb/protected/models/User.php(12): CActiveRecord->findByAttributes(Array)
+#8 /data/www/umweb/protected/controllers/UserController.php(13): User::login('caoxiang', 'liuna520')
+#9 /data/www/yii-1.1.15.022a51/framework/web/actions/CInlineAction.php(49): UserController->actionLogin()
+#10 /data/www/yii-1.1.15.022a51/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /data/www/yii-1.1.15.022a51/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /data/www/yii-1.1.15.022a51/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(282): CController->run('login')
+#14 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('user/login')
+#15 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /data/www/umweb/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/user/login
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/02 18:49:09 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: SQLSTATE[42000] [1049] Unknown database 'umei'' in /data/www/yii-1.1.15.022a51/framework/db/CDbConnection.php:382
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /data/www/yii-1.1.15.022a51/framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /data/www/yii-1.1.15.022a51/framework/base/CModule.php(387): CDbConnection->init()
+#3 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(450): CModule->getComponent('db')
+#4 /data/www/yii-1.1.15.022a51/framework/db/ar/CActiveRecord.php(634): CApplication->getDb()
+#5 /data/www/yii-1.1.15.022a51/framework/db/ar/CActiveRecord.php(1428): CActiveRecord->getDbConnection()
+#6 /data/www/yii-1.1.15.022a51/framework/db/ar/CActiveRecord.php(1517): CActiveRecord->getTableAlias(true)
+#7 /data/www/umweb/protected/models/User.php(12): CActiveRecord->findByAttributes(Array)
+#8 /data/www/umweb/protected/controllers/UserController.php(13): User::login('caoxiang', 'liuna520')
+#9 /data/www/yii-1.1.15.022a51/framework/web/actions/CInlineAction.php(49): UserController->actionLogin()
+#10 /data/www/yii-1.1.15.022a51/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /data/www/yii-1.1.15.022a51/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /data/www/yii-1.1.15.022a51/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(282): CController->run('login')
+#14 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('user/login')
+#15 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /data/www/umweb/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/user/login
+HTTP_REFERER=http://new.uumie.com/
+---
+2015/03/08 07:03:13 [error] [php] Invalid argument supplied for foreach() (/data/www/umweb/protected/views/site/index.php:225)
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CController.php(869): SiteController->renderFile()
+#1 /data/www/yii-1.1.15.022a51/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /data/www/umweb/protected/controllers/SiteController.php(31): SiteController->render()
+#3 /data/www/yii-1.1.15.022a51/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#4 /data/www/yii-1.1.15.022a51/framework/web/CController.php(308): CInlineAction->runWithParams()
+#5 /data/www/yii-1.1.15.022a51/framework/web/CController.php(286): SiteController->runAction()
+#6 /data/www/yii-1.1.15.022a51/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#7 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(282): SiteController->run()
+#8 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#9 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /data/www/umweb/index.php(13): CWebApplication->run()
+REQUEST_URI=/
+in /data/www/umweb/protected/views/site/index.php (225)
+in /data/www/umweb/protected/controllers/SiteController.php (31)
+in /data/www/umweb/index.php (13)
+2015/03/08 13:57:19 [error] [php] Invalid argument supplied for foreach() (/data/www/umweb/protected/views/site/index.php:99)
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CController.php(869): SiteController->renderFile()
+#1 /data/www/yii-1.1.15.022a51/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /data/www/umweb/protected/controllers/SiteController.php(33): SiteController->render()
+#3 /data/www/yii-1.1.15.022a51/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#4 /data/www/yii-1.1.15.022a51/framework/web/CController.php(308): CInlineAction->runWithParams()
+#5 /data/www/yii-1.1.15.022a51/framework/web/CController.php(286): SiteController->runAction()
+#6 /data/www/yii-1.1.15.022a51/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#7 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(282): SiteController->run()
+#8 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#9 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /data/www/umweb/index.php(13): CWebApplication->run()
+REQUEST_URI=/
+in /data/www/umweb/protected/views/site/index.php (99)
+in /data/www/umweb/protected/controllers/SiteController.php (33)
+in /data/www/umweb/index.php (13)
+2015/03/08 13:59:47 [error] [php] Invalid argument supplied for foreach() (/data/www/umweb/protected/views/site/index.php:99)
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CController.php(869): SiteController->renderFile()
+#1 /data/www/yii-1.1.15.022a51/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /data/www/umweb/protected/controllers/SiteController.php(33): SiteController->render()
+#3 /data/www/yii-1.1.15.022a51/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#4 /data/www/yii-1.1.15.022a51/framework/web/CController.php(308): CInlineAction->runWithParams()
+#5 /data/www/yii-1.1.15.022a51/framework/web/CController.php(286): SiteController->runAction()
+#6 /data/www/yii-1.1.15.022a51/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#7 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(282): SiteController->run()
+#8 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#9 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /data/www/umweb/index.php(13): CWebApplication->run()
+REQUEST_URI=/
+in /data/www/umweb/protected/views/site/index.php (99)
+in /data/www/umweb/protected/controllers/SiteController.php (33)
+in /data/www/umweb/index.php (13)
+2015/03/08 13:59:47 [error] [php] Invalid argument supplied for foreach() (/data/www/umweb/protected/views/site/index.php:99)
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CController.php(869): SiteController->renderFile()
+#1 /data/www/yii-1.1.15.022a51/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /data/www/umweb/protected/controllers/SiteController.php(33): SiteController->render()
+#3 /data/www/yii-1.1.15.022a51/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#4 /data/www/yii-1.1.15.022a51/framework/web/CController.php(308): CInlineAction->runWithParams()
+#5 /data/www/yii-1.1.15.022a51/framework/web/CController.php(286): SiteController->runAction()
+#6 /data/www/yii-1.1.15.022a51/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#7 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(282): SiteController->run()
+#8 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#9 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /data/www/umweb/index.php(13): CWebApplication->run()
+REQUEST_URI=/
+in /data/www/umweb/protected/views/site/index.php (99)
+in /data/www/umweb/protected/controllers/SiteController.php (33)
+in /data/www/umweb/index.php (13)
+2015/03/08 14:00:39 [error] [php] Undefined index: anchor_id (/data/www/umweb/protected/views/site/index.php:250)
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CController.php(869): SiteController->renderFile()
+#1 /data/www/yii-1.1.15.022a51/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /data/www/umweb/protected/controllers/SiteController.php(33): SiteController->render()
+#3 /data/www/yii-1.1.15.022a51/framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#4 /data/www/yii-1.1.15.022a51/framework/web/CController.php(308): CInlineAction->runWithParams()
+#5 /data/www/yii-1.1.15.022a51/framework/web/CController.php(286): SiteController->runAction()
+#6 /data/www/yii-1.1.15.022a51/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#7 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(282): SiteController->run()
+#8 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#9 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /data/www/umweb/index.php(13): CWebApplication->run()
+REQUEST_URI=/
+in /data/www/umweb/protected/views/site/index.php (250)
+in /data/www/umweb/protected/controllers/SiteController.php (33)
+in /data/www/umweb/index.php (13)
+2015/03/08 14:17:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32057661_d2770c81f916418d13c6c357665f5270".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32057661_d2770c81f916418d13c6c357665f5270
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:17 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32027064_4a0c6bb2ff9225b182daf884dd3d4775".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32027064_4a0c6bb2ff9225b182daf884dd3d4775
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32027063_153d514a5fcaa24912528bc56b003699".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32027063_153d514a5fcaa24912528bc56b003699
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32062896_e15b196763b7bf0f6f106357626edec1
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32054693_cfe1e184525897d3485e70ac9baadcf4".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32054693_cfe1e184525897d3485e70ac9baadcf4
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32054816_6d32df21affcdff76455a9227ac9bdb9".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32054816_6d32df21affcdff76455a9227ac9bdb9
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022247_362c0645fdae2e139e00b9da9a3416a3".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022247_362c0645fdae2e139e00b9da9a3416a3
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32028097_dc5a8bfe827c4db82c46ad437e734165".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32028097_dc5a8bfe827c4db82c46ad437e734165
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022248_5a80fe0bbd8a5d804a67ed03189a5b8f
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32023334_6cd9ec0f98fdaa9cdd6d9f8f6853f294".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32023334_6cd9ec0f98fdaa9cdd6d9f8f6853f294
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32050251_2fbbd21a73f8088793573c43195a961d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32050251_2fbbd21a73f8088793573c43195a961d
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022250_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32020356_903aeb3dbc8aaf02be9c8f86ec76a9cb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32020356_903aeb3dbc8aaf02be9c8f86ec76a9cb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32053498_156722167d8fbc55aa27d2a08a0254ee".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32053498_156722167d8fbc55aa27d2a08a0254ee
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32065313_3c7a411a27b40f413d14a321a2327c7f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32065313_3c7a411a27b40f413d14a321a2327c7f
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32051869_f3ccdd27d2000e3f9255a7e3e2c48800".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32051869_f3ccdd27d2000e3f9255a7e3e2c48800
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022251_3a0288d3a5111b4119ad6b0d6f7e08c3
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021681_bc5fd2aeedae246c9f6746ca698690f1".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021681_bc5fd2aeedae246c9f6746ca698690f1
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32024157_3b82b6e2e9f62bcaac7bb7dfe0be9c18".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32024157_3b82b6e2e9f62bcaac7bb7dfe0be9c18
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32020375_ad7bc863acc50ad3b747c51c2f85b431".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32020375_ad7bc863acc50ad3b747c51c2f85b431
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32051934_05829920bc6d74efe575e68f38fb9b8f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32051934_05829920bc6d74efe575e68f38fb9b8f
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022252_b6d5ffc2fbbb60f1dd4a882abf2cbbbd
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32039606_19bfaa0d1363d9524402ea993bc7bda2".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32039606_19bfaa0d1363d9524402ea993bc7bda2
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32055800_2f1260d0365e4b9f93f3493b3444d38d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32055800_2f1260d0365e4b9f93f3493b3444d38d
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022254_85221fe4f5834b59021ff4e4baf6fd6d
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022035_9e9ad65b5b92835e32f48755e752cec4".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022035_9e9ad65b5b92835e32f48755e752cec4
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32020359_497712e4f84d81a232114cf524eb291f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32020359_497712e4f84d81a232114cf524eb291f
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32039840_c2fab7d3bb1f6e137b10d88e1a7045c8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32039840_c2fab7d3bb1f6e137b10d88e1a7045c8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32055930_7db4c8615f7cf8faff30fa30589e1576".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32055930_7db4c8615f7cf8faff30fa30589e1576
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022255_ba2ca5f35ad1641494057ace723991ce
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32023336_4a47a0db6e60853dedfcfdf08a5ca249".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32023336_4a47a0db6e60853dedfcfdf08a5ca249
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32030284_2c50a64d68e754fd8b74a692579b68e6".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32030284_2c50a64d68e754fd8b74a692579b68e6
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32055941_812749e1a307f38fd0a88b54bea55ff2".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32055941_812749e1a307f38fd0a88b54bea55ff2
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:54 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056339_0e0e8db8e869b428020e4dc9517b25c8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32055820_de0eb6b6c30bc86f5d9b0171a9576cd3".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32055820_de0eb6b6c30bc86f5d9b0171a9576cd3
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:57 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056343_ebddd9d8a896e8f548db0f0978ec08f5
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32027217_bb77a1b0cfb0ef4e10285e44bc0da53b".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32027217_bb77a1b0cfb0ef4e10285e44bc0da53b
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:17:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32037263_7e27c81bd88158925d45302aa4dd3388".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32037263_7e27c81bd88158925d45302aa4dd3388
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056044_362c0645fdae2e139e00b9da9a3416a3".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056044_362c0645fdae2e139e00b9da9a3416a3
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059039_3227a7b844fac70f6a42428821596a11
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32026349_858e2b3728a76f96b6920f78ff1fcc7f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32026349_858e2b3728a76f96b6920f78ff1fcc7f
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:03 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32059584_d35a39052e420226772076858fa7226e
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32022245_07686a6cb18807d6d2dabee5a0c7ed44
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32037222_f54147814fd35aa705e5b35d81fab57f".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32037222_f54147814fd35aa705e5b35d81fab57f
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32042147_bafd711d65c174d5e8dbad99b2d1b333".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32042147_bafd711d65c174d5e8dbad99b2d1b333
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:14 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056282_8df7b73a7820f4aef47864f2a6c5fccf".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056282_8df7b73a7820f4aef47864f2a6c5fccf
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32055110_59b2900aa03cb2182a51cdb520b535b6
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32028009_db64f14db1e30ed8e671ce37d6a20c4b".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32028009_db64f14db1e30ed8e671ce37d6a20c4b
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32031296_c1d7eaf7b5a2fa1f06c15bcd90422dd9".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32031296_c1d7eaf7b5a2fa1f06c15bcd90422dd9
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056440_6f39d9876873662131efbab2d0f46f32".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056440_6f39d9876873662131efbab2d0f46f32
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32064111_23e9bddc644a21a53d2d86adb3e311d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:18:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32056085_66508028afb397cdd0e24bbe93960642".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32056085_66508028afb397cdd0e24bbe93960642
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:22:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:22:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:23:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:23:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/08 14:23:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/10 18:00:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/10 18:00:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/10 18:01:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/10 23:36:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/10 23:36:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/10 23:36:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 18:47:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/1752065
+---
+2015/03/11 18:47:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/1752065
+---
+2015/03/11 18:47:11 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/1752065
+---
+2015/03/11 18:49:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/1752065
+---
+2015/03/11 18:49:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/1752065
+---
+2015/03/11 18:49:36 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/1752065
+---
+2015/03/11 18:50:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/1752065
+---
+2015/03/11 18:50:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/1752065
+---
+2015/03/11 18:50:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/1752065
+---
+2015/03/11 19:34:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/666888
+---
+2015/03/11 19:34:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/666888
+---
+2015/03/11 19:34:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/666888
+---
+2015/03/11 19:35:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 19:35:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 19:35:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 19:36:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 19:36:05 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 19:36:07 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 19:36:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/666888
+---
+2015/03/11 19:36:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/666888
+---
+2015/03/11 19:36:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/666888
+---
+2015/03/11 19:37:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 19:37:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 19:37:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 21:35:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 21:35:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 21:35:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 21:50:46 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "recommend".' in /data/www/yii-1.1.15.022a51/framework/web/CController.php:483
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CController.php(270): CController->missingAction('recommend')
+#1 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(282): CController->run('recommend')
+#2 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('room/recommend')
+#3 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /data/www/umweb/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/room/recommend
+---
+2015/03/11 21:53:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 21:53:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 21:53:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:05:00 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:05:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:05:02 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:30:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:30:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:30:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:31:18 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:31:19 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:31:20 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:54:08 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:54:09 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:54:10 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:54:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:54:13 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/11 22:54:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 10:02:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 10:02:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:06:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:06:45 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:06:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:20:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:20:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:20:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:21:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:21:32 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:21:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:23:22 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:23:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:23:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:23:39 [error] [php] Undefined index: avatar (/data/www/umweb/protected/views/site/room.php:184)
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CController.php(869): SiteController->renderFile()
+#1 /data/www/yii-1.1.15.022a51/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /data/www/umweb/protected/controllers/SiteController.php(61): SiteController->render()
+#3 unknown(0): SiteController->actionRoom()
+#4 /data/www/yii-1.1.15.022a51/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#5 /data/www/yii-1.1.15.022a51/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /data/www/yii-1.1.15.022a51/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /data/www/yii-1.1.15.022a51/framework/web/CController.php(286): SiteController->runAction()
+#8 /data/www/yii-1.1.15.022a51/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#9 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(282): SiteController->run()
+#10 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /data/www/umweb/index.php(13): CWebApplication->run()
+REQUEST_URI=/1751752
+in /data/www/umweb/protected/views/site/room.php (184)
+in /data/www/umweb/protected/controllers/SiteController.php (61)
+in /data/www/umweb/index.php (13)
+2015/03/12 11:24:00 [error] [php] Undefined index: avatar (/data/www/umweb/protected/views/site/room.php:184)
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CController.php(869): SiteController->renderFile()
+#1 /data/www/yii-1.1.15.022a51/framework/web/CController.php(782): SiteController->renderPartial()
+#2 /data/www/umweb/protected/controllers/SiteController.php(61): SiteController->render()
+#3 unknown(0): SiteController->actionRoom()
+#4 /data/www/yii-1.1.15.022a51/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs()
+#5 /data/www/yii-1.1.15.022a51/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /data/www/yii-1.1.15.022a51/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /data/www/yii-1.1.15.022a51/framework/web/CController.php(286): SiteController->runAction()
+#8 /data/www/yii-1.1.15.022a51/framework/web/CController.php(265): SiteController->runActionWithFilters()
+#9 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(282): SiteController->run()
+#10 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /data/www/umweb/index.php(13): CWebApplication->run()
+REQUEST_URI=/1751752
+in /data/www/umweb/protected/views/site/room.php (184)
+in /data/www/umweb/protected/controllers/SiteController.php (61)
+in /data/www/umweb/index.php (13)
+2015/03/12 11:24:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:24:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:24:27 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:24:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:24:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:24:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:24:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:24:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:24:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:27:37 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32035021_6b0d0e25b8deacfd6e85dfebe64ce5eb
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:27:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32034038_b7ca13769dc8028343a92b2d777c7707
+HTTP_REFERER=http://new.uumie.cn/
+---
+2015/03/12 11:27:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8".' in /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /data/www/yii-1.1.15.022a51/framework/web/CWebApplication.php(141): CWebApplication->runController('upload/room_ico...')
+#1 /data/www/yii-1.1.15.022a51/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /data/www/umweb/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/upload/room_icon/i_32021431_913e479d9e5dbf03486f9dea2da685d8
+HTTP_REFERER=http://new.uumie.cn/
+---
