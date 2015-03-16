@@ -1,7 +1,6 @@
 window.RoomCommon = {
     setChatDialog: function ($ele, func) {
         $ele.keypress(function (event) {
-
             if (event.which == 13) {
                 func.call(this, $ele);
             }
@@ -46,7 +45,6 @@ $(function () {
     function autoPaly() {
         $(urElement).animate({"top": -309}, function () {
             $(urElement).css('top', 0).find('li:first').appendTo(urElement)
-
         });
         var $li = $(liElement);
         var $current = $li.eq(currentPath);
@@ -139,7 +137,6 @@ $(function () {
                 this.timeAnimate = setInterval(scrollEle, timeSpace);
             }
             ;
-
             function scrollEle() {
                 if (paraCurrent < liLength - 1) {
                     paraCurrent++;
@@ -184,11 +181,9 @@ $(function () {
     //浮层
     var viewHeight = $(window).height();
     var viewWidth = $(window).width();
-
     var userMenu = $(".userMenu");
     var useMeHeight = $(".userMenu").height();
     var useMeWidth = $(".userMenu").width();
-
     /*
      var lTop = $("#liuyan").offset().top;
      var lLeft = $("#liuyan").offset().left;
@@ -287,7 +282,6 @@ $(function () {
             $(this).addClass("lrCloseUp");
             $(liveRoomWord).animate({"height": 30});
         }
-
     });
 });
 /*聊天|礼物*/
@@ -410,36 +404,30 @@ $(function () {
 var scrollTimerpub;
 $(function () {
     $("#popScrollPubYes").hide();
-
 });
-
 $(function () {
     $("#popScrollPrvYes").hide();
 });
-
 function clearScrollTimerpub() {
     $("#popScrollPubNo").hide();
     $("#popScrollPubYes").show();
-    uu89pub.autoscroll=false;
+    uu89pub.autoscroll = false;
 }
-
 function beginScrollTimerpub() {
     $("#popScrollPubNo").show();
     $("#popScrollPubYes").hide();
-    uu89pub.autoscroll=true;
+    uu89pub.autoscroll = true;
     uu89pub.rolling();
 }
-
 function clearScrollTimerprv() {
     $("#popScrollPrvYes").show();
     $("#popScrollPrvNo").hide();
-    uu89prv.autoscroll=false;
+    uu89prv.autoscroll = false;
 }
-
 function beginScrollTimerprv() {
     $("#popScrollPrvNo").show();
     $("#popScrollPrvYes").hide();
-    uu89prv.autoscroll=true;
+    uu89prv.autoscroll = true;
     uu89prv.rolling();
 }
 //pos(obj)
@@ -497,7 +485,6 @@ $(function () {
                 }
                 var reduceValue = liveMsgGiftHeight - topValue - liveWordFnHeight - lmgTabHeight - liveRoomReportHeight - dragBarHeight;//动态修改系统信息容器告诉
                 //document.title = "top" +  topValue + "+" + "bottom" +reduceValue;
-
                 $(liuyan).css({"height": topValue});
                 $(xitong).css({"height": reduceValue});
                 return false;//修复ie下拖动后文字闪动
@@ -514,29 +501,23 @@ $(function () {
 function viewReset() {
     var viewWidthHeight = viewWH();
     var vh = viewWidthHeight.height;//可视窗口高度
-
     var lhoHeight = $(".liveHeaderOut").outerHeight(true); //顶部导航
     var lgtHeight = $(".liveGiftTip").outerHeight(true); //跑马灯
     var lpHeight = $(".livePlayer").outerHeight(true); //主播信息
     var mnHeight = $(".manageNav").outerHeight(true); //全部 管理
     var isHeight = $(".lmaSearch").outerHeight(true); //搜索框
-
     var lvH = $(".liveVideo").outerHeight(true); //视频框
     var ltH = $(".lgTab").outerHeight(true); //礼物导航
     var lpH = $(".livePresent").outerHeight(true); //赠送
     var pb10 = 10;
-
     var vrH = $(".liveRank").outerHeight(true); //榜单
     var lrrH = $(".liveRoomReport").outerHeight(true); //公告
     var lsH = $(".liveSystem").outerHeight(true); //系统信息
     var lwfH = $(".liveWordFn").outerHeight(true); //留言区
-
     var lbHeight = $(".liveBroad").outerHeight(true); //广播
     var lfoHeight = $(".liveFooterOut").outerHeight(true); //版权
     var pb30 = 30;
-
     var lrkHeight = $(".lineRankTop").outerHeight(true); //今日榜单前三
-
     if (vh > 700) {
         //左侧
         var resetLeftHeigth = vh - lhoHeight - lgtHeight - lpHeight - mnHeight - isHeight - lbHeight - lfoHeight;
@@ -616,7 +597,6 @@ $(function () {
         });
     });
 });
-
 /* 登陆注册层 */
 $(function () {
     RoomCommon.setChatDialog($('.controlGroup input'), function (data) {

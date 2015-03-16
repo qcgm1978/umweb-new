@@ -134,7 +134,7 @@ User.prototype = {
     },
 
     Selected: function () {
-        if ($("#message_to option[value='" + this.uid + "']").length == 0) {
+        if ($("#message_to option[value='" + this.uid + "']").length === 0) {
             //$("#message_to").val(this.appdata.nickname);
             $("#message_to").append(new Option(this.appdata.nickname, this.uid))
         }

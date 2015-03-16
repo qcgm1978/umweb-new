@@ -94,9 +94,22 @@ module.exports = function (grunt) {
                 }
             }
         },
+        plato: {
+            your_task: {
+                options : {
+                    jshint : false,
+                    exclude: /(\.min)|(jquery.*)|(swfobject)\.js$/    // excludes source files finishing with ".min.js"
+                },
+                files: {
+                    'docs/code-complexity-report': ['js/*.js','room/script/**/*.js','!ajax.js','!content_zoom.js','!base64.js','!fauxconsole.js']
+                }
+            }
+        }
+    //    $ grasp -r -e 'calc($u, $t, $a, $n, $c)' -R 'calc({ user: {{u}}, target: {{t}}, action: {{a}}, amount: {{n}}, clear: {{c}} })' .
     });
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
     grunt.loadNpmTasks('grunt-readme');
+    grunt.loadNpmTasks('grunt-plato');
     //grunt.registerTask('doc', ['yuidoc']);
 
 };
