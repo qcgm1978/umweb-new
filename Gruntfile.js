@@ -93,7 +93,7 @@ module.exports = function (grunt) {
                     //'no-sort':''
                 }
             }
-        }
+        },
     });
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
     grunt.loadNpmTasks('grunt-readme');

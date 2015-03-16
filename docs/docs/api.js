@@ -3,6 +3,7 @@ YUI.add("yuidoc-meta", function(Y) {
     "classes": [
         "SendGift",
         "User",
+        "chat",
         "chat_panel",
         "g_UserList",
         "message_display",
@@ -13,11 +14,17 @@ YUI.add("yuidoc-meta", function(Y) {
     ],
     "modules": [
         "SendGift",
+        "chat",
         "ng",
         "room",
         "xchat_swf"
     ],
     "allModules": [
+        {
+            "displayName": "chat",
+            "name": "chat",
+            "description": "Description: 聊天对象"
+        },
         {
             "displayName": "ng",
             "name": "ng"

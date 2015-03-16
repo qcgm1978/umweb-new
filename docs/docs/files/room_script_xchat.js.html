@@ -38,6 +38,7 @@
                 
                         <div id="api-tabview-panel">
                             <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/chat.html">chat</a></li>
                                 <li><a href="../classes/chat_panel.html">chat_panel</a></li>
                                 <li><a href="../classes/g_UserList.html">g_UserList</a></li>
                                 <li><a href="../classes/message_display.html">message_display</a></li>
@@ -50,6 +51,7 @@
                             </ul>
                 
                             <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/chat.html">chat</a></li>
                                 <li><a href="../modules/ng.html">ng</a></li>
                                 <li><a href="../modules/room.html">room</a></li>
                                 <li><a href="../modules/SendGift.html">SendGift</a></li>
@@ -390,8 +392,15 @@ User.prototype = {
     },
 
     RemoveFromListUI: function () {
-        $(&quot;#&quot; + this.uid).remove();
-        $(&quot;#a_&quot; + this.uid).remove();
+        var uid = this.uid;
+        $(&quot;#&quot; + uid).remove();
+        $(&quot;#a_&quot; + uid).remove();
+        $.each($(&#x27;#message_to option&#x27;), function (i,n) {
+          if($(n).val()==uid){
+              $(n).remove()
+              return false
+          }
+        })
     }
 };
 
@@ -854,12 +863,6 @@ var xMessager = {
             location.reload(true);
         }, 5000);
     },
-    scrollBottom: function (para) {
-        var eleId = document.getElementById(para);
-        if (eleId) {
-            eleId.scrollTop = eleId.scrollHeight - 5;
-        }
-    },
     OnData: function (data) {
         switch (data.type) {
             case &#x27;C&#x27;:
@@ -884,8 +887,6 @@ var xMessager = {
                 this.OnSetAdmin(data.data);
                 break;
         }
-
-        this.scrollBottom(&quot;liuyan&quot;);
     },
 
     message: function (msg, secret) {

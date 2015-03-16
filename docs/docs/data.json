@@ -86,6 +86,17 @@
             "fors": {},
             "namespaces": {}
         },
+        "room\\script\\chat_v1.source.js": {
+            "name": "room\\script\\chat_v1.source.js",
+            "modules": {
+                "chat": 1
+            },
+            "classes": {
+                "chat": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "room\\script\\jquery-1.11.1.js": {
             "name": "room\\script\\jquery-1.11.1.js",
             "modules": {},
@@ -164,6 +175,20 @@
             "file": "js\\send-gift.js",
             "line": 1
         },
+        "chat": {
+            "name": "chat",
+            "submodules": {},
+            "classes": {
+                "chat": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "room\\script\\chat_v1.source.js",
+            "line": 1,
+            "description": "Description: 聊天对象",
+            "is_constructor": 1
+        },
         "xchat_swf": {
             "name": "xchat_swf",
             "submodules": {},
@@ -180,7 +205,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "room\\script\\xchat.js",
-            "line": 1047,
+            "line": 1046,
             "description": "Provides chat interaction"
         }
     },
@@ -211,6 +236,20 @@
             "namespace": "",
             "file": "js\\send-gift.js",
             "line": 1
+        },
+        "chat": {
+            "name": "chat",
+            "shortname": "chat",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "chat",
+            "namespace": "",
+            "file": "room\\script\\chat_v1.source.js",
+            "line": 1,
+            "description": "Description: 聊天对象"
         },
         "User": {
             "name": "User",
@@ -248,7 +287,7 @@
             "module": "xchat_swf",
             "namespace": "",
             "file": "room\\script\\xchat.js",
-            "line": 313,
+            "line": 320,
             "description": "handling user popup panel"
         },
         "g_UserList": {
@@ -262,7 +301,7 @@
             "module": "xchat_swf",
             "namespace": "",
             "file": "room\\script\\xchat.js",
-            "line": 447,
+            "line": 454,
             "description": "Description: Controlling business logic of users",
             "static": 1
         },
@@ -277,7 +316,7 @@
             "module": "xchat_swf",
             "namespace": "",
             "file": "room\\script\\xchat.js",
-            "line": 580,
+            "line": 587,
             "description": "Description: communication with server when chatting",
             "deprecated": true,
             "deprecationMessage": "Use xchat_swf.disablechat\ninstead"
@@ -293,7 +332,7 @@
             "module": "xchat_swf",
             "namespace": "",
             "file": "room\\script\\xchat.js",
-            "line": 635,
+            "line": 642,
             "description": "handle chat messages"
         },
         "message_display": {
@@ -307,7 +346,7 @@
             "module": "xchat_swf",
             "namespace": "",
             "file": "room\\script\\xchat.js",
-            "line": 994,
+            "line": 993,
             "description": "Description: display messages on screen",
             "static": 1
         },
@@ -322,7 +361,7 @@
             "module": "xchat_swf",
             "namespace": "",
             "file": "room\\script\\xchat.js",
-            "line": 1047,
+            "line": 1046,
             "description": "Interacting between Js and Flash"
         }
     },
@@ -7240,94 +7279,124 @@
             "file": "js\\zDialog.js",
             "line": 1,
             "description": "zDialog 2.0\n最后修正：2009-12-18",
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialog.js",
             "line": 7,
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialog.js",
             "line": 85,
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialog.js",
             "line": 89,
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialog.js",
             "line": 112,
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialog.js",
             "line": 409,
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialog.js",
             "line": 421,
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialogajax.js",
             "line": 1,
             "description": "zDialog 2.0\n最后修正：2009-12-18",
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialogajax.js",
             "line": 7,
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialogajax.js",
             "line": 85,
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialogajax.js",
             "line": 89,
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialogajax.js",
             "line": 112,
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialogajax.js",
             "line": 409,
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "js\\zDialogajax.js",
             "line": 421,
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
         },
         {
             "file": "room\\script\\base64.js",
             "line": 1,
             "description": "Base64 encode / decode\n  http://www.webtoolkit.info/",
-            "class": "User",
+            "class": "chat",
             "module": "SendGift"
+        },
+        {
+            "file": "room\\script\\chat_v1.source.js",
+            "line": 49,
+            "description": "scrolling elements of chatting box",
+            "itemtype": "attribute",
+            "name": "$scrollEle",
+            "required": 1,
+            "type": "Object",
+            "class": "chat",
+            "module": "chat"
+        },
+        {
+            "file": "room\\script\\chat_v1.source.js",
+            "line": 94,
+            "description": "Description: 在聊天框中插入内容",
+            "itemtype": "method",
+            "name": "insert",
+            "params": [
+                {
+                    "name": "info",
+                    "description": "info to insert",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n \"连接服务器成功.\""
+            ],
+            "class": "chat",
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7338,7 +7407,7 @@
                 "type": "Function(string, Object)"
             },
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7352,7 +7421,7 @@
                 }
             ],
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7366,7 +7435,7 @@
                 }
             ],
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7385,7 +7454,7 @@
                 }
             ],
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7408,7 +7477,7 @@
                 "type": "Number"
             },
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7422,7 +7491,7 @@
                 }
             ],
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7436,7 +7505,7 @@
                 }
             ],
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7450,7 +7519,7 @@
                 }
             ],
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7468,7 +7537,7 @@
                 "type": "Element|Object|Boolean"
             },
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7486,7 +7555,7 @@
                 "type": "Boolean"
             },
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7505,7 +7574,7 @@
                 "type": "Object"
             },
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7519,7 +7588,7 @@
                 }
             ],
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7533,7 +7602,7 @@
                 }
             ],
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7564,28 +7633,28 @@
                 }
             ],
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
             "line": 3453,
             "description": "Clean-up method for dom ready events",
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
             "line": 3467,
             "description": "The ready event handler and self cleanup method",
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
             "line": 3614,
             "description": "Determines whether an object can have data",
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7604,7 +7673,7 @@
                 }
             ],
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
@@ -7618,25 +7687,25 @@
                 }
             ],
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
             "line": 9936,
             "description": "Load a url into a page",
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\jquery-1.11.1.js",
             "line": 10011,
             "description": "Gets a window from an element",
             "class": "User",
-            "module": "SendGift"
+            "module": "chat"
         },
         {
             "file": "room\\script\\xchat.js",
-            "line": 362,
+            "line": 369,
             "description": "Description: bind disabling chat item click event",
             "itemtype": "event",
             "name": "",
@@ -7645,14 +7714,14 @@
         },
         {
             "file": "room\\script\\xchat.js",
-            "line": 1001,
+            "line": 1000,
             "description": "Description: insert",
             "class": "message_display",
             "module": "xchat_swf"
         },
         {
             "file": "room\\script\\xchat.js",
-            "line": 1053,
+            "line": 1052,
             "description": "Init interaction event",
             "itemtype": "method",
             "name": "Init",
@@ -7668,7 +7737,7 @@
         },
         {
             "file": "room\\script\\xchat.js",
-            "line": 1089,
+            "line": 1088,
             "description": "Description: embed swf in doc, ref: https://code.google.com/p/swfobject/wiki/documentation",
             "itemtype": "method",
             "name": "swfobject.embedSWF",
@@ -7677,7 +7746,7 @@
         },
         {
             "file": "room\\script\\xchat.js",
-            "line": 1135,
+            "line": 1134,
             "description": "Description: prompting when broadcast ends",
             "deprecated": true,
             "deprecationMessage": "Use xchat_swf_message\ninstead",
@@ -7686,7 +7755,7 @@
         },
         {
             "file": "room\\script\\xchat.js",
-            "line": 1169,
+            "line": 1168,
             "description": "Description: callback by Flash",
             "xchat_swf_message": "",
             "class": "xchat_swf",
@@ -7694,7 +7763,7 @@
         },
         {
             "file": "room\\script\\xchat.js",
-            "line": 1210,
+            "line": 1209,
             "description": "Description: decode 64 coded string",
             "itemtype": "method",
             "name": "Base64.decode",
@@ -11460,11 +11529,11 @@
         },
         {
             "message": "unknown tag: xchat_swf_message",
-            "line": " room\\script\\xchat.js:1169"
+            "line": " room\\script\\xchat.js:1168"
         },
         {
             "message": "param name missing: {String}",
-            "line": " room\\script\\xchat.js:1210"
+            "line": " room\\script\\xchat.js:1209"
         },
         {
             "message": "Missing item type",
@@ -13056,15 +13125,15 @@
         },
         {
             "message": "Missing item type\nDescription: insert",
-            "line": " room\\script\\xchat.js:1001"
+            "line": " room\\script\\xchat.js:1000"
         },
         {
             "message": "Missing item type\nDescription: prompting when broadcast ends",
-            "line": " room\\script\\xchat.js:1135"
+            "line": " room\\script\\xchat.js:1134"
         },
         {
             "message": "Missing item type\nDescription: callback by Flash",
-            "line": " room\\script\\xchat.js:1169"
+            "line": " room\\script\\xchat.js:1168"
         }
     ]
 }
