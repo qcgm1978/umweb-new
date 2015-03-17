@@ -1,16 +1,14 @@
 /**
  * Provides chat interaction
  *
- * @module xchat_swf
+ * @module xchat
  */
 function CalcRank(appdata) {
     var score = 0;
-
     if (appdata.roomer) {
         score = 2147483648; //0x80000000
         return score;
     }
-
     if (appdata.watchman) {
         score = 1048576 * 7;//0x40000,1<<18
     }
@@ -19,13 +17,9 @@ function CalcRank(appdata) {
         score += appdata.vip * 524288;//0x100000
     }
     //}
-
-
     //if (appdata.agency){
     //score += 524288;//0x80000,1<<19
     //}
-
-
     if (appdata.vip2) {
         score += appdata.vip2 * 262144;//0x100000
     }
@@ -36,16 +30,13 @@ function CalcRank(appdata) {
     if (appdata.levelinroom == 100) {
         score += 65535;//0x10000,1<<16
     }
-
     if (appdata.vip && appdata.vip >= 100) {
         score += appdata.vip;//0x100000
     }
     //score += appdata.title*8;
-
     /*if (appdata.vip<=5){
      score += appdata.vip;
      }*/
-
     return score;
 }
 /**
@@ -64,15 +55,11 @@ function User(uid, level, appdata) {
     this.init_level = level;
     this.appdata = appdata;
     this.rank = CalcRank(appdata);
-    
 }
-
 User.prototype = {
     hint: function () {
         //return this.appdata.nickname;
-
         var s;
-
         s = '<li';
         if ((this.appdata.nicegid + "").length < 8) {
             s += ' class="lianghao"';
@@ -113,7 +100,6 @@ User.prototype = {
                 s += '<img src="/room/images/role/r128.gif">';
             }
         }
-
         //}
         if (this.appdata.family_name && Base64.decode(this.appdata.family_name) != "0") {
             s += '<i class="clubIcoText"><em>' + Base64.decode(this.appdata.family_name) + '</em></i>';
@@ -124,7 +110,6 @@ User.prototype = {
         s += '</div></li>';
         return s;
     },
-
     IsAdmin: function () {
         if (this.level == 900)
             return true;
@@ -132,7 +117,6 @@ User.prototype = {
             return true;
         return false;
     },
-
     Selected: function () {
         if ($("#message_to option[value='" + this.uid + "']").length === 0) {
             //$("#message_to").val(this.appdata.nickname);
@@ -141,22 +125,17 @@ User.prototype = {
         $("#message_to").val(this.uid);
         g_UserList.UserSelected(this.uid);
     },
-
     AddToAdminListUI: function () {
         var element = $("<li>").attr("id", 'a_' + this.uid).append(this.hint()
         );
         var room_member_list = '#con_th_2';
         $(room_member_list).append(element);
-
-
         var CB_Para = this;
         $("#a_" + this.uid).click(function (e) {
-
             var cb_para = CB_Para;
             cb_para.DisplayMenu(cb_para, e.pageX, e.pageY);
         });
     },
-
     AddToMemberListUI: function (before_user) {
         var data = {user: this};
         var element = $("<li>").attr("id", this.uid).append(this.hint()
@@ -167,13 +146,10 @@ User.prototype = {
         if (before_user == null) {
             var room_member_list = '#con_th_1';
             $(room_member_list).append(element);
-
         }
         else {
             $("#" + before_user.uid).before(element);
-
         }
-
         var CB_Para = this;
         $("#" + this.uid).mouseenter(function (e) {
             var cb_para = CB_Para;
@@ -183,22 +159,16 @@ User.prototype = {
             //chat_panel.set_hidemenu_flag();
         });
         $("#" + this.uid).click(function (e) {
-
             var cb_para = CB_Para;
             cb_para.DisplayMenu(cb_para, e.pageX, e.pageY);
         });
-
         if (this.IsAdmin()) {
             this.AddToAdminListUI();
         }
     },
-
     DisplayMenu: function (para, x, y) {
-
         g_UserList.menu_selected_uid = para.uid;
-
         this.ControlMenuItem(para);
-
         var viewHeight = $(window).height();
         var useMeHeight = $(".userMenu").height();
         var userMenu = $(".userMenu");
@@ -238,7 +208,6 @@ User.prototype = {
         } else {
             $(userMenu).css({"left": x + 10, "top": 315});
         }
-
         //$(".m_nickname").html(para.appdata.nickname);
         //$(this.menu_id).css({ top: y, left: x })
         //$(this.menu_id).show();
@@ -263,10 +232,8 @@ User.prototype = {
          }
          */
     },
-
     ControlMenuItem: function (para) {
         var ADMIN_LEVEL = 900;
-
         if (xMessager.level == 2000) {
             if (xMessager.uid != para.uid) {
                 if (para.level == ADMIN_LEVEL) {
@@ -282,12 +249,10 @@ User.prototype = {
             }
             return;
         }
-
         if (xMessager.level < ADMIN_LEVEL) {
             this.menu_id = '#MemberMenu';
             return;
         }
-
         if (xMessager.level >= ADMIN_LEVEL && xMessager.level > para.level) {
             this.menu_id = '#MemberMenu_Admin';
         }
@@ -295,20 +260,18 @@ User.prototype = {
             this.menu_id = '#MemberMenu';
         }
     },
-
     RemoveFromListUI: function () {
         var uid = this.uid;
         $("#" + uid).remove();
         $("#a_" + uid).remove();
-        $.each($('#message_to option'), function (i,n) {
-          if($(n).val()==uid){
-              $(n).remove()
-              return false
-          }
+        $.each($('#message_to option'), function (i, n) {
+            if ($(n).val() == uid) {
+                $(n).remove()
+                return false
+            }
         })
     }
 };
-
 function chat_zone_display_user_memu(type, x, y, uid) {
     //alert(type+','+x+','+y+','+uid);
     var u = g_UserList.GetUser(uid);
@@ -323,46 +286,31 @@ function chat_zone_display_user_memu(type, x, y, uid) {
  * */
 var chat_panel = {
     menu_flag: 0,
-
     init: function () {
         $("#message_btn").click(function (event) {
-
             xMessager.message($("#message_input").val(), $("#secret_check").is(':checked'));
             $("#message_input").val("");
         });
-
         $("#message_to").change(function () {
-
             g_UserList.UserSelected(parseInt($(this).val()));
-
         });
-
         RoomCommon.setChatDialog($("#message_input"), function ($ele) {
-
             xMessager.message($ele.val(), $("#secret_check").is(':checked'));
             $ele.val("");
         });
-
         $("#m_gift").click(function (event) {
-
             chat_panel.set_gift_target();
             chat_panel.HideMenu();
         });
-
         $("#m_chat").click(function (event) {
-
             chat_panel.selected(false);
             chat_panel.HideMenu();
         });
-
         $("#m_chat_p").click(function (event) {
-
             chat_panel.selected(true);
             chat_panel.HideMenu();
         });
-
         $("#m_freeflower").unbind('click').click(function (event) {
-
             xMessager.freeflower();
             chat_panel.HideMenu();
         });
@@ -372,45 +320,33 @@ var chat_panel = {
          * @event
          */
         $("#m_disable_chat").unbind('click').click(function () {
-
             xMessager.disablechat();
             chat_panel.HideMenu();
         });
-
         $("#m_kick").unbind('click').click(function (event) {
-
             xMessager.kickout();
             chat_panel.HideMenu();
         });
-
         $("#m_setadmin").unbind('click').click(function (event) {
-
             xMessager.setadmin();
             chat_panel.HideMenu();
         });
-
         $(".m_close").click(function (event) {
             chat_panel.HideMenu();
         });
     },
-
     HideMenu: function () {
         $(".userMenu").hide();
         //$("#MemberMenu_Admin").hide();
         //$("#MemberMenu_Roomer").hide();
     },
-
-
     set_menu_flag: function (flag) {
         var d = new Date();
         this.menu_flag = flag;
-
     },
-
     get_menu_flag: function () {
         return this.menu_flag;
     },
-
     selected: function (secret) {
         var uid = g_UserList.menu_selected_uid;
         var u = g_UserList.GetUser(uid);
@@ -433,7 +369,6 @@ var chat_panel = {
         }
         g_UserList.UserSelected(uid);
     },
-
     set_gift_target: function () {
         var uid = g_UserList.menu_selected_uid;
         var u = g_UserList.GetUser(uid)
@@ -442,7 +377,6 @@ var chat_panel = {
         }
     }
 };
-
 Array.prototype.insert = function (index, item) {
     this.splice(index, 0, item);
 };
@@ -463,52 +397,42 @@ var g_UserList = {
     selected_uid: 0,
     menu_selected_uid: 0,
     admin_count: 0,
-
     GetUser: function (uid) {
         if (uid in this.members) {
             return this.members[uid];
         }
         return null;
     },
-
     GetSelectedUser: function () {
         if (this.selected_uid == 0) {
             return null;
         }
         return this.members[this.selected_uid];
     },
-
     UserSelected: function (uid) {
         this.selected_uid = uid;
-        if ($('#message_to').val()==0) {
-            $('#secret_check').attr('disabled','disabled').removeAttr('checked')
+        if ($('#message_to').val() == 0) {
+            $('#secret_check').attr('disabled', 'disabled').removeAttr('checked')
         } else {
             $('#secret_check').removeAttr('disabled')
         }
     },
-
     UserIn: function (user) {
-
         this.members[user.uid] = user;
         var before_u = null;
-
         var arrayLength = this.member_ui_array.length;
         for (var i = 0; i < arrayLength; i++) {
             var u = this.member_ui_array[i];
-
             if (user.rank > u.rank || (user.rank == u.rank && user.appdata.nicegid < u.appdata.nicegid)) {
                 before_u = u;
                 this.member_ui_array.insert(i, user);
                 break;
             }
         }
-
         user.AddToMemberListUI(before_u);
-
         if (before_u == null) {
             this.member_ui_array.push(user);
         }
-
         /*
          this.member_ui_array.push(user);
          this.member_ui_array.sort(function (a, b){
@@ -525,21 +449,16 @@ var g_UserList = {
 
          user.AddToMemberListUI(before_u);
          */
-
         $('#user_count').html('(' + this.member_ui_array.length + ')');
-
         if (user.IsAdmin()) {
             this.admin_count += 1;
             $('#admin_count').html('(' + this.admin_count + ')');
         }
     },
-
     UserOut: function (uid) {
-
         if (this.members[uid] == null) {
             return;
         }
-
         this.members[uid].RemoveFromListUI();
         /*
          if (uid>0){
@@ -557,17 +476,13 @@ var g_UserList = {
                 break;
             }
         }
-
         if (this.members[uid].IsAdmin()) {
             this.admin_count -= 1;
             $('#admin_count').html('(' + this.admin_count + ')');
         }
-
         delete this.members[uid];
-
         $('#user_count').html('(' + this.member_ui_array.length + ')');
     },
-
     ChangeLevel: function (uid, level) {
         if (this.members[uid] == null) {
             return;
@@ -575,7 +490,6 @@ var g_UserList = {
         this.members[uid].level = level;
         //this.members[uid].RefeshUI();
     },
-
     Clear: function () {
         for (var uid in this.members) {
             this.UserOut(uid);
@@ -593,16 +507,13 @@ var g_UserList = {
  */
 var persist = {
     url: "/room/persist.php",
-
     doit: function (type, room_id, touid) {
         var data = {
             'TYPE': type,
             'TOGID': touid,
             'ROOMID': room_id
         };
-
         $.post(this.url, JSON.stringify(data), function (result) {
-
             var r = jQuery.parseJSON(result);
             if (r.RES == 0) {
                 alert(r.HINT);
@@ -613,23 +524,18 @@ var persist = {
             }
         })
             .fail(function () {
-
                 alert('操作发生错误！');
             });
     },
-
     fav: function (room_id) {
         this.doit(10, room_id, 0);
     },
-
     disablechat: function (room_id, touid) {
         this.doit(5, room_id, touid);
     },
-
     kickout: function (room_id, touid) {
         this.doit(3, room_id, touid);
     },
-
     setadmin: function (room_id, touid, be_admin) {
         if (be_admin) {
             this.doit(6, room_id, touid);
@@ -651,7 +557,6 @@ var xMessager = {
     param: {},
     nickname: '',
     chatdisable: 0,
-
     init: function (param) {
         this.uid = param.uid;
         this.room_id = param.room_id;
@@ -666,9 +571,7 @@ var xMessager = {
             }, this.chatdisable * 60 * 1000);
         }
     },
-
     SocketError: function () {
-
         if (!xMessager.logined) {
             //message_display.prv('<font class="warning">连接服务器失败！</font>');
         }
@@ -679,10 +582,7 @@ var xMessager = {
         g_UserList.Clear();
         xchat_start();
     },
-
     OnChat: function (chatdata) {
-
-
         var is_my_message = false;
         //if (chatdata.uid == this.uid || chatdata.touid == this.uid){
         //	is_my_message = true;
@@ -702,24 +602,18 @@ var xMessager = {
             chatdata.tou = g_UserList.GetUser(chatdata.touid);
         }
         message_display.chat(chatdata, is_my_message);
-
         //generate_small_gift();
         //gift_center.show_gift("S","small.swf",102,8);
-
     },
-
     OnFreeFlower: function (data) {
-
         var is_my_message = false;
         if (data.fromwho.uid == this.uid || data.sendwho.uid == this.uid) {
             is_my_message = true;
         }
         message_display.freeflower(data, is_my_message);
-
         //generate_big_gift();
         //gift_center.show_gift("B","big.swf",1,15);
     },
-
     OnGift: function (data) {
         console.log('OnGift');
         var is_my_message = false;
@@ -732,28 +626,23 @@ var xMessager = {
         }
         message_display.gift(data, is_my_message);
         gift_center.show_gift(data.type, data.gift_swf, data.sum, data.gift_swf_life, data);
-
         if (data.from_uid == room_owner_uid || data.to_uid == room_owner_uid) {
             console.log('room_owner data need change!');
             load_room_data();
         }
     },
-
     OnSpeaker: function (data) {
         console.log('OnSpeaker');
         load_speak_data();
     },
-
     OnAnchorFans: function (data) {
         console.log('OnAnchorFans');
         load_anchor_fans();
     },
-
     OnBanner: function () {
         console.log('OnBanner');
         load_gift_message();
     },
-
     OnSetAdmin: function (param) {
         if (this.level == 2000) {
             return;
@@ -793,12 +682,10 @@ var xMessager = {
                 break;
         }
     },
-
     message: function (msg, secret) {
         if (!this.logined) {
             return;
         }
-
         if (msg == "") {
             return;
         }
@@ -816,7 +703,6 @@ var xMessager = {
             alert('你目前处于禁止发言状态，不能发言！');
             return;
         }
-
         var chatdata = {
             uid: this.uid,
             nickname: this.nickname,
@@ -824,7 +710,6 @@ var xMessager = {
             secret: secret,
             message: msg.replace(/</g, '&#60;').replace(/>/g, '&#62;').replace(/\//g, '&#47;')
         };
-
         var selected_user = g_UserList.GetSelectedUser();
         if (selected_user == null) {
             chatdata.to_nickname = "所有人";
@@ -833,28 +718,22 @@ var xMessager = {
         else {
             chatdata.to_nickname = selected_user.appdata.nickname;
         }
-
         var data = {
             type: 'C',
             data: chatdata
         };
-
         var to_uid = g_UserList.selected_uid;
         if (!secret) {
             to_uid = 0;
         }
-
-
         xchat_swf.send(to_uid, Base64.encode(JSON.stringify(data)));
     },
-
     freeflower: function () {
         if (this.level < 100) {
             //alert('游客不能免费献花！');
             checklogin();
             return;
         }
-
         var my_u = g_UserList.GetUser(this.uid);
         var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
         if (my_u && to_u) {
@@ -865,11 +744,9 @@ var xMessager = {
                     sendwho: {gid: to_u.appdata.gid, nickname: to_u.appdata.nickname}
                 }
             }
-
             xchat_swf.send(0, Base64.encode(JSON.stringify(data)));
         }
     },
-
     disablechat: function () {
         var mins = 5;
         var from_u = g_UserList.GetUser(this.uid);
@@ -898,7 +775,6 @@ var xMessager = {
             xchat_swf.disablechat(to_u.uid, mins);
         }
     },
-
     kickout: function () {
         var from_u = g_UserList.GetUser(this.uid);
         var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
@@ -925,7 +801,6 @@ var xMessager = {
             xchat_swf.kickout(to_u.uid);
         }
     },
-
     setadmin: function () {
         var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
         if (to_u) {
@@ -938,24 +813,19 @@ var xMessager = {
             xchat_swf.send(to_u.uid, Base64.encode(JSON.stringify(data)));
         }
     },
-
     giftmessage: function (type, param, banner) {
         var data = {
             type: 'G',
             data: param
         }
-
         xchat_swf.send(0, Base64.encode(JSON.stringify(data)));
-
         if (banner == 'B') {
             var data = {
                 type: 'BANNER'
             }
-
             xchat_swf.send(-1, Base64.encode(JSON.stringify(data)));
         }
     },
-
     speakermessage: function (param) {
         var data = {
             type: 'LS',
@@ -963,20 +833,15 @@ var xMessager = {
         }
         xchat_swf.send(-1, Base64.encode(JSON.stringify(data)));
     },
-
     anchorfans: function () {
         var data = {
             type: 'AFANS'
         }
         xchat_swf.send(0, Base64.encode(JSON.stringify(data)));
-
     },
-
     ReEnter: function () {
-
         message_display.prv('<font class="warning">你已被同一账号挤出本房间！</font>');
     },
-
     LoginACK: function (param) {
         if (param.loginack == 0) {
             switch (param.reason) {
@@ -1006,25 +871,20 @@ var message_display = {
     prv: function (msg) {
         uu89prv.insert(msg);
     },
-
     pub: function (msg) {
         uu89pub.insert(msg);
     },
-
     chat: function (chatdata, is_my_message) {
         if (is_my_message) {
-
             uu89prv.display_chatmessage(chatdata);
             if (chatdata.touid == 0) {
                 uu89pub.display_chatmessage(chatdata);
             }
         }
         else {
-
             uu89pub.display_chatmessage(chatdata);
         }
     },
-
     freeflower: function (data, is_my_message) {
         if (is_my_message) {
             document.getElementById('chat_prv').contentWindow.FreeFlower(data);
@@ -1033,7 +893,6 @@ var message_display = {
             document.getElementById('chat_pub').contentWindow.FreeFlower(data);
         }
     },
-
     gift: function (data, is_my_message) {
         if (is_my_message) {
             uu89prv.disgift(data, 0);
@@ -1100,7 +959,6 @@ var xchat_swf = {
         // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
         //swfobject.createCSS("#flashContent", "display:block;text-align:center;");
     },
-
     alertNoSwf: function () {
         alert("flash初始化失败.");
     },
@@ -1111,11 +969,9 @@ var xchat_swf = {
             xchat_swf.alertNoSwf();
         }
     },
-
     swf: function () {
         return swfobject.getObjectById("xchat");
     },
-
     send: function (to_uid, data) {
         try {
             this.swf().Chat(to_uid, data);
@@ -1123,11 +979,9 @@ var xchat_swf = {
             xchat_swf.alertNoSwf();
         }
     },
-
     disablechat: function (touid, mins) {
         this.swf().DisableChat(touid, mins);
     },
-
     kickout: function (touid) {
         this.swf().Kickout(touid);
     },
@@ -1148,171 +1002,26 @@ var xchat_swf = {
             var datetime = currentdate.getHours() + ":" + currentdate.getMinutes();
             $('#live_time').html('开播时间：' + datetime);
         }
-
     }
 };
-
 function xchat_swf_debug(info) {
-
 }
-
 function xchat_swf_error(Error) {
-
     xMessager.SocketError();
 }
-
 function member_in_out_hint(appdata, type) {
     appdata.type = type;
     uu89pub.disinout(appdata);
 }
 /**
- * Description: callback by Flash
+ * Description: called by Flash
  *
- * @xchat_swf_message
- * @
+ * @method xchat_swf_message_new
+ * @param pid {Number}
+ * @param param {Object}
+ * @example
+ *  xchat_swf_message_new(0,{"data":{"nickname":"qcgm1978","touid":0,"to_nickname":"所有人","secret":false,"message":"a","uid":32087767},"type":"C"})
  */
-function xchat_swf_message(type, param) {
-
-
-    switch (type) {
-        case 'MSG_LOGIN_ACK':
-            xMessager.LoginACK(param);
-            break;
-        case 'MSG_REENTER':
-            xMessager.ReEnter();
-            break;
-        case 'MSG_SESSION_PARAM':
-            message_display.prv('连接服务器成功.');
-            message_display.prv('<font color="#FF4444">主播欢迎你:</font>' + room_welcome + '');
-            xMessager.logined = true;
-            /*
-             if (video_start){
-             }
-             video_start();
-             */
-            owshowcar();
-            break;
-        case 'MSG_USER_LIST_PRE':
-            setTimeout(function () {
-                if (!$.isArray(param)) {
-                    return;
-                }
-                for (var i = 0; i < param.length; i++) {
-                    if (typeof param[i] == 'object') {
-                        xchat_swf_message('MSG_SOMEBODY_IN', param[i]);
-                    }
-                }
-            }, 100);
-            break;
-        case 'MSG_SOMEBODY_IN':
-
-            /**
-             * Description: decode 64 coded string
-             * @method Base64.decode
-             * @param {String}
-             * @example
-             *  "5a6Y5pa55rWL6K+VMDAx"
-             * @return {String}
-             * @example
-             *  "官方测试001"
-             */
-
-            var appdata = jQuery.parseJSON(Base64.decode(param.appdata));
-            appdata.nickname = Base64.decode(appdata.nickname_b64);
-
-            var user = new User(param.uid, param.level, appdata);
-            g_UserList.UserIn(user);
-            if (param.in_out_hint) {
-                if (parseInt(appdata.car_id) > 0) {
-                    showcar(appdata);
-                } else {
-                    member_in_out_hint(appdata, 1);
-                }
-
-            }
-            break;
-        case 'MSG_SOMEBODY_OUT':
-
-            u = g_UserList.GetUser(param.uid)
-            if (param.in_out_hint && u) {
-                member_in_out_hint(u.appdata, 0);
-            }
-            g_UserList.UserOut(param.uid);
-            break;
-        case 'MSG_SOMEBODY_CHANGELEVEL':
-            break;
-        case 'MSG_SOMEBODY_CHANGEAPPDATA':
-            break;
-        case 'MSG_SOMEBODY_CHATENABLE':
-            if (param.uid == xMessager.uid) {
-                if (param.chatenable) {
-                    message_display.prv('<font class="warning">你的禁止发言已经解除!</font>');
-                    xMessager.chatdisable = 0;
-                }
-                else {
-                    message_display.prv('<font class="warning">你被管理员禁止发言5分钟!</font>');
-                    xMessager.chatdisable = 1;
-                }
-            }
-            else {
-                u = g_UserList.GetUser(param.uid);
-                if (u) {
-                    if (!param.chatenable) {
-                        var s = '<font class="warning">【' + u.appdata.nickname + "】被被管理员禁止发言5分钟!</font>";
-                        message_display.pub(s);
-                    }
-                }
-            }
-            break;
-        case 'MSG_KICKOUT':
-            if (param.uid == xMessager.uid) {
-                message_display.prv('<font class="warning">你被管理员踢出了！15分钟内不允许进入本房间！</font>');
-                setTimeout(function () {
-                    location.reload(true);
-                }, 5000);
-
-            }
-            else {
-                u = g_UserList.GetUser(param.uid);
-                if (u) {
-                    var s = '<font class="warning">【' + u.appdata.nickname + '(' + u.appdata.uid + ")】被管理员踢出房间了。15分钟内不允许进入本房间。</font>";
-                    message_display.pub(s);
-                }
-            }
-            break;
-        case 'MSG_MESSAGE':
-            var data = jQuery.parseJSON(Base64.decode(param.chatdata));
-            
-            
-            xMessager.OnData(data);
-            break;
-        case 'MSG_TOKEN_INFO':
-            if (param.tokenid == 1) {
-                if (param.tokenstatus == 1) {
-                    if ($('#live_time').html() == '开播时间：直播未开始') {
-                        var currentdate = new Date();
-                        var datetime = currentdate.getHours() + ":" + currentdate.getMinutes();
-                        $('#live_time').html('开播时间：' + datetime);
-                    }
-                    $(".noliveVideo").show();
-                    $(".liveVideo").hide();
-                    video_swf.LiveState(1);
-                }
-                else {
-                    $('#live_time').html('开播时间：直播未开始');
-                    if (!userpara.roomer) {
-                        load_room_recommended();
-                        $(".noliveVideo").hide();
-                        $(".liveVideo").show();
-                    }
-                    video_swf.LiveState(0);
-                }
-            }
-            break;
-    }
-}
-
-
 function xchat_swf_message_new(pid, param) {
     switch (pid) {
         case 121:
@@ -1325,7 +1034,6 @@ function xchat_swf_message_new(pid, param) {
             }
             break;
         case 122:
-
             var user;
             if (param.in_out_hint) {
                 user = new User(param.uid, param.level, param);
@@ -1394,7 +1102,6 @@ function xchat_swf_message_new(pid, param) {
                 setTimeout(function () {
                     location.reload(true);
                 }, 5000);
-
             }
             else {
                 u = g_UserList.GetUser(param.uid);
@@ -1427,6 +1134,5 @@ function xchat_swf_message_new(pid, param) {
                 }
             }
             break;
-
     }
 }

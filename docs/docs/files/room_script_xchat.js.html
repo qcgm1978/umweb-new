@@ -52,10 +52,9 @@
                 
                             <ul id="api-modules" class="apis modules">
                                 <li><a href="../modules/chat.html">chat</a></li>
-                                <li><a href="../modules/ng.html">ng</a></li>
                                 <li><a href="../modules/room.html">room</a></li>
                                 <li><a href="../modules/SendGift.html">SendGift</a></li>
-                                <li><a href="../modules/xchat_swf.html">xchat_swf</a></li>
+                                <li><a href="../modules/xchat.html">xchat</a></li>
                             </ul>
                         </div>
                     </div>
@@ -96,16 +95,14 @@
 /**
  * Provides chat interaction
  *
- * @module xchat_swf
+ * @module xchat
  */
 function CalcRank(appdata) {
     var score = 0;
-
     if (appdata.roomer) {
         score = 2147483648; //0x80000000
         return score;
     }
-
     if (appdata.watchman) {
         score = 1048576 * 7;//0x40000,1&lt;&lt;18
     }
@@ -114,13 +111,9 @@ function CalcRank(appdata) {
         score += appdata.vip * 524288;//0x100000
     }
     //}
-
-
     //if (appdata.agency){
     //score += 524288;//0x80000,1&lt;&lt;19
     //}
-
-
     if (appdata.vip2) {
         score += appdata.vip2 * 262144;//0x100000
     }
@@ -131,16 +124,13 @@ function CalcRank(appdata) {
     if (appdata.levelinroom == 100) {
         score += 65535;//0x10000,1&lt;&lt;16
     }
-
     if (appdata.vip &amp;&amp; appdata.vip &gt;= 100) {
         score += appdata.vip;//0x100000
     }
     //score += appdata.title*8;
-
     /*if (appdata.vip&lt;=5){
      score += appdata.vip;
      }*/
-
     return score;
 }
 /**
@@ -159,15 +149,11 @@ function User(uid, level, appdata) {
     this.init_level = level;
     this.appdata = appdata;
     this.rank = CalcRank(appdata);
-    
 }
-
 User.prototype = {
     hint: function () {
         //return this.appdata.nickname;
-
         var s;
-
         s = &#x27;&lt;li&#x27;;
         if ((this.appdata.nicegid + &quot;&quot;).length &lt; 8) {
             s += &#x27; class=&quot;lianghao&quot;&#x27;;
@@ -208,7 +194,6 @@ User.prototype = {
                 s += &#x27;&lt;img src=&quot;/room/images/role/r128.gif&quot;&gt;&#x27;;
             }
         }
-
         //}
         if (this.appdata.family_name &amp;&amp; Base64.decode(this.appdata.family_name) != &quot;0&quot;) {
             s += &#x27;&lt;i class=&quot;clubIcoText&quot;&gt;&lt;em&gt;&#x27; + Base64.decode(this.appdata.family_name) + &#x27;&lt;/em&gt;&lt;/i&gt;&#x27;;
@@ -219,7 +204,6 @@ User.prototype = {
         s += &#x27;&lt;/div&gt;&lt;/li&gt;&#x27;;
         return s;
     },
-
     IsAdmin: function () {
         if (this.level == 900)
             return true;
@@ -227,31 +211,25 @@ User.prototype = {
             return true;
         return false;
     },
-
     Selected: function () {
-        if ($(&quot;#message_to option[value=&#x27;&quot; + this.uid + &quot;&#x27;]&quot;).length == 0) {
+        if ($(&quot;#message_to option[value=&#x27;&quot; + this.uid + &quot;&#x27;]&quot;).length === 0) {
             //$(&quot;#message_to&quot;).val(this.appdata.nickname);
             $(&quot;#message_to&quot;).append(new Option(this.appdata.nickname, this.uid))
         }
         $(&quot;#message_to&quot;).val(this.uid);
         g_UserList.UserSelected(this.uid);
     },
-
     AddToAdminListUI: function () {
         var element = $(&quot;&lt;li&gt;&quot;).attr(&quot;id&quot;, &#x27;a_&#x27; + this.uid).append(this.hint()
         );
         var room_member_list = &#x27;#con_th_2&#x27;;
         $(room_member_list).append(element);
-
-
         var CB_Para = this;
         $(&quot;#a_&quot; + this.uid).click(function (e) {
-
             var cb_para = CB_Para;
             cb_para.DisplayMenu(cb_para, e.pageX, e.pageY);
         });
     },
-
     AddToMemberListUI: function (before_user) {
         var data = {user: this};
         var element = $(&quot;&lt;li&gt;&quot;).attr(&quot;id&quot;, this.uid).append(this.hint()
@@ -262,13 +240,10 @@ User.prototype = {
         if (before_user == null) {
             var room_member_list = &#x27;#con_th_1&#x27;;
             $(room_member_list).append(element);
-
         }
         else {
             $(&quot;#&quot; + before_user.uid).before(element);
-
         }
-
         var CB_Para = this;
         $(&quot;#&quot; + this.uid).mouseenter(function (e) {
             var cb_para = CB_Para;
@@ -278,22 +253,16 @@ User.prototype = {
             //chat_panel.set_hidemenu_flag();
         });
         $(&quot;#&quot; + this.uid).click(function (e) {
-
             var cb_para = CB_Para;
             cb_para.DisplayMenu(cb_para, e.pageX, e.pageY);
         });
-
         if (this.IsAdmin()) {
             this.AddToAdminListUI();
         }
     },
-
     DisplayMenu: function (para, x, y) {
-
         g_UserList.menu_selected_uid = para.uid;
-
         this.ControlMenuItem(para);
-
         var viewHeight = $(window).height();
         var useMeHeight = $(&quot;.userMenu&quot;).height();
         var userMenu = $(&quot;.userMenu&quot;);
@@ -333,7 +302,6 @@ User.prototype = {
         } else {
             $(userMenu).css({&quot;left&quot;: x + 10, &quot;top&quot;: 315});
         }
-
         //$(&quot;.m_nickname&quot;).html(para.appdata.nickname);
         //$(this.menu_id).css({ top: y, left: x })
         //$(this.menu_id).show();
@@ -358,10 +326,8 @@ User.prototype = {
          }
          */
     },
-
     ControlMenuItem: function (para) {
         var ADMIN_LEVEL = 900;
-
         if (xMessager.level == 2000) {
             if (xMessager.uid != para.uid) {
                 if (para.level == ADMIN_LEVEL) {
@@ -377,12 +343,10 @@ User.prototype = {
             }
             return;
         }
-
         if (xMessager.level &lt; ADMIN_LEVEL) {
             this.menu_id = &#x27;#MemberMenu&#x27;;
             return;
         }
-
         if (xMessager.level &gt;= ADMIN_LEVEL &amp;&amp; xMessager.level &gt; para.level) {
             this.menu_id = &#x27;#MemberMenu_Admin&#x27;;
         }
@@ -390,20 +354,18 @@ User.prototype = {
             this.menu_id = &#x27;#MemberMenu&#x27;;
         }
     },
-
     RemoveFromListUI: function () {
         var uid = this.uid;
         $(&quot;#&quot; + uid).remove();
         $(&quot;#a_&quot; + uid).remove();
-        $.each($(&#x27;#message_to option&#x27;), function (i,n) {
-          if($(n).val()==uid){
-              $(n).remove()
-              return false
-          }
+        $.each($(&#x27;#message_to option&#x27;), function (i, n) {
+            if ($(n).val() == uid) {
+                $(n).remove()
+                return false
+            }
         })
     }
 };
-
 function chat_zone_display_user_memu(type, x, y, uid) {
     //alert(type+&#x27;,&#x27;+x+&#x27;,&#x27;+y+&#x27;,&#x27;+uid);
     var u = g_UserList.GetUser(uid);
@@ -418,46 +380,31 @@ function chat_zone_display_user_memu(type, x, y, uid) {
  * */
 var chat_panel = {
     menu_flag: 0,
-
     init: function () {
         $(&quot;#message_btn&quot;).click(function (event) {
-
             xMessager.message($(&quot;#message_input&quot;).val(), $(&quot;#secret_check&quot;).is(&#x27;:checked&#x27;));
             $(&quot;#message_input&quot;).val(&quot;&quot;);
         });
-
         $(&quot;#message_to&quot;).change(function () {
-
             g_UserList.UserSelected(parseInt($(this).val()));
-
         });
-
         RoomCommon.setChatDialog($(&quot;#message_input&quot;), function ($ele) {
-
             xMessager.message($ele.val(), $(&quot;#secret_check&quot;).is(&#x27;:checked&#x27;));
             $ele.val(&quot;&quot;);
         });
-
         $(&quot;#m_gift&quot;).click(function (event) {
-
             chat_panel.set_gift_target();
             chat_panel.HideMenu();
         });
-
         $(&quot;#m_chat&quot;).click(function (event) {
-
             chat_panel.selected(false);
             chat_panel.HideMenu();
         });
-
         $(&quot;#m_chat_p&quot;).click(function (event) {
-
             chat_panel.selected(true);
             chat_panel.HideMenu();
         });
-
         $(&quot;#m_freeflower&quot;).unbind(&#x27;click&#x27;).click(function (event) {
-
             xMessager.freeflower();
             chat_panel.HideMenu();
         });
@@ -467,45 +414,33 @@ var chat_panel = {
          * @event
          */
         $(&quot;#m_disable_chat&quot;).unbind(&#x27;click&#x27;).click(function () {
-
             xMessager.disablechat();
             chat_panel.HideMenu();
         });
-
         $(&quot;#m_kick&quot;).unbind(&#x27;click&#x27;).click(function (event) {
-
             xMessager.kickout();
             chat_panel.HideMenu();
         });
-
         $(&quot;#m_setadmin&quot;).unbind(&#x27;click&#x27;).click(function (event) {
-
             xMessager.setadmin();
             chat_panel.HideMenu();
         });
-
         $(&quot;.m_close&quot;).click(function (event) {
             chat_panel.HideMenu();
         });
     },
-
     HideMenu: function () {
         $(&quot;.userMenu&quot;).hide();
         //$(&quot;#MemberMenu_Admin&quot;).hide();
         //$(&quot;#MemberMenu_Roomer&quot;).hide();
     },
-
-
     set_menu_flag: function (flag) {
         var d = new Date();
         this.menu_flag = flag;
-
     },
-
     get_menu_flag: function () {
         return this.menu_flag;
     },
-
     selected: function (secret) {
         var uid = g_UserList.menu_selected_uid;
         var u = g_UserList.GetUser(uid);
@@ -528,7 +463,6 @@ var chat_panel = {
         }
         g_UserList.UserSelected(uid);
     },
-
     set_gift_target: function () {
         var uid = g_UserList.menu_selected_uid;
         var u = g_UserList.GetUser(uid)
@@ -537,7 +471,6 @@ var chat_panel = {
         }
     }
 };
-
 Array.prototype.insert = function (index, item) {
     this.splice(index, 0, item);
 };
@@ -558,52 +491,42 @@ var g_UserList = {
     selected_uid: 0,
     menu_selected_uid: 0,
     admin_count: 0,
-
     GetUser: function (uid) {
         if (uid in this.members) {
             return this.members[uid];
         }
         return null;
     },
-
     GetSelectedUser: function () {
         if (this.selected_uid == 0) {
             return null;
         }
         return this.members[this.selected_uid];
     },
-
     UserSelected: function (uid) {
         this.selected_uid = uid;
-        if ($(&#x27;#message_to&#x27;).val()==0) {
-            $(&#x27;#secret_check&#x27;).attr(&#x27;disabled&#x27;,&#x27;disabled&#x27;).removeAttr(&#x27;checked&#x27;)
+        if ($(&#x27;#message_to&#x27;).val() == 0) {
+            $(&#x27;#secret_check&#x27;).attr(&#x27;disabled&#x27;, &#x27;disabled&#x27;).removeAttr(&#x27;checked&#x27;)
         } else {
             $(&#x27;#secret_check&#x27;).removeAttr(&#x27;disabled&#x27;)
         }
     },
-
     UserIn: function (user) {
-
         this.members[user.uid] = user;
         var before_u = null;
-
         var arrayLength = this.member_ui_array.length;
         for (var i = 0; i &lt; arrayLength; i++) {
             var u = this.member_ui_array[i];
-
             if (user.rank &gt; u.rank || (user.rank == u.rank &amp;&amp; user.appdata.nicegid &lt; u.appdata.nicegid)) {
                 before_u = u;
                 this.member_ui_array.insert(i, user);
                 break;
             }
         }
-
         user.AddToMemberListUI(before_u);
-
         if (before_u == null) {
             this.member_ui_array.push(user);
         }
-
         /*
          this.member_ui_array.push(user);
          this.member_ui_array.sort(function (a, b){
@@ -620,21 +543,16 @@ var g_UserList = {
 
          user.AddToMemberListUI(before_u);
          */
-
         $(&#x27;#user_count&#x27;).html(&#x27;(&#x27; + this.member_ui_array.length + &#x27;)&#x27;);
-
         if (user.IsAdmin()) {
             this.admin_count += 1;
             $(&#x27;#admin_count&#x27;).html(&#x27;(&#x27; + this.admin_count + &#x27;)&#x27;);
         }
     },
-
     UserOut: function (uid) {
-
         if (this.members[uid] == null) {
             return;
         }
-
         this.members[uid].RemoveFromListUI();
         /*
          if (uid&gt;0){
@@ -652,17 +570,13 @@ var g_UserList = {
                 break;
             }
         }
-
         if (this.members[uid].IsAdmin()) {
             this.admin_count -= 1;
             $(&#x27;#admin_count&#x27;).html(&#x27;(&#x27; + this.admin_count + &#x27;)&#x27;);
         }
-
         delete this.members[uid];
-
         $(&#x27;#user_count&#x27;).html(&#x27;(&#x27; + this.member_ui_array.length + &#x27;)&#x27;);
     },
-
     ChangeLevel: function (uid, level) {
         if (this.members[uid] == null) {
             return;
@@ -670,7 +584,6 @@ var g_UserList = {
         this.members[uid].level = level;
         //this.members[uid].RefeshUI();
     },
-
     Clear: function () {
         for (var uid in this.members) {
             this.UserOut(uid);
@@ -688,16 +601,13 @@ var g_UserList = {
  */
 var persist = {
     url: &quot;/room/persist.php&quot;,
-
     doit: function (type, room_id, touid) {
         var data = {
             &#x27;TYPE&#x27;: type,
             &#x27;TOGID&#x27;: touid,
             &#x27;ROOMID&#x27;: room_id
         };
-
         $.post(this.url, JSON.stringify(data), function (result) {
-
             var r = jQuery.parseJSON(result);
             if (r.RES == 0) {
                 alert(r.HINT);
@@ -708,23 +618,18 @@ var persist = {
             }
         })
             .fail(function () {
-
                 alert(&#x27;操作发生错误！&#x27;);
             });
     },
-
     fav: function (room_id) {
         this.doit(10, room_id, 0);
     },
-
     disablechat: function (room_id, touid) {
         this.doit(5, room_id, touid);
     },
-
     kickout: function (room_id, touid) {
         this.doit(3, room_id, touid);
     },
-
     setadmin: function (room_id, touid, be_admin) {
         if (be_admin) {
             this.doit(6, room_id, touid);
@@ -746,7 +651,6 @@ var xMessager = {
     param: {},
     nickname: &#x27;&#x27;,
     chatdisable: 0,
-
     init: function (param) {
         this.uid = param.uid;
         this.room_id = param.room_id;
@@ -761,9 +665,7 @@ var xMessager = {
             }, this.chatdisable * 60 * 1000);
         }
     },
-
     SocketError: function () {
-
         if (!xMessager.logined) {
             //message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;连接服务器失败！&lt;/font&gt;&#x27;);
         }
@@ -774,10 +676,7 @@ var xMessager = {
         g_UserList.Clear();
         xchat_start();
     },
-
     OnChat: function (chatdata) {
-
-
         var is_my_message = false;
         //if (chatdata.uid == this.uid || chatdata.touid == this.uid){
         //	is_my_message = true;
@@ -797,24 +696,18 @@ var xMessager = {
             chatdata.tou = g_UserList.GetUser(chatdata.touid);
         }
         message_display.chat(chatdata, is_my_message);
-
         //generate_small_gift();
         //gift_center.show_gift(&quot;S&quot;,&quot;small.swf&quot;,102,8);
-
     },
-
     OnFreeFlower: function (data) {
-
         var is_my_message = false;
         if (data.fromwho.uid == this.uid || data.sendwho.uid == this.uid) {
             is_my_message = true;
         }
         message_display.freeflower(data, is_my_message);
-
         //generate_big_gift();
         //gift_center.show_gift(&quot;B&quot;,&quot;big.swf&quot;,1,15);
     },
-
     OnGift: function (data) {
         console.log(&#x27;OnGift&#x27;);
         var is_my_message = false;
@@ -827,28 +720,23 @@ var xMessager = {
         }
         message_display.gift(data, is_my_message);
         gift_center.show_gift(data.type, data.gift_swf, data.sum, data.gift_swf_life, data);
-
         if (data.from_uid == room_owner_uid || data.to_uid == room_owner_uid) {
             console.log(&#x27;room_owner data need change!&#x27;);
             load_room_data();
         }
     },
-
     OnSpeaker: function (data) {
         console.log(&#x27;OnSpeaker&#x27;);
         load_speak_data();
     },
-
     OnAnchorFans: function (data) {
         console.log(&#x27;OnAnchorFans&#x27;);
         load_anchor_fans();
     },
-
     OnBanner: function () {
         console.log(&#x27;OnBanner&#x27;);
         load_gift_message();
     },
-
     OnSetAdmin: function (param) {
         if (this.level == 2000) {
             return;
@@ -888,12 +776,10 @@ var xMessager = {
                 break;
         }
     },
-
     message: function (msg, secret) {
         if (!this.logined) {
             return;
         }
-
         if (msg == &quot;&quot;) {
             return;
         }
@@ -911,7 +797,6 @@ var xMessager = {
             alert(&#x27;你目前处于禁止发言状态，不能发言！&#x27;);
             return;
         }
-
         var chatdata = {
             uid: this.uid,
             nickname: this.nickname,
@@ -919,7 +804,6 @@ var xMessager = {
             secret: secret,
             message: msg.replace(/&lt;/g, &#x27;&amp;#60;&#x27;).replace(/&gt;/g, &#x27;&amp;#62;&#x27;).replace(/\//g, &#x27;&amp;#47;&#x27;)
         };
-
         var selected_user = g_UserList.GetSelectedUser();
         if (selected_user == null) {
             chatdata.to_nickname = &quot;所有人&quot;;
@@ -928,28 +812,22 @@ var xMessager = {
         else {
             chatdata.to_nickname = selected_user.appdata.nickname;
         }
-
         var data = {
             type: &#x27;C&#x27;,
             data: chatdata
         };
-
         var to_uid = g_UserList.selected_uid;
         if (!secret) {
             to_uid = 0;
         }
-
-
         xchat_swf.send(to_uid, Base64.encode(JSON.stringify(data)));
     },
-
     freeflower: function () {
         if (this.level &lt; 100) {
             //alert(&#x27;游客不能免费献花！&#x27;);
             checklogin();
             return;
         }
-
         var my_u = g_UserList.GetUser(this.uid);
         var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
         if (my_u &amp;&amp; to_u) {
@@ -960,11 +838,9 @@ var xMessager = {
                     sendwho: {gid: to_u.appdata.gid, nickname: to_u.appdata.nickname}
                 }
             }
-
             xchat_swf.send(0, Base64.encode(JSON.stringify(data)));
         }
     },
-
     disablechat: function () {
         var mins = 5;
         var from_u = g_UserList.GetUser(this.uid);
@@ -993,7 +869,6 @@ var xMessager = {
             xchat_swf.disablechat(to_u.uid, mins);
         }
     },
-
     kickout: function () {
         var from_u = g_UserList.GetUser(this.uid);
         var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
@@ -1020,7 +895,6 @@ var xMessager = {
             xchat_swf.kickout(to_u.uid);
         }
     },
-
     setadmin: function () {
         var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
         if (to_u) {
@@ -1033,24 +907,19 @@ var xMessager = {
             xchat_swf.send(to_u.uid, Base64.encode(JSON.stringify(data)));
         }
     },
-
     giftmessage: function (type, param, banner) {
         var data = {
             type: &#x27;G&#x27;,
             data: param
         }
-
         xchat_swf.send(0, Base64.encode(JSON.stringify(data)));
-
         if (banner == &#x27;B&#x27;) {
             var data = {
                 type: &#x27;BANNER&#x27;
             }
-
             xchat_swf.send(-1, Base64.encode(JSON.stringify(data)));
         }
     },
-
     speakermessage: function (param) {
         var data = {
             type: &#x27;LS&#x27;,
@@ -1058,20 +927,15 @@ var xMessager = {
         }
         xchat_swf.send(-1, Base64.encode(JSON.stringify(data)));
     },
-
     anchorfans: function () {
         var data = {
             type: &#x27;AFANS&#x27;
         }
         xchat_swf.send(0, Base64.encode(JSON.stringify(data)));
-
     },
-
     ReEnter: function () {
-
         message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你已被同一账号挤出本房间！&lt;/font&gt;&#x27;);
     },
-
     LoginACK: function (param) {
         if (param.loginack == 0) {
             switch (param.reason) {
@@ -1101,25 +965,20 @@ var message_display = {
     prv: function (msg) {
         uu89prv.insert(msg);
     },
-
     pub: function (msg) {
         uu89pub.insert(msg);
     },
-
     chat: function (chatdata, is_my_message) {
         if (is_my_message) {
-
             uu89prv.display_chatmessage(chatdata);
             if (chatdata.touid == 0) {
                 uu89pub.display_chatmessage(chatdata);
             }
         }
         else {
-
             uu89pub.display_chatmessage(chatdata);
         }
     },
-
     freeflower: function (data, is_my_message) {
         if (is_my_message) {
             document.getElementById(&#x27;chat_prv&#x27;).contentWindow.FreeFlower(data);
@@ -1128,7 +987,6 @@ var message_display = {
             document.getElementById(&#x27;chat_pub&#x27;).contentWindow.FreeFlower(data);
         }
     },
-
     gift: function (data, is_my_message) {
         if (is_my_message) {
             uu89prv.disgift(data, 0);
@@ -1195,7 +1053,6 @@ var xchat_swf = {
         // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
         //swfobject.createCSS(&quot;#flashContent&quot;, &quot;display:block;text-align:center;&quot;);
     },
-
     alertNoSwf: function () {
         alert(&quot;flash初始化失败.&quot;);
     },
@@ -1206,11 +1063,9 @@ var xchat_swf = {
             xchat_swf.alertNoSwf();
         }
     },
-
     swf: function () {
         return swfobject.getObjectById(&quot;xchat&quot;);
     },
-
     send: function (to_uid, data) {
         try {
             this.swf().Chat(to_uid, data);
@@ -1218,11 +1073,9 @@ var xchat_swf = {
             xchat_swf.alertNoSwf();
         }
     },
-
     disablechat: function (touid, mins) {
         this.swf().DisableChat(touid, mins);
     },
-
     kickout: function (touid) {
         this.swf().Kickout(touid);
     },
@@ -1243,19 +1096,13 @@ var xchat_swf = {
             var datetime = currentdate.getHours() + &quot;:&quot; + currentdate.getMinutes();
             $(&#x27;#live_time&#x27;).html(&#x27;开播时间：&#x27; + datetime);
         }
-
     }
 };
-
 function xchat_swf_debug(info) {
-
 }
-
 function xchat_swf_error(Error) {
-
     xMessager.SocketError();
 }
-
 function member_in_out_hint(appdata, type) {
     appdata.type = type;
     uu89pub.disinout(appdata);
@@ -1263,151 +1110,12 @@ function member_in_out_hint(appdata, type) {
 /**
  * Description: callback by Flash
  *
- * @xchat_swf_message
- * @
+ * @method xchat_swf_message_new
+ * @param pid {Number}
+ * @param param {Object}
+ * @example
+ *  xchat_swf_message_new(0,{&quot;data&quot;:{&quot;nickname&quot;:&quot;qcgm1978&quot;,&quot;touid&quot;:0,&quot;to_nickname&quot;:&quot;所有人&quot;,&quot;secret&quot;:false,&quot;message&quot;:&quot;a&quot;,&quot;uid&quot;:32087767},&quot;type&quot;:&quot;C&quot;})
  */
-function xchat_swf_message(type, param) {
-
-
-    switch (type) {
-        case &#x27;MSG_LOGIN_ACK&#x27;:
-            xMessager.LoginACK(param);
-            break;
-        case &#x27;MSG_REENTER&#x27;:
-            xMessager.ReEnter();
-            break;
-        case &#x27;MSG_SESSION_PARAM&#x27;:
-            message_display.prv(&#x27;连接服务器成功.&#x27;);
-            message_display.prv(&#x27;&lt;font color=&quot;#FF4444&quot;&gt;主播欢迎你:&lt;/font&gt;&#x27; + room_welcome + &#x27;&#x27;);
-            xMessager.logined = true;
-            /*
-             if (video_start){
-             }
-             video_start();
-             */
-            owshowcar();
-            break;
-        case &#x27;MSG_USER_LIST_PRE&#x27;:
-            setTimeout(function () {
-                if (!$.isArray(param)) {
-                    return;
-                }
-                for (var i = 0; i &lt; param.length; i++) {
-                    if (typeof param[i] == &#x27;object&#x27;) {
-                        xchat_swf_message(&#x27;MSG_SOMEBODY_IN&#x27;, param[i]);
-                    }
-                }
-            }, 100);
-            break;
-        case &#x27;MSG_SOMEBODY_IN&#x27;:
-
-            /**
-             * Description: decode 64 coded string
-             * @method Base64.decode
-             * @param {String}
-             * @example
-             *  &quot;5a6Y5pa55rWL6K+VMDAx&quot;
-             * @return {String}
-             * @example
-             *  &quot;官方测试001&quot;
-             */
-
-            var appdata = jQuery.parseJSON(Base64.decode(param.appdata));
-            appdata.nickname = Base64.decode(appdata.nickname_b64);
-
-            var user = new User(param.uid, param.level, appdata);
-            g_UserList.UserIn(user);
-            if (param.in_out_hint) {
-                if (parseInt(appdata.car_id) &gt; 0) {
-                    showcar(appdata);
-                } else {
-                    member_in_out_hint(appdata, 1);
-                }
-
-            }
-            break;
-        case &#x27;MSG_SOMEBODY_OUT&#x27;:
-
-            u = g_UserList.GetUser(param.uid)
-            if (param.in_out_hint &amp;&amp; u) {
-                member_in_out_hint(u.appdata, 0);
-            }
-            g_UserList.UserOut(param.uid);
-            break;
-        case &#x27;MSG_SOMEBODY_CHANGELEVEL&#x27;:
-            break;
-        case &#x27;MSG_SOMEBODY_CHANGEAPPDATA&#x27;:
-            break;
-        case &#x27;MSG_SOMEBODY_CHATENABLE&#x27;:
-            if (param.uid == xMessager.uid) {
-                if (param.chatenable) {
-                    message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你的禁止发言已经解除!&lt;/font&gt;&#x27;);
-                    xMessager.chatdisable = 0;
-                }
-                else {
-                    message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你被管理员禁止发言5分钟!&lt;/font&gt;&#x27;);
-                    xMessager.chatdisable = 1;
-                }
-            }
-            else {
-                u = g_UserList.GetUser(param.uid);
-                if (u) {
-                    if (!param.chatenable) {
-                        var s = &#x27;&lt;font class=&quot;warning&quot;&gt;【&#x27; + u.appdata.nickname + &quot;】被被管理员禁止发言5分钟!&lt;/font&gt;&quot;;
-                        message_display.pub(s);
-                    }
-                }
-            }
-            break;
-        case &#x27;MSG_KICKOUT&#x27;:
-            if (param.uid == xMessager.uid) {
-                message_display.prv(&#x27;&lt;font class=&quot;warning&quot;&gt;你被管理员踢出了！15分钟内不允许进入本房间！&lt;/font&gt;&#x27;);
-                setTimeout(function () {
-                    location.reload(true);
-                }, 5000);
-
-            }
-            else {
-                u = g_UserList.GetUser(param.uid);
-                if (u) {
-                    var s = &#x27;&lt;font class=&quot;warning&quot;&gt;【&#x27; + u.appdata.nickname + &#x27;(&#x27; + u.appdata.uid + &quot;)】被管理员踢出房间了。15分钟内不允许进入本房间。&lt;/font&gt;&quot;;
-                    message_display.pub(s);
-                }
-            }
-            break;
-        case &#x27;MSG_MESSAGE&#x27;:
-            var data = jQuery.parseJSON(Base64.decode(param.chatdata));
-            
-            
-            xMessager.OnData(data);
-            break;
-        case &#x27;MSG_TOKEN_INFO&#x27;:
-            if (param.tokenid == 1) {
-                if (param.tokenstatus == 1) {
-                    if ($(&#x27;#live_time&#x27;).html() == &#x27;开播时间：直播未开始&#x27;) {
-                        var currentdate = new Date();
-                        var datetime = currentdate.getHours() + &quot;:&quot; + currentdate.getMinutes();
-                        $(&#x27;#live_time&#x27;).html(&#x27;开播时间：&#x27; + datetime);
-                    }
-                    $(&quot;.noliveVideo&quot;).show();
-                    $(&quot;.liveVideo&quot;).hide();
-                    video_swf.LiveState(1);
-                }
-                else {
-                    $(&#x27;#live_time&#x27;).html(&#x27;开播时间：直播未开始&#x27;);
-                    if (!userpara.roomer) {
-                        load_room_recommended();
-                        $(&quot;.noliveVideo&quot;).hide();
-                        $(&quot;.liveVideo&quot;).show();
-                    }
-                    video_swf.LiveState(0);
-                }
-            }
-            break;
-    }
-}
-
-
 function xchat_swf_message_new(pid, param) {
     switch (pid) {
         case 121:
@@ -1420,7 +1128,6 @@ function xchat_swf_message_new(pid, param) {
             }
             break;
         case 122:
-
             var user;
             if (param.in_out_hint) {
                 user = new User(param.uid, param.level, param);
@@ -1489,7 +1196,6 @@ function xchat_swf_message_new(pid, param) {
                 setTimeout(function () {
                     location.reload(true);
                 }, 5000);
-
             }
             else {
                 u = g_UserList.GetUser(param.uid);
@@ -1522,7 +1228,6 @@ function xchat_swf_message_new(pid, param) {
                 }
             }
             break;
-
     }
 }
     </pre>

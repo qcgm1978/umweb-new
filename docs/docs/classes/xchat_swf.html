@@ -52,10 +52,9 @@
                 
                             <ul id="api-modules" class="apis modules">
                                 <li><a href="../modules/chat.html">chat</a></li>
-                                <li><a href="../modules/ng.html">ng</a></li>
                                 <li><a href="../modules/room.html">room</a></li>
                                 <li><a href="../modules/SendGift.html">SendGift</a></li>
-                                <li><a href="../modules/xchat_swf.html">xchat_swf</a></li>
+                                <li><a href="../modules/xchat.html">xchat</a></li>
                             </ul>
                         </div>
                     </div>
@@ -94,10 +93,10 @@
 
 
         <div class="foundat">
-            Defined in: <a href="../files/room_script_xchat.js.html#l1046"><code>room\script\xchat.js:1046</code></a>
+            Defined in: <a href="../files/room_script_xchat.js.html#l905"><code>room\script\xchat.js:905</code></a>
         </div>
 
-            Module: <a href="../modules/xchat_swf.html">xchat_swf</a>
+            Module: <a href="../modules/xchat.html">xchat</a>
 
 </div>
 
@@ -124,15 +123,15 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
-                                <a href="#method_Base64.decode">Base64.decode</a>
-
-                            </li>
-                            <li class="index-item method">
                                 <a href="#method_Init">Init</a>
 
                             </li>
                             <li class="index-item method">
                                 <a href="#method_swfobject.embedSWF">swfobject.embedSWF</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_xchat_swf_message_new">xchat_swf_message_new</a>
 
                             </li>
                     </ul>
@@ -145,78 +144,6 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
-<div id="method_Base64.decode" class="method item">
-    <h3 class="name"><code>Base64.decode</code></h3>
-
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>UNKNOWN</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
-
-        <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/room_script_xchat.js.html#l1209"><code>room\script\xchat.js:1209</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Description: decode 64 coded string</p>
-
-    </div>
-
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-                <li class="param">
-                        <code class="param-name">UNKNOWN</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-            </div>
-        </div>
-
-
-        <div class="example">
-            <h4>Example:</h4>
-
-            <div class="example-content">
-                <p> &quot;5a6Y5pa55rWL6K+VMDAx&quot;</p>
-<p> &quot;官方测试001&quot;</p>
-
-            </div>
-        </div>
-</div>
 <div id="method_Init" class="method item">
     <h3 class="name"><code>Init</code></h3>
 
@@ -235,7 +162,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/room_script_xchat.js.html#l1052"><code>room\script\xchat.js:1052</code></a>
+        <a href="../files/room_script_xchat.js.html#l911"><code>room\script\xchat.js:911</code></a>
         </p>
 
 
@@ -281,7 +208,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/room_script_xchat.js.html#l1088"><code>room\script\xchat.js:1088</code></a>
+        <a href="../files/room_script_xchat.js.html#l947"><code>room\script\xchat.js:947</code></a>
         </p>
 
 
@@ -296,6 +223,80 @@
 
 
 
+</div>
+<div id="method_xchat_swf_message_new" class="method item">
+    <h3 class="name"><code>xchat_swf_message_new</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>pid</code>
+                </li>
+                <li class="arg">
+                        <code>param</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/room_script_xchat.js.html#l1016"><code>room\script\xchat.js:1016</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Description: callback by Flash</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">pid</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">param</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <p> xchat_swf_message_new(0,{&quot;data&quot;:{&quot;nickname&quot;:&quot;qcgm1978&quot;,&quot;touid&quot;:0,&quot;to_nickname&quot;:&quot;所有人&quot;,&quot;secret&quot;:false,&quot;message&quot;:&quot;a&quot;,&quot;uid&quot;:32087767},&quot;type&quot;:&quot;C&quot;})</p>
+
+            </div>
+        </div>
 </div>
             </div>
 

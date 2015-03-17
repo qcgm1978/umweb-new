@@ -97,7 +97,8 @@ module.exports = function (grunt) {
         plato: {
             your_task: {
                 options : {
-                    jshint : false,
+                    //jshint : false,
+                    switchcase : false,
                     exclude: /(\.min)|(jquery.*)|(swfobject)\.js$/    // excludes source files finishing with ".min.js"
                 },
                 files: {
