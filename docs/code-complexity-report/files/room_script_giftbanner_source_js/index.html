@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - room/script/giftbanner.source.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>room/script/giftbanner.source.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">63.37</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">84</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">39.00</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.13</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/* 礼物跑道类 */
+function giftBanner(obj)
+{
+	this.isStarted  = false;                                                               // 跑道是否已经启动
+	this.obj        = document.getElementById(obj);                                        // 礼物跑道DOM容器
+	this.banWidth   = document.body.clientWidth;                                           // 跑道宽度
+	this.banHeight  = document.body.clientHeight;                                          // 跑道高度
+	this.msgLeft    = this.banWidth;                                                       // 礼物消息起始X坐标
+	this.msgLength  = this.obj.clientWidth;                                                // 礼物消息实际长度
+	this.msgs       = new Array();                                                         // 礼物消息容器
+	this.lastMsg    = &quot;&quot;;                                                                  // 最后一条礼物消息
+	this.questTime  = 0;                                                                   // 最后一次请求服务器时间
+	this.srollTimer = null;                                                                // 滚动定时器标石
+	this.time       = function(d){return new Date(d*1000).toLocaleTimeString()}; // 格式化时间
+};
+
+giftBanner.prototype = {
+	/* 启动跑道 */
+	start:function(){
+		if(this.isStarted === false &amp;&amp; this.lastMsg){
+			var self = this;
+			this.obj.style.left = this.banWidth;
+			this.srollTimer = window.setInterval(function(){self.sroll();}, 30);
+			this.isStarted = true;
+		}
+	},
+	
+	/* 滚动消息 */
+	sroll:function(){
+		if(this.msgLeft &gt; this.msgLength * -1){
+			this.obj.style.left = this.msgLeft;
+			this.msgLeft        = this.msgLeft - 3;
+		}else{
+			this.obj.innerHTML = this.lastMsg;
+			this.msgLength     = this.obj.clientWidth;
+			this.msgLeft       = this.banWidth;
+		}
+	},
+	
+	/* 加载消息 */
+	show:function(){
+		if(this.msgs.length &gt; 0){
+			// 计算需要的礼物消息间距
+			var rightx = parseInt(this.banWidth - (this.msgLeft + this.msgLength));
+			var xsum = rightx &gt; 7 ? parseInt(rightx/7) : 10;
+			var nbsp = &quot;&quot;;
+			for(var i=0; i&lt;xsum; i++){
+				nbsp += &quot;&amp;nbsp;&quot;;
+			}
+			this.lastMsg = this.msgs.shift();
+			if(this.lastMsg){
+				this.obj.innerHTML += nbsp + this.lastMsg;
+			}
+			this.msgLength = this.obj.clientWidth;
+			this.start();
+		}		
+	},
+	
+	/* 格式化消息 */
+	adds:function(res){
+		if(typeof(res) === &quot;object&quot;){
+			this.questTime = res.t;
+			var bs = res.b, s=&#039;&#039;;
+			for(var i=0; i&lt;bs.length; i++){
+				s += &#039;&lt;img src=&quot;/upload/gift_img/&#039; + bs[i].gift_img + &#039;&quot; align=&quot;absmiddle&quot; height=&quot;30px&quot;/&gt;&amp;nbsp;&#039;;
+				if(bs[i].gift_from == 1){
+					s += &#039;&lt;font color=&quot;#ff8c00&quot; style=&quot;font-size:20px&quot;&gt;[黄袋]&lt;/font&gt;&amp;nbsp;&#039;;
+				}
+				if(bs[i].gift_from == 2){
+					s += &#039;&lt;font color=&quot;#0000ff&quot; style=&quot;font-size:20px&quot;&gt;[蓝袋]&lt;/font&gt;&amp;nbsp;&#039;;
+				}
+				if(bs[i].gift_from == 3){
+					s += &#039;&lt;font color=&quot;#9400D3&quot; style=&quot;font-size:20px&quot;&gt;[紫袋]&lt;/font&gt;&amp;nbsp;&#039;;
+				}
+				s += &#039;&lt;font color=&quot;#ff3b85&quot;&gt;&#039; + bs[i].from_nickname + &#039;(&#039;+  bs[i].from_gid  +&#039;)&#039; + &#039;&lt;/font&gt;&amp;nbsp;&#039;;
+				s += &#039;送给&amp;nbsp;&lt;font color=&quot;#ff3b85&quot;&gt;&#039; + bs[i].to_nickname + &#039;(&#039;+  bs[i].to_gid  +&#039;)&#039; + &#039;&lt;/font&gt;&amp;nbsp;&#039;;
+				s += bs[i].gift_sum + &#039;&amp;nbsp;&#039; + bs[i].gift_unit + &#039;&amp;nbsp;&lt;font color=&quot;#ff0000&quot;&gt;&#039; + bs[i].gift_name + &#039;&lt;/font&gt;&amp;nbsp;&#039;;
+				s += &#039;&lt;font color=&quot;#072f8a&quot; style=&quot;font-size:20px&quot;&gt;[&#039; + bs[i].room_name + &#039;(&#039;+ bs[i].room_id +&#039;)的直播间&#039;+ &#039;&amp;nbsp;&amp;nbsp;&#039; +this.time(bs[i].add_time) + &#039;]&lt;/font&gt;&#039;;
+				this.msgs.push(s);
+				s=&#039;&#039;;
+			}
+		}
+		this.show();
+	}
+};</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

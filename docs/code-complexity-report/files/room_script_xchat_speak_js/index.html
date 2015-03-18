@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - room/script/xchat_speak.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>room/script/xchat_speak.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">66.95</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">1038</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">83.75</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">11.15</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">function CalcRank(appdata)
+{
+	var score = 0;
+	
+	if (appdata.roomer){
+		score = 2147483648; //0x80000000
+		return score;
+	}
+	
+	if (appdata.vip&gt;=28){
+		score = appdata.vip * 1048576;//0x100000
+	}
+	
+	if (appdata.agency){
+		score += 524288;//0x80000,1&lt;&lt;19
+	}
+	
+	if (appdata.watchman){
+		score += 262144;//0x40000,1&lt;&lt;18
+	}
+	
+	if (appdata.levelinroom==900){
+		score += 131072;//0x20000,1&lt;&lt;17
+	}
+	
+	if (appdata.levelinroom==100){
+		score += 65535;//0x10000,1&lt;&lt;16
+	}
+	
+	score += appdata.title*8;
+	
+	if (appdata.vip&lt;=5){
+		score += appdata.vip;
+	}
+	
+	return score;
+}
+
+function User(uid,level,appdata){
+	this.uid = uid;
+	this.level = level;
+	this.init_level = level;
+	this.appdata = appdata;
+	this.rank = CalcRank(appdata);
+	console.log(&#039;rank.&#039; + this.rank);
+}
+
+User.prototype = {
+	hint : function(){
+		//return this.appdata.nickname;
+		
+		var s;
+
+		s = &#039;&lt;li&gt;&lt;p&gt;&lt;span&gt;&#039;+ this.appdata.nickname +&#039;&lt;/span&gt;&lt;span class=&quot;fr&#039;+((this.appdata.nicegid+&quot;&quot;).length&lt;8?&quot; l-state&quot;:&quot;&quot;)+&#039;&quot;&gt;&#039;+ this.appdata.nicegid +&#039;&lt;/span&gt;&lt;/p&gt;&#039;;
+		s += &#039;&lt;p&gt;&lt;span&gt;&#039;;
+
+		if (this.appdata.roomer || this.appdata.title&gt;0 || this.appdata.vip&gt;0 || this.appdata.watchman&gt;0 || this.level==900 || this.appdata.agency&gt;0){
+			if (this.appdata.roomer){
+				s += &#039;&lt;img src=&quot;/room/images/role/r_z.gif&quot;&gt;&#039;
+				if (this.appdata.starlevel&gt;0){
+					s += &#039;&lt;img src=&quot;/room/images/star/s&#039;+this.appdata.starlevel+&#039;.png&quot;&gt;&#039;;
+				}
+			}
+			else{
+				if (this.appdata.title&gt;0){
+					s += &#039;&lt;img src=&quot;/room/images/title/t&#039;+this.appdata.title+&#039;.gif&quot;&gt;&#039;;
+				}
+				if (this.appdata.vip&gt;0){
+					s += &#039;&lt;img src=&quot;/room/images/vip/v&#039;+this.appdata.vip+&#039;.gif&quot;&gt;&#039;;
+				}
+				if (this.appdata.watchman&gt;0){
+					s += &#039;&lt;img src=&quot;/room/images/role/r8.gif&quot;&gt;&#039;;
+				}
+				else{
+					if (this.level==900){
+						s += &#039;&lt;img src=&quot;/room/images/role/r5.gif&quot;&gt;&#039;;
+					}
+				}
+				if (this.appdata.agency&gt;0){
+					s += &#039;&lt;img src=&quot;/room/images/role/r128.gif&quot;&gt;&#039;;
+				}
+			}	
+		
+		}
+		
+		
+		s += &#039;&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;&#039;;
+		return s;
+	},
+
+	IsAdmin : function(){
+		if (this.level==900)
+			return true;
+		if (this.appdata.watchman&gt;0)
+			return true;
+		return false;
+	},
+	
+	Selected : function(){
+		if ($(&quot;#message_to option[value=&#039;&quot; + this.uid + &quot;&#039;]&quot;).length == 0){
+			//$(&quot;#message_to&quot;).val(this.appdata.nickname);
+			$(&quot;#message_to&quot;).append(new Option(this.appdata.nickname,this.uid))
+		}
+		$(&quot;#message_to&quot;).val(this.uid);
+		g_UserList.UserSelected(this.uid);
+	},
+
+	AddToAdminListUI : function(){
+		var element = $(&quot;&lt;li&gt;&quot;).attr(&quot;id&quot;,&#039;a_&#039;+this.uid).append(this.hint()
+				);
+		var room_member_list = &#039;#con_th_2&#039;;
+		$(room_member_list).append(element);
+		
+				
+		var CB_Para = this;
+		$(&quot;#a_&quot;+this.uid).click(function(e) {
+				//console.log(&#039;x,y:&#039;+e.pageX+&#039;:&#039;+e.pageY)
+				var cb_para = CB_Para;
+				cb_para.DisplayMenu(cb_para,e.pageX,e.pageY);
+			});
+	},
+	
+	AddToMemberListUI : function(before_user){
+		var data = {user:this};
+		var element = $(&quot;&lt;li&gt;&quot;).attr(&quot;id&quot;,this.uid).append(this.hint()
+				).click(data,function(event){
+				//$(this).addClass(&quot;active&quot;);
+				////event.data.user.Selected();
+			});
+		if (before_user == null){	
+			var room_member_list = &#039;#con_th_1&#039;;
+			$(room_member_list).append(element);
+			console.log(&#039;AddToMemberListUI:&#039;+this.hint());
+		}
+		else{
+			$(&quot;#&quot;+before_user.uid).before(element);
+			console.log(&#039;AddToMemberListUI:&#039;+this.hint() + &#039;,before:&#039;+before_user.uid);
+		}
+				
+		var CB_Para = this;
+		$(&quot;#&quot;+this.uid).mouseenter(function(e) {
+						var cb_para = CB_Para;
+						//cb_para.DisplayMenu(cb_para);
+					});
+		$(&quot;#&quot;+this.uid).mouseout(function(e) {
+						//chat_panel.set_hidemenu_flag();
+					});
+		$(&quot;#&quot;+this.uid).click(function(e) {
+				console.log(&#039;x,y:&#039;+e.pageX+&#039;:&#039;+e.pageY)
+				var cb_para = CB_Para;
+				cb_para.DisplayMenu(cb_para,e.pageX,e.pageY);
+			});
+			
+		if (this.IsAdmin()){	
+			this.AddToAdminListUI();	
+		}
+	},
+
+	DisplayMenu : function(para,x,y){
+		console.log(&#039;DisplayMenu.&#039; + para.uid);
+		g_UserList.menu_selected_uid = para.uid;
+		
+		this.ControlMenuItem(para);
+		
+		$(&quot;.m_nickname&quot;).html(para.appdata.nickname+&#039;-&#039;+para.uid);
+		$(this.menu_id).css({ top: y, left: x })
+		$(this.menu_id).show();
+		/*
+		window.setTimeout(function(){
+			document.onclick = function (){
+				//关闭右键菜单
+				$(&quot;#MemberMenu&quot;).hide();
+				console.log(&#039;document.onclick&#039;);
+				document.onclick = function (){};
+			};
+		},1000);
+		*/
+		/*
+		if (chat_panel.get_menu_flag()==0){
+			chat_panel.set_menu_flag(1);
+			$(&quot;#MemberMenu&quot;).show();
+		}
+		else{
+			chat_panel.set_menu_flag(0);
+			$(&quot;#MemberMenu&quot;).hide();
+		}
+		*/
+	},
+
+	ControlMenuItem : function(para){
+		var ADMIN_LEVEL = 900;
+
+		if (xMessager.level==2000){
+			if (xMessager.uid != para.uid){
+				if (para.level == ADMIN_LEVEL){
+					$(&#039;.m_setadmin&#039;).text(&#039;把Ta的管理取消&#039;);
+				}
+				else{
+					$(&#039;.m_setadmin&#039;).text(&#039;把Ta设置为管理&#039;);
+				}
+				this.menu_id = &#039;#MemberMenu_Roomer&#039;;
+			}
+			else{
+				this.menu_id = &#039;#MemberMenu&#039;;
+			}
+			return;
+		}
+		
+		if (xMessager.level &lt; ADMIN_LEVEL){
+			this.menu_id = &#039;#MemberMenu&#039;;
+			return;
+		}
+
+		if (xMessager.level&gt;=ADMIN_LEVEL &amp;&amp; xMessager.level &gt; para.level){
+			this.menu_id = &#039;#MemberMenu_Admin&#039;;
+		}
+		else{
+			this.menu_id = &#039;#MemberMenu&#039;;
+		}
+	},
+
+	RemoveFromListUI : function(){
+		$(&quot;#&quot;+this.uid).remove();
+		$(&quot;#a_&quot;+this.uid).remove();
+	},
+};
+
+function chat_zone_display_user_memu(type,x,y,uid)
+{
+	//alert(type+&#039;,&#039;+x+&#039;,&#039;+y+&#039;,&#039;+uid);
+	var u = g_UserList.GetUser(uid);
+	if (u){
+		var position;
+		if (type==0){
+			position = $(&quot;#chat_pub&quot;).position();
+		}
+		else{
+			position = $(&quot;#chat_prv&quot;).position();
+		}
+		var x1 = x + position.left;
+		var y1 = y + position.top + 4;
+		u.DisplayMenu(u,x1,y1);
+	}
+}
+
+var chat_panel = {
+	menu_flag : 0,
+	
+	init : function(){
+		$(&quot;#message_btn&quot;).click(function(event){
+			console.log(&#039;secret_check:&#039;+$(&quot;#secret_check&quot;).is(&#039;:checked&#039;));
+			xMessager.message($(&quot;#message_input&quot;).val(),$(&quot;#secret_check&quot;).is(&#039;:checked&#039;));
+			$(&quot;#message_input&quot;).val(&quot;&quot;); 
+		});
+
+		$(&quot;#message_to&quot;).change(function(){
+			console.log(&#039;message_to changed.&#039; + $(this).val());
+			g_UserList.UserSelected(parseInt($(this).val()));
+			console.log(&#039;g_UserList.selected_uid = &#039; + g_UserList.selected_uid);
+		});
+
+		$(&quot;#message_input&quot;).keypress(function(event) {
+			if ( event.which == 13 ) {
+				$(&quot;#message_btn&quot;).click();
+			}
+		});
+
+		$(&quot;.m_gift&quot;).click(function(event){
+			console.log(&#039;m_gift&#039;);
+			chat_panel.set_gift_target();
+			chat_panel.HideMenu();
+		});
+		
+		$(&quot;.m_chat&quot;).click(function(event){
+			console.log(&#039;m_chat&#039;);
+			chat_panel.selected(false);
+			chat_panel.HideMenu();
+		});
+
+		$(&quot;.m_chat_p&quot;).click(function(event){
+			console.log(&#039;m_chat_p&#039;);
+			chat_panel.selected(true);
+			chat_panel.HideMenu();
+		});
+		
+		$(&quot;.m_freeflower&quot;).unbind(&#039;click&#039;).click(function(event){
+			console.log(&#039;m_freeflower&#039;);
+			xMessager.freeflower();
+			chat_panel.HideMenu();
+		});
+		
+		$(&quot;.m_disable_chat&quot;).unbind(&#039;click&#039;).click(function(event){
+			console.log(&#039;m_disable_chat&#039;);
+			xMessager.disablechat();
+			chat_panel.HideMenu();
+		});
+		
+		$(&quot;.m_kick&quot;).unbind(&#039;click&#039;).click(function(event){
+			console.log(&#039;m_kick&#039;);
+			xMessager.kickout();
+			chat_panel.HideMenu();
+		});
+		
+		$(&quot;.m_setadmin&quot;).unbind(&#039;click&#039;).click(function(event){
+			console.log(&#039;m_setadmin&#039;);
+			xMessager.setadmin();
+			chat_panel.HideMenu();
+		});
+
+		$(&quot;.m_close&quot;).click(function(event){
+			chat_panel.HideMenu();
+		});
+	},
+	
+	HideMenu : function(){
+		$(&quot;#MemberMenu&quot;).hide();
+		$(&quot;#MemberMenu_Admin&quot;).hide();
+		$(&quot;#MemberMenu_Roomer&quot;).hide();
+	},
+	
+
+	set_menu_flag : function(flag){
+		var d = new Date();
+		this.menu_flag = flag;
+		console.log(&#039;set_menu_flag. &#039; + this.menu_flag);
+	},
+	
+	get_menu_flag : function(){
+		return this.menu_flag;
+	},
+	
+	selected : function(secret){
+		var uid = g_UserList.menu_selected_uid;
+		var u = g_UserList.GetUser(uid);
+		if (!u){
+			return;
+		}
+		if ($(&quot;#message_to option[value=&#039;&quot; + uid + &quot;&#039;]&quot;).length == 0){
+			$(&quot;#message_to&quot;).append(new Option(u.appdata.nickname,uid))
+		}
+		$(&quot;#message_to&quot;).val(uid);
+		if (secret){
+			$(&quot;#secret_check&quot;).prop( &quot;checked&quot;, true );
+		}
+		else{
+			$(&quot;#secret_check&quot;).prop( &quot;checked&quot;, false );
+		}
+		g_UserList.UserSelected(uid);
+	},
+	
+	set_gift_target : function(){
+		var uid = g_UserList.menu_selected_uid;
+		var u = g_UserList.GetUser(uid)
+		if (u){
+			SetGiftRX(uid,u.appdata.nickname);
+		}
+	}
+};
+
+Array.prototype.insert = function (index, item) {
+  this.splice(index, 0, item);
+};
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from &lt; 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
+
+var g_UserList = {
+	members : {},
+	member_ui_array : [],
+	selected_uid : 0,
+	menu_selected_uid : 0,
+	admin_count : 0,
+	
+	GetUser : function(uid){
+		if (uid in this.members){
+			return this.members[uid];
+		}
+		return null;
+	},
+	
+	GetSelectedUser : function(){
+		if (this.selected_uid == 0){
+			return null;
+		}
+		return this.members[this.selected_uid];
+	},
+
+	UserSelected : function(uid){
+		this.selected_uid = uid;
+	},
+
+	UserIn : function(user){
+		console.log(&#039;UserIn:&#039;+user.appdata.nickname);
+		this.members[user.uid] = user;
+		var before_u = null;
+
+		var arrayLength = this.member_ui_array.length;
+		for (var i = 0; i &lt; arrayLength; i++) {
+			var u = this.member_ui_array[i];
+			//console.log(user.rank + &#039;,&#039; + u.rank);
+			if (user.rank &gt; u.rank || (user.rank == u.rank &amp;&amp; user.appdata.nicegid &lt; u.appdata.nicegid)){
+				before_u = u;
+				this.member_ui_array.insert(i,user);
+				break;
+			}
+		}
+		
+		user.AddToMemberListUI(before_u);
+
+		if (before_u == null){
+			this.member_ui_array.push(user);
+		}
+		
+		/*
+		this.member_ui_array.push(user);
+		this.member_ui_array.sort(function (a, b){
+			if (a.rank &gt; b.rank || (a.rank == b.rank &amp;&amp; a.uid &lt; a.uid)){
+				return false;
+			}
+			return true;
+		});
+		
+		var index = jQuery.inArray(user,this.member_ui_array);
+		if (index &lt; this.member_ui_array.length-1){
+			before_u = this.member_ui_array[index+1];
+		}
+		
+		user.AddToMemberListUI(before_u);
+		*/
+		
+		$(&#039;#user_count&#039;).html(&#039;(&#039;+this.member_ui_array.length+&#039;)&#039;);
+		
+		if (user.IsAdmin()){
+			this.admin_count += 1;
+			$(&#039;#admin_count&#039;).html(&#039;(&#039;+this.admin_count+&#039;)&#039;);
+		}
+	},
+
+	UserOut : function(uid){
+		if (this.members[uid] == null){
+			return;
+		}
+		this.members[uid].RemoveFromListUI();
+		/*
+		if (uid&gt;0){
+			$(&quot;#message_to option[value=&#039;&quot; + uid + &quot;&#039;]&quot;).remove();
+		}
+		if (this.selected_uid == uid){
+			$(&quot;#message_to&quot;).val(0);
+		}
+		*/
+		var arrayLength = this.member_ui_array.length;
+		for (var i = 0; i &lt; arrayLength; i++) {
+			var u = this.member_ui_array[i];
+			if (uid == u.uid){
+				this.member_ui_array.remove(i);
+				break;
+			}
+		}
+		
+		if (this.members[uid].IsAdmin()){
+			this.admin_count -= 1;
+			$(&#039;#admin_count&#039;).html(&#039;(&#039;+this.admin_count+&#039;)&#039;);
+		}
+		
+		delete this.members[uid];
+		
+		$(&#039;#user_count&#039;).html(&#039;(&#039;+this.member_ui_array.length+&#039;)&#039;);
+	},
+
+	ChangeLevel : function(uid,level){
+		if (this.members[uid] == null){
+			return;
+		}
+		this.members[uid].level = level;
+		//this.members[uid].RefeshUI();
+	},
+
+	Clear : function(){
+		for (var uid in this.members){
+			this.UserOut(uid);
+		}
+		this.members = {};
+		this.member_ui_array = [];
+	},
+};
+
+var persist = {
+	url : &quot;/room/persist.php&quot;,
+	
+	doit : function(type,room_id,touid){
+		var data = {
+			&#039;TYPE&#039;:type,
+			&#039;TOGID&#039;:touid,
+			&#039;ROOMID&#039;: room_id,
+		};
+		console.log(data);
+		$.post(this.url,JSON.stringify(data),function(result){
+			console.log(result);
+			var r = jQuery.parseJSON(result);
+			if (r.RES==0){
+				alert(r.HINT);
+			}
+			if (r.RES==1){
+				alert(&#039;操作成功！&#039;);
+			}
+		})
+		.fail(function(){
+			console.log(&#039;error&#039;);
+			alert(&#039;操作发生错误！&#039;);
+			});
+	},
+	
+	fav : function(room_id){
+		this.doit(10,room_id,0);
+	},
+	
+	disablechat : function(room_id,touid){
+		this.doit(5,room_id,touid);
+	},
+	
+	kickout : function(room_id,touid){
+		this.doit(3,room_id,touid);
+	},
+	
+	setadmin : function(room_id,touid,be_admin){
+		if (be_admin){
+			this.doit(6,room_id,touid);
+		}
+		else{
+			this.doit(7,room_id,touid);
+		}
+	}
+};
+
+var xMessager = {
+	logined : false,
+	room_id : 0,
+	uid : 0,
+	level : 0,
+	param : {},
+	nickname : &#039;&#039;,
+	chatdisable : 0,
+	
+	init : function(param){
+		this.uid = param.uid;
+		this.room_id = param.room_id;
+		this.level = param.level;
+		this.nickname = param.nickname;
+		this.chatdisable = param.chatdisable;
+		this.param = param;
+		if (this.chatdisable&gt;0){
+			window.setTimeout(function(){
+					message_display.prv(&#039;&lt;font class=&quot;warning&quot;&gt;你的禁止发言已经解除!&lt;/font&gt;&#039;);
+					xMessager.chatdisable = 0;
+				},this.chatdisable*60*1000);
+		}
+	},
+	
+	SocketError : function(){
+		console.log(&#039;SocketError&#039;);
+		if (!xMessager.logined){
+			message_display.prv(&#039;&lt;font class=&quot;warning&quot;&gt;连接服务器失败！&lt;/font&gt;&#039;);
+		}
+		else{
+			message_display.prv(&#039;&lt;font class=&quot;warning&quot;&gt;与服务器的连接断开了，请重新登入房间！&lt;/font&gt;&#039;);
+		}
+	},
+	
+	OnChat : function (chatdata){
+		console.log(&#039;OnChat&#039;);
+		console.log(chatdata);
+		var is_my_message = false;
+		if (chatdata.uid == this.uid || chatdata.touid == this.uid){
+			is_my_message = true;
+		}
+		
+		message_display.chat(chatdata,is_my_message);
+
+		//generate_small_gift();
+		//gift_center.show_gift(&quot;S&quot;,&quot;small.swf&quot;,102,8);
+
+	},
+	
+	OnFreeFlower : function(data){
+		console.log(&#039;OnFreeFlower&#039;);
+		var is_my_message = false;
+		if (data.fromwho.uid == this.uid || data.sendwho.uid == this.uid){
+			is_my_message = true;
+		}
+		message_display.freeflower(data,is_my_message);
+		
+		//generate_big_gift();
+		//gift_center.show_gift(&quot;B&quot;,&quot;big.swf&quot;,1,15);
+	},
+	
+	OnGift : function(data){
+		console.log(&#039;OnGift&#039;);
+		var is_my_message = false;
+		if (data.from_uid == this.uid || data.to_uid == this.uid){
+			is_my_message = true;
+		}
+		message_display.gift(data,is_my_message);
+		gift_center.show_gift(data.type,data.gift_swf,data.sum,data.gift_swf_life,data);
+		
+		if (data.from_uid == room_owner_uid || data.to_uid == room_owner_uid){
+			console.log(&#039;room_owner data need change!&#039;);
+			load_room_data();
+		}
+	},
+	
+	OnBanner : function(){
+		console.log(&#039;OnBanner&#039;);
+		load_gift_message();
+	},
+	
+	OnSetAdmin : function(param){
+		if (this.level==2000){
+			return;
+		}
+		if (param==1){
+			message_display.prv(&#039;&lt;font class=&quot;warning&quot;&gt;你被房主设置为房间管理员了，将重新进入房间改变身份！&lt;/font&gt;&#039;);
+		}
+		else{
+			message_display.prv(&#039;&lt;font class=&quot;warning&quot;&gt;你的房间管理员身份被房主取消了，将重新进入房间改变身份！&lt;/font&gt;&#039;);
+		}
+		setTimeout(function(){
+			location.reload(true);
+		},5000);
+	},
+	
+	OnData : function(data){
+		console.log(&#039;OnData&#039;);
+		switch (data.type){
+			case &#039;C&#039;:
+				this.OnChat(data.data);
+				break;
+			case &#039;F&#039;:
+				this.OnFreeFlower(data.data);
+				break;
+			case &#039;G&#039;:
+				this.OnGift(data.data);
+				break;
+			case &#039;BANNER&#039;:
+				this.OnBanner();
+				break;
+			case &#039;ROOM_SET_ADMIN&#039;:
+				this.OnSetAdmin(data.data);
+				break;
+		}
+	},
+	
+	message : function(msg,secret){
+		if (!this.logined){
+			return;
+		}
+		
+		if (msg==&quot;&quot;){
+			return;
+		}
+		if (this.level&lt;100){
+			alert(&#039;游客不能发言！&#039;);
+			return;
+		}
+		if (this.chatdisable&gt;0){
+			alert(&#039;你目前处于禁止发言状态，不能发言！&#039;);
+			return;
+		}
+		
+		var chatdata = {
+			uid : this.uid,
+			nickname : this.nickname,
+			touid : g_UserList.selected_uid,
+			secret : secret,
+			message : msg.replace(/&lt;/g,&#039;&amp;#60;&#039;).replace(/&gt;/g,&#039;&amp;#62;&#039;).replace(/\//g,&#039;&amp;#47;&#039;),
+		};
+
+		var selected_user = g_UserList.GetSelectedUser();
+		if (selected_user == null){
+			chatdata.to_nickname = &quot;所有人&quot;;
+			chatdata.secret = false;
+		}
+		else{
+			chatdata.to_nickname = selected_user.appdata.nickname;
+		}
+
+		var data = {
+			type : &#039;C&#039;,
+			data : chatdata,
+		};
+			
+		var to_uid = g_UserList.selected_uid;	
+		if (!secret){
+			to_uid = 0;
+		}		
+		
+		console.log(&quot;message sent.&quot;);
+		console.log(data);
+		
+		xchat_swf.send(to_uid,Base64.encode(JSON.stringify(data)));
+	},
+
+	freeflower : function(){
+		if (this.level&lt;100){
+			alert(&#039;游客不能免费献花！&#039;);
+			return;
+		}
+		
+		var my_u = g_UserList.GetUser(this.uid);
+		var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
+		if (my_u &amp;&amp; to_u){
+			var data = {
+				type : &#039;F&#039;,
+				data : {
+					fromwho : {gid:my_u.appdata.gid,nickname:my_u.appdata.nickname},
+					sendwho : {gid:to_u.appdata.gid,nickname:to_u.appdata.nickname},
+				}
+			}
+			
+			xchat_swf.send(0,Base64.encode(JSON.stringify(data)));
+		}
+	},
+	
+	disablechat : function(){
+		var mins = 5;
+		var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
+		if (to_u){
+			persist.disablechat(this.room_id,to_u.uid);
+			xchat_swf.disablechat(to_u.uid,mins);
+		}
+	},
+
+	kickout : function(){
+		var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
+		if (to_u){
+			persist.kickout(this.room_id,to_u.uid);
+			xchat_swf.kickout(to_u.uid);
+		}	
+	},
+	
+	setadmin : function(){
+		var to_u = g_UserList.GetUser(g_UserList.menu_selected_uid);
+		if (to_u){
+			var be_admin = (to_u.level&lt;900?1:0);
+			persist.setadmin(this.room_id,to_u.uid,be_admin);
+			var data = {
+					type : &#039;ROOM_SET_ADMIN&#039;,
+					data : be_admin
+				}
+			xchat_swf.send(to_u.uid,Base64.encode(JSON.stringify(data)));
+		}
+	},
+	
+	giftmessage : function(type,param,banner){
+		var data = {
+				type : &#039;G&#039;,
+				data : param
+			}
+			
+		xchat_swf.send(0,Base64.encode(JSON.stringify(data)));
+
+		if (banner==&#039;B&#039;){
+			var data = {
+				type : &#039;BANNER&#039;
+				}
+			
+			xchat_swf.send(-1,Base64.encode(JSON.stringify(data)));
+		}
+	},
+	
+	ReEnter: function(){
+		console.log(&#039;onReEnter&#039;);
+		message_display.prv(&#039;&lt;font class=&quot;warning&quot;&gt;你的帐号已经在其他浏览器窗口进入了本房间！登录失败！&lt;/font&gt;&#039;);
+	},
+	
+	LoginACK : function(param){
+		if (param.loginack==0){
+			switch (param.reason){
+				case 2:
+					message_display.prv(&#039;&lt;font class=&quot;warning&quot;&gt;服务器人数满了！&lt;/font&gt;&#039;);
+				break;
+				case 3:
+					message_display.prv(&#039;&lt;font class=&quot;warning&quot;&gt;房间人数满了！&lt;/font&gt;&#039;);
+				break;
+			}
+		}
+	},
+};
+
+var message_display = {
+	prv : function(msg){
+		document.getElementById(&#039;chat_prv&#039;).contentWindow.OutputInfo(msg);
+	},
+	
+	pub : function(msg){
+		document.getElementById(&#039;chat_pub&#039;).contentWindow.OutputInfo(msg);
+	},
+	
+	chat : function(chatdata,is_my_message){
+		if (is_my_message){
+			console.log(&#039;message_display.chat chat_prv&#039;);
+			document.getElementById(&#039;chat_prv&#039;).contentWindow.DisplayChatMessage(chatdata);
+			if (chatdata.touid==0){
+				document.getElementById(&#039;chat_pub&#039;).contentWindow.DisplayChatMessage(chatdata);
+			}
+		}
+		else{
+			console.log(&#039;message_display.chat chat_pub&#039;);
+			document.getElementById(&#039;chat_pub&#039;).contentWindow.DisplayChatMessage(chatdata);
+		}
+	},
+	
+	freeflower : function(data,is_my_message){
+		if (is_my_message){
+			document.getElementById(&#039;chat_prv&#039;).contentWindow.FreeFlower(data);
+		}
+		else{
+			document.getElementById(&#039;chat_pub&#039;).contentWindow.FreeFlower(data);
+		}
+	},
+	
+	gift : function(data,is_my_message){
+		if (is_my_message){
+			document.getElementById(&#039;chat_prv&#039;).contentWindow.PrivateGiftShow(data);
+		}
+		else{
+			document.getElementById(&#039;chat_pub&#039;).contentWindow.PublicGiftShow(data);
+		}
+	},
+	
+}
+
+var xchat_swf = {
+	Init : function(swf_param,div_id,callbackFn){
+		if (callbackFn == null){
+			callbackFn = this.Created_cb;
+		}
+		var swfVersionStr = &quot;11.0.0&quot;;
+		// To use express install, set to playerProductInstall.swf, otherwise the empty string. 
+		var xiSwfUrlStr = &quot;playerProductInstall.swf&quot;;
+		var flashvars = {};
+		flashvars = {
+			ip : swf_param.ip,
+			port : swf_param.port,
+			gid:swf_param.room_id,
+			uid:swf_param.uid,
+			level:swf_param.level,
+			token:swf_param.token,
+			appdata : swf_param.appdata,
+			};
+		var params = {};
+		params.quality = &quot;high&quot;;
+		params.bgcolor = &quot;#57799c&quot;;
+		params.allowscriptaccess = &quot;always&quot;;
+		params.allowfullscreen = &quot;true&quot;;
+		params.wmode = &quot;transparent&quot;;
+		var attributes = {};
+		attributes.id = &quot;xchat&quot;;
+		attributes.name = &quot;xchat&quot;;
+		attributes.align = &quot;middle&quot;;
+		swfobject.embedSWF(
+			&quot;/room/xchat.swf&quot;, div_id, 
+			$(&quot;#&quot;+div_id).width(), $(&quot;#&quot;+div_id).height(), 
+			swfVersionStr, xiSwfUrlStr, 
+			flashvars, params, attributes,callbackFn);
+		// JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
+		//swfobject.createCSS(&quot;#flashContent&quot;, &quot;display:block;text-align:center;&quot;);
+	},
+
+	Created_cb : function(cbobj){
+		if (cbobj.success){
+		}
+		else{
+			alert(&quot;flash初始化失败.&quot;);
+		}
+	},
+	
+	swf : function(){
+		return swfobject.getObjectById(&quot;xchat&quot;);
+	},
+	
+	send : function(to_uid,data){
+		this.swf().Chat(to_uid,data);
+	},
+	
+	disablechat : function(touid,mins){
+		this.swf().DisableChat(touid,mins);
+	},
+	
+	kickout : function(touid){
+		this.swf().Kickout(touid);
+	},
+	
+	tokenop : function(type){
+		if (type==&#039;0&#039;){
+			this.swf().TokenOp(0);
+			$(&#039;#live_time&#039;).html(&#039;开播时间：直播未开始&#039;);
+		}
+		if (type==&#039;1&#039;){
+			this.swf().TokenOp(1);
+			var currentdate = new Date(); 
+			var datetime = currentdate.getHours() + &quot;:&quot; + currentdate.getMinutes();
+			$(&#039;#live_time&#039;).html(&#039;开播时间：&#039; + datetime);
+		}
+
+	},
+};
+
+function xchat_swf_debug(info){
+	console.log(&quot;swf_debug: &quot; + info );
+}
+
+function xchat_swf_error(Error){
+	console.log(&quot;swf_error: &quot; + Error);
+	xMessager.SocketError();
+}
+
+function member_in_out_hint(appdata,type)
+{
+	appdata.type = type;
+	document.getElementById(&#039;chat_pub&#039;).contentWindow.someone_in_out_info(appdata);
+}
+
+function xchat_swf_message(type,param){
+	console.log(&#039;xchat_swf_message. &#039; + type);
+	console.log(param);
+	
+	switch (type){
+		case &#039;MSG_LOGIN_ACK&#039;:
+			xMessager.LoginACK();
+			break;
+		case &#039;MSG_REENTER&#039;:
+			xMessager.ReEnter();
+			break;	
+		case &#039;MSG_SESSION_PARAM&#039;:
+			message_display.prv(&#039;连接服务器成功.&#039;);
+			message_display.prv(&#039;&lt;font color=&quot;#FF4444&quot;&gt;主播欢迎你:&lt;/font&gt;&#039;+room_welcome+&#039;&#039;);
+			xMessager.logined = true;
+			//if (video_start){
+			//}
+			
+			break;
+		case &#039;MSG_USER_LIST_PRE&#039;:
+			setTimeout(function(){
+				if (!$.isArray(param)){
+					return;
+				}
+				for (var i=0;i&lt;param.length;i++){
+					if(typeof param[i] ==&#039;object&#039;){
+						xchat_swf_message(&#039;MSG_SOMEBODY_IN&#039;,param[i]);
+					}
+				}
+			},100);
+			break;
+		case &#039;MSG_SOMEBODY_IN&#039;:
+			console.log(&#039;MSG_SOMEBODY_IN OK.&#039;);
+			console.log(Base64.decode(param.appdata));
+			var appdata = jQuery.parseJSON(Base64.decode(param.appdata));
+			appdata.nickname = Base64.decode(appdata.nickname_b64);
+			console.log(appdata);
+			var user = new User(param.uid,param.level,appdata);
+			g_UserList.UserIn(user);
+			if (param.in_out_hint){
+				member_in_out_hint(appdata,1);
+			}
+			break;
+		case &#039;MSG_SOMEBODY_OUT&#039;:
+			u = g_UserList.GetUser(param.uid)
+			if (param.in_out_hint &amp;&amp; u){
+				member_in_out_hint(u.appdata,0);
+			}
+			g_UserList.UserOut(param.uid);
+			break;
+		case &#039;MSG_SOMEBODY_CHANGELEVEL&#039;:
+			break;	
+		case &#039;MSG_SOMEBODY_CHANGEAPPDATA&#039;:
+			break;
+		case &#039;MSG_SOMEBODY_CHATENABLE&#039;:
+			if (param.uid == xMessager.uid){
+				if (param.chatenable){
+					message_display.prv(&#039;&lt;font class=&quot;warning&quot;&gt;你的禁止发言已经解除!&lt;/font&gt;&#039;);
+					xMessager.chatdisable = 0;
+				}
+				else{
+					message_display.prv(&#039;&lt;font class=&quot;warning&quot;&gt;你被管理员禁止发言5分钟!&lt;/font&gt;&#039;);
+					xMessager.chatdisable = 1;
+				}
+			}
+			else{
+				u = g_UserList.GetUser(param.uid);
+				if (u){
+					if (!param.chatenable){
+						var s = &#039;&lt;font class=&quot;warning&quot;&gt;【&#039;+u.appdata.nickname + &quot;】被被管理员禁止发言5分钟!&lt;/font&gt;&quot;;
+						message_display.pub(s);
+					}
+				}
+			}
+			break;
+		case &#039;MSG_KICKOUT&#039;:
+			if (param.uid == xMessager.uid){
+				message_display.prv(&#039;&lt;font class=&quot;warning&quot;&gt;你被管理员踢出了！15分钟内不允许进入本房间！&lt;/font&gt;&#039;);
+				setTimeout(function(){
+					location.reload(true);
+				},5000);
+				
+			}
+			else{
+				u = g_UserList.GetUser(param.uid);
+				if (u){
+					var s = &#039;&lt;font class=&quot;warning&quot;&gt;【&#039;+u.appdata.nickname + &quot;】被管理员踢出房间了。15分钟内不允许进入本房间。&lt;/font&gt;&quot;;
+					message_display.pub(s);
+				}
+			}
+			break;	
+		case &#039;MSG_MESSAGE&#039;:
+			var data = jQuery.parseJSON(Base64.decode(param.chatdata));
+			console.log(&#039;before xMessager.OnData.&#039;);
+			console.log(data);
+			xMessager.OnData(data);
+			break;
+		case &#039;MSG_TOKEN_INFO&#039;:
+			if (param.tokenid==1){
+				if (param.tokenstatus == 1){
+					if ($(&#039;#live_time&#039;).html() == &#039;开播时间：直播未开始&#039;){
+						var currentdate = new Date(); 
+						var datetime = currentdate.getHours() + &quot;:&quot; + currentdate.getMinutes();
+						$(&#039;#live_time&#039;).html(&#039;开播时间：&#039; + datetime);
+					}
+				}
+				else{
+					$(&#039;#live_time&#039;).html(&#039;开播时间：直播未开始&#039;);
+				}
+			}
+			break;
+	}
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - room/script/video_swf.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>room/script/video_swf.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">71.43</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">137</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">14.41</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.85</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">var video_swf = {
+    live: 0,
+    swf_name: &#039;recv&#039;,
+    Init: function (swf_param, div_id, type, callbackFn) {
+        this.swf_param = swf_param;
+        if (callbackFn == null) {
+            callbackFn = this.Created_cb;
+        }
+        var swfVersionStr = &quot;11.1.0&quot;;
+        // To use express install, set to playerProductInstall.swf, otherwise the empty string.
+        var xiSwfUrlStr = &quot;playerProductInstall.swf&quot;;
+        var flashvars = {
+            url: &quot;rtmp://&quot; + swf_param.server + &quot;/uu89&quot;,
+            gid: swf_param.room_id,
+            uid: swf_param.uid,
+            level: swf_param.level,
+            token: swf_param.token,
+            nickname: swf_param.nickname,
+            splash: swf_param.splash,
+            bps: swf_param.bps,
+            vq: swf_param.vq
+        };
+        var swf_name = &#039;recv&#039;;
+        if (type == 1) {
+            swf_name = &#039;send&#039;;
+            flashvars.level = 900;
+        }
+        var params = {};
+        params.quality = &quot;high&quot;;
+        params.bgcolor = &quot;#57799c&quot;;
+        params.allowscriptaccess = &quot;always&quot;;
+        params.allowfullscreen = &quot;true&quot;;
+        params.wmode = &quot;transparent&quot;;
+        var attributes = {};
+        attributes.id = swf_name;
+        attributes.name = swf_name;
+        attributes.align = &quot;middle&quot;;
+        swfobject.embedSWF(
+            &quot;/room/&quot; + swf_name + &quot;.swf&quot;,
+            div_id,
+            480, 360,
+            swfVersionStr, xiSwfUrlStr,
+            flashvars, params, attributes, callbackFn);
+
+        this.swf_name = swf_name;
+    },
+
+    Created_cb: function (cbobj) {
+        if (cbobj.success) {
+        }
+        else {
+            alert(&quot;flash初始化失败.&quot;);
+        }
+    },
+
+    LiveState: function (state) {
+        this.live = state;
+        if(this.swf_name==&quot;recv&quot;) {
+            setTimeout(function () {
+                var obj = swfobject.getObjectById(&quot;recv&quot;);
+                if (obj instanceof Object) {
+                    obj.LiveState(state);
+                }
+            }, 1000);
+        }
+    },
+    Logout: function () {
+        if (this.swf_name != &#039;recv&#039;) {
+            return;
+        }
+        var obj = swfobject.getObjectById(&quot;recv&quot;);
+        if (obj instanceof Object) {
+            swfobject.getObjectById(&quot;recv&quot;).Logout();
+        }
+    }
+};
+
+function xconf_livestate() {
+    return video_swf.live;
+}
+
+function xconf_swf_debug(info) {
+    //xLog.log(&quot;xconf_swf_debug: &quot; + info );
+}
+
+function xconf_swf_error(ErrorCode) {
+    //console.log(&quot;xconf_swf_error: &quot; + ErrorCode );
+    if (ErrorCode == &quot;-1&quot;) {
+        alert(&quot;无法连接视频服务器.&quot;);
+    }
+    if (ErrorCode == &quot;-2&quot;) {
+        alert(&quot;与视频服务器的通信发生错误.&quot;);
+    }
+}
+
+function xconf_swf_notify(type, param) {
+    if (type == &quot;xconf_swf_ready&quot;) {
+        //console.log(&quot;xconf_swf_ready&quot;);
+    }
+    if (type == &quot;talk_stop_by_server&quot;) {
+        //xMessager.cancelmic();
+    }
+    if (type == &quot;CAST&quot;) {
+        if (xMessager) {
+            //xMessager.onChannelState(param);
+        }
+    }
+}
+
+function xconf_swf_publish(type) {
+    xchat_swf.tokenop(type);
+}
+
+function ucast_h264_log(log) {
+    alert(&#039;log:&#039; + log);
+    var url = &quot;/room/ucast_h264.php&quot;;
+    var data = {
+        &#039;TYPE&#039;: &#039;log&#039;,
+        &#039;UID&#039;: video_swf.swf_param.uid,
+        &#039;DATA&#039;: log
+    };
+
+    jQuery.post(url, JSON.stringify(data), function (result) {
+        console.log(result);
+        /*
+         var r = jQuery.parseJSON(result);
+         console.log(r.RES);
+         if (r.RES==0){
+         }
+         if (r.RES==1){
+         }
+         */
+    })
+        .fail(function () {
+            //console.log(&#039;error&#039;);
+        });
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

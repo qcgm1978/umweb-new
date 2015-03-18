@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/zDialog.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/zDialog.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">59.02</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">587</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">90.14</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">10.54</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * zDialog 2.0
+ * 最后修正：2009-12-18
+ **/
+var IMAGESPATH = &#039;/images/shopimages/&#039;; //图片路径配置
+//var IMAGESPATH = &#039;http://www.5icool.org/&#039;; //图片路径配置
+/*************************一些公用方法和属性****************************/
+var isIE = navigator.userAgent.indexOf(&#039;MSIE&#039;) != -1;
+var isIE6 = navigator.userAgent.indexOf(&#039;MSIE 6.0&#039;) != -1;
+var isIE8 = !!window.XDomainRequest &amp;&amp; !!document.documentMode;
+if(isIE)
+	try{ document.execCommand(&#039;BackgroundImageCache&#039;,false,true); }catch(e){}
+
+var $id = function (id) {
+    return typeof id == &quot;string&quot; ? document.getElementById(id) : id;
+};
+//if (!$) var $ = $id;
+
+Array.prototype.remove = function (s, dust) { //如果dust为ture，则返回被删除的元素
+    if (dust) {
+        var dustArr = [];
+        for (var i = 0; i &lt; this.length; i++) {
+            if (s == this[i]) {
+                dustArr.push(this.splice(i, 1)[0]);
+            }
+        }
+        return dustArr;
+    }
+    for (var i = 0; i &lt; this.length; i++) {
+        if (s == this[i]) {
+            this.splice(i, 1);
+        }
+    }
+    return this;
+}
+
+var $topWindow = function () {
+    var parentWin = window;
+    while (parentWin != parentWin.parent) {
+        if (parentWin.parent.document.getElementsByTagName(&quot;FRAMESET&quot;).length &gt; 0) break;
+        parentWin = parentWin.parent;
+    }
+    return parentWin;
+};
+var $bodyDimensions = function (win) {
+    win = win || window;
+    var doc = win.document;
+    var cw = doc.compatMode == &quot;BackCompat&quot; ? doc.body.clientWidth : doc.documentElement.clientWidth;
+    var ch = doc.compatMode == &quot;BackCompat&quot; ? doc.body.clientHeight : doc.documentElement.clientHeight;
+    var sl = Math.max(doc.documentElement.scrollLeft, doc.body.scrollLeft);
+    var st = Math.max(doc.documentElement.scrollTop, doc.body.scrollTop); //考虑滚动的情况
+    var sw = Math.max(doc.documentElement.scrollWidth, doc.body.scrollWidth);
+    var sh = Math.max(doc.documentElement.scrollHeight, doc.body.scrollHeight); //考虑滚动的情况
+    var w = Math.max(sw, cw); //取scrollWidth和clientWidth中的最大值
+    var h = Math.max(sh, ch); //IE下在页面内容很少时存在scrollHeight&lt;clientHeight的情况
+    return {
+        &quot;clientWidth&quot;: cw,
+        &quot;clientHeight&quot;: ch,
+        &quot;scrollLeft&quot;: sl,
+        &quot;scrollTop&quot;: st,
+        &quot;scrollWidth&quot;: sw,
+        &quot;scrollHeight&quot;: sh,
+        &quot;width&quot;: w,
+        &quot;height&quot;: h
+    }
+};
+
+var fadeEffect = function(element, start, end, speed, callback){//透明度渐变：start:开始透明度 0-100；end:结束透明度 0-100；speed:速度1-100
+	if(!element.effect)
+		element.effect = {fade:0, move:0, size:0};
+	clearInterval(element.effect.fade);
+	var speed=speed||20;
+	element.effect.fade = setInterval(function(){
+		start = start &lt; end ? Math.min(start + speed, end) : Math.max(start - speed, end);
+		element.style.opacity =  start / 100;
+		element.style.filter = &quot;alpha(opacity=&quot; + start + &quot;)&quot;;
+		if(start == end){
+			clearInterval(element.effect.fade);
+			if(callback)
+				callback.call(element);
+		}
+	}, 20);
+};
+
+/*************************弹出框类实现****************************/
+var topWin = $topWindow();
+var topDoc = topWin.document;
+var Dialog = function () {
+    /****以下属性以大写开始，可以在调用show()方法前设置值****/
+    this.ID = null;
+    this.Width = null;
+    this.Height = null;
+    this.URL = null;
+	this.OnLoad=null;
+    this.InnerHtml = &quot;&quot;
+    this.InvokeElementId = &quot;&quot;
+    this.Top = &quot;50%&quot;;
+    this.Left = &quot;50%&quot;;
+    this.Title = &quot;&quot;;
+    this.OKEvent = null; //点击确定后调用的方法
+    this.CancelEvent = null; //点击取消及关闭后调用的方法
+    this.ShowButtonRow = false;
+    this.MessageIcon = &quot;window.gif&quot;;
+    this.MessageTitle = &quot;&quot;;
+    this.Message = &quot;&quot;;
+    this.ShowMessageRow = false;
+    this.Modal = true;
+    this.Drag = true;
+    this.AutoClose = null;
+    this.ShowCloseButton = true;
+	this.Animator = true;
+    /****以下属性以小写开始，不要自行改变****/
+    this.dialogDiv = null;
+	this.bgDiv=null;
+    this.parentWindow = null;
+    this.innerFrame = null;
+    this.innerWin = null;
+    this.innerDoc = null;
+    this.zindex = 900;
+    this.cancelButton = null;
+    this.okButton = null;
+
+    if (arguments.length &gt; 0 &amp;&amp; typeof(arguments[0]) == &quot;string&quot;) { //兼容旧写法
+        this.ID = arguments[0];
+    } else if (arguments.length &gt; 0 &amp;&amp; typeof(arguments[0]) == &quot;object&quot;) {
+        Dialog.setOptions(this, arguments[0])
+    }
+	if(!this.ID)
+        this.ID = topWin.Dialog._Array.length + &quot;&quot;;
+
+};
+Dialog._Array = [];
+Dialog.bgDiv = null;
+Dialog.setOptions = function (obj, optionsObj) {
+    if (!optionsObj) return;
+    for (var optionName in optionsObj) {
+        obj[optionName] = optionsObj[optionName];
+    }
+};
+Dialog.attachBehaviors = function () {
+    if (isIE) {
+        document.attachEvent(&quot;onkeydown&quot;, Dialog.onKeyDown);
+        window.attachEvent(&#039;onresize&#039;, Dialog.resetPosition);
+    } else {
+        document.addEventListener(&quot;keydown&quot;, Dialog.onKeyDown, false);
+        window.addEventListener(&#039;resize&#039;, Dialog.resetPosition, false);
+    }
+};
+Dialog.prototype.attachBehaviors = function () {
+    if (this.Drag &amp;&amp; topWin.Drag) topWin.Drag.init(topWin.$id(&quot;_Draghandle_&quot; + this.ID), topWin.$id(&quot;_DialogDiv_&quot; + this.ID)); //注册拖拽方法
+    if (!isIE &amp;&amp; this.URL) { //非ie浏览器下在拖拽时用一个层遮住iframe，以免光标移入iframe失去拖拽响应
+        var self = this;
+        topWin.$id(&quot;_DialogDiv_&quot; + this.ID).onDragStart = function () {
+            topWin.$id(&quot;_Covering_&quot; + self.ID).style.display = &quot;&quot;
+        }
+        topWin.$id(&quot;_DialogDiv_&quot; + this.ID).onDragEnd = function () {
+            topWin.$id(&quot;_Covering_&quot; + self.ID).style.display = &quot;none&quot;
+        }
+    }
+};
+Dialog.prototype.displacePath = function () {
+    if (this.URL.substr(0, 7) == &quot;http://&quot; || this.URL.substr(0, 1) == &quot;/&quot; || this.URL.substr(0, 11) == &quot;javascript:&quot;) {
+        return this.URL;
+    } else {
+        var thisPath = this.URL;
+        var locationPath = window.location.href;
+        locationPath = locationPath.substring(0, locationPath.lastIndexOf(&#039;/&#039;));
+        while (thisPath.indexOf(&#039;../&#039;) &gt;= 0) {
+            thisPath = thisPath.substring(3);
+            locationPath = locationPath.substring(0, locationPath.lastIndexOf(&#039;/&#039;));
+        }
+        return locationPath + &#039;/&#039; + thisPath;
+    }
+};
+Dialog.prototype.setPosition = function () {
+    var bd = $bodyDimensions(topWin);
+    var thisTop = this.Top,
+        thisLeft = this.Left,
+		thisdialogDiv=this.getDialogDiv();
+    if (typeof this.Top == &quot;string&quot; &amp;&amp; this.Top.substring(this.Top.length - 1, this.Top.length) == &quot;%&quot;) {
+        var percentT = this.Top.substring(0, this.Top.length - 1) * 0.01;
+        thisTop = bd.clientHeight * percentT - thisdialogDiv.scrollHeight * percentT + bd.scrollTop;
+    }
+    if (typeof this.Left == &quot;string&quot; &amp;&amp; this.Left.substring(this.Left.length - 1, this.Left.length) == &quot;%&quot;) {
+        var percentL = this.Left.substring(0, this.Left.length - 1) * 0.01;
+        thisLeft = bd.clientWidth * percentL - thisdialogDiv.scrollWidth * percentL + bd.scrollLeft;
+    }
+    thisdialogDiv.style.top = Math.round(thisTop) + &quot;px&quot;;
+    thisdialogDiv.style.left = Math.round(thisLeft) + &quot;px&quot;;
+};
+Dialog.setBgDivSize = function () {
+    var bd = $bodyDimensions(topWin);
+	if(Dialog.bgDiv){
+			if(isIE6){
+				Dialog.bgDiv.style.height = bd.clientHeight + &quot;px&quot;;
+				Dialog.bgDiv.style.top=bd.scrollTop + &quot;px&quot;;
+				Dialog.bgDiv.childNodes[0].style.display = &quot;none&quot;;//让div重渲染,修正IE6下尺寸bug
+				Dialog.bgDiv.childNodes[0].style.display = &quot;&quot;;
+			}else{
+				Dialog.bgDiv.style.height = bd.scrollHeight + &quot;px&quot;;
+			}
+		}
+};
+Dialog.resetPosition = function () {
+    Dialog.setBgDivSize();
+    for (var i = 0, len = topWin.Dialog._Array.length; i &lt; len; i++) {
+        topWin.Dialog._Array[i].setPosition();
+    }
+};
+Dialog.prototype.create = function () {
+    var bd = $bodyDimensions(topWin);
+    if (typeof(this.OKEvent)== &quot;function&quot;) this.ShowButtonRow = true;
+    if (!this.Width) this.Width = Math.round(bd.clientWidth * 4 / 10);
+    if (!this.Height) this.Height = Math.round(this.Width / 2);
+    if (this.MessageTitle || this.Message) this.ShowMessageRow = true;
+    var DialogDivWidth = this.Width + 13 + 13;
+    var DialogDivHeight = this.Height + 33 + 13 + (this.ShowButtonRow ? 40 : 0) + (this.ShowMessageRow ? 50 : 0);
+
+    if (DialogDivWidth &gt; bd.clientWidth) this.Width = Math.round(bd.clientWidth - 26);
+    if (DialogDivHeight &gt; bd.clientHeight) this.Height = Math.round(bd.clientHeight - 46 - (this.ShowButtonRow ? 40 : 0) - (this.ShowMessageRow ? 50 : 0));
+
+    var html = &#039;\
+  &lt;table id=&quot;_DialogTable_&#039; + this.ID + &#039;&quot; width=&quot;&#039; + (this.Width + 26) + &#039;&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; border=&quot;0&quot; onselectstart=&quot;return false;&quot; style=&quot;-moz-user-select: none; font-size:12px; line-height:1.4;&quot;&gt;\
+    &lt;tr id=&quot;_Draghandle_&#039; + this.ID + &#039;&quot; style=&quot;&#039; + (this.Drag ? &quot;cursor: move;&quot; : &quot;&quot;) + &#039;&quot;&gt;\
+      &lt;td width=&quot;13&quot; height=&quot;33&quot; style=&quot;background-image: url(&#039; + IMAGESPATH + &#039;dialog_lt.png) !important;background: url(&#039; + IMAGESPATH + &#039;dialog_lt.gif) no-repeat 0 0;&quot;&gt;&lt;div style=&quot;width: 13px;&quot;&gt;&lt;/div&gt;&lt;/td&gt;\
+      &lt;td height=&quot;33&quot; style=&quot;background-image:url(&#039; + IMAGESPATH + &#039;dialog_ct.png) !important;background: url(&#039; + IMAGESPATH + &#039;dialog_ct.gif) repeat-x top;&quot;&gt;&lt;div style=&quot;padding: 9px 0 0 4px; float: left; font-weight: bold; color:#fff;&quot;&gt;&lt;img align=&quot;absmiddle&quot; src=&quot;&#039; + IMAGESPATH + &#039;icon_dialog.gif&quot;/&gt;&lt;span id=&quot;_Title_&#039; + this.ID + &#039;&quot;&gt;&#039; + this.Title + &#039;&lt;/span&gt;&lt;/div&gt;\
+        &lt;div onclick=&quot;Dialog.getInstance(\&#039;&#039; + this.ID + &#039;\&#039;).cancelButton.onclick.apply(Dialog.getInstance(\&#039;&#039; + this.ID + &#039;\&#039;).cancelButton,[]);&quot; onmouseout=&quot;this.style.backgroundImage=\&#039;url(&#039; + IMAGESPATH + &#039;dialog_closebtn.gif)\&#039;&quot; onmouseover=&quot;this.style.backgroundImage=\&#039;url(&#039; + IMAGESPATH + &#039;dialog_closebtn_over.gif)\&#039;&quot; style=&quot;margin-top:5px; position: relative; cursor: pointer; float: right; height: 17px; width: 28px; background-image: url(&#039; + IMAGESPATH + &#039;dialog_closebtn.gif);&#039; + (this.ShowCloseButton ? &quot;&quot; : &quot;display:none;&quot;) + &#039;&quot;&gt;&lt;/div&gt;&lt;/td&gt;\
+      &lt;td width=&quot;13&quot; height=&quot;33&quot; style=&quot;background-image: url(&#039; + IMAGESPATH + &#039;dialog_rt.png) !important;background: url(&#039; + IMAGESPATH + &#039;dialog_rt.gif) no-repeat right 0;&quot;&gt;&lt;div style=&quot;width: 13px;&quot;&gt;&lt;a id=&quot;_forTab_&#039; + this.ID + &#039;&quot; href=&quot;#;&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;/td&gt;\
+    &lt;/tr&gt;\
+    &lt;tr valign=&quot;top&quot;&gt;\
+      &lt;td width=&quot;13&quot; style=&quot;background-image: url(&#039; + IMAGESPATH + &#039;dialog_mlm.png) !important;background: url(&#039; + IMAGESPATH + &#039;dialog_mlm.gif) repeat-y left;&quot;&gt;&lt;/td&gt;\
+      &lt;td align=&quot;center&quot;&gt;&lt;table width=&quot;100%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; border=&quot;0&quot; bgcolor=&quot;#ffffff&quot;&gt;\
+          &lt;tr id=&quot;_MessageRow_&#039; + this.ID + &#039;&quot; style=&quot;&#039; + (this.ShowMessageRow ? &quot;&quot; : &quot;display:none&quot;) + &#039;&quot;&gt;\
+            &lt;td valign=&quot;top&quot; height=&quot;50&quot;&gt;&lt;table width=&quot;100%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; border=&quot;0&quot; style=&quot;background:#eaece9 url(&#039; + IMAGESPATH + &#039;dialog_bg.jpg) no-repeat scroll right top;&quot; id=&quot;_MessageTable_&#039; + this.ID + &#039;&quot;&gt;\
+                &lt;tr&gt;\
+                  &lt;td width=&quot;50&quot; height=&quot;50&quot; align=&quot;center&quot;&gt;&lt;img width=&quot;32&quot; height=&quot;32&quot; src=&quot;&#039; + IMAGESPATH + this.MessageIcon + &#039;&quot; id=&quot;_MessageIcon_&#039; + this.ID + &#039;&quot;/&gt;&lt;/td&gt;\
+                  &lt;td align=&quot;left&quot; style=&quot;line-height: 16px;&quot;&gt;&lt;div id=&quot;_MessageTitle_&#039; + this.ID + &#039;&quot; style=&quot;font-weight:bold&quot;&gt;&#039; + this.MessageTitle + &#039;&lt;/div&gt;\
+                    &lt;div id=&quot;_Message_&#039; + this.ID + &#039;&quot;&gt;&#039; + this.Message + &#039;&lt;/div&gt;&lt;/td&gt;\
+                &lt;/tr&gt;\
+              &lt;/table&gt;&lt;/td&gt;\
+          &lt;/tr&gt;\
+          &lt;tr&gt;\
+            &lt;td valign=&quot;top&quot; align=&quot;center&quot;&gt;&lt;div id=&quot;_Container_&#039; + this.ID + &#039;&quot; style=&quot;position: relative; width: &#039; + this.Width + &#039;px; height: &#039; + this.Height + &#039;px;&quot;&gt;\
+                &lt;div style=&quot;position: absolute; height: 100%; width: 100%; display: none; background-color:#fff; opacity: 0.5;&quot; id=&quot;_Covering_&#039; + this.ID + &#039;&quot;&gt;&amp;nbsp;&lt;/div&gt;\
+	&#039; + (function (obj) {
+        if (obj.InnerHtml) return obj.InnerHtml;
+        if (obj.URL) return &#039;&lt;iframe width=&quot;100%&quot; height=&quot;100%&quot; frameborder=&quot;0&quot; style=&quot;border:none 0;&quot; allowtransparency=&quot;true&quot; id=&quot;_DialogFrame_&#039; + obj.ID + &#039;&quot; src=&quot;&#039; + obj.displacePath() + &#039;&quot;&gt;&lt;/iframe&gt;&#039;;
+        return &quot;&quot;;
+    })(this) + &#039;\
+              &lt;/div&gt;&lt;/td&gt;\
+          &lt;/tr&gt;\
+          &lt;tr id=&quot;_ButtonRow_&#039; + this.ID + &#039;&quot; style=&quot;&#039; + (this.ShowButtonRow ? &quot;&quot; : &quot;display:none&quot;) + &#039;&quot;&gt;\
+            &lt;td height=&quot;36&quot;&gt;&lt;div id=&quot;_DialogButtons_&#039; + this.ID + &#039;&quot; style=&quot;border-top: 1px solid #DADEE5; padding: 8px 20px; text-align: right; background-color:#f6f6f6;&quot;&gt;\
+                &lt;input type=&quot;button&quot; class=&quot;buttonStyle&quot; value=&quot;确 定&quot; id=&quot;_ButtonOK_&#039; + this.ID + &#039;&quot;/&gt;\
+                &lt;input type=&quot;button&quot; class=&quot;buttonStyle&quot; value=&quot;取 消&quot; onclick=&quot;Dialog.getInstance(\&#039;&#039; + this.ID + &#039;\&#039;).close();&quot; id=&quot;_ButtonCancel_&#039; + this.ID + &#039;&quot;/&gt;\
+              &lt;/div&gt;&lt;/td&gt;\
+          &lt;/tr&gt;\
+        &lt;/table&gt;&lt;/td&gt;\
+      &lt;td width=&quot;13&quot; style=&quot;background-image: url(&#039; + IMAGESPATH + &#039;dialog_mrm.png) !important;background: url(&#039; + IMAGESPATH + &#039;dialog_mrm.gif) repeat-y right;&quot;&gt;&lt;/td&gt;\
+    &lt;/tr&gt;\
+    &lt;tr&gt;\
+      &lt;td width=&quot;13&quot; height=&quot;13&quot; style=&quot;background-image: url(&#039; + IMAGESPATH + &#039;dialog_lb.png) !important;background: url(&#039; + IMAGESPATH + &#039;dialog_lb.gif) no-repeat 0 bottom;&quot;&gt;&lt;/td&gt;\
+      &lt;td style=&quot;background-image: url(&#039; + IMAGESPATH + &#039;dialog_cb.png) !important;background: url(&#039; + IMAGESPATH + &#039;dialog_cb.gif) repeat-x bottom;&quot;&gt;&lt;/td&gt;\
+      &lt;td width=&quot;13&quot; height=&quot;13&quot; style=&quot;background-image: url(&#039; + IMAGESPATH + &#039;dialog_rb.png) !important;background: url(&#039; + IMAGESPATH + &#039;dialog_rb.gif) no-repeat right bottom;&quot;&gt;&lt;a onfocus=\&#039;$id(&quot;_forTab_&#039; + this.ID + &#039;&quot;).focus();\&#039; href=&quot;#;&quot;&gt;&lt;/a&gt;&lt;/td&gt;\
+    &lt;/tr&gt;\
+  &lt;/table&gt;\
+&lt;/div&gt;\
+&#039;
+    var div = topWin.$id(&quot;_DialogDiv_&quot; + this.ID);
+    if (!div) {
+        div = topDoc.createElement(&quot;div&quot;);
+        div.id = &quot;_DialogDiv_&quot; + this.ID;
+        topDoc.getElementsByTagName(&quot;BODY&quot;)[0].appendChild(div);
+    }
+    div.style.position = &quot;absolute&quot;;
+    div.style.left = &quot;-9999px&quot;;
+    div.style.top = &quot;-9999px&quot;;
+    div.innerHTML = html;
+    if (this.InvokeElementId) {
+        var element = $id(this.InvokeElementId);
+        element.style.position = &quot;&quot;;
+        element.style.display = &quot;&quot;;
+        if (isIE) {
+            var fragment = topDoc.createElement(&quot;div&quot;);
+            fragment.innerHTML = element.outerHTML;
+            element.outerHTML = &quot;&quot;;
+            topWin.$id(&quot;_Covering_&quot; + this.ID).parentNode.appendChild(fragment)
+        } else {
+            topWin.$id(&quot;_Covering_&quot; + this.ID).parentNode.appendChild(element)
+        }
+    }
+    this.parentWindow = window;
+    if (this.URL) {
+        if (topWin.$id(&quot;_DialogFrame_&quot; + this.ID)) {
+            this.innerFrame = topWin.$id(&quot;_DialogFrame_&quot; + this.ID);
+        };
+        var self = this;
+        innerFrameOnload = function () {
+            try {
+				self.innerWin = self.innerFrame.contentWindow;
+				self.innerWin.parentDialog = self;
+                self.innerDoc = self.innerWin.document;
+                if (!self.Title &amp;&amp; self.innerDoc &amp;&amp; self.innerDoc.title) {
+                    if (self.innerDoc.title) topWin.$id(&quot;_Title_&quot; + self.ID).innerHTML = self.innerDoc.title;
+                };
+            } catch(e) {
+                if (console &amp;&amp; console.log) console.log(&quot;可能存在访问限制，不能获取到iframe中的对象。&quot;)
+            }
+            if (typeof(self.OnLoad)== &quot;function&quot;)self.OnLoad();
+        };
+        if (this.innerFrame.attachEvent) {
+            this.innerFrame.attachEvent(&quot;onload&quot;, innerFrameOnload);
+        } else {
+            this.innerFrame.onload = innerFrameOnload;
+        };
+    };
+    topWin.$id(&quot;_DialogDiv_&quot; + this.ID).dialogId = this.ID;
+    topWin.$id(&quot;_DialogDiv_&quot; + this.ID).dialogInstance = this;
+    this.attachBehaviors();
+    this.okButton = topWin.$id(&quot;_ButtonOK_&quot; + this.ID);
+    this.cancelButton = topWin.$id(&quot;_ButtonCancel_&quot; + this.ID);
+	div=null;
+};
+Dialog.prototype.setSize = function (w, h) {
+    if (w &amp;&amp; +w &gt; 20) {
+        this.Width = +w;
+        topWin.$id(&quot;_DialogTable_&quot; + this.ID).width = this.Width + 26;
+        topWin.$id(&quot;_Container_&quot; + this.ID).style.width = this.Width + &quot;px&quot;;
+    }
+    if (h &amp;&amp; +h &gt; 10) {
+        this.Height = +h;
+        topWin.$id(&quot;_Container_&quot; + this.ID).style.height = this.Height + &quot;px&quot;;
+    }
+    this.setPosition();
+};
+Dialog.prototype.show = function () {
+    this.create();
+    var bgdiv = Dialog.getBgdiv(),
+		thisdialogDiv=this.getDialogDiv();
+    this.zindex = thisdialogDiv.style.zIndex = Dialog.bgDiv.style.zIndex + 1;
+    if (topWin.Dialog._Array.length &gt; 0) {
+        this.zindex = thisdialogDiv.style.zIndex = topWin.Dialog._Array[topWin.Dialog._Array.length - 1].zindex + 2;
+    } else {
+        var topWinBody = topDoc.getElementsByTagName(topDoc.compatMode == &quot;BackCompat&quot; ? &quot;BODY&quot; : &quot;HTML&quot;)[0];
+        //topWinBody.styleOverflow = topWinBody.style.overflow; 去除滚动条
+        //topWinBody.style.overflow = &quot;hidden&quot;; 去除滚动条
+        bgdiv.style.display = &quot;none&quot;;
+    }
+    topWin.Dialog._Array.push(this);
+    if (this.Modal) {
+        bgdiv.style.zIndex = topWin.Dialog._Array[topWin.Dialog._Array.length - 1].zindex - 1;
+        Dialog.setBgDivSize();
+		if(bgdiv.style.display == &quot;none&quot;){
+			if(this.Animator){
+				var bgMask=topWin.$id(&quot;_DialogBGMask&quot;);
+				bgMask.style.opacity = 0;
+				bgMask.style.filter = &quot;alpha(opacity=0)&quot;;
+        		bgdiv.style.display = &quot;&quot;;
+				fadeEffect(bgMask,0,40,isIE6?20:10);
+				bgMask=null;
+			}else{
+        		bgdiv.style.display = &quot;&quot;;
+			}
+		}
+    }
+    this.setPosition();
+    if (this.CancelEvent) {
+        this.cancelButton.onclick = this.CancelEvent;
+        if(this.ShowButtonRow)this.cancelButton.focus();
+    }
+    if (this.OKEvent) {
+        this.okButton.onclick = this.OKEvent;
+        if(this.ShowButtonRow)this.okButton.focus();
+    }
+    if (this.AutoClose &amp;&amp; this.AutoClose &gt; 0) this.autoClose();
+    this.opened = true;
+	bgdiv=null;
+};
+Dialog.prototype.close = function () {
+	var thisdialogDiv=this.getDialogDiv();
+    if (this == topWin.Dialog._Array[topWin.Dialog._Array.length - 1]) {
+        var isTopDialog = topWin.Dialog._Array.pop();
+    } else {
+        topWin.Dialog._Array.remove(this)
+    }
+    if (this.InvokeElementId) {
+        var innerElement = topWin.$id(this.InvokeElementId);
+        innerElement.style.display = &quot;none&quot;;
+        if (isIE) {
+            //ie下不能跨窗口拷贝元素，只能跨窗口拷贝html代码
+            var fragment = document.createElement(&quot;div&quot;);
+            fragment.innerHTML = innerElement.outerHTML;
+            innerElement.outerHTML = &quot;&quot;;
+            document.getElementsByTagName(&quot;BODY&quot;)[0].appendChild(fragment)
+        } else {
+            document.getElementsByTagName(&quot;BODY&quot;)[0].appendChild(innerElement)
+        }
+
+    }
+    if (topWin.Dialog._Array.length &gt; 0) {
+        if (this.Modal &amp;&amp; isTopDialog) Dialog.bgDiv.style.zIndex = topWin.Dialog._Array[topWin.Dialog._Array.length - 1].zindex - 1;
+    } else {
+        Dialog.bgDiv.style.zIndex = &quot;900&quot;;
+        Dialog.bgDiv.style.display = &quot;none&quot;;
+        var topWinBody = topDoc.getElementsByTagName(topDoc.compatMode == &quot;BackCompat&quot; ? &quot;BODY&quot; : &quot;HTML&quot;)[0];
+        //if (topWinBody.styleOverflow != undefined) topWinBody.style.overflow = topWinBody.styleOverflow; 去除滚动条
+    }
+    if (isIE) {
+		/*****释放引用，以便浏览器回收内存**/
+		thisdialogDiv.dialogInstance=null;
+		if(this.innerFrame)this.innerFrame.detachEvent(&quot;onload&quot;, innerFrameOnload);
+		this.innerFrame=null;
+		this.parentWindow=null;
+		this.bgDiv=null;
+		if (this.CancelEvent){this.cancelButton.onclick = null;};
+		if (this.OKEvent){this.okButton.onclick = null;};
+		topWin.$id(&quot;_DialogDiv_&quot; + this.ID).onDragStart=null;
+		topWin.$id(&quot;_DialogDiv_&quot; + this.ID).onDragEnd=null;
+		topWin.$id(&quot;_Draghandle_&quot; + this.ID).onmousedown=null;
+		topWin.$id(&quot;_Draghandle_&quot; + this.ID).root=null;
+		/**end释放引用**/
+        thisdialogDiv.outerHTML = &quot;&quot;;
+		CollectGarbage();
+    } else {
+        var RycDiv = topWin.$id(&quot;_RycDiv&quot;);
+        if (!RycDiv) {
+            RycDiv = topDoc.createElement(&quot;div&quot;);
+            RycDiv.id = &quot;_RycDiv&quot;;
+        }
+        RycDiv.appendChild(thisdialogDiv);
+        RycDiv.innerHTML = &quot;&quot;;
+		RycDiv=null;
+    }
+	thisdialogDiv=null;
+    this.closed = true;
+};
+Dialog.prototype.autoClose = function () {
+    if (this.closed) {
+        clearTimeout(this._closeTimeoutId);
+        return;
+    }
+    this.AutoClose -= 1;
+    topWin.$id(&quot;_Title_&quot; + this.ID).innerHTML = this.AutoClose + &quot; 秒后自动关闭&quot;;
+    if (this.AutoClose &lt;= 0) {
+        this.close();
+    } else {
+        var self = this;
+        this._closeTimeoutId = setTimeout(function () {
+            self.autoClose();
+        },
+        1000);
+    }
+};
+Dialog.getInstance = function (id) {
+    var dialogDiv = topWin.$id(&quot;_DialogDiv_&quot; + id);
+    if (!dialogDiv) alert(&quot;没有取到对应ID的弹出框页面对象&quot;);
+	try{
+    	return dialogDiv.dialogInstance;
+	}finally{
+		dialogDiv = null;
+	}
+};
+Dialog.prototype.addButton = function (id, txt, func) {
+    topWin.$id(&quot;_ButtonRow_&quot; + this.ID).style.display = &quot;&quot;;
+    this.ShowButtonRow = true;
+    var button = topDoc.createElement(&quot;input&quot;);
+    button.id = &quot;_Button_&quot; + this.ID + &quot;_&quot; + id;
+    button.type = &quot;button&quot;;
+    button.style.cssText = &quot;margin-right:5px&quot;;
+    button.value = txt;
+    button.onclick = func;
+    var input0 = topWin.$id(&quot;_DialogButtons_&quot; + this.ID).getElementsByTagName(&quot;INPUT&quot;)[0];
+    input0.parentNode.insertBefore(button, input0);
+    return button;
+};
+Dialog.prototype.removeButton = function (btn) {
+    var input0 = topWin.$id(&quot;_DialogButtons_&quot; + this.ID).getElementsByTagName(&quot;INPUT&quot;)[0];
+    input0.parentNode.removeChild(btn);
+};
+Dialog.getBgdiv = function () {
+    if (Dialog.bgDiv) return Dialog.bgDiv;
+    var bgdiv = topWin.$id(&quot;_DialogBGDiv&quot;);
+    if (!bgdiv) {
+        bgdiv = topDoc.createElement(&quot;div&quot;);
+        bgdiv.id = &quot;_DialogBGDiv&quot;;
+        bgdiv.style.cssText = &quot;position:absolute;left:0px;top:0px;width:100%;height:100%;z-index:900&quot;;
+        var bgIframeBox = &#039;&lt;div style=&quot;position:relative;width:100%;height:100%;&quot;&gt;&#039;;
+		var bgIframeMask = &#039;&lt;div id=&quot;_DialogBGMask&quot; style=&quot;position:absolute;background-color:#333;opacity:0.4;filter:alpha(opacity=40);width:100%;height:100%;&quot;&gt;&lt;/div&gt;&#039;;
+		var bgIframe = isIE6?&#039;&lt;iframe src=&quot;about:blank&quot; style=&quot;filter:alpha(opacity=0);&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;&lt;/iframe&gt;&#039;:&#039;&#039;;
+		bgdiv.innerHTML=bgIframeBox+bgIframeMask+bgIframe+&#039;&lt;/div&gt;&#039;;
+        topDoc.getElementsByTagName(&quot;BODY&quot;)[0].appendChild(bgdiv);
+        if (isIE6) {
+            var bgIframeDoc = bgdiv.getElementsByTagName(&quot;IFRAME&quot;)[0].contentWindow.document;
+            bgIframeDoc.open();
+            bgIframeDoc.write(&quot;&lt;body style=&#039;background-color:#333&#039; oncontextmenu=&#039;return false;&#039;&gt;&lt;/body&gt;&quot;);
+            bgIframeDoc.close();
+			bgIframeDoc=null;
+        }
+    }
+    Dialog.bgDiv = bgdiv;
+	bgdiv=null;
+    return Dialog.bgDiv;
+};
+Dialog.prototype.getDialogDiv = function () {
+	var dialogDiv=topWin.$id(&quot;_DialogDiv_&quot; + this.ID)
+	if(!dialogDiv)alert(&quot;获取弹出层页面对象出错！&quot;);
+	try{
+		return dialogDiv;
+	}finally{
+		dialogDiv = null;
+	}
+};
+Dialog.onKeyDown = function (event) {
+    if (event.shiftKey &amp;&amp; event.keyCode == 9) { //shift键
+        if (topWin.Dialog._Array.length &gt; 0) {
+            stopEvent(event);
+            return false;
+        }
+    }
+    if (event.keyCode == 27) { //ESC键
+        Dialog.close();
+    }
+};
+Dialog.close = function (id) {
+    if (topWin.Dialog._Array.length &gt; 0) {
+        var diag = topWin.Dialog._Array[topWin.Dialog._Array.length - 1];
+        diag.cancelButton.onclick.apply(diag.cancelButton, []);
+    }
+};
+Dialog.alert = function (msg, func, w, h) {
+    var w = w || 300,
+        h = h || 110;
+    var diag = new Dialog({
+        Width: w,
+        Height: h
+    });
+    diag.ShowButtonRow = true;
+    diag.Title = &quot;U美直播社区提示&quot;;
+    diag.CancelEvent = function () {
+        diag.close();
+        if (func) func();
+    };
+    diag.InnerHtml = &#039;&lt;table height=&quot;100%&quot; border=&quot;0&quot; align=&quot;center&quot; cellpadding=&quot;10&quot; cellspacing=&quot;0&quot;&gt;\
+		&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;img id=&quot;Icon_&#039; + this.ID + &#039;&quot; src=&quot;&#039; + IMAGESPATH + &#039;icon_alert.gif&quot; width=&quot;34&quot; height=&quot;34&quot; align=&quot;absmiddle&quot;&gt;&lt;/td&gt;\
+			&lt;td align=&quot;left&quot; id=&quot;Message_&#039; + this.ID + &#039;&quot; style=&quot;font-size:9pt&quot;&gt;&#039; + msg + &#039;&lt;/td&gt;&lt;/tr&gt;\
+	&lt;/table&gt;&#039;;
+    diag.show();
+    diag.okButton.parentNode.style.textAlign = &quot;center&quot;;
+    diag.okButton.style.display = &quot;none&quot;;
+    diag.cancelButton.value = &quot;确 定&quot;;
+    diag.cancelButton.focus();
+};
+Dialog.confirm = function (msg, funcOK, funcCal, w, h) {
+    var w = w || 300,
+        h = h || 110;
+    var diag = new Dialog({
+        Width: w,
+        Height: h
+    });
+    diag.ShowButtonRow = true;
+    diag.Title = &quot;U美直播社区提示&quot;;
+    diag.CancelEvent = function () {
+        diag.close();
+        if (funcCal) {
+            funcCal();
+        }
+    };
+    diag.OKEvent = function () {
+        diag.close();
+        if (funcOK) {
+            funcOK();
+        }
+    };
+    diag.InnerHtml = &#039;&lt;table height=&quot;100%&quot; border=&quot;0&quot; align=&quot;center&quot; cellpadding=&quot;10&quot; cellspacing=&quot;0&quot;&gt;\
+		&lt;tr&gt;&lt;td align=&quot;right&quot;&gt;&lt;img id=&quot;Icon_&#039; + this.ID + &#039;&quot; src=&quot;&#039; + IMAGESPATH + &#039;icon_query.gif&quot; width=&quot;34&quot; height=&quot;34&quot; align=&quot;absmiddle&quot;&gt;&lt;/td&gt;\
+			&lt;td align=&quot;left&quot; id=&quot;Message_&#039; + this.ID + &#039;&quot; style=&quot;font-size:9pt&quot;&gt;&#039; + msg + &#039;&lt;/td&gt;&lt;/tr&gt;\
+	&lt;/table&gt;&#039;;
+    diag.show();
+    diag.okButton.parentNode.style.textAlign = &quot;center&quot;;
+    diag.okButton.focus();
+};
+Dialog.open = function (arg) {
+    var diag = new Dialog(arg);
+    diag.show();
+    return diag;
+};
+if (isIE) {
+    window.attachEvent(&quot;onload&quot;, Dialog.attachBehaviors);
+} else {
+    window.addEventListener(&quot;load&quot;, Dialog.attachBehaviors, false);
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

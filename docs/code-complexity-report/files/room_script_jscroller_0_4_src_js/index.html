@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - room/script/jscroller-0.4-src.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>room/script/jscroller-0.4-src.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">61.42</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">128</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">58.44</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.37</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/*
+ * jScroller 0.4 - Autoscroller PlugIn for jQuery
+ *
+ * Copyright (c) 2007 Markus Bordihn (http://markusbordihn.de)
+ * Dual licensed under the MIT (MIT-LICENSE.txt)
+ * and GPL (GPL-LICENSE.txt) licenses.
+ *
+ * $Date: 2009-06-18 20:00:00 +0100 (Sat, 18 Jul 2009) $
+ * $Rev: 0.4 $
+ */
+
+$jScroller = {
+
+ info: {
+  Name: &quot;ByRei jScroller Plugin for jQuery&quot;,
+  Version: 0.4,
+  Author: &quot;Markus Bordihn (http://markusbordihn.de)&quot;,
+  Description: &quot;Next Generation Autoscroller&quot;
+ },
+
+ config: {
+  obj : [],
+  refresh: 500,
+  regExp: {
+   px: /([0-9,.\-]+)px/
+  }
+ },
+
+ cache: {
+  timer: 0,
+  init: 0
+ },
+
+ add: function(parent,child,direction,speed,mouse) {
+  if ($(parent).length &amp;&amp; $(child).length &amp;&amp; direction &amp;&amp; speed &gt;= 1) {
+      $(parent).css({overflow: &#039;hidden&#039;});
+      $(child).css({position: &#039;absolute&#039;, left: 0, top: 0});
+      /* Usability improvement by Nimrod Yonatan Ben-Nes, thanks Nimrod. */
+      if (mouse) {
+          $(child).hover(
+            function(){
+             $jScroller.pause($(child),true);
+            },
+            function(){
+             $jScroller.pause($(child),false);
+          });
+      }
+      $jScroller.config.obj.push({
+                                  parent:    $(parent),
+                                  child:     $(child),
+                                  direction: direction,
+                                  speed:     speed,
+                                  pause:     false
+       });
+  }
+ },
+
+ pause: function(obj,status) {
+  if (obj &amp;&amp; typeof status !== &#039;undefined&#039;) {
+      for (var i in $jScroller.config.obj) {
+           if ($jScroller.config.obj[i].child.attr(&quot;id&quot;) === obj.attr(&quot;id&quot;)) {
+               $jScroller.config.obj[i].pause = status;
+           }
+      }
+  }
+ },
+
+ start: function() {
+  if ($jScroller.cache.timer === 0 &amp;&amp; $jScroller.config.refresh &gt; 0) {
+      $jScroller.cache.timer = window.setInterval($jScroller.scroll, $jScroller.config.refresh);
+  }
+  if (!$jScroller.cache.init) {
+      $(window).blur($jScroller.stop);
+      $(window).focus($jScroller.start);
+      $(window).resize($jScroller.start);
+      $(window).scroll($jScroller.start);
+      $(document).mousemove($jScroller.start);
+      //if ($.browser.msie) {window.focus();}
+      $jScroller.cache.init = 1;
+  }
+ },
+
+ stop: function() {
+  if ($jScroller.cache.timer) {
+      window.clearInterval($jScroller.cache.timer);
+      $jScroller.cache.timer = 0;
+  }
+ },
+
+ get: {
+  px: function(value) {
+   var result = &#039;&#039;;
+   if (value) {
+       if (value.match($jScroller.config.regExp.px)) {
+           if (typeof value.match($jScroller.config.regExp.px)[1] !== &#039;undefined&#039;) {
+               result = value.match($jScroller.config.regExp.px)[1];
+           }
+       }
+   }
+   return result;
+  }
+ },
+
+ scroll: function() {
+  for (var i in $jScroller.config.obj) {
+       if ($jScroller.config.obj.hasOwnProperty(i)) {
+           var
+            obj        = $jScroller.config.obj[i],
+            left       = Number(($jScroller.get.px(obj.child.css(&#039;left&#039;))||0)),
+            top        = Number(($jScroller.get.px(obj.child.css(&#039;top&#039;))||0)),
+            min_height = obj.parent.height(),
+            min_width  = obj.parent.width(),
+            height     = obj.child.height(),
+            width      = obj.child.width();
+
+           if (!obj.pause) {
+               switch(obj.direction) {
+                case &#039;up&#039;:
+                 if (top &lt;= -1 * height) {top = min_height;}
+                 obj.child.css(&#039;top&#039;,top - obj.speed + &#039;px&#039;);
+                break;
+                case &#039;right&#039;:
+                 if (left &gt;= min_width) {left = -1 * width;}
+                 obj.child.css(&#039;left&#039;,left + obj.speed + &#039;px&#039;);
+                break;
+                case &#039;left&#039;:
+                 if (left &lt;= -1 * width) {left = min_width;}
+                 obj.child.css(&#039;left&#039;,left - obj.speed + &#039;px&#039;);
+                break;
+                case &#039;down&#039;:
+                 if (top &gt;= min_height) {top = -1 * height;}
+                 obj.child.css(&#039;top&#039;,top + obj.speed + &#039;px&#039;);
+                break;
+               }
+           }
+       }
+  }
+ }
+};</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

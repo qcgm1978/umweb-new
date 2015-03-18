@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/login_reg.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/login_reg.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">70.00</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">105</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">17.32</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.98</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">function login(){
+	
+	if(jQuery(&quot;#username&quot;).val()==&quot;&quot; || jQuery(&quot;#password&quot;).val()==&quot;&quot;){
+		jQuery(&quot;.erroTipInfor&quot;).html(&quot;用户名，密码必须都填写&quot;);
+		return false;
+	}
+	jQuery.ajax({ 
+        type: &quot;post&quot;, 
+        data: {&quot;act&quot;:&quot;user&quot;,&quot;username&quot;:jQuery(&quot;#username&quot;).val(),&quot;password&quot;:jQuery(&quot;#password&quot;).val(),&quot;captcha&quot;:jQuery(&quot;#captcha&quot;).val(),&quot;autoLogin&quot;:jQuery(&quot;#autoLogin&quot;).val()},
+        url: &quot;/user/login&quot;,
+        success: function (data,status) {
+            console.log(data);
+			var ms = JSON.parse(data);
+            if(ms.error==0){
+            	jQuery(&quot;.erroTipInfor&quot;).html(ms.message);
+            	setTimeout(function(){
+            		window.location.reload();
+	            	},500);
+            }else{
+            	jQuery(&quot;.erroTipInfor&quot;).html(ms.message);
+            	change_captcha();
+            	if(parseInt(ms.content)&gt;2){
+            		jQuery(&quot;#yzm&quot;).show();
+                }
+            }
+        }
+    });
+}
+
+function reg(){
+
+	if(jQuery(&quot;#regusername&quot;).val()==&quot;&quot; || jQuery(&quot;#regpassword&quot;).val()==&quot;&quot;|| jQuery(&quot;#regconfirm_password&quot;).val()==&quot;&quot;|| jQuery(&quot;#regcaptcha&quot;).val()==&quot;&quot;){
+		jQuery(&quot;.erroTipInfor&quot;).html(&quot;用户名，密码，验证码等必须都填写&quot;);
+		return false;
+	}
+	if(!$(&#039;#agreeCont&#039;).prop(&#039;checked&#039;)){
+		jQuery(&quot;.erroTipInfor&quot;).html(&quot;请同意协议&quot;);
+		return false;
+	}
+	jQuery.ajax({ 
+        type: &quot;post&quot;, 
+        data: {&quot;act&quot;:&quot;general&quot;,
+        	&quot;username&quot;:jQuery(&quot;#regusername&quot;).val(),
+        	&quot;password&quot;:jQuery(&quot;#regpassword&quot;).val(),
+        	&quot;confirm_password&quot;:jQuery(&quot;#regconfirm_password&quot;).val(),
+        	//&quot;nickname&quot;:jQuery(&quot;#nickname&quot;).val(),
+        	//&quot;sex&quot;:jQuery(&quot;#sex&quot;).val(),
+        	&quot;captcha&quot;:jQuery(&quot;#regcaptcha&quot;).val()},
+        url: &quot;/user/register&quot;,
+        success: function (data,status) {
+			var ms = JSON.parse(data);
+            if(ms.error==0){
+            	var mss = JSON.parse(ms.content);
+            	jQuery(&quot;#okusername&quot;).html(mss.username);
+            	jQuery(&quot;#okuid&quot;).html(mss.uid);
+            	jQuery(&quot;#registerokBox&quot;).click();
+            }else{
+            	change_regcaptcha();
+            	jQuery(&quot;.erroTipInfor&quot;).html(ms.message);
+            }
+        }
+    });
+}
+
+
+function toreg(){
+	change_regcaptcha();
+	$(&quot;#registerBox&quot;).click();
+}
+
+function toforgetpwd(){
+	window.open(&#039;login.php?act=returnpwd&#039;,&#039;找回密码&#039;);
+}
+
+function tologin(){
+	change_captcha();
+	$(&quot;#loginBox&quot;).click();
+}
+
+function change_captcha()
+{
+	jQuery(&quot;#captchaimg&quot;).attr(&quot;src&quot;,&quot;/captcha.php?&quot;+Math.random());
+	return;
+}
+
+function change_regcaptcha()
+{
+	jQuery(&quot;#regcaptchaimg&quot;).attr(&quot;src&quot;,&quot;/captcha.php?&quot;+Math.random());
+	return;
+}
+
+function checklogin(){
+	if(userpara.levelinroom==1){
+		if(jQuery(&quot;.masterEle&quot;).css(&quot;display&quot;)==&quot;none&quot;){
+			jQuery(&quot;#loginBox&quot;).click();
+			return false;
+		}
+	}
+	return true;
+}
+
+function toQzoneLogin()
+{
+    childWindow = window.open(&quot;/qlogin/example/oauth/index.php&quot;,&quot;TencentLogin&quot;,&quot;width=450,height=320,menubar=0,scrollbars=1, resizable=1,status=1,titlebar=0,toolbar=0,location=1&quot;);
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

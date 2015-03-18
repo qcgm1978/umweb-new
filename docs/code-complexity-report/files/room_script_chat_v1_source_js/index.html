@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - room/script/chat_v1.source.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>room/script/chat_v1.source.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">56.82</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">375</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">66.25</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">6.98</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * Description: 聊天对象
+ *
+ * @module chat
+ * @class chat
+ * @constructor
+ */
+/* 聊天对象 */
+function chat(o, type, $scroll) {
+    this.chat_type = type;
+    this.infosum = 0;        // 信息计数器
+    this.lastmsg = [];       // 保存最后几条聊天信息
+    this.autoscroll = true;     // 默认自动滚屏
+    this.isautoclear = 1;    // 默认自动清屏
+    this.bgifs = 1;          // 礼物滚屏计数器
+    this.gtime = 0;          // 物滚屏计时器
+    this.rspeed = 1;        // 礼物滚屏速度
+    this.colors = new Array(&quot;FF0000&quot;, &quot;800080&quot;, &quot;000080&quot;, &quot;800000&quot;, &quot;008080&quot;, &quot;FF8C00&quot;);// 礼物颜色库
+    this.icolor = &#039;#ff0000&#039;;// 礼物默认颜色
+    // 免费献花库
+    // 军衔
+    this.titles = {
+        1: &#039;&#039;,
+        2: &#039;&#039;,
+        3: &#039;&#039;,
+        4: &#039;&#039;,
+        5: &#039;&#039;,
+        6: &#039;&#039;,
+        7: &#039;&#039;,
+        8: &#039;&#039;,
+        9: &#039;&#039;,
+        10: &#039;&#039;,
+        11: &#039;&#039;,
+        12: &#039;&#039;,
+        13: &#039;&#039;,
+        14: &#039;&#039;,
+        15: &#039;&#039;,
+        16: &#039;&#039;,
+        17: &#039;&#039;,
+        18: &#039;&#039;,
+        19: &#039;&#039;,
+        20: &#039;&#039;,
+        21: &#039;&#039;,
+        22: &#039;&#039;
+    };
+    // 爵位
+    this.vips = {1: &#039;贵宾&#039;, 2: &#039;绅士&#039;, 3: &#039;骑士&#039;, 4: &#039;领主&#039;, 5: &#039;勋爵&#039;, 28: &#039;元勋&#039;, 29: &#039;元帅&#039;, 30: &#039;元首&#039;};
+    this.$ = document.getElementById(o);
+    /**
+     * scrolling elements of chatting box
+     *
+     * @attribute $scrollEle
+     * @required
+     * @type Object
+     */
+    this.$scrollEle = $scroll
+    this.kw_filter = null;
+    var Freeflowers = new Array(
+        &#039;&lt;font style=&quot;font-size:8pt&quot;  color=green&gt;&lt;b&gt;&lt;i&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font-size: 11pt&quot; color=#33cc33&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font- size: 14pt&quot; color=#66ff33&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font-size: 18pt&quot;  color=#99ff66&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font-size:14pt&quot;  color=#ccff66&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font-size: 11pt&quot; color=#ffff66&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font-size: 8pt&quot; color=#ffcc66&gt;棒棒&lt;/font&gt;&lt;font  style=&quot;font-size: 11pt&quot; color=#ff9900&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font- size: 14pt&quot; color=#ff3300&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font-size: 18pt&quot;  color=#ff7c80&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font-size: 14pt&quot;  color=#ff6699&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font-size: 11pt&quot; color=#ff66cc&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font-size: 8pt&quot; color=#ff33cc&gt;棒棒&lt;/font&gt;&lt;font  style=&quot;font-size: 11pt&quot; color=#cc0099&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font- size: 14pt&quot; color=#990099&gt;棒棒&lt;/font&gt;&lt;font style=&quot;font-size: 18pt&quot;  color=purple&gt;棒棒&lt;/i&gt;&lt;/b&gt;&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:11pt&quot; color=fuchsia&gt;&lt;b&gt;∵鼓掌～☆★∴**☆∵*☆★∴[m:101]☆((啪))((啪))((啪))[m:102]～～～～好听[m:103]&lt;/b&gt;&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:11pt&quot; color=green&gt;&lt;b&gt;&lt;i&gt;▄&lt;/font&gt;&lt;font style=&quot;font-size: 11pt&quot; color=#33cc33&gt;▅&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#66ff33&gt;▆&lt;/font&gt;&lt;font style=&quot;font-size: 11pt&quot;  color=#ccff33&gt;▇&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=yellow&gt;█&lt;/font&gt;&lt;font style=&quot;font-size: 11pt&quot; color=#ff9900&gt;献花&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ff3300&gt;█&lt;/font&gt;&lt;font style=&quot;font-size:  11pt&quot; color=#ff7c80&gt;▇&lt;/font&gt;&lt;font style=&quot;font-size: 11pt&quot;  color=#ff3399&gt;▆&lt;/font&gt;&lt;font style=&quot;font-size: 11pt&quot; color=#cc0099&gt;▅&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#9933ff&gt;▄&lt;/font&gt;&lt;font  style=&quot;font-size:11pt&quot; color=#6600ff&gt;▃&lt;/font&gt;&lt;font style=&quot;font-size:  11pt&quot; color=#3333cc&gt;好听好听～～&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=#a50021&gt;☆★&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=#ff5050&gt;∴☆∵&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ffcccc&gt;☆★&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#66ffcc&gt;∴☆★∴&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#6600ff&gt;▃&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#9933ff&gt;▄&lt;/i&gt;&lt;/font&gt;&lt;font style=&quot;font -size: 11pt&quot; color=#cc0099&gt;&lt;i&gt;▅&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; face= 宋体 color=#ff3399&gt;▆&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=#ff7c80&gt;▇&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ff3300&gt;█&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ff9900&gt;献花&lt;/font&gt;&lt;font  style=&quot;font-size:11pt&quot; color=yellow&gt;█&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ccff33&gt;▇&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=#66ff33&gt;▆&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#33cc33&gt;▅&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=green&gt;▄&lt;/i&gt;&lt;/b&gt;&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:11pt&quot; color=#33cccc&gt;～~唱的太棒了[m:103]~～☆★/**☆～~我听得都醉了～☆[m:101]★～~给我签个名吧~ ～☆★[m:103]☆～~哇~～！～~太好听了~～&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:11pt&quot; color=red&gt;&lt;i&gt;█&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ff9933&gt;好听[m:103]■&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=yellow&gt;你&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ffcc66&gt;■&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ffcc99&gt;是&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ff99cc&gt;■&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#cc99ff&gt;明&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#cc0099&gt;■&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#9900cc&gt;星&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#9933ff&gt;■&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#3366ff&gt;好听&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=blue&gt;▄▅▆&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ff9900&gt;献花&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#339966&gt;▆▅▄▃&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#cc00ff&gt;好听&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ff33cc&gt;▁▂▃&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=red&gt;太美了&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ffcc66&gt;▁▂▃&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=red&gt;献花&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=aqua&gt;▃▄▅▆&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#993366&gt;好听&lt;/i&gt;&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:11pt&quot; color=#669900&gt;&lt;b&gt;&lt;i&gt;真好听！[m:100]▁▂▃▄▅▆▇▇▆▅▄▃▂▁[m:100]啪啪啪[m:100]▁▂▃▄▅▆▇▇▆▅▄▃▂▁[m:100]太棒了！[m:100]▁▂▃▄▅▆▇[m:100]我醉了！&lt;/b&gt;&lt;/i&gt;&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:11pt&quot; color=red&gt;&lt;b&gt;好！好！&lt;/font&gt;&lt;font  style=&quot;font-size:11pt&quot; color=#ff9900&gt;ooo&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=fuchsia&gt;ooo&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=#ff99cc&gt;为你来喝彩！！[m:104]&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=ime&gt;ooo&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#33cccc&gt;ooo&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#339966&gt;掌声响起来&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=#99cc00&gt;ooo&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=olive&gt;ooo&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=green&gt;谢谢你的声音&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#33cccc&gt;ooo&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=aqua&gt;ooo&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#00ccff&gt;啪啪啪啪啪&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=#3366ff&gt;oooooo&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=blue&gt;为你来喝彩[m:111]&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=#666699&gt;ooo&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=navy&gt;ooo&lt;/b&gt;&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:11pt&quot; color=#ff9900&gt;∵*☆★∴☆∵献花[m:100]～☆★∴☆∵*☆[m:112]★∴☆∵好听[m:103]～☆★∴☆∵*☆★∴☆∵鼓掌～☆★∴☆∵[m:111]&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:8pt&quot;  color=#993300&gt;●&lt;/font&gt;&lt;font style=&quot;font- size: 11pt&quot; color=#ff6600&gt;●&lt;/font&gt;&lt;font style=&quot;font-size: 14pt&quot; face= 宋体 color=#ff9900&gt;●&lt;/font&gt;&lt;font style=&quot;font-size: 18pt&quot;  color=#ffcc00&gt;●&lt;/font&gt;&lt;font style=&quot;font-size: 22pt&quot; color=#ffcc00&gt;●[m:101]&lt;/font&gt;&lt;font style=&quot;font-size: 8pt&quot; color=#993300&gt;●&lt;/font&gt;&lt;font  style=&quot;font-size:11pt&quot; color=#ff6600&gt;●&lt;/font&gt;&lt;font style=&quot;font-size:14pt&quot; color=#ff9900&gt;●&lt;/font&gt;&lt;font style=&quot;font-size: 18pt&quot; color=#ffcc00&gt;●&lt;/font&gt;&lt;font style=&quot;font-size:22pt&quot; color=#ffcc00&gt;●[m:101]&lt;/font&gt;&lt;font style=&quot;font-size:8pt&quot; color=#993300&gt;●&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ff6600&gt;●&lt;/font&gt;&lt;font style=&quot;font-size:14pt&quot; color=#ff9900&gt;●&lt;/font&gt;&lt;font style=&quot;font-size:18pt&quot;  color=#ffcc00&gt;●&lt;/font&gt;&lt;font style=&quot;font-size: 22pt&quot; color=#ffcc00&gt;●[m:101]&lt;/font&gt;&lt;font style=&quot;font-size: 9pt&quot; color=#bb0000&gt;●&lt;/font&gt;&lt;font  style=&quot;font-size:11pt&quot; color=#d50000&gt;●&lt;/font&gt;&lt;font style=&quot;font-size:14pt&quot; color=#f00000&gt;●&lt;/font&gt;&lt;font style=&quot;font-size:18pt&quot; color=#ff0c0c&gt;●[m:112]&lt;/font&gt;&lt;font style=&quot;font-size:9pt&quot; color=#bb0000&gt;●&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#d50000&gt;●&lt;/font&gt;&lt;font style=&quot;font-size:14pt&quot; color=#f00000&gt;●&lt;/font&gt;&lt;font style=&quot;font-size: 18pt&quot;  color=#ff0c0c&gt;●[m:112]&lt;/font&gt;&lt;font style=&quot;font-size: 9pt&quot; color=#bb0000&gt;●&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#d50000&gt;●&lt;/font&gt;&lt;font style=&quot;font-size:14pt&quot; color=#f00000&gt;●&lt;/font&gt;&lt;font style=&quot;font-size:18pt&quot; color=#ff0c0c&gt;●[m:112]&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:11pt&quot; color=blue&gt;哗啦啦---[m:105]&lt;/font&gt;&lt;font  style=&quot;font-size:11pt&quot; color=#00ccff&gt;下雨啦&lt;/font&gt;&lt;font  style=&quot;font-size:11pt&quot; color=#ff6600&gt;｀、｀、｀、｀、&lt;/font&gt;&lt;font  style=&quot;font-size:11pt&quot; color=red&gt;好听&lt;/font&gt;&lt;font style=&quot;font- size: 11pt&quot; color=#cc0099&gt;｀给你雨伞、[m:106]&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=lime&gt;迷死人了&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=#ff6600&gt;｀、｀、｀、&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=red&gt;鲜花[m:100]&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=blue&gt;｀、｀、｀、&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=lime&gt;太美了&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:11pt&quot; color=#ff33cc&gt;&lt;b&gt;&lt;i&gt;真好听！▁▂▃▄▅▆▇▇▆▅▄▃▂▁[m:103]啪啪啪[m:111]▁▂▃▄▅▆▇▇▆▅▄▃▂▁[m:102]太棒了！[m:111]▇▆▅▄▃▂▁我醉了！&lt;/i&gt;&lt;/b&gt;&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:11pt&quot; color=#ff9900&gt;&lt;b&gt;唱的真棒[m:111]&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=purple&gt;鼓掌&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=red&gt;╰☆☆玫瑰╰☆☆╮[m:100]&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=yellow&gt;╰☆☆牡丹╰☆☆╮[m:108]&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=lime&gt;╰☆☆茉莉╰☆☆╮&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#cc0099&gt;还有一枝勿忘我&lt;/b&gt;&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:14pt&quot; color=#9900cc&gt;&lt;b&gt;&lt;i&gt;∴°★**★°∴&lt;/font&gt;&lt;font style=&quot;font-size: 14pt&quot; color=#ccffcc&gt;▁▂▃&lt;/font&gt;&lt;font  style=&quot;font-size: 14pt&quot; color=#99ff99&gt;▄&lt;/font&gt;&lt;font style=&quot;font-size:14pt&quot; color=#66ff66&gt;▅&lt;/font&gt;&lt;font style=&quot;font-size: 14pt&quot;  color=#33cc33&gt;▆&lt;/font&gt;&lt;font style=&quot;font-size: 14pt&quot; color=green&gt;▇&lt;/font&gt;&lt;font style=&quot;font-size: 14pt&quot; color=fuchsia&gt;真好听&lt;/font&gt;&lt;font  style=&quot;font-size: 14pt&quot; color=red&gt;▇&lt;/font&gt;&lt;font style=&quot;font-size:  14pt&quot; color=#ff9900&gt;▆&lt;/font&gt;&lt;font style=&quot;font-size: 14pt&quot;  color=yellow&gt;▅&lt;/font&gt;&lt;font style=&quot;font-size: 14pt&quot; color=#99cc00&gt;▄&lt;/font&gt;&lt;font style=&quot;font-size: 14pt&quot; color=#00ccff&gt;▃&lt;/font&gt;&lt;font  style=&quot;font-size: 14pt&quot; color=#00faf4&gt;▂&lt;/font&gt;&lt;font style=&quot;font-size:14pt&quot; color=#ccecff&gt;▁&lt;/font&gt;&lt;font style=&quot;font-size: 14pt&quot; color=#ff9900&gt;啪啪啪&lt;/i&gt;&lt;/b&gt;&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:11pt&quot; color=blue&gt;&lt;i&gt;啪啪啪∵*☆★**∴☆啪啪啪∵*☆★∴☆∵啪啪啪啪∵[m:101]*☆★∴☆啪啪啪∵*☆★[m:103]∴☆∵啪啪啪∵*☆★∴☆&lt;/i&gt;&lt;/font&gt;&#039;,
+        &#039;[m:111]&lt;font style=&quot;font-size:11pt&quot; color=#ccffcc&gt;&lt;b&gt;&lt;i&gt;▁▂▃&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#99ff99&gt;▄&lt;/font&gt;&lt;font  style=&quot;font-size:11pt&quot; color=#66ff66&gt;▅&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=green&gt;好&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ccffcc&gt;▁▂▃&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#99ff99&gt;▄&lt;/font&gt;&lt;font  style=&quot;font-size:11pt&quot; color=#66ff66&gt;▅&lt;/font&gt;&lt;font style=&quot;font-size:  11pt&quot; color=#33cc33&gt;▆&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=green&gt;听&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ccffcc&gt;▁▂▃&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#99ff99&gt;▄&lt;/font&gt;&lt;font  style=&quot;font-size:11pt&quot; color=#66ff66&gt;▅&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#33cc33&gt;▆&lt;/font&gt;[m:101]&lt;font style=&quot;font-size:11pt&quot; color=#ccffcc&gt;▁▂▃&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#99ff99&gt;▄&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#66ff66&gt;▅&lt;/font&gt;&lt;font style=&quot;font-size:  11pt&quot; color=#33cc33&gt;▆&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=green&gt;好&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#ccffcc&gt;▁▂▃&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot; color=#99ff99&gt;▄&lt;/font&gt;&lt;font  style=&quot;font-size:11pt&quot; color=#66ff66&gt;▅&lt;/font&gt;&lt;font style=&quot;font-size:  11pt&quot; color=#33cc33&gt;▆&lt;/font&gt;&lt;font style=&quot;font-size:11pt&quot;  color=green&gt;听&lt;/font&gt;&lt;/i&gt;&lt;/b&gt;&lt;/font&gt;&#039;,
+        &#039;&lt;font style=&quot;font-size:11pt&quot; color=#ff9900&gt;&lt;b&gt;艺术家！[m:104]专业歌星[m:103]~~~~ぷ╰哗...☆╮满天星[m:102]ぷ鼓掌ぷぷ╰签名！签名！可否外加唇印?[m:107]&lt;/b&gt;&lt;/font&gt;&#039;
+    );
+    this.flowers = Freeflowers;
+    //初始化聊天框
+    this.init();
+}
+var ImageBase = &#039;&#039;;
+chat.prototype = {
+    // 初始化聊天框高度
+    init: function () {
+        //this.$.style.height = (document.body.clientHeight-10) + &#039;px&#039;;
+        //this.rolling();
+    },
+    // 时间
+    time: function () {
+        var date = new Date();
+        var now = (date.getHours() &lt; 10 ? (&#039;0&#039; + date.getHours()) : date.getHours()) + &#039;:&#039;
+            + (date.getMinutes() &lt; 10 ? (&#039;0&#039; + date.getMinutes()) : date.getMinutes());
+        return now;
+    },
+	/**
+	 * Description: 在聊天框中插入内容
+	 *
+	 * @method insert
+	 * @param {String} info info to insert
+     * @example
+     *  &quot;连接服务器成功.&quot;
+	 */
+	insert:function(info)
+	{
+        this.storelastmsg(info);
+        this.autoclear();
+        this.$.innerHTML += &#039;&lt;li&gt;&lt;span class=&quot;lcTime&quot;&gt;&#039; + this.time() + &#039;&lt;/span&gt;&#039; + info + &#039;&lt;/li&gt;&#039;;
+        this.infosum++;
+        this.rolling();
+    },
+    // 保存最后5条聊天记录
+    storelastmsg: function (info) {
+        if (this.lastmsg.length &gt;= 0 &amp;&amp; this.lastmsg.length &lt; 5) {
+            this.lastmsg.push(info);
+        } else if (this.lastmsg.length &gt;= 5) {
+            this.lastmsg.shift();
+            this.lastmsg.push(info);
+        }
+    },
+    // 还原最后5条聊天记录
+    restorelastmsg: function () {
+        if (this.lastmsg.length &gt; 0) {
+            for (var i = 0; i &lt; this.lastmsg.length; i++) {
+                this.$.innerHTML += &#039;&lt;li&gt;&lt;div class=&quot;message_block&quot;&gt;&#039; + this.time() + &#039;&amp;nbsp;&amp;nbsp;&#039; + this.lastmsg.shift() + &#039;&lt;/div&gt;&lt;/li&gt;&#039;;
+            }
+        }
+        this.rolling();
+    },
+    // 用户清屏
+    userclear: function () {
+        this.$.innerHTML = &#039;&#039;;
+        this.infosum = 0;
+    },
+    // 自动清屏
+    autoclear: function () {
+        if ((this.infosum &gt; 50 || this.$.scrollHeight &gt; document.body.clientHeight * 5) &amp;&amp; this.isautoclear == 1) {
+            this.userclear();
+            this.restorelastmsg();
+        }
+    },
+    // 滚屏
+    rolling: function () {
+        if (this.autoscroll) {
+            this.$scrollEle[0].scrollTop = this.$scrollEle[0].scrollHeight - 5;
+        }
+    },
+    // 小礼物
+    sgift: function (text, img, sum, unit) {
+        var sgimg = &#039;&#039;;
+        var showsum = sum &gt; 50 ? 50 : sum;
+        for (var i = showsum; i &gt; 0; i--) {
+            sgimg += img;
+        }
+        if (showsum &gt; 18) {
+            this.insert(text + &#039;&amp;nbsp;&#039; + sgimg + &#039;&amp;nbsp;共&#039; + sum + unit);
+        } else {
+            this.insert(text + &#039;&amp;nbsp;&#039; + sgimg);
+        }
+        sgimg = showsum = null;
+        this.rolling();
+    },
+    // 大礼物
+    bgift: function (text, img, sum, unit) {
+        var self = this;
+        this.icolor = this.colors[Math.floor(Math.random() * this.colors.length)];
+        if (this.bgifs &gt; sum) {
+            window.clearTimeout(this.gtime);
+            this.bgifs = 1;
+            return;
+        }
+        this.insert(&#039;&lt;span style=&quot;color:&#039; + this.icolor + &#039;&quot;&gt;&#039; + text + &#039;&amp;nbsp;&#039; + img + &#039;第&#039; + this.bgifs + unit + &#039;&lt;/span&gt;&#039;);
+        this.bgifs++;
+        this.gtime = window.setTimeout(function () {
+            self.bgift(text, img, sum, unit);
+        }, self.rspeed);
+    },
+    // 显示礼物
+    disgift: function (gift, win) {
+        var self = this;
+        /*
+         if(win == 1) // 公聊区
+         {
+         var showimg = &#039;&lt;img src=&#039;+ gift.img +&#039; /&gt;&#039;;
+         if(gift.type==&#039;S&#039;){	 // 批量显示
+         this.sgift(gift.text, showimg, gift.sum, gift.unit);
+         }
+         else if(gift.type==&#039;B&#039;){ // 刷屏显示
+         this.bgift(gift.text, showimg, gift.sum, gift.unit);
+         }
+         }else{// 私聊区
+         var showimg = &#039;&lt;img src=&quot;&#039;+ gift.img +&#039;&quot; height=&quot;20&quot;/&gt;&#039;;
+         this.insert(gift.text + &#039;&amp;nbsp;&#039; + showimg);
+         }
+         */
+        var showimg = &#039;&#039;;
+        var count = gift.sum &gt; 10 ? 10 : gift.sum;
+        if (gift.type == &#039;S&#039;) {
+            for (var i = 0; i &lt; count; i++) {
+                showimg += &#039;&lt;span class=&quot;gift&quot;&gt;&lt;img src=&quot;&#039; + gift.img + &#039;&quot; height=&quot;20&quot;/&gt;&lt;/span&gt;&#039;;
+            }
+        }
+        else if (gift.type == &#039;B&#039;) {
+            for (var i = 0; i &lt; count; i++) {
+                showimg += &#039;&lt;span class=&quot;gift&quot;&gt;&lt;img src=&quot;&#039; + gift.img + &#039;&quot; height=&quot;40&quot;/&gt;&lt;/span&gt;&#039;;
+            }
+        }
+        var text = &#039;&lt;div class=&quot;lcWord&quot;&gt;&#039;;
+        if (gift.tou) {
+            var tou = gift.tou.appdata;
+            var toadminimg = tou.tolevelinroom == 900 &amp;&amp; !tou.towatchman ? &#039;&lt;i class=&quot;manageIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+            var towatchmanimg = tou.watchman ? &#039;&lt;i class=&quot;xunIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+            var tosimg = tou.roomer ? &#039;&lt;i class=&quot;zhuboIco zb&#039; + tou.starlevel + &#039;&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+            var tovimg = tou.vip2 ? &#039;&lt;i class=&quot;vipIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+            var totimg = tou.vip &amp;&amp; !tou.roomer ? &#039;&lt;i class=&quot;jwIco V&#039; + tou.vip + &#039;&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+            var tofimg = Base64.decode(tou.family_name) != &quot;0&quot; ? &#039;&lt;i class=&quot;clubIcoText&quot;&gt;&lt;em&gt;&#039; + Base64.decode(tou.family_name) + &#039;&lt;/em&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+            var togid = (tou.nicegid + &quot;&quot;).length &lt; 8 ? &#039;(&lt;u&gt;&#039; + tou.nicegid + &#039;&lt;/u&gt;)&lt;i class=&quot;lhIco&quot;&gt;&lt;/i&gt;&#039; : &#039;(&#039; + tou.nicegid + &#039;)&#039;;
+            if (!tou.vip &amp;&amp; !tou.roomer &amp;&amp; !tou.watchman &amp;&amp; (tou.nicegid + &quot;&quot;).length &lt;= 8) {
+                totimg = &#039;&lt;i class=&quot;lmIco&quot;&gt;&lt;/i&gt;&#039;;
+            }
+        } else {
+            var toadminimg = &#039;&#039;;
+            var towatchmanimg = &#039;&#039;;
+            var tosimg = &#039;&#039;;
+            var tovimg = &#039;&#039;;
+            var totimg = &#039;&#039;;
+            var tofimg = &#039;&#039;;
+            var togid = &#039;&#039;;
+            var lhimg = &#039;&#039;;
+        }
+        var fromu = gift.fromu.appdata;
+        var watchmanimg = fromu.watchman ? &#039;&lt;i class=&quot;xunIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var adminimg = fromu.levelinroom == 900 &amp;&amp; !fromu.watchman ? &#039;&lt;i class=&quot;manageIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var simg = fromu.roomer ? &#039;&lt;i class=&quot;zhuboIco zb&#039; + fromu.starlevel + &#039;&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var vimg = fromu.vip2 ? &#039;&lt;i class=&quot;vipIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var timg = fromu.vip &amp;&amp; !fromu.roomer ? &#039;&lt;i class=&quot;jwIco V&#039; + fromu.vip + &#039;&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var fimg = Base64.decode(fromu.family_name) != &quot;0&quot; ? &#039;&lt;i class=&quot;clubIcoText&quot;&gt;&lt;em&gt;&#039; + Base64.decode(fromu.family_name) + &#039;&lt;/em&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        if (!fromu.vip &amp;&amp; !fromu.roomer &amp;&amp; !fromu.watchman &amp;&amp; (fromu.nicegid + &quot;&quot;).length &lt;= 8) {
+            timg = &#039;&lt;i class=&quot;lmIco&quot;&gt;&lt;/i&gt;&#039;;
+        }
+        var fgid = (fromu.nicegid + &quot;&quot;).length &lt; 8 ? &#039;(&lt;u&gt;&#039; + fromu.nicegid + &#039;&lt;/u&gt;)&lt;i class=&quot;lhIco&quot;&gt;&lt;/i&gt;&#039; : &#039;(&#039; + fromu.nicegid + &#039;)&#039;;
+        //text = &#039;&lt;font class=red&gt;[礼物]&lt;/font&gt;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039;+this.chat_type+&#039;,&#039;+gift.from_uid+&#039;)&quot;&gt;&lt;span class=&quot;username&quot;&gt;&#039; + gift.from_nickname + &#039;&lt;/span&gt;&lt;/a&gt; 向 &lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039;+this.chat_type+&#039;,&#039;+gift.to_uid+&#039;)&quot;&gt;&lt;span class=&quot;username&quot;&gt;&#039; + gift.to_nickname + &#039;&lt;/span&gt;&lt;/a&gt; 送：&#039; + gift.sum + gift.unit + gift.gift_name;
+        text += simg + timg + vimg + fimg + watchmanimg + adminimg + &#039;&lt;span class=&quot;blue&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039; + this.chat_type + &#039;,&#039; + gift.from_uid + &#039;)&quot;&gt;&#039; + gift.from_nickname + fgid + &#039;&lt;/a&gt;&lt;/span&gt; 送给 &#039; + tosimg + totimg + tovimg + tofimg + towatchmanimg + toadminimg + &#039;&lt;span class=&quot;yellow&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039; + this.chat_type + &#039;,&#039; + gift.to_uid + &#039;)&quot;&gt;&#039; + gift.to_nickname + togid + &#039;&lt;/a&gt;&lt;/span&gt; 送：&lt;span class=&quot;pink&quot;&gt;&#039; + gift.sum + gift.unit + gift.gift_name + &#039;&lt;/span&gt;&#039;;
+        this.insert(text + &#039;&amp;nbsp;&#039; + showimg + &#039;&lt;/div&gt;&#039;);
+        window.setTimeout(function () {
+            self.rolling();
+        }, 1000);
+    },
+    // 随机显示花
+    randflower: function () {
+        var fl = this.flowers[Math.floor(Math.random() * this.flowers.length)];
+        fl = fl.replace(/\[m:(\d{3})\]/g, &quot;&lt;img src=&#039;&quot; + ImageBase + &quot;/room/images/fl/$1.gif&#039;&gt;&quot;);
+        return fl;
+    },
+    // 免费献花
+    disflower: function (user) {
+        var fl = this.randflower();
+        var e_id = user.fromwho.gid + &quot;_&quot; + makeid();
+        var e_id_1 = user.sendwho.gid + &quot;_&quot; + makeid();
+        this.insert(&#039;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039; + this.chat_type + &#039;,&#039; + user.fromwho.gid + &#039;)&quot;&gt;&lt;span class=&quot;username&quot;&gt;&#039; + user.fromwho.nickname + &#039;&lt;/span&gt;&lt;/a&gt;&amp;nbsp;对&amp;nbsp;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039; + this.chat_type + &#039;,&#039; + user.sendwho.gid + &#039;)&quot;&gt;&lt;span class=&quot;username&quot;&gt;&#039; + user.sendwho.nickname + &#039;&lt;/span&gt;&lt;/a&gt;&amp;nbsp;说：&#039; + fl);
+        //install_user_click(e_id,this.chat_type,user.fromwho.gid);
+        //install_user_click(e_id_1,this.chat_type,user.sendwho.gid);
+    },
+    // 人员进出房间
+    disinout: function (info) {
+        var type = (info.type == 1) ? &#039;进入房间&lt;/div&gt;&#039; : &#039;离开房间&lt;/div&gt;&#039;;
+        var prefix = (info.type == 1) ? &#039;&lt;div class=&quot;lcWord&quot;&gt;欢迎 &#039; : &#039;&lt;div class=&quot;lcWord&quot;&gt;欢送 &#039;;//;
+        if ((info.nicegid + &quot;&quot;).length &gt; 8 &amp;&amp; info.type == 1) {
+            this.insert(prefix + &#039;&lt;span class=&quot;green&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039; + this.chat_type + &#039;,&#039; + info.gid + &#039;)&quot;&gt;&#039; + info.nickname + &#039;&lt;/a&gt;&lt;/span&gt;&amp;nbsp;&#039; + type);
+            return;
+        }
+        var carmsg = &#039;&#039;;
+        if (parseInt(info.car_id) &gt; 0) {
+            carmsg = info.carmsg;
+            type = &#039;&lt;/div&gt;&#039;;
+        }
+        var timg = info.vip &amp;&amp; !info.roomer ? &#039;&lt;i class=&quot;jwIco V&#039; + info.vip + &#039;&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        if (!info.vip &amp;&amp; !info.roomer &amp;&amp; !info.watchman &amp;&amp; (info.nicegid + &quot;&quot;).length &lt;= 8) {
+            timg = &#039;&lt;i class=&quot;lmIco&quot;&gt;&lt;/i&gt;&#039;;
+        }
+        var vimg = info.vip2 ? &#039;&lt;i class=&quot;vipIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var adminimg = info.levelinroom == 900 ? &#039;&lt;i class=&quot;manageIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var watchmanimg = info.watchman ? &#039;&lt;i class=&quot;xunIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var simg = info.roomer ? &#039;&lt;i class=&quot;zhuboIco zb&#039; + info.starlevel + &#039;&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var e_id = info.gid + &quot;_&quot; + makeid();
+        var nicegid = (info.nicegid + &quot;&quot;).length &lt; 8 ? &#039;(&lt;u&gt;&#039; + info.nicegid + &#039;&lt;/u&gt;)&#039; : &#039;(&#039; + info.nicegid + &#039;)&#039;;
+        var lhimg = (info.nicegid + &quot;&quot;).length &lt; 8 ? &#039;&lt;i class=&quot;lhIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var fimg = Base64.decode(info.family_name) != &quot;0&quot; ? &#039;&lt;i class=&quot;clubIcoText&quot;&gt;&lt;em&gt;&#039; + Base64.decode(info.family_name) + &#039;&lt;/em&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        if (info.type == 1) { //只显示进入房间信息
+            if (info.title || info.vip || info.roomer || info.levelinroom == 900 || info.vip2) {
+                this.insert(prefix + simg + timg + vimg + adminimg + watchmanimg + fimg + &#039;&lt;span class=&quot;purple&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039; + this.chat_type + &#039;,&#039; + info.gid + &#039;)&quot;&gt;&#039; + info.nickname + nicegid + &#039;&lt;/a&gt;&lt;/span&gt;&#039; + lhimg + carmsg + type);
+            } else {
+                this.insert(prefix + timg + adminimg + watchmanimg + fimg + &#039;&lt;span class=&quot;purple&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039; + this.chat_type + &#039;,&#039; + info.gid + &#039;)&quot;&gt;&#039; + info.nickname + nicegid + &#039;&lt;/a&gt;&lt;/span&gt;&#039; + lhimg + carmsg + type);
+            }
+        }
+    },
+    display_chatmessage: function (chatdata) {
+        if (this.kw_filter) {
+            chatdata.message = chatdata.message.replace(this.kw_filter, &#039;***&#039;);
+        }
+        //alert(chatdata.message);
+        //&#039;/&#039; html escaped. &amp;#47;
+        chatdata.message = chatdata.message.replace(/&amp;#47;b(\d+)/g, &quot;&lt;img src=&#039;&quot; + ImageBase + &quot;/room/images/emotion/$1.gif&#039;&gt;&quot;);
+        var t = &#039;&lt;div class=&quot;lcWord&quot;&gt;&#039;;
+        if (chatdata.touid) {
+            var tou = chatdata.tou.appdata;
+            var toadminimg = tou.tolevelinroom == 900 &amp;&amp; !tou.towatchman ? &#039;&lt;i class=&quot;manageIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+            var towatchmanimg = tou.watchman ? &#039;&lt;i class=&quot;xunIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+            var tosimg = tou.roomer ? &#039;&lt;i class=&quot;zhuboIco zb&#039; + tou.starlevel + &#039;&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+            var tovimg = tou.vip2 ? &#039;&lt;i class=&quot;vipIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+            var totimg = tou.vip &amp;&amp; !tou.roomer ? &#039;&lt;i class=&quot;jwIco V&#039; + tou.vip + &#039;&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+            var tofimg = Base64.decode(tou.family_name) != &quot;0&quot; ? &#039;&lt;i class=&quot;clubIcoText&quot;&gt;&lt;em&gt;&#039; + Base64.decode(tou.family_name) + &#039;&lt;/em&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+            var togid = (tou.nicegid + &quot;&quot;).length &lt; 8 ? &#039;(&lt;u&gt;&#039; + tou.nicegid + &#039;&lt;/u&gt;)&lt;i class=&quot;lhIco&quot;&gt;&lt;/i&gt;&#039; : &#039;(&#039; + tou.nicegid + &#039;)&#039;;
+            if (!tou.vip &amp;&amp; !tou.roomer &amp;&amp; !tou.watchman &amp;&amp; (tou.nicegid + &quot;&quot;).length &lt;= 8) {
+                totimg = &#039;&lt;i class=&quot;lmIco&quot;&gt;&lt;/i&gt;&#039;;
+            }
+        }
+        var fromu = chatdata.fromu.appdata;
+        var watchmanimg = fromu.watchman ? &#039;&lt;i class=&quot;xunIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var adminimg = fromu.levelinroom == 900 &amp;&amp; !fromu.watchman ? &#039;&lt;i class=&quot;manageIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var simg = fromu.roomer ? &#039;&lt;i class=&quot;zhuboIco zb&#039; + fromu.starlevel + &#039;&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var vimg = fromu.vip2 ? &#039;&lt;i class=&quot;vipIco&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var timg = fromu.vip &amp;&amp; !fromu.roomer ? &#039;&lt;i class=&quot;jwIco V&#039; + fromu.vip + &#039;&quot;&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var fimg = Base64.decode(fromu.family_name) != &quot;0&quot; ? &#039;&lt;i class=&quot;clubIcoText&quot;&gt;&lt;em&gt;&#039; + Base64.decode(fromu.family_name) + &#039;&lt;/em&gt;&lt;/i&gt;&#039; : &#039;&#039;;
+        var fgid = (fromu.nicegid + &quot;&quot;).length &lt; 8 ? &#039;(&lt;u&gt;&#039; + fromu.nicegid + &#039;&lt;/u&gt;)&lt;i class=&quot;lhIco&quot;&gt;&lt;/i&gt;&#039; : &#039;(&#039; + fromu.nicegid + &#039;)&#039;;
+        if (!fromu.vip &amp;&amp; !fromu.roomer &amp;&amp; !fromu.watchman &amp;&amp; (fromu.nicegid + &quot;&quot;).length &lt;= 8) {
+            timg = &#039;&lt;i class=&quot;lmIco&quot;&gt;&lt;/i&gt;&#039;;
+        }
+        var my_css = &quot;cyan&quot;;
+        var to_css = &quot;cyan&quot;;
+        var msg_css = &quot;white&quot;;
+        if (chatdata.is_my) {
+            my_css = &quot;yellow&quot;;
+        } else {
+            if (chatdata.fromu.appdata.roomer) {
+                my_css = &quot;pink&quot;;
+                if (chatdata.is_my_to &amp;&amp; chatdata.secret) {
+                    msg_css = &quot;orange&quot;;
+                }
+            }
+        }
+        if (chatdata.is_my_to) {
+            to_css = &quot;yellow&quot;;
+        } else {
+            if (chatdata.touid &amp;&amp; chatdata.tou.appdata.roomer) {
+                to_css = &quot;pink&quot;;
+            }
+        }
+        if (!chatdata.is_my &amp;&amp; !chatdata.is_my_to) {
+            to_css = &quot;yellow&quot;;
+        }
+        if (chatdata.touid == 0) {
+            t += simg + timg + vimg + fimg + watchmanimg + adminimg + &#039;&lt;span class=&quot;greenLight&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039; + this.chat_type + &#039;,&#039; + chatdata.uid + &#039;)&quot;&gt;&#039; + chatdata.nickname + fgid + &#039;&lt;/a&gt;&lt;/span&gt; 说:&lt;span class=&quot;&#039; + msg_css + &#039;&quot;&gt;&#039; + chatdata.message + &#039;&lt;/span&gt;&#039;;
+            this.insert(t);
+        }
+        else {
+            if (chatdata.secret) {
+                t += simg + timg + vimg + fimg + watchmanimg + adminimg + &#039;&lt;span class=&quot;&#039; + my_css + &#039;&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039; + this.chat_type + &#039;,&#039; + chatdata.uid + &#039;)&quot;&gt;&#039; + chatdata.nickname + fgid + &#039;&lt;/a&gt;&lt;/span&gt; 对&#039; + tosimg + totimg + tovimg + tofimg + towatchmanimg + toadminimg + &#039;&lt;span class=&quot;&#039; + to_css + &#039;&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039; + this.chat_type + &#039;,&#039; + chatdata.touid + &#039;)&quot;&gt;&#039; + chatdata.to_nickname + togid + &#039;&lt;/a&gt;&lt;/span&gt;[悄悄的]说:&lt;span class=&quot;&#039; + msg_css + &#039;&quot;&gt;&#039; + chatdata.message + &#039;&lt;/span&gt;&#039;;
+            }
+            else {
+                t += simg + timg + vimg + fimg + watchmanimg + adminimg + &#039;&lt;span class=&quot;&#039; + my_css + &#039;&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039; + this.chat_type + &#039;,&#039; + chatdata.uid + &#039;)&quot;&gt;&#039; + chatdata.nickname + fgid + &#039;&lt;/a&gt;&lt;/span&gt; 对 &#039; + tosimg + totimg + tovimg + tofimg + towatchmanimg + toadminimg + &#039;&lt;span class=&quot;&#039; + to_css + &#039;&quot;&gt;&lt;a href=&quot;javascript:void(0)&quot; onClick=&quot;select_it(&#039; + this.chat_type + &#039;,&#039; + chatdata.touid + &#039;)&quot;&gt;&#039; + chatdata.to_nickname + togid + &#039;&lt;/a&gt;&lt;/span&gt;说:&lt;span class=&quot;&#039; + msg_css + &#039;&quot;&gt;&#039; + chatdata.message + &#039;&lt;/span&gt;&#039;;
+            }
+            t += &#039;&lt;/div&gt;&#039;;
+            this.insert(t);
+        }
+    }
+};
+function makeid() {
+    var text = &quot;&quot;;
+    var possible = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&quot;;
+    for (var i = 0; i &lt; 15; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+}
+function select_it(type, param) {
+    var e = event || window.event;
+    var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+    var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+    var x = e.pageX || e.clientX + scrollX;
+    var y = e.pageY || e.clientY + scrollY;
+    if (param) {
+        chat_zone_display_user_memu(type, x, y, param);
+    }
+    param = &quot;&quot;;
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

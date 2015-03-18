@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/pgwslider.min.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/pgwslider.min.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">64.74</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">1</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">75.94</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.54</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * PgwSlider - Version 1.3
+ *
+ * Copyright 2014, Jonathan M. Piat
+ * http://pgwjs.com - http://pagawa.com
+ * 
+ * Released under the GNU GPLv3 license - http://opensource.org/licenses/gpl-3.0
+ */
+(function(a){a.fn.pgwSlider=function(i){var e={autoSlide:true,adaptiveHeight:false,adaptiveDuration:400,transitionDuration:400,intervalDuration:3000};if(this.length==0){return this}else{if(this.length&gt;1){this.each(function(){a(this).pgwSlider(i)});return this}}var g=this;g.plugin=this;g.data=[];g.config={};g.currentSlide=0;g.slideCount=0;g.eventInterval=null;g.window=a(window);var h=function(){g.config=a.extend({},e,i);c();if(g.config.autoSlide){f()}return true};var b=function(l){var m={};var o=l.find(&quot;a&quot;).attr(&quot;href&quot;);if((typeof o!=&quot;undefined&quot;)&amp;&amp;(o!=&quot;&quot;)){m.link=o;var r=l.find(&quot;a&quot;).attr(&quot;target&quot;);if((typeof r!=&quot;undefined&quot;)&amp;&amp;(r!=&quot;&quot;)){m.linkTarget=r}}var k=l.find(&quot;img&quot;).attr(&quot;src&quot;);if((typeof k!=&quot;undefined&quot;)&amp;&amp;(k!=&quot;&quot;)){m.thumbnail=k}var s=l.find(&quot;img&quot;).attr(&quot;data-large-src&quot;);if((typeof s!=&quot;undefined&quot;)&amp;&amp;(s!=&quot;&quot;)){m.image=s}var p=l.find(&quot;span&quot;).text();if((typeof p!=&quot;undefined&quot;)&amp;&amp;(p!=&quot;&quot;)){m.title=p}else{var n=l.find(&quot;img&quot;).attr(&quot;alt&quot;);if((typeof n!=&quot;undefined&quot;)&amp;&amp;(n!=&quot;&quot;)){m.title=n}}var q=l.find(&quot;img&quot;).attr(&quot;data-description&quot;);if((typeof q!=&quot;undefined&quot;)&amp;&amp;(q!=&quot;&quot;)){m.description=q}return m};var d=function(k,l){var m=((k-((g.slideCount-1)*6))/g.slideCount);var n=(100/g.slideCount);g.plugin.find(&quot;ul li&quot;).css({width:n+&quot;%&quot;});if(typeof l!=&quot;undefined&quot;&amp;&amp;l){g.plugin.find(&quot;.ps-current&quot;).animate({height:k},g.config.adaptiveDuration,function(){g.plugin.find(&quot;ul li&quot;).animate({height:m},g.config.adaptiveDuration)})}else{g.plugin.find(&quot;.ps-current&quot;).css(&quot;height&quot;,k);g.plugin.find(&quot;ul li&quot;).css(&quot;height&quot;,m)}return true};var c=function(){g.plugin.wrap(&#039;&lt;div class=&quot;pgwSlider&quot;&gt;&lt;/div&gt;&#039;);g.plugin=g.plugin.parent();g.plugin.prepend(&#039;&lt;div class=&quot;ps-current&quot;&gt;&lt;/div&gt;&#039;);g.slideCount=g.plugin.find(&quot;ul li&quot;).length;var k=1;g.plugin.find(&quot;ul li&quot;).each(function(){var l=b(a(this));l.id=k;g.data.push(l);a(this).addClass(&quot;elt_&quot;+l.id);if(l.title){if(a(this).find(&quot;span&quot;).length==1){if(a(this).find(&quot;span&quot;).text()==&quot;&quot;){a(this).find(&quot;span&quot;).text(l.title)}}else{a(this).find(&quot;img&quot;).after(&quot;&lt;span&gt;&quot;+l.title+&quot;&lt;/span&gt;&quot;)}}a(this).css(&quot;cursor&quot;,&quot;pointer&quot;).click(function(m){m.preventDefault();j(l.id)});k++});if(g.config.autoSlide){g.plugin.on(&quot;mouseenter&quot;,function(){clearInterval(g.eventInterval);g.eventInterval=null}).on(&quot;mouseleave&quot;,function(){f()})}j(1);return true};var j=function(k,n){var m=g.data[k-1];var l=g.plugin.find(&quot;.ps-current&quot;);if(typeof m==&quot;undefined&quot;){throw new Error(&quot;PgwSlider - The element &quot;+k+&quot; is undefined&quot;);return false}g.currentSlide=k;if(typeof l.animate==&quot;undefined&quot;){l.animate=function(o,p,q){l.css(o);if(q){q()}}}l.animate({opacity:0},g.config.transitionDuration,function(){g.plugin.find(&quot;ul li&quot;).css(&quot;opacity&quot;,&quot;0.6&quot;);g.plugin.find(&quot;ul li.elt_&quot;+k).css(&quot;opacity&quot;,&quot;1&quot;);if(m.image){l.html(&#039;&lt;img src=&quot;&#039;+m.image+&#039;&quot; alt=&quot;&#039;+(m.title?m.title:&quot;&quot;)+&#039;&quot;&gt;&#039;)}else{if(m.thumbnail){l.html(&#039;&lt;img src=&quot;&#039;+m.thumbnail+&#039;&quot; alt=&quot;&#039;+(m.title?m.title:&quot;&quot;)+&#039;&quot;&gt;&#039;)}else{l.html(&quot;&quot;)}}var o=&quot;&quot;;if(m.title){o+=&quot;&lt;b&gt;&quot;+m.title+&quot;&lt;/b&gt;&quot;}if(m.description){if(o!=&quot;&quot;){o+=&quot;&lt;br&gt;&quot;}o+=m.description}if(o!=&quot;&quot;){l.append(&quot;&lt;span&gt;&quot;+o+&quot;&lt;/span&gt;&quot;)}if(m.link){var p=&quot;&quot;;if(m.linkTarget){var p=&#039; target=&quot;&#039;+m.linkTarget+&#039;&quot;&#039;}l.html(&#039;&lt;a href=&quot;&#039;+m.link+&#039;&quot;&#039;+p+&quot;&gt;&quot;+l.html()+&quot;&lt;/a&gt;&quot;)}l.find(&quot;img&quot;).on(&quot;load&quot;,function(){if(typeof g.plugin.find(&quot;.ps-current&quot;).attr(&quot;data-checked&quot;)==&quot;undefined&quot;||g.plugin.find(&quot;.ps-current&quot;).attr(&quot;data-checked&quot;)==null){var q=g.plugin.find(&quot;.ps-current img&quot;).height();d(q);g.plugin.find(&quot;.ps-current&quot;).attr(&quot;data-checked&quot;,&quot;true&quot;);g.window.resize(function(){var r=g.plugin.find(&quot;.ps-current img&quot;).height();d(r)})}else{if(g.config.adaptiveHeight){var q=g.plugin.find(&quot;.ps-current img&quot;).height();d(q,true)}}});l.animate({opacity:1},g.config.transitionDuration)});if(typeof n!=&quot;undefined&quot;&amp;&amp;g.config.autoSlide){f()}return true};var f=function(){clearInterval(g.eventInterval);if(g.slideCount&gt;1&amp;&amp;g.config.autoSlide){g.eventInterval=setInterval(function(){if(g.currentSlide+1&lt;=g.slideCount){var k=g.currentSlide+1}else{var k=1}j(k)},g.config.intervalDuration)}return true};g.startSlide=function(){g.config.autoSlide=true;f();return true};g.stopSlide=function(){g.config.autoSlide=false;clearInterval(g.eventInterval);return true};g.getCurrentSlide=function(){return g.currentSlide};g.getSlideCount=function(){return g.slideCount};g.displaySlide=function(k){j(k,true);return true};g.nextSlide=function(){if(g.currentSlide+1&lt;=g.slideCount){var k=g.currentSlide+1}else{var k=1}j(k,true);return true};g.previousSlide=function(){if(g.currentSlide-1&gt;=1){var k=g.currentSlide-1}else{var k=g.slideCount}j(k,true);return true};g.destroy=function(k){clearInterval(g.eventInterval);g.plugin.find(&quot;ul li&quot;).each(function(){a(this).unbind(&quot;click&quot;)});g.data=[];g.config={};g.currentSlide=0;g.slideCount=0;g.eventInterval=null;g.window=null;if(typeof k!=&quot;undefined&quot;){g.plugin.find(&quot;.ps-current&quot;).unwrap().remove();g.hide()}else{g.parent().remove()}return true};g.reload=function(k){g.destroy(true);g=this;g.plugin=this;g.window=a(window);g.plugin.show();g.config=a.extend({},e,k);c();if(g.config.autoSlide){f()}return true};h();return this}})(window.Zepto||window.jQuery);</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

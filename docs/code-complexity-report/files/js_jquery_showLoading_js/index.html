@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/jquery.showLoading.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/jquery.showLoading.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">38.84</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">240</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">41.73</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.02</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/*
+ * jQuery showLoading plugin v1.0
+ * 
+ * Copyright (c) 2009 Jim Keller
+ * Context - http://www.contextllc.com
+ * 
+ * Dual licensed under the MIT and GPL licenses.
+ *
+ */
+
+	jQuery.fn.showLoading = function(options) {
+		
+		var indicatorID;
+       		var settings = {
+       			&#039;addClass&#039;: &#039;&#039;,
+	       		&#039;beforeShow&#039;: &#039;&#039;, 
+       			&#039;afterShow&#039;: &#039;&#039;,
+       			&#039;hPos&#039;: &#039;center&#039;, 
+	       		&#039;vPos&#039;: &#039;center&#039;,
+       			&#039;indicatorZIndex&#039; : 5001, 
+       			&#039;overlayZIndex&#039;: 5000, 
+	       		&#039;parent&#039;: &#039;&#039;,
+       			&#039;marginTop&#039;: 0,
+       			&#039;marginLeft&#039;: 0,
+	       		&#039;overlayWidth&#039;: null,
+       			&#039;overlayHeight&#039;: null
+	       	};
+
+		jQuery.extend(settings, options);
+       	
+       		var loadingDiv = jQuery(&#039;&lt;div&gt;&lt;/div&gt;&#039;);
+		var overlayDiv = jQuery(&#039;&lt;div&gt;&lt;/div&gt;&#039;);
+
+		//
+		// Set up ID and classes
+		//
+		if ( settings.indicatorID ) {
+			indicatorID = settings.indicatorID;
+		}
+		else {
+			indicatorID = jQuery(this).attr(&#039;id&#039;);
+		}
+			
+		jQuery(loadingDiv).attr(&#039;id&#039;, &#039;loading-indicator-&#039; + indicatorID );
+		jQuery(loadingDiv).addClass(&#039;loading-indicator&#039;);
+		
+		if ( settings.addClass ){
+			jQuery(loadingDiv).addClass(settings.addClass);
+		}
+
+
+		
+		//
+		// Create the overlay
+		//
+		jQuery(overlayDiv).css(&#039;display&#039;, &#039;none&#039;);
+		
+		// Append to body, otherwise position() doesn&#039;t work on Webkit-based browsers
+		jQuery(document.body).append(overlayDiv);
+		
+		//
+		// Set overlay classes
+		//
+		jQuery(overlayDiv).attr(&#039;id&#039;, &#039;loading-indicator-&#039; + indicatorID + &#039;-overlay&#039;);
+		
+		jQuery(overlayDiv).addClass(&#039;loading-indicator-overlay&#039;);
+		
+		if ( settings.addClass ){
+			jQuery(overlayDiv).addClass(settings.addClass + &#039;-overlay&#039;);
+		}
+		
+		//
+		// Set overlay position
+		//
+		
+		var overlay_width;
+		var overlay_height;
+		
+		var border_top_width = jQuery(this).css(&#039;border-top-width&#039;);
+		var border_left_width = jQuery(this).css(&#039;border-left-width&#039;);
+		
+		//
+		// IE will return values like &#039;medium&#039; as the default border, 
+		// but we need a number
+		//
+		border_top_width = isNaN(parseInt(border_top_width)) ? 0 : border_top_width;
+		border_left_width = isNaN(parseInt(border_left_width)) ? 0 : border_left_width;
+		
+		var overlay_left_pos = jQuery(this).offset().left + parseInt(border_left_width);
+		var overlay_top_pos = jQuery(this).offset().top + parseInt(border_top_width);
+		
+		if ( settings.overlayWidth !== null ) {
+			overlay_width = settings.overlayWidth;
+		}
+		else {
+			overlay_width = parseInt(jQuery(this).width()) + parseInt(jQuery(this).css(&#039;padding-right&#039;)) + parseInt(jQuery(this).css(&#039;padding-left&#039;));
+		}
+
+		if ( settings.overlayHeight !== null ) {
+			overlay_height = settings.overlayWidth;
+		}
+		else {
+			overlay_height = parseInt(jQuery(this).height()) + parseInt(jQuery(this).css(&#039;padding-top&#039;)) + parseInt(jQuery(this).css(&#039;padding-bottom&#039;));
+		}
+
+
+		jQuery(overlayDiv).css(&#039;width&#039;, overlay_width.toString() + &#039;px&#039;);
+		jQuery(overlayDiv).css(&#039;height&#039;, overlay_height.toString() + &#039;px&#039;);
+
+		jQuery(overlayDiv).css(&#039;left&#039;, overlay_left_pos.toString() + &#039;px&#039;);
+		jQuery(overlayDiv).css(&#039;position&#039;, &#039;absolute&#039;);
+
+		jQuery(overlayDiv).css(&#039;top&#039;, overlay_top_pos.toString() + &#039;px&#039; );
+		jQuery(overlayDiv).css(&#039;z-index&#039;, settings.overlayZIndex);
+
+		//
+		// Set any custom overlay CSS		
+		//
+       		if ( settings.overlayCSS ) {
+       			jQuery(overlayDiv).css ( settings.overlayCSS );
+       		}
+
+
+		//
+		// We have to append the element to the body first
+		// or .width() won&#039;t work in Webkit-based browsers (e.g. Chrome, Safari)
+		//
+		jQuery(loadingDiv).css(&#039;display&#039;, &#039;none&#039;);
+		jQuery(document.body).append(loadingDiv);
+		
+		jQuery(loadingDiv).css(&#039;position&#039;, &#039;absolute&#039;);
+		jQuery(loadingDiv).css(&#039;z-index&#039;, settings.indicatorZIndex);
+
+		//
+		// Set top margin
+		//
+
+		var indicatorTop = overlay_top_pos;
+		
+		if ( settings.marginTop ) {
+			indicatorTop += parseInt(settings.marginTop);
+		}
+		
+		var indicatorLeft = overlay_left_pos;
+		
+		if ( settings.marginLeft ) {
+			indicatorLeft += parseInt(settings.marginTop);
+		}
+		
+		
+		//
+		// set horizontal position
+		//
+		if ( settings.hPos.toString().toLowerCase() == &#039;center&#039; ) {
+			jQuery(loadingDiv).css(&#039;left&#039;, (indicatorLeft + ((jQuery(overlayDiv).width() - parseInt(jQuery(loadingDiv).width())) / 2)).toString()  + &#039;px&#039;);
+		}
+		else if ( settings.hPos.toString().toLowerCase() == &#039;left&#039; ) {
+			jQuery(loadingDiv).css(&#039;left&#039;, (indicatorLeft + parseInt(jQuery(overlayDiv).css(&#039;margin-left&#039;))).toString() + &#039;px&#039;);
+		}
+		else if ( settings.hPos.toString().toLowerCase() == &#039;right&#039; ) {
+			jQuery(loadingDiv).css(&#039;left&#039;, (indicatorLeft + (jQuery(overlayDiv).width() - parseInt(jQuery(loadingDiv).width()))).toString()  + &#039;px&#039;);
+		}
+		else {
+			jQuery(loadingDiv).css(&#039;left&#039;, (indicatorLeft + parseInt(settings.hPos)).toString() + &#039;px&#039;);
+		}		
+
+		//
+		// set vertical position
+		//
+		if ( settings.vPos.toString().toLowerCase() == &#039;center&#039; ) {
+			jQuery(loadingDiv).css(&#039;top&#039;, (indicatorTop + ((jQuery(overlayDiv).height() - parseInt(jQuery(loadingDiv).height())) / 2)).toString()  + &#039;px&#039;);
+		}
+		else if ( settings.vPos.toString().toLowerCase() == &#039;top&#039; ) {
+			jQuery(loadingDiv).css(&#039;top&#039;, indicatorTop.toString() + &#039;px&#039;);
+		}
+		else if ( settings.vPos.toString().toLowerCase() == &#039;bottom&#039; ) {
+			jQuery(loadingDiv).css(&#039;top&#039;, (indicatorTop + (jQuery(overlayDiv).height() - parseInt(jQuery(loadingDiv).height()))).toString()  + &#039;px&#039;);
+		}
+		else {
+			jQuery(loadingDiv).css(&#039;top&#039;, (indicatorTop + parseInt(settings.vPos)).toString() + &#039;px&#039; );
+		}		
+
+
+		 
+		
+		//
+		// Set any custom css for loading indicator
+		//
+       		if ( settings.css ) {
+       			jQuery(loadingDiv).css ( settings.css );
+       		}
+
+		
+		//
+		// Set up callback options
+		//
+		var callback_options = 
+			{
+				&#039;overlay&#039;: overlayDiv,
+				&#039;indicator&#039;: loadingDiv,
+				&#039;element&#039;: this
+			};
+	
+		//
+		// beforeShow callback
+		//
+		if ( typeof(settings.beforeShow) == &#039;function&#039; ) {
+			settings.beforeShow( callback_options );
+		}
+		
+		//
+		// Show the overlay
+		//
+		jQuery(overlayDiv).show();
+		
+		//
+		// Show the loading indicator
+		//
+		jQuery(loadingDiv).show();
+
+		//
+		// afterShow callback
+		//
+		if ( typeof(settings.afterShow) == &#039;function&#039; ) {
+			settings.afterShow( callback_options );
+		}
+
+		return this;
+    	 };
+
+
+	jQuery.fn.hideLoading = function(options) {
+		
+		
+       		var settings = {};
+	
+       		jQuery.extend(settings, options);
+
+		if ( settings.indicatorID ) {
+			indicatorID = settings.indicatorID;
+		}
+		else {
+			indicatorID = jQuery(this).attr(&#039;id&#039;);
+		}
+       	
+   		jQuery(document.body).find(&#039;#loading-indicator-&#039; + indicatorID ).remove();
+		jQuery(document.body).find(&#039;#loading-indicator-&#039; + indicatorID + &#039;-overlay&#039; ).remove();
+		
+		return this;
+     	};</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

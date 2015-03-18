@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - room/script/fireworks_v1.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>room/script/fireworks_v1.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">62.52</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">199</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">95.86</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.71</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">function Fireworks(sky, loop){
+	this.sky = sky;
+	this.os = true;
+	this.skyWidth = document.body.clientWidth || document.documentElement.clientWidth;
+	this.skyHeight= document.body.clientHeight || document.documentElement.clientHeight;
+	this.x = this.y = 0;
+	this.step = 20;
+	this.delay = 30;
+	this.stars = [];
+	this.r = 10;
+	this.step2 = 7;
+	this.radius = 90;
+	this.angle = 45;
+	this.num = 16;
+	this.loop = loop;
+	this.degree = 2;
+	this.t = 0;
+	this.delt = 0;
+	this.max = 30;
+	this.cur = 1;
+	this.points = null;
+}
+Fireworks.prototype = {
+	init : function(){
+		this.x = parseInt(this.skyWidth/1.3 * Math.random()) + this.skyWidth / 8;
+		this.y = this.skyHeight;
+		this._y = parseInt((this.skyHeight / 4) * Math.random()) + this.skyHeight / 5;
+	},
+	setOpacity : function(obj, p){
+		if(p &gt; 85){
+			var opacity = 100 - (p - 85) * 4;
+			if(document.all){
+				obj.style.filter = &quot;alpha(opacity=&quot; + opacity + &quot;)&quot;;	
+			}else{
+				obj.style.MozOpacity = opacity / 100;
+			}
+		}
+	},
+	getNextPoint : function(degree, coeff, t){
+		var tt = 1.0 - t;
+		for(var rr = 1; rr &lt;= degree; rr++){
+			for(var i=0; i &lt;= degree-rr; i++){
+				coeff[i] = tt * coeff[i] + t * coeff[i+1];
+			}
+		}
+		return coeff[0];
+	},
+	showBall : function(){
+		this.ball = document.createElement(&quot;div&quot;);
+		this.ball.innerHTML = &quot;��&quot;;
+		this.ball.className = &quot;ball&quot;;
+		this.ball.style.left = this.x + &quot;px&quot;;
+		this.ball.style.top = this.y + &quot;px&quot;;
+		this.sky.appendChild(this.ball);
+		this.bgsound(&#039;ball.mp3&#039;);
+	},
+	moveBall : function(){
+		var self = this;
+		if(this.y &gt; this._y){
+			var p = parseInt((this.skyHeight - this.y) / (this.skyHeight - this._y)*10);
+			this.y -= (this.step - p * 1.6);
+			this.ball.style.fontSize = 16 - p + &quot;px&quot;;
+			this.ball.style.top = this.y + &quot;px&quot;;
+			setTimeout(function(){self.moveBall();}, this.delay);
+		}else{
+			this.fire();
+		}
+	},
+	hideBall : function(){
+		this.sky.removeChild(this.ball);
+		this.ball = null;
+	},
+	showStars : function(){
+		var colors = [&#039;#FF0000&#039;,&#039;#FF00FF&#039;,&#039;#00FF00&#039;,&#039;#00FFFF&#039;,&#039;#FFFF00&#039;,&#039;#FF0000&#039;,&#039;#FF00FF&#039;,&#039;#00FF00&#039;,&#039;#00FFFF&#039;,&#039;#FFFF00&#039;];
+		var stars = [&#039;��&#039;,&#039;��&#039;,&#039;��&#039;,&#039;��&#039;,&#039;��&#039;];
+		var n = cs = parseInt(Math.random() * colors.length / 2);
+		var cc = parseInt(Math.random() * colors.length  / 2);
+		var colorMode = parseInt(Math.random() * 10);		
+		var star = stars[parseInt(Math.random() * 5)];
+		this.r = 10;
+		this.radius = Math.round(Math.random() * 30) + 60;
+		this.num = Math.round(Math.random() * 5 + 5) * 2;
+		this.angle = 180 / this.num * 2;
+		
+		for(var i=1; i&lt;=this.num; i++){
+			this.stars[i] = document.createElement(&quot;div&quot;);
+			this.stars[i].innerHTML = star;
+			this.stars[i].className = &quot;star&quot;;
+			if(colorMode == 1){
+				this.stars[i].style.color = colors[n];
+				if(++n &gt; cs + cc)
+					n = cs;
+			}else{
+				this.stars[i].style.color = colors[parseInt(Math.random() * colors.length)];
+			}
+			this.sky.appendChild(this.stars[i]);
+		}
+	},
+	moveStars : function(){
+		var self = this;
+		if(this.r &lt; this.radius){
+			var p = this.step2 - parseInt(this.r / this.radius * 5);
+			p = p &lt; 1 ? 1 : p;
+			this.r += p;
+			p = parseInt(this.r / this.radius * 100);
+			for(var i=1; i&lt;=this.num; i++){
+				this.stars[i].style.left = this.x - Math.round(this.r * Math.sin(Math.PI - (Math.PI / 180 * this.angle * i))) + &quot;px&quot;;
+				this.stars[i].style.top = this.y - Math.round(this.r * Math.cos(Math.PI - (Math.PI / 180 * this.angle * i))) + &quot;px&quot;;
+				this.stars[i].style.fontSize = 4 + p/10 + &quot;px&quot;;
+				this.setOpacity(this.stars[i], p);
+			}
+			setTimeout(function(){self.moveStars();}, this.delay);
+		}else{
+			setTimeout(function(){self.hideStars();}, 200 * Math.random());
+		}
+	},
+	initBezier : function(){
+		var coeff_x = [];
+	 	var coeff_y = [];
+		
+		this.points = [];
+		this.t = 0;
+		this.delt = 1.0 / this.max;
+		this.cur = 1;
+		var a = parseInt(Math.random() * 5) * 90;
+		coeff_x[0] = this.x;
+		coeff_y[0] = this.y;
+		for(var i=1; i&lt;=this.num; i++){
+			coeff_x[1] = this.x + Math.sin(Math.PI - (Math.PI / 180 * this.angle * i)) * this.radius / 2;
+			coeff_y[1] = this.y + Math.cos(Math.PI - (Math.PI / 180 * this.angle * i)) * this.radius / 2;
+			coeff_x[2] = this.x + Math.sin(Math.PI - (Math.PI / 180 * (a-this.angle * i))) * this.radius;
+			coeff_y[2] = this.y + Math.cos(Math.PI - (Math.PI / 180 * (a-this.angle * i))) * this.radius;
+			this.points[(i-1)*2] = coeff_x.slice(0);
+			this.points[(i-1)*2+1] = coeff_y.slice(0);
+		}
+	},
+	moveStars2 : function(){
+		var self = this;
+		if(this.cur &lt; this.max){
+			this.t += this.delt;
+			this.cur++;
+			p = parseInt(this.cur / this.max * 100);
+			for(var i=1; i&lt;=this.num; i++){
+				this.stars[i].style.left = this.getNextPoint(this.degree, this.points[(i-1)*2], this.t) + &quot;px&quot;;
+				this.stars[i].style.top = this.getNextPoint(this.degree, this.points[(i-1)*2+1], this.t) + &quot;px&quot;;
+				this.stars[i].style.fontSize = 4 + p/10 + &quot;px&quot;;
+				this.setOpacity(this.stars[i], p);
+			}
+			setTimeout(function(){self.moveStars2();}, this.delay);
+		}else{
+			setTimeout(function(){self.hideStars();}, 200 * Math.random());
+		}
+	},
+	hideStars : function(){
+		for(var i=1; i&lt;=this.num; i++){
+			this.sky.removeChild(this.stars[i]);
+			this.stars[i] = null;
+			if(this.points != null){
+				delete this.points[(i-1)*2];
+				delete this.points[(i-1)*2+1];
+			}
+		}
+		if(this.points){
+			delete this.points;
+		}
+		this.points = null;
+		if(this.loop){
+			this.play();
+		}
+	},
+	fire : function(){
+		this.bgsound(&#039;fire.mp3&#039;);
+		this.hideBall();
+		this.showStars();		
+		var effect = parseInt(Math.random() * 2) + 1;
+		switch(effect){
+			case 1:
+				this.moveStars();
+				break;
+			case 2:
+				this.initBezier();
+				this.moveStars2();
+				break;
+		}
+	},
+	bgsound : function (file){
+		var bgs  = document.createElement(&#039;bgsound&#039;);		
+		bgs.src  = &#039;images/&#039;+ file;
+		bgs.loop = 0;
+		bgs.balance = 0;
+		bgs.volume = 0;
+		document.body.appendChild(bgs);
+	},
+	play : function(){
+		this.init();
+		this.showBall();
+		this.moveBall();
+	}
+};</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

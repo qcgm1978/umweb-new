@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/DatePicker/WdatePicker.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/DatePicker/WdatePicker.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">57.08</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">53</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">76.84</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">8.21</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">var $dp,WdatePicker;(function(){var $={
+$langList:[
+ {name:&quot;en&quot;,charset:&quot;UTF-8&quot;},
+ {name:&quot;zh-cn&quot;,charset:&quot;gb2312&quot;},
+ {name:&quot;zh-tw&quot;,charset:&quot;GBK&quot;}],
+$skinList:[
+ {name:&quot;default&quot;,charset:&quot;gb2312&quot;},
+ {name:&quot;whyGreen&quot;,charset:&quot;gb2312&quot;},
+ {name:&quot;blue&quot;,charset:&quot;gb2312&quot;},
+ {name:&quot;green&quot;,charset:&quot;gb2312&quot;},
+ {name:&quot;simple&quot;,charset:&quot;gb2312&quot;},
+ {name:&quot;ext&quot;,charset:&quot;gb2312&quot;},
+ {name:&quot;blueFresh&quot;,charset:&quot;gb2312&quot;},
+ {name:&quot;twoer&quot;,charset:&quot;gb2312&quot;},
+ {name:&quot;YcloudRed&quot;,charset:&quot;gb2312&quot;}],
+$wdate:true,
+$crossFrame:true,
+$preLoad:false,
+$dpPath:&quot;&quot;,
+doubleCalendar:false,
+enableKeyboard:true,
+enableInputMask:true,
+autoUpdateOnChanged:null,
+weekMethod:&quot;ISO8601&quot;,
+position:{},
+lang:&quot;auto&quot;,
+skin:&quot;default&quot;,
+dateFmt:&quot;yyyy-MM-dd HH-mm-ss&quot;,
+realDateFmt:&quot;yyyy-MM-dd HH-mm-ss&quot;,
+realTimeFmt:&quot;HH:mm:ss HH-mm-ss&quot;,
+realFullFmt:&quot;%Date %Time&quot;,
+minDate:&quot;1900-01-01 00:00:00&quot;,
+maxDate:&quot;2099-12-31 23:59:59&quot;,
+startDate:&quot;&quot;,
+alwaysUseStartDate:false,
+yearOffset:1911,
+firstDayOfWeek:0,
+isShowWeek:false,
+highLineWeekDay:true,
+isShowClear:true,
+isShowToday:true,
+isShowOK:true,
+isShowOthers:true,
+readOnly:false,
+errDealMode:0,
+autoPickDate:null,
+qsEnabled:true,
+autoShowQS:false,
+opposite:false,
+hmsMenuCfg:{H:[1,6],m:[5,6],s:[15,4]},
+opposite:false,
+
+specialDates:null,specialDays:null,disabledDates:null,disabledDays:null,onpicking:null,onpicked:null,onclearing:null,oncleared:null,ychanging:null,ychanged:null,Mchanging:null,Mchanged:null,dchanging:null,dchanged:null,Hchanging:null,Hchanged:null,mchanging:null,mchanged:null,schanging:null,schanged:null,eCont:null,vel:null,elProp:&quot;&quot;,errMsg:&quot;&quot;,quickSel:[],has:{},getRealLang:function(){var _=$.$langList;for(var A=0;A&lt;_.length;A++)if(_[A].name==this.lang)return _[A];return _[0]}};WdatePicker=U;var Y=window,T={innerHTML:&quot;&quot;},N=&quot;document&quot;,H=&quot;documentElement&quot;,C=&quot;getElementsByTagName&quot;,V,A,S,G,c,X=navigator.appName;if(X==&quot;Microsoft Internet Explorer&quot;)S=true;else if(X==&quot;Opera&quot;)c=true;else G=true;A=$.$dpPath||J();if($.$wdate)K(A+&quot;skin/WdatePicker.css&quot;);V=Y;if($.$crossFrame){try{while(V.parent!=V&amp;&amp;V.parent[N][C](&quot;frameset&quot;).length==0)V=V.parent}catch(O){}}if(!V.$dp)V.$dp={ff:G,ie:S,opera:c,status:0,defMinDate:$.minDate,defMaxDate:$.maxDate};B();if($.$preLoad&amp;&amp;$dp.status==0)E(Y,&quot;onload&quot;,function(){U(null,true)});if(!Y[N].docMD){E(Y[N],&quot;onmousedown&quot;,D,true);Y[N].docMD=true}if(!V[N].docMD){E(V[N],&quot;onmousedown&quot;,D,true);V[N].docMD=true}E(Y,&quot;onunload&quot;,function(){if($dp.dd)P($dp.dd,&quot;none&quot;)});function B(){try{V[N],V.$dp=V.$dp||{}}catch($){V=Y;$dp=$dp||{}}var A={win:Y,$:function($){return(typeof $==&quot;string&quot;)?Y[N].getElementById($):$},$D:function($,_){return this.$DV(this.$($).value,_)},$DV:function(_,$){if(_!=&quot;&quot;){this.dt=$dp.cal.splitDate(_,$dp.cal.dateFmt);if($)for(var B in $)if(this.dt[B]===undefined)this.errMsg=&quot;invalid property:&quot;+B;else{this.dt[B]+=$[B];if(B==&quot;M&quot;){var C=$[&quot;M&quot;]&gt;0?1:0,A=new Date(this.dt[&quot;y&quot;],this.dt[&quot;M&quot;],0).getDate();this.dt[&quot;d&quot;]=Math.min(A+C,this.dt[&quot;d&quot;])}}if(this.dt.refresh())return this.dt}return&quot;&quot;},show:function(){var A=V[N].getElementsByTagName(&quot;div&quot;),$=100000;for(var B=0;B&lt;A.length;B++){var _=parseInt(A[B].style.zIndex);if(_&gt;$)$=_}this.dd.style.zIndex=$+2;P(this.dd,&quot;block&quot;);P(this.dd.firstChild,&quot;&quot;)},unbind:function($){$=this.$($);if($.initcfg){L($,&quot;onclick&quot;,function(){U($.initcfg)});L($,&quot;onfocus&quot;,function(){U($.initcfg)})}},hide:function(){P(this.dd,&quot;none&quot;)},attachEvent:E};for(var _ in A)V.$dp[_]=A[_];$dp=V.$dp}function E(B,_,A,$){if(B.addEventListener){var C=_.replace(/on/,&quot;&quot;);A._ieEmuEventHandler=function($){return A($)};B.addEventListener(C,A._ieEmuEventHandler,$)}else B.attachEvent(_,A)}function L(A,$,_){if(A.removeEventListener){var B=$.replace(/on/,&quot;&quot;);_._ieEmuEventHandler=function($){return _($)};A.removeEventListener(B,_._ieEmuEventHandler,false)}else A.detachEvent($,_)}function a(_,$,A){if(typeof _!=typeof $)return false;if(typeof _==&quot;object&quot;){if(!A)for(var B in _){if(typeof $[B]==&quot;undefined&quot;)return false;if(!a(_[B],$[B],true))return false}return true}else if(typeof _==&quot;function&quot;&amp;&amp;typeof $==&quot;function&quot;)return _.toString()==$.toString();else return _==$}function J(){var _,A,$=Y[N][C](&quot;script&quot;);for(var B=0;B&lt;$.length;B++){_=$[B].getAttribute(&quot;src&quot;)||&quot;&quot;;_=_.substr(0,_.toLowerCase().indexOf(&quot;wdatepicker.js&quot;));A=_.lastIndexOf(&quot;/&quot;);if(A&gt;0)_=_.substring(0,A+1);if(_)break}return _}function K(A,$,B){var D=Y[N][C](&quot;HEAD&quot;).item(0),_=Y[N].createElement(&quot;link&quot;);if(D){_.href=A;_.rel=&quot;stylesheet&quot;;_.type=&quot;text/css&quot;;if($)_.title=$;if(B)_.charset=B;D.appendChild(_)}}function F($){$=$||V;var A=0,_=0;while($!=V){var D=$.parent[N][C](&quot;iframe&quot;);for(var F=0;F&lt;D.length;F++){try{if(D[F].contentWindow==$){var E=W(D[F]);A+=E.left;_+=E.top;break}}catch(B){}}$=$.parent}return{&quot;leftM&quot;:A,&quot;topM&quot;:_}}function W(G,F){if(G.getBoundingClientRect)return G.getBoundingClientRect();else{var A={ROOT_TAG:/^body|html$/i,OP_SCROLL:/^(?:inline|table-row)$/i},E=false,I=null,_=G.offsetTop,H=G.offsetLeft,D=G.offsetWidth,B=G.offsetHeight,C=G.offsetParent;if(C!=G)while(C){H+=C.offsetLeft;_+=C.offsetTop;if(R(C,&quot;position&quot;).toLowerCase()==&quot;fixed&quot;)E=true;else if(C.tagName.toLowerCase()==&quot;body&quot;)I=C.ownerDocument.defaultView;C=C.offsetParent}C=G.parentNode;while(C.tagName&amp;&amp;!A.ROOT_TAG.test(C.tagName)){if(C.scrollTop||C.scrollLeft)if(!A.OP_SCROLL.test(P(C)))if(!c||C.style.overflow!==&quot;visible&quot;){H-=C.scrollLeft;_-=C.scrollTop}C=C.parentNode}if(!E){var $=b(I);H-=$.left;_-=$.top}D+=H;B+=_;return{&quot;left&quot;:H,&quot;top&quot;:_,&quot;right&quot;:D,&quot;bottom&quot;:B}}}function M($){$=$||V;var B=$[N],A=($.innerWidth)?$.innerWidth:(B[H]&amp;&amp;B[H].clientWidth)?B[H].clientWidth:B.body.offsetWidth,_=($.innerHeight)?$.innerHeight:(B[H]&amp;&amp;B[H].clientHeight)?B[H].clientHeight:B.body.offsetHeight;return{&quot;width&quot;:A,&quot;height&quot;:_}}function b($){$=$||V;var B=$[N],A=B[H],_=B.body;B=(A&amp;&amp;A.scrollTop!=null&amp;&amp;(A.scrollTop&gt;_.scrollTop||A.scrollLeft&gt;_.scrollLeft))?A:_;return{&quot;top&quot;:B.scrollTop,&quot;left&quot;:B.scrollLeft}}function D($){try{var _=$?($.srcElement||$.target):null;if($dp.cal&amp;&amp;!$dp.eCont&amp;&amp;$dp.dd&amp;&amp;_!=$dp.el&amp;&amp;$dp.dd.style.display==&quot;block&quot;)$dp.cal.close()}catch($){}}function Z(){$dp.status=2}var Q,_;function U(K,C){if(!$dp)return;B();var L={};for(var H in K)L[H]=K[H];for(H in $)if(H.substring(0,1)!=&quot;$&quot;&amp;&amp;L[H]===undefined)L[H]=$[H];if(C){if(!J()){_=_||setInterval(function(){if(V[N].readyState==&quot;complete&quot;)clearInterval(_);U(null,true)},50);return}if($dp.status==0){$dp.status=1;L.el=T;I(L,true)}else return}else if(L.eCont){L.eCont=$dp.$(L.eCont);L.el=T;L.autoPickDate=true;L.qsEnabled=false;I(L)}else{if($.$preLoad&amp;&amp;$dp.status!=2)return;var F=D();if(Y.event===F||F){L.srcEl=F.srcElement||F.target;F.cancelBubble=true}L.el=L.el=$dp.$(L.el||L.srcEl);if(!L.el||L.el[&quot;My97Mark&quot;]===true||L.el.disabled||($dp.dd&amp;&amp;P($dp.dd)!=&quot;none&quot;&amp;&amp;$dp.dd.style.left!=&quot;-970px&quot;)){try{if(L.el[&quot;My97Mark&quot;])L.el[&quot;My97Mark&quot;]=false}catch(A){}return}if(F&amp;&amp;L.el.nodeType==1&amp;&amp;!a(L.el.initcfg,K)){$dp.unbind(L.el);E(L.el,F.type==&quot;focus&quot;?&quot;onclick&quot;:&quot;onfocus&quot;,function(){U(K)});L.el.initcfg=K}I(L)}function J(){if(S&amp;&amp;V!=Y&amp;&amp;V[N].readyState!=&quot;complete&quot;)return false;return true}function D(){if(G){func=D.caller;while(func!=null){var $=func.arguments[0];if($&amp;&amp;($+&quot;&quot;).indexOf(&quot;Event&quot;)&gt;=0)return $;func=func.caller}return null}return event}}function R(_,$){return _.currentStyle?_.currentStyle[$]:document.defaultView.getComputedStyle(_,false)[$]}function P(_,$){if(_)if($!=null)_.style.display=$;else return R(_,&quot;display&quot;)}function I(G,_){var D=G.el?G.el.nodeName:&quot;INPUT&quot;;if(_||G.eCont||new RegExp(/input|textarea|div|span|p|a/ig).test(D))G.elProp=D==&quot;INPUT&quot;?&quot;value&quot;:&quot;innerHTML&quot;;else return;if(G.lang==&quot;auto&quot;)G.lang=S?navigator.browserLanguage.toLowerCase():navigator.language.toLowerCase();if(!G.eCont)for(var C in G)$dp[C]=G[C];if(!$dp.dd||G.eCont||($dp.dd&amp;&amp;(G.getRealLang().name!=$dp.dd.lang||G.skin!=$dp.dd.skin))){if(G.eCont)E(G.eCont,G);else{$dp.dd=V[N].createElement(&quot;DIV&quot;);$dp.dd.style.cssText=&quot;position:absolute&quot;;V[N].body.appendChild($dp.dd);E($dp.dd,G);if(_)$dp.dd.style.left=$dp.dd.style.top=&quot;-970px&quot;;else{$dp.show();B($dp)}}}else if($dp.cal){$dp.show();$dp.cal.init();if(!$dp.eCont)B($dp)}function E(K,J){var I=V[N].domain,F=false,G=&quot;&lt;iframe hideFocus=true width=9 height=7 frameborder=0 border=0 scrolling=no src=\&quot;about:blank\&quot;&gt;&lt;/iframe&gt;&quot;;K.innerHTML=G;var _=$.$langList,D=$.$skinList,H;try{H=K.lastChild.contentWindow[N]}catch(E){F=true;K.removeChild(K.lastChild);var L=V[N].createElement(&quot;iframe&quot;);L.hideFocus=true;L.frameBorder=0;L.scrolling=&quot;no&quot;;L.src=&quot;javascript:(function(){var d=document;d.open();d.domain=&#039;&quot;+I+&quot;&#039;;})()&quot;;K.appendChild(L);setTimeout(function(){H=K.lastChild.contentWindow[N];C()},97);return}C();function C(){var _=J.getRealLang();K.lang=_.name;K.skin=J.skin;var $=[&quot;&lt;head&gt;&lt;script&gt;&quot;,&quot;&quot;,&quot;var doc=document, $d, $dp, $cfg=doc.cfg, $pdp = parent.$dp, $dt, $tdt, $sdt, $lastInput, $IE=$pdp.ie, $FF = $pdp.ff,$OPERA=$pdp.opera, $ny, $cMark = false;&quot;,&quot;if($cfg.eCont){$dp = {};for(var p in $pdp)$dp[p]=$pdp[p];}else{$dp=$pdp;};for(var p in $cfg){$dp[p]=$cfg[p];}&quot;,&quot;doc.oncontextmenu=function(){try{$c._fillQS(!$dp.has.d,1);showB($d.qsDivSel);}catch(e){};return false;};&quot;,&quot;&lt;/script&gt;&lt;script src=&quot;,A,&quot;lang/&quot;,_.name,&quot;.js charset=&quot;,_.charset,&quot;&gt;&lt;/script&gt;&quot;];if(F)$[1]=&quot;document.domain=\&quot;&quot;+I+&quot;\&quot;;&quot;;for(var C=0;C&lt;D.length;C++)if(D[C].name==J.skin)$.push(&quot;&lt;link rel=\&quot;stylesheet\&quot; type=\&quot;text/css\&quot; href=\&quot;&quot;+A+&quot;skin/&quot;+D[C].name+&quot;/datepicker.css\&quot; charset=\&quot;&quot;+D[C].charset+&quot;\&quot;/&gt;&quot;);$.push(&quot;&lt;script src=\&quot;&quot;+A+&quot;calendar.js\&quot;&gt;&lt;/script&gt;&quot;);$.push(&quot;&lt;/head&gt;&lt;body leftmargin=\&quot;0\&quot; topmargin=\&quot;0\&quot; tabindex=0&gt;&lt;/body&gt;&lt;/html&gt;&quot;);$.push(&quot;&lt;script&gt;var t;t=t||setInterval(function(){if(doc.ready){new My97DP();$cfg.onload();$c.autoSize();$cfg.setPos($dp);clearInterval(t);}},20);&lt;/script&gt;&quot;);J.setPos=B;J.onload=Z;H.write(&quot;&lt;html&gt;&quot;);H.cfg=J;H.write($.join(&quot;&quot;));H.close()}}function B(J){var H=J.position.left,C=J.position.top,D=J.el;if(D==T)return;if(D!=J.srcEl&amp;&amp;(P(D)==&quot;none&quot;||D.type==&quot;hidden&quot;))D=J.srcEl;var I=W(D),$=F(Y),E=M(V),B=b(V),G=$dp.dd.offsetHeight,A=$dp.dd.offsetWidth;if(isNaN(C))C=0;if(($.topM+I.bottom+G&gt;E.height)&amp;&amp;($.topM+I.top-G&gt;0))C+=B.top+$.topM+I.top-G-2;else{C+=B.top+$.topM+I.bottom;var _=C-B.top+G-E.height;if(_&gt;0)C-=_}if(isNaN(H))H=0;H+=B.left+Math.min($.leftM+I.left,E.width-A-5)-(S?2:0);J.dd.style.top=C+&quot;px&quot;;J.dd.style.left=H+&quot;px&quot;}}})()</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

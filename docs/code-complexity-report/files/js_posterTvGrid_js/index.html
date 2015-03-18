@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/posterTvGrid.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/posterTvGrid.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">51.93</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">291</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">121.98</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">6.62</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">//电视剧大图滚动
+(function(jq){
+	var posterTvGrid = function(o, options, data){
+		this.parent = jq(&quot;#&quot;+ o);
+		this.body   = jq(&quot;body&quot;);
+		if (this.parent.length &lt;= 0) { 
+			return false;
+		}
+		
+		this.options = jq.extend({}, posterTvGrid.options, options);
+		if(typeof(data) !== &#039;object&#039;) return false;
+
+		this.data = data || {};
+		this.reset();
+		//处理页面resize
+		var _this = this;
+		jq(window).resize(function(){
+				_this.reset();
+		});
+	};
+	posterTvGrid.prototype = {
+		reset: function(options){
+			if(typeof(options) == &#039;object&#039;){
+				jq.extend(this.options, options);	
+			}
+			if(parseInt(this.body.outerWidth())&gt;1255 || navigator.userAgent.indexOf(&#039;iPad&#039;) !== -1){
+				this.options.width = parseInt(this.body.outerWidth())*0.16;	
+			}else{
+				this.options.width = parseInt(this.body.outerWidth())*0.16;	
+			}
+			this.total = this.data.length;
+			this.pageNow = this.options.initPage;
+			this.preLeft = 0;
+			this.nextLeft = this.options.width-530;
+			this.preNLeft = -530;
+			this.nextNLeft = this.options.width;
+			this.pageNowLeft = (this.options.width-640)/2
+			this.drawContent();
+		},
+		drawContent: function(){
+			this.parent.empty();
+			this.parent.css({width:this.options.width+&quot;px&quot;, height:this.options.height+&quot;px&quot;, position: &quot;relative&quot;});
+			this.content = document.createElement(&quot;DIV&quot;);
+			this.content.className = this.options.className;
+			this.content.cssText = &quot;width:&quot;+this.options.width+&quot;px;height:&quot;+this.options.height+&quot;px;cursor:move;position:absolute;&quot;;
+				this.bottomNav = document.createElement(&quot;DIV&quot;);
+				this.bottomNav.className = &quot;bottomNav&quot;;
+				for(var i=1; i&lt;= this.total; i++){
+					var bottomItem = document.createElement(&quot;DIV&quot;);
+					bottomItem.className = &quot;bottomNavButtonOFF&quot;;
+					if(i == this.pageNow){
+						bottomItem.className = &quot;bottomNavButtonOFF bottomNavButtonON&quot;;
+					}
+					bottomItem.setAttribute(&quot;ref&quot;, i);
+					this.bottomNav.appendChild(bottomItem);
+				}
+				this.content.appendChild(this.bottomNav);
+				this.bannerControls = &#039;&lt;div class=&quot;bannerControls&quot;&gt; &lt;div class=&quot;leftNav&quot; style=&quot;display: block;&quot;&gt;&lt;/div&gt; &lt;div class=&quot;rightNav&quot; style=&quot;display: block;&quot;&gt;&lt;/div&gt; &lt;/div&gt;&#039;;
+				this.content.innerHTML += this.bannerControls;
+
+			this.contentHolder = document.createElement(&quot;DIV&quot;);
+			this.contentHolder.style.width = this.options.width + &#039;px&#039;;
+			this.contentHolder.style.height = this.options.height + &#039;px&#039;;
+			
+			for(var item=0, i = 1, l= this.data.length ; item &lt; l ; ++item, ++i){
+				var contentHolderUnit = document.createElement(&quot;DIV&quot;);
+				contentHolderUnit.className = &quot;contentHolderUnit&quot;;
+				contentHolderUnit.setAttribute(&quot;ref&quot;, i);
+				contentHolderUnit.setAttribute(&quot;id&quot;, &#039;contentHolderUnit&#039; + (i));
+				var unitItem = &#039;&lt;a href=&quot;&#039;+this.data[item].url+&#039;&quot; target=&quot;_blank&quot; class=&quot;elementLink&quot;&gt;&#039;;
+				unitItem += &#039;&lt;/a&gt;&#039;;
+				unitItem += &#039;&lt;img src=&quot;&#039;+this.data[item].img+&#039;&quot; alt=&quot;&#039;+this.data[item].title+&#039;&quot;/&gt;&#039;;
+				unitItem += &#039;&lt;span class=&quot;elementOverlay&quot;&gt;&lt;/span&gt;&#039;;
+				unitItem += &#039;&lt;span class=&quot;leftShadow&quot;&gt;&lt;/span&gt;&#039;;
+				unitItem += &#039;&lt;span class=&quot;rightShadow&quot;&gt;&lt;/span&gt;&#039;;
+				contentHolderUnit.innerHTML = unitItem;
+				this.contentHolder.appendChild(contentHolderUnit);
+			}
+			this.content.appendChild(this.contentHolder);
+			this.parent.append(this.content);
+			this.parent.css({overflow:&#039;hidden&#039;});
+			this.initContent();
+			this.bind();
+			this.start();
+		},
+		initContent: function(){
+			contentHolderUnit = this.parent.find(&quot;.contentHolderUnit&quot;);
+			contentHolderUnit.css({width:&#039;0px&#039;,height:&#039;0px&#039;, opacity: 0, left:this.options.width/2+&#039;px&#039;, zIndex:0, marginTop: &#039;135px&#039;});
+			this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+this.pageNow+&quot;)&quot;).css({width:&#039;640px&#039;,height:&#039;270px&#039;, opacity: 1, left: this.pageNowLeft+&#039;px&#039;, zIndex: 3, marginTop: 0});
+			this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+this.pageNow+&quot;) .elementOverlay&quot;).css({opacity:0});
+			this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+this.pageNow+&quot;) .leftShadow&quot;).css({opacity:1});
+			this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+this.pageNow+&quot;) .rightShadow&quot;).css({opacity:1});
+			
+			var pre = this.pageNow &gt; 1 ? this.pageNow -1: this.total;
+			var next = this.pageNow == this.total ? 1 : this.pageNow + 1;
+			this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+pre+&quot;)&quot;).css({opacity: 1, left: this.preLeft+&#039;px&#039;,height: &#039;224px&#039;, width: &#039;530px&#039;, zIndex: 0, marginTop: &#039;23px&#039;});
+			this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+pre+&quot;) .elementOverlay&quot;).css({opacity:0.4});
+			
+			this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;)&quot;).css({opacity: 1, left: this.nextLeft+&#039;px&#039;,height: &#039;224px&#039;, width: &#039;530px&#039;, zIndex: 0, marginTop: &#039;23px&#039;});
+			this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;) .elementOverlay&quot;).css({opacity:0.4});
+			this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;) .leftShadow&quot;).css({opacity:0});
+			this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;) .rightShadow&quot;).css({opacity:0});
+		},
+		bind: function(){
+			this.leftNav = this.parent.find(&quot;.leftNav&quot;);
+			this.rightNav = this.parent.find(&quot;.rightNav&quot;);
+			this.bottonNav = this.parent.find(&quot;.bottomNavButtonOFF&quot;);
+			this.lists = this.parent.find(&quot;.contentHolderUnit&quot;);
+			var _this = this;
+			this.parent.mouseover(function(){
+				_this.stop();
+				_this.leftNav.show();
+				_this.rightNav.show();
+			});
+			this.parent.mouseout(function(){
+				_this.start();
+				//_this.leftNav.hide();
+				//_this.rightNav.hide();
+			});
+			
+			_this.leftNav.click(function(){
+				_this.turn(&quot;right&quot;);					 
+			});
+			_this.rightNav.click(function(){
+				_this.turn(&quot;left&quot;);					 
+			});
+			_this.bottonNav.click(function(){
+				var ref = parseInt(this.getAttribute(&quot;ref&quot;));
+				if(_this.pageNow == ref) return false;
+
+				if(_this.pageNow &lt; ref){
+					var rightAbs = ref - _this.pageNow;
+					var leftAbs = _this.pageNow + _this.total - ref;
+				}else{
+					var rightAbs = _this.total - _this.pageNow + ref;
+					var leftAbs = _this.pageNow - ref;
+				}
+				if(leftAbs &lt; rightAbs){
+					 dir = &quot;right&quot;;	
+				}else{
+					 dir = &quot;left&quot;;	
+				}
+
+				_this.turnpage(ref, dir);
+				return false;
+			});
+			
+			_this.lists.click(function(e){
+				var ref = parseInt(this.getAttribute(&quot;ref&quot;));
+				if(_this.pageNow == ref) {
+					return true;
+				}else{
+					e.preventDefault();
+				}
+				if(_this.pageNow &lt; ref){
+					var rightAbs = ref - _this.pageNow;
+					var leftAbs = _this.pageNow + _this.total - ref;
+				}else{
+					var rightAbs = _this.total - _this.pageNow + ref;
+					var leftAbs = _this.pageNow - ref;
+				}
+				if(leftAbs &lt; rightAbs){
+					 dir = &quot;right&quot;;	
+				}else{
+					 dir = &quot;left&quot;;	
+				}
+				_this.turnpage(ref, dir);	
+
+			});
+		},
+		initBottomNav: function(){
+				this.parent.find(&quot;.bottomNavButtonOFF&quot;).removeClass(&quot;bottomNavButtonON&quot;);
+				this.parent.find(&quot;.bottomNavButtonOFF:nth-child(&quot;+this.pageNow+&quot;)&quot;).addClass(&quot;bottomNavButtonON&quot;);
+		},
+		start: function(){
+			var _this = this;
+			if(_this.timerId) _this.stop();
+			_this.timerId = setInterval(function(){
+				if(_this.options.direct == &quot;left&quot;){
+					_this.turn(&quot;left&quot;);	
+				}else{
+					_this.turn(&quot;right&quot;);	
+				}
+			}, _this.options.delay);
+		},
+		stop: function(){
+			clearInterval(this.timerId);
+		},
+		turn: function(dir){
+			var _this = this;
+			
+			if(dir == &quot;right&quot;){
+				var page = _this.pageNow -1;
+				if(page &lt;= 0) page = _this.total;
+			}else{
+				var page = _this.pageNow + 1;
+				if(page &gt; _this.total) page = 1;
+			}
+			_this.turnpage(page, dir);
+		},
+		turnpage: function(page, dir){
+			var _this = this;
+			if(_this.locked) return false;
+			_this.locked = true;
+			if(_this.pageNow == page) return false;
+			
+			var run = function(page, dir, t){
+				var pre = page &gt; 1 ? page -1: _this.total;
+				var next = page == _this.total ? 1 : page + 1;
+				var preP = pre - 1 &gt;= 1 ? pre-1 : _this.total;
+				var nextN = next + 1 &gt; _this.total ? 1 : next+1;
+				if(pre != _this.pageNow &amp;&amp; next != _this.pageNow){
+					var nowpre = _this.pageNow &gt; 1 ? _this.pageNow -1: _this.total;
+					var nownext = _this.pageNow == _this.total ? 1 : _this.pageNow + 1;
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+nowpre+&quot;)&quot;).animate({width:&#039;0px&#039;,height:&#039;0px&#039;, opacity: 0, left:_this.options.width/2+&#039;px&#039;, zIndex:0, marginTop: &#039;135px&#039;}, t);
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+_this.pageNow+&quot;)&quot;).animate({width:&#039;0px&#039;,height:&#039;0px&#039;, opacity: 0, left:_this.options.width/2+&#039;px&#039;, zIndex:0, marginTop: &#039;135px&#039;}, t);
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+nownext+&quot;)&quot;).animate({width:&#039;0px&#039;,height:&#039;0px&#039;, opacity: 0, left:_this.options.width/2+&#039;px&#039;, zIndex:0, marginTop: &#039;135px&#039;}, t);
+				}
+				if(dir == &#039;left&#039;){					
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+_this.pageNow+&quot;)&quot;).css({zIndex: 0});
+				
+					
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+pre+&quot;) .elementOverlay&quot;).css({opacity:0.4});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+pre+&quot;)&quot;).animate({opacity: 1, left: _this.preLeft+&#039;px&#039;, height: &#039;224px&#039;, width: &#039;530px&#039;, zIndex: 2, marginTop: &#039;23px&#039;}, t);
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+pre+&quot;) .leftShadow&quot;).css({opacity:0});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+pre+&quot;) .rightShadow&quot;).css({opacity:0});
+					
+					
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+page+&quot;)&quot;).css({zIndex: 3});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+page+&quot;)&quot;).animate({opacity: 1, left: _this.pageNowLeft+&#039;px&#039;, height: &#039;270px&#039;, width: &#039;640px&#039;, zIndex: 3, marginTop: &#039;0&#039;}, t);
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+page+&quot;) .elementOverlay&quot;).css({opacity:0});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+page+&quot;) .leftShadow&quot;).css({opacity:1});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+page+&quot;) .rightShadow&quot;).css({opacity:1});
+					
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;)&quot;).css({opacity: 0, left: _this.nextNLeft+&#039;px&#039;, height: &#039;100px&#039;, width: &#039;530px&#039;, zIndex: 2, marginTop: &#039;85px&#039;});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;)&quot;).animate({opacity: 1, left: _this.nextLeft+&#039;px&#039;, height: &#039;224px&#039;, width:&quot;530px&quot;, zIndex: 2, marginTop: &#039;23px&#039;}, t);
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;) .elementOverlay&quot;).css({opacity:0.4});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;) .leftShadow&quot;).css({opacity:0});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;) .rightShadow&quot;).css({opacity:0});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+preP+&quot;)&quot;).css({zIndex:0});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+preP+&quot;)&quot;).animate({width:&#039;530px&#039;,height:&#039;100px&#039;, opacity: 0, left:_this.preNLeft+&#039;px&#039;, zIndex:0, marginTop: &#039;85px&#039;},t, &quot;&quot;, function(){_this.locked=false;});
+					
+					
+				}else{
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+_this.pageNow+&quot;)&quot;).css({zIndex: 0});
+					
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;)&quot;).css({zIndex:2});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;)&quot;).animate({opacity: 1, left: _this.nextLeft+&#039;px&#039;, height: &#039;224px&#039;, width: &#039;530px&#039;, zIndex: 2, marginTop: &#039;23px&#039;}, t);
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;) .elementOverlay&quot;).css({opacity:0.4});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;) .leftShadow&quot;).css({opacity:0});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+next+&quot;) .rightShadow&quot;).css({opacity:0});
+					
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+page+&quot;)&quot;).css({zIndex: 3}, t);
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+page+&quot;)&quot;).animate({opacity: 1, left: _this.pageNowLeft+&#039;px&#039;, height: &#039;270px&#039;, width: &#039;640px&#039;, zIndex: 3, marginTop: &#039;0px&#039;}, t);
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+page+&quot;) .elementOverlay&quot;).css({opacity:0});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+page+&quot;) .leftShadow&quot;).css({opacity:1});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+page+&quot;) .rightShadow&quot;).css({opacity:1});
+					
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+pre+&quot;)&quot;).css({opacity: 0, left: _this.preNLeft+&#039;px&#039;, height: &#039;100px&#039;, width: &#039;530px&#039;, zIndex: 2, marginTop: &#039;85px&#039;});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+pre+&quot;)&quot;).animate({opacity: 1, left: _this.preLeft+&#039;px&#039;, height: &#039;224px&#039;, width: &#039;530px&#039;, zIndex: 2, marginTop: &#039;23px&#039;}, t);
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+pre+&quot;) .elementOverlay&quot;).css({opacity:0.4});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+pre+&quot;) .leftShadow&quot;).css({opacity:0});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+pre+&quot;) .rightShadow&quot;).css({opacity:0});
+					
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+nextN+&quot;)&quot;).css({zIndex:0});
+					_this.parent.find(&quot;.contentHolderUnit:nth-child(&quot;+nextN+&quot;)&quot;).animate({width:&#039;530px&#039;,height:&#039;100px&#039;, opacity: 0, left:_this.nextNLeft+&#039;px&#039;, zIndex:0, marginTop: &#039;85px&#039;}, t, &quot;&quot;,function(){_this.locked=false;});
+				}
+			
+				_this.pageNow = page;
+				_this.initBottomNav();
+			};
+			
+			run(page, dir,_this.options.speed);					
+			
+		}
+		
+	};
+
+	posterTvGrid.options = {
+		offsetPages : 3,//默认可视最大条数
+		direct : &quot;left&quot;,//滚动的方向
+		initPage : 1,//默认当前显示第几条
+		className : &quot;posterTvGrid&quot;,//最外层样式
+		autoWidth : true,//默认不用设置宽
+		width : 970,//最外层宽，需要使用的时候在传,默认由程序自动判断
+		height : 188,//最外层高  
+		delay : 3000,//滚动间隔（毫秒）
+		speed : 1000 //滚动速度毫秒
+	};
+	
+	window.posterTvGrid = posterTvGrid;
+})(jQuery);</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

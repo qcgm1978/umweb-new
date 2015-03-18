@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - room/script/gift.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>room/script/gift.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">60.35</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">212</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">61.86</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.45</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">function makeid()
+{
+    var text = &quot;&quot;;
+    var possible = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&quot;;
+
+    for( var i=0; i &lt; 9; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
+function generate_gift(swf,x,y,z,w,h,life)
+{
+	var div_id = &#039;gift_display&#039; + makeid();
+	var css_style = &#039;z-index: &#039; + (70+z) +&#039;; overflow:hidden;position: absolute;background-color: rgba(255, 255, 255, 0.1);&#039;;
+	css_style += &quot;width: &quot; + w +&quot;px; height: &quot; + h +&quot;px; left: &quot; + x + &quot;px; top: &quot; + y + &quot;px;&quot;; 
+	swfobject.createCSS(&quot;#&quot;+div_id, css_style);
+	var $div = $(&#039;&lt;div /&gt;&#039;).appendTo(&#039;body&#039;);
+	$div.attr(&#039;id&#039;, div_id);
+	
+	//console.log($(&quot;#&quot;+div_id).width());
+	
+	var flashvars = {};
+	var params = {};
+	params.quality = &quot;high&quot;;
+	params.wmode = &quot;transparent&quot;;
+	var attributes = {};
+	var w = $(&quot;#&quot;+div_id).width();
+	var h = $(&quot;#&quot;+div_id).height();
+	swfobject.embedSWF(&quot;/upload/gift_img/&quot;+ swf, div_id, w, h, &quot;7&quot;,null,flashvars, params, attributes);
+	setTimeout(function(){
+			swfobject.removeSWF(div_id);
+			gift_center.showed -=1 ;
+		},life*1000);
+}
+
+function generate_gift_1(swf,x,y,z,w,h,life)
+{
+	var div_id = &#039;gift_display&#039; + makeid();
+	var css_style = &#039;z-index: &#039; + (70+z) +&#039;; overflow:hidden;position: absolute;background-color: rgba(255, 255, 255, 0.1);&#039;;
+	css_style += &quot;width: &quot; + w +&quot;px; height: &quot; + h +&quot;px; left: &quot; + x + &quot;px; top: &quot; + y + &quot;px;&quot;; 
+	swfobject.createCSS(&quot;#&quot;+div_id, css_style);
+	var $div = $(&#039;&lt;div /&gt;&#039;).appendTo(&#039;body&#039;);
+	$div.attr(&#039;id&#039;, div_id);
+	
+	//console.log($(&quot;#&quot;+div_id).width());
+	
+	var flashvars = {};
+	var params = {};
+	params.quality = &quot;high&quot;;
+	params.wmode = &quot;transparent&quot;;
+	var attributes = {};
+	var w = $(&quot;#&quot;+div_id).width();
+	var h = $(&quot;#&quot;+div_id).height();
+	swfobject.embedSWF(&quot;/upload/gift_img/&quot;+ swf, div_id, w, h, &quot;7&quot;,null,flashvars, params, attributes);
+	setTimeout(function(){
+			swfobject.removeSWF(div_id);
+			//gift_center.showed -=1 ;
+		},life*1000);
+}
+
+function giftctrl(){
+	gift_center.walk();
+}
+
+var gift_center = {
+	queue : [],
+	showed : 0,
+
+	random_pos : function(){
+		var s_w = get_w_w();
+		var left = 200;
+		var top = 150;
+		if (s_w &gt; 1180){
+			left = Math.floor((s_w-1180)/2+200);
+		}
+		var x = left + Math.floor((Math.random() * 80) + 1) * 10;
+		var y = top + Math.floor((Math.random() * 30) + 1) * 10;
+		var r = {};
+		r.x = x;
+		r.y = y;
+		return r;
+	},	
+		
+	random_pos_4_big : function(){
+		var s_w = get_w_w();
+		var left = 0;
+		var top = 0;
+		var w = 200;
+		var h = 80;
+		if (s_w &gt; 1180){
+			w += (s_w - 1180);
+		}
+		var x = left + Math.floor((Math.random() * 10) + 1) * 20;
+		var y = top + Math.floor((Math.random() * 10) + 1) * 20;
+		var r = {};
+		r.x = x;
+		r.y = y;
+		return r;
+	},	
+
+	display_screen_hint : function(gift){
+		var text;
+		text = &#039;[礼物]&#039; + gift.from_nickname + &#039; 向 &#039; + gift.to_nickname + &#039; 送：&#039; + gift.sum + gift.unit + gift.gift_name;
+		balloon_message(text);
+	},
+	
+	small_gift : function(swf,count,life,data){
+		console.log(&#039;small_gift&#039;);
+		
+		if (count&gt;=18){
+			count = 18;
+			//gift_center.display_screen_hint(data);
+		}
+		var row = Math.floor(count/9)+1;
+		var z_w,z_h;
+		if (count&lt;9)
+			z_w = count*120;
+		else
+			z_w = 9*120;
+		z_h = row*120;
+		
+		var x = Math.floor((get_w_w() - z_w)/2);
+		var y = Math.floor((get_w_h() - z_h)/2);
+		if (x&lt;0) x=0;
+		if (y&lt;0) y=0;
+		
+		console.log(get_w_w() + &#039;,&#039; + get_w_h());
+		console.log(z_w + &#039;,&#039; + z_h + &#039;,&#039; + x + &#039;,&#039; + y);
+		
+		for (var i=0;i&lt;count;i++){
+			var r = Math.floor(i/9);
+			var c = i%9;
+			var pos = gift_center.random_pos();
+			//gift_center.showed +=1 ;
+			//generate_gift(swf,pos.x,pos.y,i,120,120,life);
+			//small gifts display immediately,
+			generate_gift_1(swf,pos.x,pos.y,i,120,120,life);
+		}
+	},
+	
+	big_gift : function(swf,count,life){
+		var z_w,z_h;
+		z_w = 980;
+		z_h = 500;
+		
+		var x = Math.floor((get_w_w() - z_w)/2);
+		var y = 0;//Math.floor((get_w_h() - z_h)/2);
+		if (x&lt;0) x=0;
+		if (y&lt;0) y=0;
+		
+		for (var i=0;i&lt;count;i++){
+			gift_center.showed +=1 ;
+			//generate_gift(swf,x+i*40,y+i*40,i,z_w,z_h,life);
+			var pos = gift_center.random_pos_4_big();
+			generate_gift(swf,pos.x,pos.y,i,z_w,z_h,life);
+		}
+	},
+	
+	show_gift : function(type,swf,count,life,data){
+		if (type == &#039;S&#039;){
+			var d = {};
+			d.type = type;
+			d.swf = swf;
+			d.count = count;
+			d.life = life;
+			d.data = data;
+			//small gifts display immediately,
+			gift_center.small_gift(swf,count,life,data);
+			//gift_center.queue.push(d);
+		}
+		if (type == &#039;B&#039;){
+			var count = data.sum;
+			while (1){
+				var d = {};
+				d.type = type;
+				d.swf = swf;
+				if (count &gt; 10){
+					d.count = 10;
+					d.life = 5;
+					
+					gift_center.queue.push(d);
+					console.log(&#039;gift_center.queue.push(d) B&#039;);
+					
+					count -= 10;
+				}
+				else{
+					d.count = count;
+					d.life = life;
+					
+					gift_center.queue.push(d);
+					console.log(&#039;gift_center.queue.push(d) B&#039;);
+					break;
+				}
+			}
+		}
+	},
+	
+	walk : function(){
+		if (gift_center.showed == 0 &amp;&amp; gift_center.queue.length&gt;0){
+			var i = gift_center.queue.shift();
+			if (i.type==&#039;B&#039;){
+				gift_center.big_gift(i.swf,i.count,i.life);
+			}
+			if (i.type==&#039;S&#039;){
+				gift_center.small_gift(i.swf,i.count,i.life,i.data);
+			}
+		}
+	}
+};
+
+window.setInterval(giftctrl,2000);</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

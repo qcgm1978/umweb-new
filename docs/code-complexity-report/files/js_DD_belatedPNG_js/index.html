@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/DD_belatedPNG.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/DD_belatedPNG.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">55.74</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">4</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">76.24</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">5.15</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">var DD_belatedPNG={ns:&quot;DD_belatedPNG&quot;,imgSize:{},delay:10,nodesFixed:0,createVmlNameSpace:function(){if(document.namespaces&amp;&amp;!document.namespaces[this.ns]){document.namespaces.add(this.ns,&quot;urn:schemas-microsoft-com:vml&quot;)}},createVmlStyleSheet:function(){var b,a;b=document.createElement(&quot;style&quot;);b.setAttribute(&quot;media&quot;,&quot;screen&quot;);document.documentElement.firstChild.insertBefore(b,document.documentElement.firstChild.firstChild);if(b.styleSheet){b=b.styleSheet;b.addRule(this.ns+&quot;\\:*&quot;,&quot;{behavior:url(#default#VML)}&quot;);b.addRule(this.ns+&quot;\\:shape&quot;,&quot;position:absolute;&quot;);b.addRule(&quot;img.&quot;+this.ns+&quot;_sizeFinder&quot;,&quot;behavior:none; border:none; position:absolute; z-index:-1; top:-10000px; visibility:hidden;&quot;);this.screenStyleSheet=b;a=document.createElement(&quot;style&quot;);a.setAttribute(&quot;media&quot;,&quot;print&quot;);document.documentElement.firstChild.insertBefore(a,document.documentElement.firstChild.firstChild);a=a.styleSheet;a.addRule(this.ns+&quot;\\:*&quot;,&quot;{display: none !important;}&quot;);a.addRule(&quot;img.&quot;+this.ns+&quot;_sizeFinder&quot;,&quot;{display: none !important;}&quot;)}},readPropertyChange:function(){var b,c,a;b=event.srcElement;if(!b.vmlInitiated){return}if(event.propertyName.search(&quot;background&quot;)!=-1||event.propertyName.search(&quot;border&quot;)!=-1){DD_belatedPNG.applyVML(b)}if(event.propertyName==&quot;style.display&quot;){c=(b.currentStyle.display==&quot;none&quot;)?&quot;none&quot;:&quot;block&quot;;for(a in b.vml){if(b.vml.hasOwnProperty(a)){b.vml[a].shape.style.display=c}}}if(event.propertyName.search(&quot;filter&quot;)!=-1){DD_belatedPNG.vmlOpacity(b)}},vmlOpacity:function(b){if(b.currentStyle.filter.search(&quot;lpha&quot;)!=-1){var a=b.currentStyle.filter;a=parseInt(a.substring(a.lastIndexOf(&quot;=&quot;)+1,a.lastIndexOf(&quot;)&quot;)),10)/100;b.vml.color.shape.style.filter=b.currentStyle.filter;b.vml.image.fill.opacity=a}},handlePseudoHover:function(a){setTimeout(function(){DD_belatedPNG.applyVML(a)},1)},fix:function(a){if(this.screenStyleSheet){var c,b;c=a.split(&quot;,&quot;);for(b=0;b&lt;c.length;b++){this.screenStyleSheet.addRule(c[b],&quot;behavior:expression(DD_belatedPNG.fixPng(this))&quot;)}}},applyVML:function(a){a.runtimeStyle.cssText=&quot;&quot;;this.vmlFill(a);this.vmlOffsets(a);this.vmlOpacity(a);if(a.isImg){this.copyImageBorders(a)}},attachHandlers:function(i){var d,c,g,e,b,f;d=this;c={resize:&quot;vmlOffsets&quot;,move:&quot;vmlOffsets&quot;};if(i.nodeName==&quot;A&quot;){e={mouseleave:&quot;handlePseudoHover&quot;,mouseenter:&quot;handlePseudoHover&quot;,focus:&quot;handlePseudoHover&quot;,blur:&quot;handlePseudoHover&quot;};for(b in e){if(e.hasOwnProperty(b)){c[b]=e[b]}}}for(f in c){if(c.hasOwnProperty(f)){g=function(){d[c[f]](i)};i.attachEvent(&quot;on&quot;+f,g)}}i.attachEvent(&quot;onpropertychange&quot;,this.readPropertyChange)},giveLayout:function(a){a.style.zoom=1;if(a.currentStyle.position==&quot;static&quot;){a.style.position=&quot;relative&quot;}},copyImageBorders:function(b){var c,a;c={borderStyle:true,borderWidth:true,borderColor:true};for(a in c){if(c.hasOwnProperty(a)){b.vml.color.shape.style[a]=b.currentStyle[a]}}},vmlFill:function(e){if(!e.currentStyle){return}else{var d,f,g,b,a,c;d=e.currentStyle}for(b in e.vml){if(e.vml.hasOwnProperty(b)){e.vml[b].shape.style.zIndex=d.zIndex}}e.runtimeStyle.backgroundColor=&quot;&quot;;e.runtimeStyle.backgroundImage=&quot;&quot;;f=true;if(d.backgroundImage!=&quot;none&quot;||e.isImg){if(!e.isImg){e.vmlBg=d.backgroundImage;e.vmlBg=e.vmlBg.substr(5,e.vmlBg.lastIndexOf(&#039;&quot;)&#039;)-5)}else{e.vmlBg=e.src}g=this;if(!g.imgSize[e.vmlBg]){a=document.createElement(&quot;img&quot;);g.imgSize[e.vmlBg]=a;a.className=g.ns+&quot;_sizeFinder&quot;;a.runtimeStyle.cssText=&quot;behavior:none; position:absolute; left:-10000px; top:-10000px; border:none; margin:0; padding:0;&quot;;c=function(){this.width=this.offsetWidth;this.height=this.offsetHeight;g.vmlOffsets(e)};a.attachEvent(&quot;onload&quot;,c);a.src=e.vmlBg;a.removeAttribute(&quot;width&quot;);a.removeAttribute(&quot;height&quot;);document.body.insertBefore(a,document.body.firstChild)}e.vml.image.fill.src=e.vmlBg;f=false}e.vml.image.fill.on=!f;e.vml.image.fill.color=&quot;none&quot;;e.vml.color.shape.style.backgroundColor=d.backgroundColor;e.runtimeStyle.backgroundImage=&quot;none&quot;;e.runtimeStyle.backgroundColor=&quot;transparent&quot;},vmlOffsets:function(d){var h,n,a,e,g,m,f,l,j,i,k;h=d.currentStyle;n={W:d.clientWidth+1,H:d.clientHeight+1,w:this.imgSize[d.vmlBg].width,h:this.imgSize[d.vmlBg].height,L:d.offsetLeft,T:d.offsetTop,bLW:d.clientLeft,bTW:d.clientTop};a=(n.L+n.bLW==1)?1:0;e=function(b,p,q,c,s,u){b.coordsize=c+&quot;,&quot;+s;b.coordorigin=u+&quot;,&quot;+u;b.path=&quot;m0,0l&quot;+c+&quot;,0l&quot;+c+&quot;,&quot;+s+&quot;l0,&quot;+s+&quot; xe&quot;;b.style.width=c+&quot;px&quot;;b.style.height=s+&quot;px&quot;;b.style.left=p+&quot;px&quot;;b.style.top=q+&quot;px&quot;};e(d.vml.color.shape,(n.L+(d.isImg?0:n.bLW)),(n.T+(d.isImg?0:n.bTW)),(n.W-1),(n.H-1),0);e(d.vml.image.shape,(n.L+n.bLW),(n.T+n.bTW),(n.W),(n.H),1);g={X:0,Y:0};if(d.isImg){g.X=parseInt(h.paddingLeft,10)+1;g.Y=parseInt(h.paddingTop,10)+1}else{for(j in g){if(g.hasOwnProperty(j)){this.figurePercentage(g,n,j,h[&quot;backgroundPosition&quot;+j])}}}d.vml.image.fill.position=(g.X/n.W)+&quot;,&quot;+(g.Y/n.H);m=h.backgroundRepeat;f={T:1,R:n.W+a,B:n.H,L:1+a};l={X:{b1:&quot;L&quot;,b2:&quot;R&quot;,d:&quot;W&quot;},Y:{b1:&quot;T&quot;,b2:&quot;B&quot;,d:&quot;H&quot;}};if(m!=&quot;repeat&quot;||d.isImg){i={T:(g.Y),R:(g.X+n.w),B:(g.Y+n.h),L:(g.X)};if(m.search(&quot;repeat-&quot;)!=-1){k=m.split(&quot;repeat-&quot;)[1].toUpperCase();i[l[k].b1]=1;i[l[k].b2]=n[l[k].d]}if(i.B&gt;n.H){i.B=n.H}d.vml.image.shape.style.clip=&quot;rect(&quot;+i.T+&quot;px &quot;+(i.R+a)+&quot;px &quot;+i.B+&quot;px &quot;+(i.L+a)+&quot;px)&quot;}else{d.vml.image.shape.style.clip=&quot;rect(&quot;+f.T+&quot;px &quot;+f.R+&quot;px &quot;+f.B+&quot;px &quot;+f.L+&quot;px)&quot;}},figurePercentage:function(d,c,f,a){var b,e;e=true;b=(f==&quot;X&quot;);switch(a){case&quot;left&quot;:case&quot;top&quot;:d[f]=0;break;case&quot;center&quot;:d[f]=0.5;break;case&quot;right&quot;:case&quot;bottom&quot;:d[f]=1;break;default:if(a.search(&quot;%&quot;)!=-1){d[f]=parseInt(a,10)/100}else{e=false}}d[f]=Math.ceil(e?((c[b?&quot;W&quot;:&quot;H&quot;]*d[f])-(c[b?&quot;w&quot;:&quot;h&quot;]*d[f])):parseInt(a,10));if(d[f]%2===0){d[f]++}return d[f]},fixPng:function(c){c.style.behavior=&quot;none&quot;;var g,b,f,a,d;if(c.nodeName==&quot;BODY&quot;||c.nodeName==&quot;TD&quot;||c.nodeName==&quot;TR&quot;){return}c.isImg=false;if(c.nodeName==&quot;IMG&quot;){if(c.src.toLowerCase().search(/\.png$/)!=-1){c.isImg=true;c.style.visibility=&quot;hidden&quot;}else{return}}else{if(c.currentStyle.backgroundImage.toLowerCase().search(&quot;.png&quot;)==-1){return}}g=DD_belatedPNG;c.vml={color:{},image:{}};b={shape:{},fill:{}};for(a in c.vml){if(c.vml.hasOwnProperty(a)){for(d in b){if(b.hasOwnProperty(d)){f=g.ns+&quot;:&quot;+d;c.vml[a][d]=document.createElement(f)}}c.vml[a].shape.stroked=false;c.vml[a].shape.appendChild(c.vml[a].fill);c.parentNode.insertBefore(c.vml[a].shape,c)}}c.vml.image.shape.fillcolor=&quot;none&quot;;c.vml.image.fill.type=&quot;tile&quot;;c.vml.color.fill.on=false;g.attachHandlers(c);g.giveLayout(c);g.giveLayout(c.offsetParent);c.vmlInitiated=true;g.applyVML(c)}};try{document.execCommand(&quot;BackgroundImageCache&quot;,false,true)}catch(r){}DD_belatedPNG.createVmlNameSpace();DD_belatedPNG.createVmlStyleSheet();
+window.onload = function(){
+	DD_belatedPNG.fix(&quot;.pngFix,.pngFix:hover&quot;);
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/content_zoom.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/content_zoom.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">59.50</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">135</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">31.07</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.40</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">jQuery.fn.fancyZoom = function(options){
+  
+  var options   = options || {};
+  var directory = options &amp;&amp; options.directory ? options.directory : &#039;images&#039;;
+  var zooming   = false;
+
+  if ($(&#039;#zoom&#039;).length == 0) {
+    var html = &#039;&lt;div class=&quot;round_shade_box&quot; id=&quot;zoom&quot;&gt; \
+					&lt;div class=&quot;round_shade_top&quot;&gt; \
+						&lt;span class=&quot;round_shade_topleft&quot;&gt; \&lt;/span&gt; \
+						&lt;span class=&quot;round_shade_topright&quot;&gt; \&lt;/span&gt; \
+					&lt;/div&gt; \
+					&lt;div class=&quot;round_shade_centerleft&quot;&gt; \
+						&lt;div class=&quot;round_shade_centerright&quot;&gt; \
+							&lt;div class=&quot;round_shade_center&quot; id=&quot;zoom_content&quot;&gt; \&lt;/div&gt; \
+						&lt;/div&gt; \
+					&lt;/div&gt; \
+					&lt;div class=&quot;round_shade_bottom&quot;&gt; \
+						&lt;span class=&quot;round_shade_bottomleft&quot;&gt; \&lt;/span&gt; \
+						&lt;span class=&quot;round_shade_bottomright&quot;&gt; \&lt;/span&gt; \
+					&lt;/div&gt; \
+					&lt;a href=&quot;#close&quot; class=&quot;round_box_close&quot; id=&quot;zoom_close&quot;&gt;关闭&lt;/a&gt; \
+				&lt;/div&gt;&#039;;
+                
+    $(&#039;body&#039;).append(html);
+    
+    $(&#039;html&#039;).click(function(e){if($(e.target).parents(&#039;#zoom:visible&#039;).length == 0) hide();});
+    $(document).keyup(function(event){
+        if (event.keyCode == 27 &amp;&amp; $(&#039;#zoom:visible&#039;).length &gt; 0) hide();
+    });
+    
+    $(&#039;#zoom_close&#039;).click(hide);
+  }
+  
+  var zoom          = $(&#039;#zoom&#039;);
+  var zoom_close    = $(&#039;#zoom_close&#039;);
+  var zoom_content  = $(&#039;#zoom_content&#039;);
+  
+  this.each(function(i) {
+    $($(this).attr(&#039;href&#039;)).hide();
+    $(this).click(show);
+  });
+  $(&#039;#zoom_close&#039;).click(hide);
+  return this;
+  
+  function show(e) {
+    if (zooming) return false;
+		zooming         = true;
+		var content_div = $($(this).attr(&#039;href&#039;));
+  		var zoom_width  = options.width;
+		var zoom_height = options.height;
+		
+		var width       = window.innerWidth || (window.document.documentElement.clientWidth || window.document.body.clientWidth);
+		var height      = window.innerHeight || (window.document.documentElement.clientHeight || window.document.body.clientHeight);
+		var x           = window.pageXOffset || (window.document.documentElement.scrollLeft || window.document.body.scrollLeft);
+		var y           = window.pageYOffset || (window.document.documentElement.scrollTop || window.document.body.scrollTop);
+		var window_size = {&#039;width&#039;:width, &#039;height&#039;:height, &#039;x&#039;:x, &#039;y&#039;:y}
+	
+		var width              = (zoom_width || content_div.width()) + 40;
+		var height             = (zoom_height || content_div.height()) + 40;
+		var d                  = window_size;
+		
+		// ensure that newTop is at least 0 so it doesn&#039;t hide close button
+		var newTop             = Math.max((d.height/2) - (height/2) + y, 0);
+		var newLeft            = (d.width/2) - (width/2);
+		var curTop             = e.pageY;
+		var curLeft            = e.pageX;
+		
+		zoom_close.attr(&#039;curTop&#039;, curTop);
+		zoom_close.attr(&#039;curLeft&#039;, curLeft);
+		zoom_close.attr(&#039;scaleImg&#039;, options.scaleImg ? &#039;true&#039; : &#039;false&#039;);
+		
+    $(&#039;#zoom&#039;).hide().css({
+			position	: &#039;absolute&#039;,
+			top				: curTop + &#039;px&#039;,
+			left			: curLeft + &#039;px&#039;,
+			width     : &#039;1px&#039;,
+			height    : &#039;1px&#039;
+		});
+    
+    zoom_close.hide();
+    
+    if (options.closeOnClick) {
+      $(&#039;#zoom&#039;).click(hide);
+    }
+    
+	if (options.scaleImg) {
+		zoom_content.html(content_div.html());
+		$(&#039;#zoom_content img&#039;).css(&#039;width&#039;, &#039;100%&#039;);
+		} else {
+		  zoom_content.html(&#039;&#039;);
+	}
+    
+    $(&#039;#zoom&#039;).animate({
+      top     : newTop + &#039;px&#039;,
+      left    : newLeft + &#039;px&#039;,
+      opacity : &quot;show&quot;,
+      width   : width,
+      height  : height
+    }, 500, null, function() {
+      if (options.scaleImg != true) {
+    		zoom_content.html(content_div.html());
+  		}
+			zoom_close.show();
+			zooming = false;
+    })
+    return false;
+  }
+  
+  function hide() {
+    if (zooming) return false;
+		zooming         = true;
+	  $(&#039;#zoom&#039;).unbind(&#039;click&#039;);
+		
+		if (zoom_close.attr(&#039;scaleImg&#039;) != &#039;true&#039;) {
+  		zoom_content.html(&#039;&#039;);
+		}
+		zoom_close.hide();
+		$(&#039;#zoom&#039;).animate({
+		  top     : zoom_close.attr(&#039;curTop&#039;) + &#039;px&#039;,
+		  left    : zoom_close.attr(&#039;curLeft&#039;) + &#039;px&#039;,
+		  opacity : &quot;hide&quot;,
+		  width   : &#039;1px&#039;,
+		  height  : &#039;1px&#039;
+		}, 500, null, function() {
+			
+		  if (zoom_close.attr(&#039;scaleImg&#039;) == &#039;true&#039;) {
+				zoom_content.html(&#039;&#039;);
+			}
+				zooming = false;
+		});
+		return false;
+	  }
+  
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
