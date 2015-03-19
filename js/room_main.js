@@ -83,50 +83,7 @@ function video_start(swfParam, roomer) {
 setTimeout(function () {
     document.getElementById('p1').scrollIntoView();
 }, 1000);
-function sendspeaker() {
-    var spmsg = jQuery("#sperkercont").val();
-    if (spmsg.length < 1) {
-        alert("喇叭必须填写内容");
-        return false;
-    }
-    if (spmsg.length > 100) {
-        alert("字数不能大于100");
-        return false;
-    }
-    var url = "/room/consume";
-    var data = {
-        'CONSUMETYPE': 10,
-        'FROMGID': fromgidIniVal,
-        'OBJ': {
-            'MSG': spmsg,
-            'room_id': room_id
-        }
-    }
-    jQuery.post(url, JSON.stringify(data), function (result) {
-        console.log(result);
-        jQuery("#sperker").hide();
-        jQuery("#sperkercont").val("");
-        var r = jQuery.parseJSON(result);
-        {
-            console.log('call SendspeakerCB');
-            SendspeakerCB(r);
-        }
-    })
-        .fail(function () {
-            console.log('error');
-            alert('发送小喇叭失败！');
-        });
-}
-function SendspeakerCB(r) {
-    console.log('SendspeakerCB Called.');
-    console.log(r);
-    if (r.RES == 0) {
-        alert(r.HINT);
-    }
-    if (r.RES == 1) {
-        xMessager.speakermessage(JSON.parse(r.PARAM1));
-    }
-}
+
 function SendGiftCB(r) {
     console.log('SendGiftCB Called.');
     console.log(r);
@@ -382,4 +339,61 @@ function load_room_recommended() {
             jQuery("#room_recommended").html(result);
         }
     );
+}
+
+/**
+ * Description:
+ *
+ * @class todoCode
+ */
+/**
+ * Description: speaking event bind hidden element, not triggered now(.radioWord not displayed)
+ *
+ * @event sendspeaker
+ * @deprecated
+ *
+ */
+function sendspeaker() {
+    var spmsg = jQuery("#sperkercont").val();
+    if (spmsg.length < 1) {
+        alert("喇叭必须填写内容");
+        return false;
+    }
+    if (spmsg.length > 100) {
+        alert("字数不能大于100");
+        return false;
+    }
+    var url = "/room/consume";
+    var data = {
+        'CONSUMETYPE': 10,
+        'FROMGID': fromgidIniVal,
+        'OBJ': {
+            'MSG': spmsg,
+            'room_id': room_id
+        }
+    }
+    jQuery.post(url, JSON.stringify(data), function (result) {
+        console.log(result);
+        jQuery("#sperker").hide();
+        jQuery("#sperkercont").val("");
+        var r = jQuery.parseJSON(result);
+        {
+            console.log('call SendspeakerCB');
+            SendspeakerCB(r);
+        }
+    })
+        .fail(function () {
+            console.log('error');
+            alert('发送小喇叭失败！');
+        });
+}
+function SendspeakerCB(r) {
+    console.log('SendspeakerCB Called.');
+    console.log(r);
+    if (r.RES == 0) {
+        alert(r.HINT);
+    }
+    if (r.RES == 1) {
+        xMessager.speakermessage(JSON.parse(r.PARAM1));
+    }
 }
