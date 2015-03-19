@@ -15,13 +15,9 @@
     <meta name="keywords" content="美女,主播,秀场,视频,直播间,交友,美女主播,美女秀场,美女视频,美女聊天,视频直播,视频聊天,视频交友"/>
 
     <link href="/css/master.css" rel="stylesheet" type="text/css"/>
-    <script src="/js/login_reg.js"></script>
     <link href="/css/showLoading.css" rel="stylesheet" type="text/css"/>
 
-    <script src="/js/xid.js"></script>
-
     <link href="/room/css/kefu.css" rel="stylesheet" type="text/css"/>
-    <script src="/room/script/chat_v1.source.js"></script>
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/live.css" rel="stylesheet" type="text/css"/>
 
@@ -36,6 +32,9 @@
             display: block
         }
     </style>
+    <script src="/js/xid.js"></script>
+
+    <script src="/room/script/chat_v1.source.js"></script>
 
     <link href="/room/css/room.css" rel="stylesheet">
 
@@ -753,13 +752,13 @@
             setCookie("xid", new Date().getTime() + ":" + "");
         }
     });
-    //    var _hmt = _hmt || [];
-    //    (function() {
-    //        var hm = document.createElement("script");
-    //        hm.src = "//hm.baidu.com/hm.js?b2f6208338d5d0e7314443606931adf7";
-    //        var s = document.getElementsByTagName("script")[0];
-    //        s.parentNode.insertBefore(hm, s);
-    //    })();
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?b2f6208338d5d0e7314443606931adf7";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
     (function () {
         if (!
                 /*@cc_on!@*/

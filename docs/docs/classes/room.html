@@ -38,20 +38,21 @@
                 
                         <div id="api-tabview-panel">
                             <ul id="api-classes" class="apis classes">
-                                <li><a href="../classes/chat.html">chat</a></li>
                                 <li><a href="../classes/chat_panel.html">chat_panel</a></li>
                                 <li><a href="../classes/g_UserList.html">g_UserList</a></li>
+                                <li><a href="../classes/LoginWithOthers.html">LoginWithOthers</a></li>
                                 <li><a href="../classes/message_display.html">message_display</a></li>
                                 <li><a href="../classes/persist.html">persist</a></li>
                                 <li><a href="../classes/room.html">room</a></li>
                                 <li><a href="../classes/SendGift.html">SendGift</a></li>
+                                <li><a href="../classes/todoCode.html">todoCode</a></li>
                                 <li><a href="../classes/User.html">User</a></li>
                                 <li><a href="../classes/xchat_swf.html">xchat_swf</a></li>
                                 <li><a href="../classes/xMessager.html">xMessager</a></li>
                             </ul>
                 
                             <ul id="api-modules" class="apis modules">
-                                <li><a href="../modules/chat.html">chat</a></li>
+                                <li><a href="../modules/Login.html">Login</a></li>
                                 <li><a href="../modules/room.html">room</a></li>
                                 <li><a href="../modules/SendGift.html">SendGift</a></li>
                                 <li><a href="../modules/xchat.html">xchat</a></li>
@@ -177,7 +178,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/js_room_main.js.html#l174"><code>js\room_main.js:174</code></a>
+        <a href="../files/js_room_main.js.html#l162"><code>js\room_main.js:162</code></a>
         </p>
 
 
@@ -240,7 +241,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/js_room_main.js.html#l291"><code>js\room_main.js:291</code></a>
+        <a href="../files/js_room_main.js.html#l280"><code>js\room_main.js:280</code></a>
         </p>
 
 
@@ -273,7 +274,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/js_room_main.js.html#l208"><code>js\room_main.js:208</code></a>
+        <a href="../files/js_room_main.js.html#l196"><code>js\room_main.js:196</code></a>
         </p>
 
 
@@ -305,7 +306,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/js_room_main.js.html#l332"><code>js\room_main.js:332</code></a>
+        <a href="../files/js_room_main.js.html#l321"><code>js\room_main.js:321</code></a>
         </p>
 
 
@@ -337,7 +338,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/js_room_main.js.html#l149"><code>js\room_main.js:149</code></a>
+        <a href="../files/js_room_main.js.html#l137"><code>js\room_main.js:137</code></a>
         </p>
 
 
@@ -362,7 +363,19 @@
                         <code>userpara.roomer</code>
                 </li>
                 <li class="arg">
-                        <code>swfParam</code>
+                        <code>roompara</code>
+                </li>
+                <li class="arg">
+                        <code>room_id</code>
+                </li>
+                <li class="arg">
+                        <code>userpara.gid</code>
+                </li>
+                <li class="arg">
+                        <code>userpara.levelinroom</code>
+                </li>
+                <li class="arg">
+                        <code>userpara.nickname_b64</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
@@ -380,7 +393,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/js_room_main.js.html#l41"><code>js\room_main.js:41</code></a>
+        <a href="../files/js_room_main.js.html#l39"><code>js\room_main.js:39</code></a>
         </p>
 
 
@@ -402,14 +415,12 @@
 
 
                     <div class="param-description">
-                        <p>example
-    0</p>
-
+                         
                     </div>
 
                 </li>
                 <li class="param">
-                        <code class="param-name">swfParam</code>
+                        <code class="param-name">roompara</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 
 
@@ -419,61 +430,55 @@
 
                         <ul class="params-list">
                             <li class="param">
-                                    <code class="param-name">room_id</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <code class="param-name">m_bitrate</code>
+                                    <span class="type"></span>
 
                                 <div class="param-description">
-                                    <p>example
-    201855</p>
-
-                                </div>
-
-                            </li>
-                            <li class="param">
-                                    <code class="param-name">bps</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-                                <div class="param-description">
-                                    <p>example
-    150000</p>
-
-                                </div>
-
-                            </li>
-                            <li class="param">
-                                    <code class="param-name">uid</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-                                <div class="param-description">
-                                    <p>example
-    150830239</p>
-
-                                </div>
-
-                            </li>
-                            <li class="param">
-                                    <code class="param-name">levelinroom</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-                                <div class="param-description">
-                                    <p>example
-    1</p>
-
-                                </div>
-
-                            </li>
-                            <li class="param">
-                                    <code class="param-name">nickname_b64</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-                                <div class="param-description">
-                                    <p>example
-    &quot;5ri45a6iMDIzOQ==&quot;</p>
-
+                                    
                                 </div>
 
                             </li>
                         </ul>
+                </li>
+                <li class="param">
+                        <code class="param-name">room_id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">userpara.gid</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">userpara.levelinroom</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">userpara.nickname_b64</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
                 </li>
             </ul>
         </div>
@@ -491,7 +496,13 @@
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code>{&quot;server&quot;:&quot;112.124.12.112:19350&quot;,&quot;room_id&quot;:201849,&quot;uid&quot;:0,&quot;level&quot;:1,&quot;token&quot;:&quot;video_token&quot;,&quot;nickname&quot;:&quot;游客&quot;,&quot;splash&quot;:[&quot;/room/images/splash.png&quot;,&quot;/room/images/mic_free.png&quot;,&quot;/room/images/mic_chairman.png&quot;],&quot;bps&quot;:500,&quot;vq&quot;:90}
+                <pre class="code prettyprint"><code>150830239
+</code></pre><pre class="code prettyprint"><code>{&quot;server&quot;:&quot;182.18.61.9:19350&quot;,&quot;room_id&quot;:201937,&quot;uid&quot;:150858271,&quot;level&quot;:1,&quot;token&quot;:&quot;video_token&quot;,&quot;nickname&quot;:&quot;游客8271&quot;,&quot;splash&quot;:[&quot;/room/images/splash.png&quot;,&quot;/room/images/mic_free.png&quot;,&quot;/room/images/mic_chairman.png&quot;],&quot;bps&quot;:150000,&quot;vq&quot;:90}
+</code></pre><pre class="code prettyprint"><code>201855
+</code></pre><pre class="code prettyprint"><code>150000
+</code></pre><pre class="code prettyprint"><code>150830239
+</code></pre><pre class="code prettyprint"><code>1
+</code></pre><pre class="code prettyprint"><code>&quot;5ri45a6iMDIzOQ==&quot;
 </code></pre>
             </div>
         </div>

@@ -79,6 +79,10 @@ $(function () {
  });*/
 /*全部|管理*/
 $(function () {
+    autologin(islogined);
+    if ($("#out").length) {
+        $("#out").attr("href", "/user/logout");
+    }
     $(".lmaTab a").each(function (index) {
         $(this).click(function (event) {
             event.preventDefault();

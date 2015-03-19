@@ -86,7 +86,7 @@ module.exports = function (grunt) {
                 options: {
                     linkNatives:true,
                     //attributesEmit:true,
-                    exclude:'',
+                    //exclude:'',
                     paths: ['js/','room/script/'],
                     //themedir: 'path/to/custom/theme/',
                     outdir: 'docs/docs/'

@@ -38,20 +38,21 @@
                 
                         <div id="api-tabview-panel">
                             <ul id="api-classes" class="apis classes">
-                                <li><a href="../classes/chat.html">chat</a></li>
                                 <li><a href="../classes/chat_panel.html">chat_panel</a></li>
                                 <li><a href="../classes/g_UserList.html">g_UserList</a></li>
+                                <li><a href="../classes/LoginWithOthers.html">LoginWithOthers</a></li>
                                 <li><a href="../classes/message_display.html">message_display</a></li>
                                 <li><a href="../classes/persist.html">persist</a></li>
                                 <li><a href="../classes/room.html">room</a></li>
                                 <li><a href="../classes/SendGift.html">SendGift</a></li>
+                                <li><a href="../classes/todoCode.html">todoCode</a></li>
                                 <li><a href="../classes/User.html">User</a></li>
                                 <li><a href="../classes/xchat_swf.html">xchat_swf</a></li>
                                 <li><a href="../classes/xMessager.html">xMessager</a></li>
                             </ul>
                 
                             <ul id="api-modules" class="apis modules">
-                                <li><a href="../modules/chat.html">chat</a></li>
+                                <li><a href="../modules/Login.html">Login</a></li>
                                 <li><a href="../modules/room.html">room</a></li>
                                 <li><a href="../modules/SendGift.html">SendGift</a></li>
                                 <li><a href="../modules/xchat.html">xchat</a></li>
@@ -105,10 +106,6 @@
  * @method jquery.ready
  */
 $(function () {
-    if (userpara.gid == 32001618 || userpara.gid == 32020247 || userpara.gid == 32000076) {
-        //open_my_console();
-        open_window_console();
-    }
     load_emotion();
     load_gift_list();
     load_gift_message();
@@ -127,10 +124,12 @@ $(function () {
         vq: 90
     };
     video_start(video_swf_param, userpara.roomer);
-    autologin();
     load_speak_data();
     load_anchor_fans();
     load_room_bullet();
+    setTimeout(function () {
+        document.getElementById(&#x27;p1&#x27;).scrollIntoView();
+    }, 1000);
 });
 /**
  * Ini video, Requiring attributes from server
@@ -139,25 +138,31 @@ $(function () {
  * @return {Undefined}
  *
  * @param userpara.roomer {Number}
- * example
- *     0
- * @param swfParam {Object}
  * @example
- *     {&quot;server&quot;:&quot;112.124.12.112:19350&quot;,&quot;room_id&quot;:201849,&quot;uid&quot;:0,&quot;level&quot;:1,&quot;token&quot;:&quot;video_token&quot;,&quot;nickname&quot;:&quot;游客&quot;,&quot;splash&quot;:[&quot;/room/images/splash.png&quot;,&quot;/room/images/mic_free.png&quot;,&quot;/room/images/mic_chairman.png&quot;],&quot;bps&quot;:500,&quot;vq&quot;:90}
- * @param swfParam.room_id {Number}
- * example
+ *     0
+ * @param roompara
+ * @type {Object}
+ * @example
+ *     {&quot;server&quot;:&quot;182.18.61.9:19350&quot;,&quot;room_id&quot;:201937,&quot;uid&quot;:150858271,&quot;level&quot;:1,&quot;token&quot;:&quot;video_token&quot;,&quot;nickname&quot;:&quot;游客8271&quot;,&quot;splash&quot;:[&quot;/room/images/splash.png&quot;,&quot;/room/images/mic_free.png&quot;,&quot;/room/images/mic_chairman.png&quot;],&quot;bps&quot;:150000,&quot;vq&quot;:90}
+ * @param room_id
+ * @type {Number}
+ * @example
  *     201855
- * @param swfParam.bps {Number}
- * example
+ * @param roompara.m_bitrate
+ * @type {Number}
+ * @example
  *     150000
- * @param swfParam.uid {Number}
- * example
+ * @param userpara.gid
+ * @type {Number}
+ * @example
  *     150830239
- * @param swfParam.levelinroom {Number}
- * example
+ * @param userpara.levelinroom
+ * @type {Number}
+ * @example
  *     1
- * @param swfParam.nickname_b64 {String}
- * example
+ * @param userpara.nickname_b64
+ * @type {String}
+ * @example
  *     &quot;5ri45a6iMDIzOQ==&quot;
  */
 function video_start(swfParam, roomer) {
@@ -168,35 +173,14 @@ function video_start(swfParam, roomer) {
         video_swf.Init(swfParam, &quot;video_zone&quot;, 0, null);
     }
 }
-setTimeout(function () {
-    document.getElementById(&#x27;p1&#x27;).scrollIntoView();
-}, 1000);
-function SendspeakerCB(r) {
-    console.log(&#x27;SendspeakerCB Called.&#x27;);
-    console.log(r);
-    if (r.RES == 0) {
-        alert(r.HINT);
-    }
-    if (r.RES == 1) {
-        xMessager.speakermessage(JSON.parse(r.PARAM1));
-    }
-}
-function SendGiftCB(r) {
-    console.log(&#x27;SendGiftCB Called.&#x27;);
-    console.log(r);
-    if (r.RES == 0) {
-        $(&quot;#returnmsg&quot;).html(r.HINT);
-        $(&quot;#tips02&quot;).click();
-        //alert(r.HINT);
-    }
-    if (r.RES == 1) {
-        $(&#x27;#mycoin&#x27;).html(jQuery.parseJSON(r.PARAM1).coin_after);
-        xMessager.giftmessage(r.PARAM0, JSON.parse(r.PARAM1), r.PARAM2);
-    }
-}
+/**
+ * Description: insert flash for server side communication
+ *
+ * @xchat_start
+ */
 function xchat_start() {
     var xconf_swf_param = {
-        ip: roompara.serverip,		//&quot;192.168.0.120&quot;,
+        ip: roompara.serverip,
         port: 19188,	//roompara.serverport,
         room_id: room_id,
         uid: userpara.gid,
@@ -214,17 +198,22 @@ function xchat_start() {
     xMessager.init(swfParam);
     xchat_swf.Init(swfParam, &#x27;xchat&#x27;, null);
 }
-var objTimer;
-function autologin() {
-    if (userpara.levelinroom == 1) {
-        clearInterval(objTimer);
-        objTimer = setInterval(function () {
-            if (jQuery(&quot;.masterEle&quot;).css(&quot;display&quot;) == &quot;none&quot;) {
-                jQuery(&quot;#loginBox&quot;).click();
-            }
-        }, 120000);
+
+
+function SendGiftCB(r) {
+    console.log(&#x27;SendGiftCB Called.&#x27;);
+    console.log(r);
+    if (r.RES == 0) {
+        $(&quot;#returnmsg&quot;).html(r.HINT);
+        $(&quot;#tips02&quot;).click();
+        //alert(r.HINT);
+    }
+    if (r.RES == 1) {
+        $(&#x27;#mycoin&#x27;).html(jQuery.parseJSON(r.PARAM1).coin_after);
+        xMessager.giftmessage(r.PARAM0, JSON.parse(r.PARAM1), r.PARAM2);
     }
 }
+
 function load_gift_list() {
     var url = &#x27;/room/giftList&#x27;;
     $.get(url, function (result) {
@@ -362,7 +351,8 @@ function load_emotion() {
  */
 function owshowcar() {
     if (userpara.car_id &gt; 0) {
-        userpara.nickname = &#x27;{$userinfo.nickname}&#x27;;
+        var nickname = nicknameIniVal;
+        userpara.nickname = nickname;
         showcar(userpara);
     } else {
         userpara.nickname = Base64.decode(userpara.nickname_b64);
@@ -396,8 +386,8 @@ function addfav(roomid) {
     }
     jQuery.ajax({
         type: &quot;post&quot;,
-        data: {&quot;act&quot;: &quot;addfav&quot;, &quot;room_id&quot;: roomid},
-        url: &quot;/account.php&quot;,
+        data: {&quot;room_id&quot;: roomid},
+        url: &quot;/room/addFav&quot;,
         success: function (data, status) {
             var ms = JSON.parse(data);
             if (ms.error == 0) {
@@ -411,8 +401,8 @@ function addfav(roomid) {
 function delfav(roomid) {
     jQuery.ajax({
         type: &quot;post&quot;,
-        data: {&quot;act&quot;: &quot;delfav&quot;, &quot;room_id&quot;: roomid},
-        url: &quot;/account.php&quot;,
+        data: {&quot;room_id&quot;: roomid},
+        url: &quot;/room/delFav&quot;,
         success: function (data, status) {
             var ms = JSON.parse(data);
             if (ms.error == 0) {
@@ -435,6 +425,63 @@ function load_room_recommended() {
             jQuery(&quot;#room_recommended&quot;).html(result);
         }
     );
+}
+
+/**
+ * Description:
+ *
+ * @class todoCode
+ */
+/**
+ * Description: speaking event bind hidden element, not triggered now(.radioWord not displayed)
+ *
+ * @event sendspeaker
+ * @deprecated
+ *
+ */
+function sendspeaker() {
+    var spmsg = jQuery(&quot;#sperkercont&quot;).val();
+    if (spmsg.length &lt; 1) {
+        alert(&quot;喇叭必须填写内容&quot;);
+        return false;
+    }
+    if (spmsg.length &gt; 100) {
+        alert(&quot;字数不能大于100&quot;);
+        return false;
+    }
+    var url = &quot;/room/consume&quot;;
+    var data = {
+        &#x27;CONSUMETYPE&#x27;: 10,
+        &#x27;FROMGID&#x27;: fromgidIniVal,
+        &#x27;OBJ&#x27;: {
+            &#x27;MSG&#x27;: spmsg,
+            &#x27;room_id&#x27;: room_id
+        }
+    }
+    jQuery.post(url, JSON.stringify(data), function (result) {
+        console.log(result);
+        jQuery(&quot;#sperker&quot;).hide();
+        jQuery(&quot;#sperkercont&quot;).val(&quot;&quot;);
+        var r = jQuery.parseJSON(result);
+        {
+            console.log(&#x27;call SendspeakerCB&#x27;);
+            SendspeakerCB(r);
+        }
+    })
+        .fail(function () {
+            console.log(&#x27;error&#x27;);
+            alert(&#x27;发送小喇叭失败！&#x27;);
+        });
+}
+function SendspeakerCB(r) {
+    console.log(&#x27;SendspeakerCB Called.&#x27;);
+    console.log(r);
+    if (r.RES == 0) {
+        alert(r.HINT);
+    }
+    if (r.RES == 1) {
+        xMessager.speakermessage(JSON.parse(r.PARAM1));
+    }
 }
     </pre>
 </div>

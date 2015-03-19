@@ -5,38 +5,17 @@
  * Date: 15/3/3
  * Time: 上午10:01
  */
+if ($user_info = User::info()) {
+    $login = 1;
+} else {
+    $login = 0;
+}
 ?>
-
-<!--演示链接开始-->
-<script type="text/javascript" src="/js/login_reg.js"></script>
 <script>
-    autologin();
-    var objTimer;
-    function autologin(){
-        if('{$userinfo.gid}'==0){
-            clearInterval(objTimer);
-            objTimer=setInterval(function(){
-                if($(".masterEle").css("display")=="none"){
-                    $("#loginBox").click();
-                }
-            },120000);
-        }
-    }
-    if($("#out")){
-        $("#out").attr("href","/user/logout");
-    }
 
-    var childWindow;
-    function toQzoneLogin()
-    {
-        childWindow = window.open("/qlogin/example/oauth/index.php","TencentLogin","width=450,height=320,menubar=0,scrollbars=1, resizable=1,status=1,titlebar=0,toolbar=0,location=1");
-    }
-
-    function closeChildWindow()
-    {
-        childWindow.close();
-    }
+    var islogined = '<?php echo $login ?>';
 </script>
+<script type="text/javascript" src="/js/login_reg.js"></script>
 <div style="height:10px;font-size:15px;display: none;">
     <span id="tips01">提示01</span>
     <span id="tips02">提示02</span>
@@ -68,7 +47,8 @@
                             <em class="cgIco userNameIco">用户名图标</em>
                             <!--下面注释掉的为删除图标，当输入文字时出现，点击后删掉输入的文字-->
                             <!--em class="keypadIco keypadIcoClose">删除图标</em-->
-                            <input id="regusername" type="text" value="" class="cgInput" placeholder="用户名" autocomplete="off" />
+                            <input id="regusername" type="text" value="" class="cgInput" placeholder="用户名"
+                                   autocomplete="off"/>
                         </div>
                     </li>
                     <li><!--鼠标点击输入框后，小图标变为粉红色-->
@@ -76,7 +56,8 @@
                             <!--下面注释掉的为删除图标，当输入文字时出现，点击后删掉输入的文字-->
                             <!--em class="keypadIco keypadIcoClose">删除图标</em-->
                             <em class="cgIco passwordIco">密码图标</em>
-                            <input id="regpassword" type="password" value="" class="cgInput" placeholder="密码" autocomplete="off"/>
+                            <input id="regpassword" type="password" value="" class="cgInput" placeholder="密码"
+                                   autocomplete="off"/>
                         </div>
                     </li>
                     <li><!--鼠标点击输入框后，小图标变为粉红色-->
@@ -85,18 +66,22 @@
                             <!--下面注释掉的为删除图标，当输入文字时出现，点击后删掉输入的文字-->
                             <!--em class="keypadIco keypadIcoClose">删除图标</em>
                             <em class="keypadIco keypadIcoClose">删除图标</em-->
-                            <input id="regconfirm_password" type="password" value="" class="cgInput" placeholder="确认密码" autocomplete="off"/>
+                            <input id="regconfirm_password" type="password" value="" class="cgInput" placeholder="确认密码"
+                                   autocomplete="off"/>
                         </div>
                     </li>
                     <li>
                         <div class="cgCodeBox">
-                            <span class="cgCode"><input id="regcaptcha" type="text" class="cgInput" maxlength="4" placeholder="验证码" autocomplete="off"/></span>
+                            <span class="cgCode"><input id="regcaptcha" type="text" class="cgInput" maxlength="4"
+                                                        placeholder="验证码" autocomplete="off"/></span>
                             <span class="cgCodeImg"><img src="/site/captcha" id="regcaptchaimg" alt="验证码"/></span>
-                            <span class="cgCodeFress"><a href="javascript:;" onclick="change_regcaptcha()" title="">换一张</a></span>
+                            <span class="cgCodeFress"><a href="javascript:;" onclick="change_regcaptcha()"
+                                                         title="">换一张</a></span>
                         </div>
                     </li>
                     <li>
-                        <span><input name="CheckboxGroup1" type="checkbox" id="agreeCont" value="复选框" checked="checked" /> <a href="/help.php?act=protocol" title="" target="_blank">我已阅读并同意《U美网用户服务协议》</a></span>
+                        <span><input name="CheckboxGroup1" type="checkbox" id="agreeCont" value="复选框"
+                                     checked="checked"/> <a href="/help.php?act=protocol" title="" target="_blank">我已阅读并同意《U美网用户服务协议》</a></span>
                     </li>
                 </ul>
             </div>
@@ -141,8 +126,11 @@
             <div class="ok01">
                 √ 注册成功
             </div>
-            <div class="formSubmit2">您的U美账号：<span class="ok02" id="okusername">米老鼠和刘老根儿</span>。ID号：<span class="ok02" id="okuid">32037319</span>　<span><a href="/account.php?act=profile&type=6" title="" class="mbyx01">设置密保邮箱</a></span></div>
-            <div class="formSubmit1"><a href="javascript:;" title="" onclick="window.location.reload();" class="pubLinks1">直接进入网站</a></div>
+            <div class="formSubmit2">您的U美账号：<span class="ok02" id="okusername">米老鼠和刘老根儿</span>。ID号：<span class="ok02"
+                                                                                                         id="okuid">32037319</span>　<span><a
+                        href="/account.php?act=profile&type=6" title="" class="mbyx01">设置密保邮箱</a></span></div>
+            <div class="formSubmit1"><a href="javascript:;" title="" onclick="window.location.reload();"
+                                        class="pubLinks1">直接进入网站</a></div>
         </div>
         <!--lsLeft end-->
     </div>
@@ -169,7 +157,8 @@
                             <em class="cgIco userNameIco">用户名图标</em>
                             <!--下面注释掉的为删除图标，当输入文字时出现，点击后删掉输入的文字-->
                             <!--em class="keypadIco keypadIcoClose">删除图标</em-->
-                            <input id="username" type="text" value="" class="cgInput" placeholder="用户名" autocomplete="off" />
+                            <input id="username" type="text" value="" class="cgInput" placeholder="用户名"
+                                   autocomplete="off"/>
                         </div>
                     </li>
                     <li><!--鼠标点击输入框后，小图标变为粉红色-->
@@ -177,15 +166,19 @@
                             <em class="cgIco passwordIco">密码图标</em>
                             <!--下面注释掉的为删除图标，当输入文字时出现，点击后删掉输入的文字-->
                             <!--em class="keypadIco keypadIcoClose">删除图标</em-->
-                            <input id="password" type="password" value="" class="cgInput" placeholder="密码" autocomplete="off"/>
+                            <input id="password" type="password" value="" class="cgInput" placeholder="密码"
+                                   autocomplete="off"/>
                         </div>
                     </li>
                     <!--验证码-->
-                    <li id="yzm" {if $login_fail lt 3}style="display: none;"{/if}>
+                    <li id="yzm" {if $login_fail lt 3}style="display: none;" {
+                    /if}>
                     <div class="cgCodeBox">
-                        <span class="cgCode"><input id="captcha" type="text" class="cgInput" maxlength="4" placeholder="验证码" autocomplete="off"/></span>
+                        <span class="cgCode"><input id="captcha" type="text" class="cgInput" maxlength="4"
+                                                    placeholder="验证码" autocomplete="off"/></span>
                         <span class="cgCodeImg"><img src="/captcha.php?{$rand}" id="captchaimg" alt="验证码"/></span>
-                        <span class="cgCodeFress"><a href="javascript:;" onclick="change_captcha()" title="">换一张</a></span>
+                        <span class="cgCodeFress"><a href="javascript:;" onclick="change_captcha()"
+                                                     title="">换一张</a></span>
                     </div>
                     </li>
                     <!--验证码 end-->
@@ -193,7 +186,8 @@
                         <div class="remeberInfor">
                             <!--span><input name="CheckboxGroup1" type="checkbox" id="CheckboxGroup1_0" value="复选框" checked="checked" /> 记住我</span-->
                             <div class="cgLinks">
-                                <!--  ><a href="#" title="">忘记用户名</a>|--><a href="/help.php?act=return_pwd" title="" target="_blank">忘记密码</a>
+                                <!--  ><a href="#" title="">忘记用户名</a>|--><a href="/help.php?act=return_pwd" title=""
+                                                                            target="_blank">忘记密码</a>
                             </div>
                         </div>
                         <!--formSubmit-->
@@ -276,7 +270,8 @@
             <!--各类提示使用这个样式即可-->
         </div>
         <!--uAreaCont end-->
-        <div class="chargeMoneyBtn"><a href="javascript:;" title="" onclick="window.location.reload();" class="pinkBtn"><i>确定</i></a></div>
+        <div class="chargeMoneyBtn"><a href="javascript:;" title="" onclick="window.location.reload();" class="pinkBtn"><i>确定</i></a>
+        </div>
     </div>
     <!--popPubMid end-->
     <div class="popPubBot"><span></span></div>
@@ -332,12 +327,15 @@
             <ul class="uPubUl">
                 <li>
                     <div class="uNav">赠送给：</div>
-                    <div class="uCont"><span class="spanInput"><input type="text" id="togid"><input type="text" id="nicegid"></span></div>
+                    <div class="uCont"><span class="spanInput"><input type="text" id="togid"><input type="text"
+                                                                                                    id="nicegid"></span>
+                    </div>
                 </li>
             </ul>
         </div>
         <!--uAreaCont end-->
-        <div class="chargeMoneyBtn"><a href="javascript:;" title="" onclick="do_give_gid()" class="pinkBtn"><i>赠送</i></a></div>
+        <div class="chargeMoneyBtn"><a href="javascript:;" title="" onclick="do_give_gid()"
+                                       class="pinkBtn"><i>赠送</i></a></div>
     </div>
     <!--popPubMid end-->
     <div class="popPubBot"><span></span></div>
@@ -359,18 +357,22 @@
             <ul>
                 <li>
                     <strong>充值账号：</strong>
+
                     <p>美色当前（32020366）</p>
                 </li>
                 <li>
                     <strong>充值金额：</strong>
+
                     <p>100元</p>
                 </li>
                 <li>
                     <strong>支付方式：</strong>
+
                     <p>支付宝</p>
                 </li>
                 <li>
                     <strong>订单编号：</strong>
+
                     <p><span>14120898384994</span></p>
                 </li>
             </ul>
@@ -397,19 +399,24 @@
         <!--berryValue-->
         <div class="berryValue">
             <h2>您当前的草莓数：<b>0</b></h2>
+
             <p>一个草莓<b>200</b>U币</p>
+
             <p>
                 <span>购买</span>
                 <span class="spanInput"><input type="text" name=""></span>
                 <span>个</span>
             </p>
+
             <p class="tc"><a href="#" title="" class="redBtn"><i>马上购买</i></a></p>
         </div>
         <!--berryValue end-->
         <!--berryMoney-->
         <div class="berryValue berryMoney">
             <h2>您的账户余额</h2>
+
             <p><b>10000</b>币</p>
+
             <p class="tc"><a href="#" title="" class="redBtn"><i>充值</i></a></p>
         </div>
         <!--berryMoney end-->
@@ -435,44 +442,52 @@
         <div class="carPosList">
             <ul>
                 <li>
-                    <span class="carPosPic"><i></i><img src="/images/carShopPic01.png" /></span>
+                    <span class="carPosPic"><i></i><img src="/images/carShopPic01.png"/></span>
                     <dl>
                         <dd>
                             <strong>座驾名称：</strong>
+
                             <p>布加迪威龙</p>
                         </dd>
                         <dd>
                             <strong>获得时间：</strong>
+
                             <p>2014.09.12</p>
                         </dd>
                         <dd>
                             <strong>有 效 期：</strong>
+
                             <p>30天</p>
                         </dd>
                         <dd>
                             <strong>当前状态：</strong>
+
                             <p><i class="zhiIco z2"></i>使用中</p>
                         </dd>
                     </dl>
-                    <div class="tr"><a class="pinkBtn" title="" href="#"><i>停用</i></a> </div>
+                    <div class="tr"><a class="pinkBtn" title="" href="#"><i>停用</i></a></div>
                 </li>
                 <li>
-                    <span class="carPosPic"><i></i><img src="/images/carShopPic02.png" /></span>
+                    <span class="carPosPic"><i></i><img src="/images/carShopPic02.png"/></span>
                     <dl>
                         <dd>
                             <strong>座驾名称：</strong>
+
                             <p>布加迪威龙</p>
                         </dd>
                         <dd>
                             <strong>获得时间：</strong>
+
                             <p>2014.09.12</p>
                         </dd>
                         <dd>
                             <strong>有 效 期：</strong>
+
                             <p>30天</p>
                         </dd>
                         <dd>
                             <strong>当前状态：</strong>
+
                             <p><i class="zhiIco z2"></i>停用中</p>
                         </dd>
                     </dl>
@@ -510,6 +525,7 @@
         <!--carPosTitle-->
         <div class="carPosTitle">
             <h4>小猪宝贝房间<b>可领取座驾</b></h4>
+
             <p class="red">只可领取一款座驾</p>
         </div>
         <!--carPosTitle end-->
@@ -517,66 +533,78 @@
         <div class="carPosList">
             <ul>
                 <li>
-                    <span class="carPosPic"><i></i><img src="/images/carShopPic05.png" /></span>
+                    <span class="carPosPic"><i></i><img src="/images/carShopPic05.png"/></span>
                     <dl>
                         <dd>
                             <strong>座驾名称：</strong>
+
                             <p>布加迪威龙</p>
                         </dd>
                         <dd>
                             <strong>所属房间：</strong>
+
                             <p><i class="zhiIco z2"></i>小猪宝贝（5209999）</p>
                         </dd>
                         <dd>
                             <strong>获得时间：</strong>
+
                             <p>2014.09.12</p>
                         </dd>
                         <dd>
                             <strong>有 效 期：</strong>
+
                             <p>30天</p>
                         </dd>
                     </dl>
                     <div class="tr"><a class="pinkBtn" title="" href="#"><i>领取</i></a></div>
                 </li>
                 <li>
-                    <span class="carPosPic"><i></i><img src="/images/carShopPic06.png" /></span>
+                    <span class="carPosPic"><i></i><img src="/images/carShopPic06.png"/></span>
                     <dl>
                         <dd>
                             <strong>座驾名称：</strong>
+
                             <p>布加迪威龙</p>
                         </dd>
                         <dd>
                             <strong>所属房间：</strong>
+
                             <p><i class="zhiIco z2"></i>小猪宝贝（5209999）</p>
                         </dd>
                         <dd>
                             <strong>获得时间：</strong>
+
                             <p>2014.09.12</p>
                         </dd>
                         <dd>
                             <strong>有 效 期：</strong>
+
                             <p>30天</p>
                         </dd>
                     </dl>
                     <div class="tr"><a class="pinkBtn" title="" href="#"><i>领取</i></a></div>
                 </li>
                 <li>
-                    <span class="carPosPic"><i></i><img src="/images/carShopPic04.png" /></span>
+                    <span class="carPosPic"><i></i><img src="/images/carShopPic04.png"/></span>
                     <dl>
                         <dd>
                             <strong>座驾名称：</strong>
+
                             <p>布加迪威龙</p>
                         </dd>
                         <dd>
                             <strong>所属房间：</strong>
+
                             <p><i class="zhiIco z2"></i>小猪宝贝（5209999）</p>
                         </dd>
                         <dd>
                             <strong>获得时间：</strong>
+
                             <p>2014.09.12</p>
                         </dd>
                         <dd>
                             <strong>有 效 期：</strong>
+
                             <p>30天</p>
                         </dd>
                     </dl>
@@ -602,7 +630,8 @@
 <!--提示07 end-->
 
 <!--充值完成提示--><!--这个提示信息是充值完成的提示信息，不用开启隐藏显示功能，点确定和个人中心，都链到个人中心即可-->
-<div class="okPop chargePop posZ" style="position:absolute;z-index:999;display:yes;left:50%;margin-left:-190px;display:none;">
+<div class="okPop chargePop posZ"
+     style="position:absolute;z-index:999;display:yes;left:50%;margin-left:-190px;display:none;">
     <!--popPubTitle-->
     <div class="popPubTitle">
         <h2><span>U美直播社区提示</span></h2>
@@ -614,30 +643,40 @@
         <div class="chargeMoney">
             <ul>
                 <li>
-                    <p style="text-align:center; font-size:18px; padding-bottom:10px;">充值成功！请到您的<a href="" target="_blank" title="" style="text-decoration: underline;">个人中心</a>查看！</p>
+                    <p style="text-align:center; font-size:18px; padding-bottom:10px;">充值成功！请到您的<a href=""
+                                                                                                   target="_blank"
+                                                                                                   title=""
+                                                                                                   style="text-decoration: underline;">个人中心</a>查看！
+                    </p>
                 </li>
                 <li style="text-align:center">
                     <strong>MD5校验码：</strong>
+
                     <p>897ADF7AAJH23JJKKJ32UJ2IURIKJHJK234234JKJKKJ</p>
                 </li>
                 <li>
                     <strong>订单编号：</strong>
+
                     <p><span>14120898384994</span></p>
                 </li>
                 <li>
                     <strong>支付卡种：</strong>
+
                     <p>招商银行</p>
                 </li>
                 <li>
                     <strong>支付结果：</strong>
+
                     <p>支付成功</p>
                 </li>
                 <li>
                     <strong>支付金额：</strong>
+
                     <p>1.00</p>
                 </li>
                 <li>
                     <strong>支付币种：</strong>
+
                     <p>CNY</p>
                 </li>
             </ul>

@@ -11,10 +11,6 @@
  * @method jquery.ready
  */
 $(function () {
-    if (userpara.gid == 32001618 || userpara.gid == 32020247 || userpara.gid == 32000076) {
-        //open_my_console();
-        open_window_console();
-    }
     load_emotion();
     load_gift_list();
     load_gift_message();
@@ -33,10 +29,12 @@ $(function () {
         vq: 90
     };
     video_start(video_swf_param, userpara.roomer);
-    autologin();
     load_speak_data();
     load_anchor_fans();
     load_room_bullet();
+    setTimeout(function () {
+        document.getElementById('p1').scrollIntoView();
+    }, 1000);
 });
 /**
  * Ini video, Requiring attributes from server
@@ -80,26 +78,14 @@ function video_start(swfParam, roomer) {
         video_swf.Init(swfParam, "video_zone", 0, null);
     }
 }
-setTimeout(function () {
-    document.getElementById('p1').scrollIntoView();
-}, 1000);
-
-function SendGiftCB(r) {
-    console.log('SendGiftCB Called.');
-    console.log(r);
-    if (r.RES == 0) {
-        $("#returnmsg").html(r.HINT);
-        $("#tips02").click();
-        //alert(r.HINT);
-    }
-    if (r.RES == 1) {
-        $('#mycoin').html(jQuery.parseJSON(r.PARAM1).coin_after);
-        xMessager.giftmessage(r.PARAM0, JSON.parse(r.PARAM1), r.PARAM2);
-    }
-}
+/**
+ * Description: insert flash for server side communication
+ *
+ * @xchat_start
+ */
 function xchat_start() {
     var xconf_swf_param = {
-        ip: roompara.serverip,		//"192.168.0.120",
+        ip: roompara.serverip,
         port: 19188,	//roompara.serverport,
         room_id: room_id,
         uid: userpara.gid,
@@ -117,17 +103,22 @@ function xchat_start() {
     xMessager.init(swfParam);
     xchat_swf.Init(swfParam, 'xchat', null);
 }
-var objTimer;
-function autologin() {
-    if (userpara.levelinroom == 1) {
-        clearInterval(objTimer);
-        objTimer = setInterval(function () {
-            if (jQuery(".masterEle").css("display") == "none") {
-                jQuery("#loginBox").click();
-            }
-        }, 120000);
+
+
+function SendGiftCB(r) {
+    console.log('SendGiftCB Called.');
+    console.log(r);
+    if (r.RES == 0) {
+        $("#returnmsg").html(r.HINT);
+        $("#tips02").click();
+        //alert(r.HINT);
+    }
+    if (r.RES == 1) {
+        $('#mycoin').html(jQuery.parseJSON(r.PARAM1).coin_after);
+        xMessager.giftmessage(r.PARAM0, JSON.parse(r.PARAM1), r.PARAM2);
     }
 }
+
 function load_gift_list() {
     var url = '/room/giftList';
     $.get(url, function (result) {

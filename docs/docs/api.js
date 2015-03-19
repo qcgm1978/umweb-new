@@ -1,28 +1,29 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
+        "LoginWithOthers",
         "SendGift",
         "User",
-        "chat",
         "chat_panel",
         "g_UserList",
         "message_display",
         "persist",
         "room",
+        "todoCode",
         "xMessager",
         "xchat_swf"
     ],
     "modules": [
+        "Login",
         "SendGift",
-        "chat",
         "room",
         "xchat"
     ],
     "allModules": [
         {
-            "displayName": "chat",
-            "name": "chat",
-            "description": "Description: 聊天对象"
+            "displayName": "Login",
+            "name": "Login",
+            "description": "Description: controlling login and register functionality"
         },
         {
             "displayName": "room",
