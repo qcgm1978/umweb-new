@@ -784,9 +784,9 @@
     var roompara = {"serverip":"<?php echo $room_info['cserver_ip'] ?>","serverport":<?php echo $room_info['cserver_port'] ?>,"mserverip":"<?php echo $room_info['mserver_ip'] ?>","mserverport":<?php echo $room_info['mserver_port'] ?>,"welcome":"welcome","v1":0,"v2":-1,"v3":-1,"m_bitrate":<?php echo $room_info['bitrate'] ?>};
 
     <?php if($user_info):?>
-        var userpara = {"uid":<?php echo $user_info['uid'] ?>, "gid":<?php echo $user_info['uid'] ?>,"nicegid":<?php echo $user_info['anchor_id'] ?>,"nickname_b64":"<?php echo base64_encode($user_info['nickname']) ?>","icon":0,"vip":<?php echo $user_info['user_level'] ?>,"vip2":<?php echo $user_info['vip'] ?>,"badge":0,"levelinroom":<?php echo $level?>,"title":0,"role":0,"agency":0,"watchman":<?php echo $user_info['is_watcher'] ?>,"roomer":<?php if($user_info['uid'] == $room_info['uid']) echo 4; else echo 0; ?>,"starlevel":0,"car_id":<?php echo $user_info['car'] ?>,"family_name":0};
+        var userpara = {"uid":<?php echo $user_info['uid'] ?>, "gid":<?php echo $user_info['uid'] ?>,"nicegid":<?php echo $user_info['anchor_id'] ?>,"nickname_b64":"<?php echo base64_encode($user_info['nickname']) ?>","icon":0,"vip":<?php echo $user_info['user_level'] ?>,"vip2":<?php echo $user_info['vip'] ?>,"badge":0,"levelinroom":<?php echo $level?>,"title":0,"role":0,"agency":0,"watchman":<?php echo $user_info['is_watcher'] ?>,"roomer":<?php if($user_info['uid'] == $room_info['uid']) echo 4; else echo 0; ?>,"starlevel":0,"car_id":<?php echo $user_info['car'] ?>,"family_name":"0"};
     <?php else:?>
-        var userpara = { "gid":0,"nicegid":0,"nickname_b64":"<?php echo base64_encode('游客') ?>","icon":0,"vip":0,"vip2":0,"badge":0,"levelinroom":1,"title":0,"role":0,"agency":0,"watchman":0,"roomer":0,"starlevel":0,"car_id":0,"family_name":0};
+        var userpara = { "gid":0,"nicegid":0,"nickname_b64":"<?php echo base64_encode('游客') ?>","icon":0,"vip":0,"vip2":0,"badge":0,"levelinroom":1,"title":0,"role":0,"agency":0,"watchman":0,"roomer":0,"starlevel":0,"car_id":0,"family_name":"0"};
     <?php endif?>
 
     var _chat_pub_loaded = 0;

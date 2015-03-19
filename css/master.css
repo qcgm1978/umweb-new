@@ -12,7 +12,7 @@
 
 .manageMid{position:relative;overflow:hidden;height:90px;}
 .manageShow{padding:0px 10px;}
-.manageShow li{position:relative;overflow:hidden;height:28px;line-height:28px;vertical-align:top;font-size:14px;#FFA8CE}
+.manageShow li{position:relative;overflow:hidden;height:28px;line-height:28px;vertical-align:top;font-size:14px;color:#FFA8CE}
 .manageShow li a{
 	color:#FFDDDE;
 	display:block;

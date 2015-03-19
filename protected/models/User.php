@@ -35,11 +35,15 @@ class User {
         }
     }
 
-    static public function info(){
-        if (!isset($_COOKIE['umei_token'])) {
-            return false;
+    static public function info($uid=0){
+        if ($uid) {
+            $result = Api::get('user', 'info', array('uid'=>$uid));
+        }else{
+            if (!isset($_COOKIE['umei_token'])) {
+                return false;
+            }
+            $result = Api::get('user', 'info', array('token'=>$_COOKIE['umei_token']));
         }
-        $result = Api::get('user', 'info', array('token'=>$_COOKIE['umei_token']));
         if(isset($result['result']) && $result['result'] == 0){
             return $result['data'];
         }else{

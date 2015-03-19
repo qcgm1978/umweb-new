@@ -8,7 +8,7 @@
 
 class Room {
     static function getList(){
-        $result = Api::get('anchor', 'getList');
+        $result = Api::get('anchor', 'list');
         if(isset($result['result']) && $result['result'] == 0) {
             return $result['data'];
         }else{

@@ -81,15 +81,14 @@
         jQuery(".applyData").showLoading();
         $.ajax({
             type: "post",
-            data: {"act":"applyanchor"
-                ,"realname":$("#realname").val()
+            data: {"realname":$("#realname").val()
                 ,"phone":$("#phone").val()
                 ,"qq":$("#qq").val()
                 ,"area":$("#area").val()
                 ,"content":$("#content").val()
                 ,"likes":$("#likes").val()
                 ,"time":str},
-            url: "/anchor.php",
+            url: "/service/apply",
             success: function (data,status) {
                 jQuery('.applyData').hideLoading();
                 var ms = JSON.parse(data);

@@ -71,4 +71,41 @@ class RoomController extends Controller {
         $this->layout = false;
         $this->render('recommend');
     }
+
+    public function actionAddFav(){
+        $room_id = Yii::app()->request->getParam('room_id');
+        // TODO:
+        $r = true;
+        if($r){
+            $result['error'] = 0;
+            $result['message'] = '成功';
+            $result['content'] = 0;
+        }else{
+            $result['error'] = 1;
+            $result['message'] = '失败';
+            $result['content'] = 0;
+        }
+        echo json_encode($result);
+    }
+
+    public function actionDelFav(){
+        $room_id = Yii::app()->request->getParam('room_id');
+        // TODO:
+        $r = true;
+        if($r){
+            $result['error'] = 0;
+            $result['message'] = '成功';
+            $result['content'] = 0;
+        }else{
+            $result['error'] = 1;
+            $result['message'] = '失败';
+            $result['content'] = 0;
+        }
+        echo json_encode($result);
+    }
+
+    public function actionConsume(){
+        // TODO: gift consume
+        echo '{"RES":0,"HINT":"\u53c2\u6570\u4e0d\u662f\u4e00\u4e2a\u6807\u51c6\u7684JSON","PARAM0":"","PARAM1":"","PARAM2":""}';
+    }
 }

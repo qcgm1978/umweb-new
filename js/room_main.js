@@ -5,6 +5,7 @@
  * @class room
 
  */
+
 /**
  * Description: program entry
  *
@@ -21,16 +22,28 @@ $(function () {
     load_room_data();
     xchat_start();
     var splash_base = '/room/images/';
+
+
     var video_swf_param = {
+
         server: roompara.mserverip + ":19350",
+
         room_id: room_id,
+
         uid: userpara.gid,
+
         level: userpara.levelinroom,
+
         token: "video_token",
+
         nickname: Base64.decode(userpara.nickname_b64),
+
         splash: [splash_base + "splash.png", splash_base + "mic_free.png", splash_base + "mic_chairman.png"],
+
         bps: roompara.m_bitrate,
+
         vq: 90
+
     };
     video_start(video_swf_param, userpara.roomer);
     autologin();
@@ -38,6 +51,7 @@ $(function () {
     load_anchor_fans();
     load_room_bullet();
 });
+
 /**
  * Ini video, Requiring attributes from server
  *
@@ -45,25 +59,31 @@ $(function () {
  * @return {Undefined}
  *
  * @param userpara.roomer {Number}
- * example
- *     0
- * @param swfParam {Object}
  * @example
- *     {"server":"112.124.12.112:19350","room_id":201849,"uid":0,"level":1,"token":"video_token","nickname":"游客","splash":["/room/images/splash.png","/room/images/mic_free.png","/room/images/mic_chairman.png"],"bps":500,"vq":90}
- * @param swfParam.room_id {Number}
- * example
+ *     0
+ * @param roompara
+ * @type {Object}
+ * @example
+ *     {"server":"182.18.61.9:19350","room_id":201937,"uid":150858271,"level":1,"token":"video_token","nickname":"游客8271","splash":["/room/images/splash.png","/room/images/mic_free.png","/room/images/mic_chairman.png"],"bps":150000,"vq":90}
+ * @param room_id
+ * @type {Number}
+ * @example
  *     201855
- * @param swfParam.bps {Number}
- * example
+ * @param roompara.m_bitrate
+ * @type {Number}
+ * @example
  *     150000
- * @param swfParam.uid {Number}
- * example
+ * @param userpara.gid
+ * @type {Number}
+ * @example
  *     150830239
- * @param swfParam.levelinroom {Number}
- * example
+ * @param userpara.levelinroom
+ * @type {Number}
+ * @example
  *     1
- * @param swfParam.nickname_b64 {String}
- * example
+ * @param userpara.nickname_b64
+ * @type {String}
+ * @example
  *     "5ri45a6iMDIzOQ=="
  */
 function video_start(swfParam, roomer) {
@@ -74,52 +94,85 @@ function video_start(swfParam, roomer) {
         video_swf.Init(swfParam, "video_zone", 0, null);
     }
 }
+
 setTimeout(function () {
     document.getElementById('p1').scrollIntoView();
 }, 1000);
+
 function SendspeakerCB(r) {
     console.log('SendspeakerCB Called.');
+
     console.log(r);
     if (r.RES == 0) {
+
         alert(r.HINT);
+
     }
+
     if (r.RES == 1) {
         xMessager.speakermessage(JSON.parse(r.PARAM1));
     }
 }
+
+
 function SendGiftCB(r) {
+
     console.log('SendGiftCB Called.');
+
     console.log(r);
+
     if (r.RES == 0) {
         $("#returnmsg").html(r.HINT);
         $("#tips02").click();
         //alert(r.HINT);
+
     }
+
     if (r.RES == 1) {
         $('#mycoin').html(jQuery.parseJSON(r.PARAM1).coin_after);
         xMessager.giftmessage(r.PARAM0, JSON.parse(r.PARAM1), r.PARAM2);
+
     }
+
 }
+
+
 function xchat_start() {
+
     var xconf_swf_param = {
+
         ip: roompara.serverip,		//"192.168.0.120",
+
         port: 19188,	//roompara.serverport,
+
         room_id: room_id,
+
         uid: userpara.gid,
+
         level: userpara.levelinroom,
+
         token: "gtoken",
+
         nickname: Base64.decode(userpara.nickname_b64),
+
         chatdisable: userpara.chatdisable,
+
         appdata: Base64.encode(JSON.stringify(userpara))
+
     };
+
     chat_panel.init();
+
     var swfParam = xconf_swf_param;
     if (/^游客/.test(swfParam.nickname)) {
         swfParam.uid = 0
     }
     xMessager.init(swfParam);
+
     xchat_swf.Init(swfParam, 'xchat', null);
+
 }
+
 var objTimer;
 function autologin() {
     if (userpara.levelinroom == 1) {
@@ -131,6 +184,7 @@ function autologin() {
         }, 120000);
     }
 }
+
 function load_gift_list() {
     var url = '/room/giftList';
     $.get(url, function (result) {
@@ -139,6 +193,7 @@ function load_gift_list() {
         }
     );
 }
+
 function load_gift_message() {
     var url = '/room/gift_message.php';
     $.post(url, function (result) {
@@ -158,19 +213,33 @@ function load_speak_data() {
         }
     );
 }
+
 function fill_gift_list(gift_list) {
     s = '';
+
     for (var i = 0; i < gift_list.length; i++) {
+
         s += '<li><span><img src="' + gift_list[i].gift_img + '"></span>';
+
         s += '<span class="clGiftList01">' + gift_list[i].gift_sum + '个</span>';
+
         s += '<span class="clGiftList02">' + gift_list[i].from_nickname + '</span>';
+
         s += '<span class="clCoin"><i class="ubIco"></i>U' + gift_list[i].total_price + '</span></li>';
+
+
     }
+
+
     if (s == '') {
+
         s = '<li><span>还没有收到礼物！</span></li>';
+
     }
+
     $('#clGiftList').html(s);
 }
+
 /**
  * Description: common method to construct list of today and total
  *
@@ -180,6 +249,7 @@ function fill_fan(fans, d_id) {
     s = '';
     s1 = '';
     for (var i = 0; i < fans.length; i++) {
+
         var isThree = false;
         if (i == 0) {
             s = '<span class="lrtPic"><img src="' + fans[i].avatar + '" alt=""/><i class="zzMaster"></i><em class="lrtTu"><i class="rankIco rankFirst"></i></em></span><strong>' + fans[i].from_nickname + '</strong><p><b>' + fans[i].total_coin + '</b><i class="ubIco"></i></p>';
@@ -197,14 +267,22 @@ function fill_fan(fans, d_id) {
             jQuery(d_id + ' .lrtThird').html(s);
         } else {
             s1 += '<li><span class="lrbNum">' + (i + 1) + '.</span><span class="lrbName">' + fans[i].from_nickname + '</span><span class="lrbUIco">' + fans[i].total_coin + '<i class="ubIco"></i></span></li>';
+
         }
         //s += '<li class="f-cb"><span class="fl"><img src="/room/images/'+(i+1)+'.png" alt="one" /></span><span class="l-pic"></span><span class="l-name">';
+
         //if (fans[i].vip){
+
         //	s += '<img src="/room/images/vip/v' + fans[i].vip + '.gif">';
+
         //}
+
     }
     jQuery(d_id + ' .other').html(s1);
+
+
 }
+
 /**
  * Description: load data for left and right columns
  *
@@ -228,27 +306,34 @@ function load_room_data() {
         }
         s = '富豪等级：';
         if (result.rich) {
+
             s += '<span class="rich_icon rich_' + result.rich + '"></span><span class="l-dj' + result.rich_need_percent + '">还差' + result.rich_need + 'Ｕ币,升级到</span><span class="rich_icon rich_' + result.rich_next + '"></span>';
+
             $('#roomer_title').html(s);
+
         }
+
         fill_fan(result.fans[0], '#con_fan_1');
         //fill_fan(result.fans[1],'#con_fan_2');
         fill_fan(result.fans[2], '#con_fan_3');
         fill_gift_list(result.gift_list);
     });
 }
+
 function emotion_it(i) {
     //console.log('emotion_it:'+i);
     var s = $("#message_input").val() + "/b" + i;
     jQuery("#message_input").val(s);
     jQuery(".lwfFaceList").hide();
 }
+
 function emotion_it_o(i) {
     //console.log('emotion_it:'+i);
     var s = $("#sperkercont").val() + "/b" + i;
     jQuery("#sperkercont").val(s);
     jQuery(".gbFaceList").hide();
 }
+
 function load_emotion() {
     var s = '';
     var count = 60;
@@ -259,6 +344,7 @@ function load_emotion() {
     s = s.replace(/emotion_it/g, "emotion_it_o")
     jQuery(".gbFaceList").html(s);
 }
+
 /**
  * Description: show cars when page loaded
  *
@@ -275,6 +361,7 @@ function owshowcar() {
         member_in_out_hint(userpara, 1);
     }
 }
+
 function showcar(appdata) {
     var url = '/room/car/id/' + appdata.car_id;
     $.get(url, function (result) {
@@ -302,8 +389,8 @@ function addfav(roomid) {
     }
     jQuery.ajax({
         type: "post",
-        data: {"act": "addfav", "room_id": roomid},
-        url: "/account.php",
+        data: {"room_id": roomid},
+        url: "/room/addFav",
         success: function (data, status) {
             var ms = JSON.parse(data);
             if (ms.error == 0) {
@@ -317,8 +404,8 @@ function addfav(roomid) {
 function delfav(roomid) {
     jQuery.ajax({
         type: "post",
-        data: {"act": "delfav", "room_id": roomid},
-        url: "/account.php",
+        data: {"room_id": roomid},
+        url: "/room/delFav",
         success: function (data, status) {
             var ms = JSON.parse(data);
             if (ms.error == 0) {

@@ -35,14 +35,14 @@
                     <!--tab导航-->
                     <div class="tabList">
                         <ul>
-                            <li><a href="/help.php?act=anchorhelp" title="">什么是主播等级？</a></li>
-                            <li><a href="/help.php?act=anchorhelp&type=2" title="">如何申请成为签约主播？</a></li>
-                            <li><a href="/help.php?act=anchorhelp&type=3" title="">如何开始直播？</a></li>
-                            <li><a href="/help.php?act=anchorhelp&type=4" title="">如何查看直播数据和礼物？</a></li>
-                            <li><a href="/help.php?act=anchorhelp&type=5" title="">如何安装音视频优化工具？</a></li>
-                            <li><a href="/help.php?act=userhelp" title="">如何获得爵位？</a></li>
-                            <li><a href="/help.php?act=userhelp&type=2" title="">什么是社团？</a></li>
-                            <li><a href="/help.php?act=userhelp&type=3" title="">其他常见问题？</a></li>
+                            <li><a href="/help/anchor/type/0" title="">什么是主播等级？</a></li>
+                            <li><a href="/help/anchor/type/1" title="">如何申请成为签约主播？</a></li>
+                            <li><a href="/help/anchor/type/2" title="">如何开始直播？</a></li>
+                            <li><a href="/help/anchor/type/3" title="">如何查看直播数据和礼物？</a></li>
+                            <li><a href="/help/anchor/type/4" title="">如何安装音视频优化工具？</a></li>
+                            <li><a href="/help/user/type/0" title="">如何获得爵位？</a></li>
+                            <li><a href="/help/user/type/1" title="">什么是社团？</a></li>
+                            <li><a href="/help/user/type/2" title="">其他常见问题？</a></li>
                         </ul>
                     </div>
                     <!--tab导航 end-->
@@ -348,8 +348,8 @@
 
                         $.ajax({
                             type: "post",
-                            data: {"act":"sendanswer","type":"意见建议","cont":$("#wtcont").val(),"qq":$("#wtfs").val()},
-                            url: "/help.php",
+                            data: {"data_type":"意见建议","cont":$("#wtcont").val(),"qq":$("#wtfs").val()},
+                            url: "/service/index/type/4",
                             success: function (data,status) {
                                 jQuery('.applyData').hideLoading();
                                 var ms = JSON.parse(data);

@@ -48,5 +48,6 @@ class UserController extends Controller {
             $result['message'] = '注册失败';
             $result['content'] = 0;
         }
+        echo json_encode($result);
     }
 }

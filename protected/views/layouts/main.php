@@ -10,7 +10,6 @@
     <link href="/css/common.css" rel="stylesheet" type="text/css" />
     <link href="/css/live.css" rel="stylesheet" type="text/css" />
     <link href="/css/master.css" rel="stylesheet" type="text/css" />
-<!--    todo to del-->
 <!--    <link href="/room/script/fauxconsole.css" rel="stylesheet" type="text/css">-->
 <!--    <script type="text/javascript" src="/room/script/fauxconsole.js"></script>-->
     <script type="text/javascript" src="/js/jquery-1.11.1.js"></script>
@@ -74,12 +73,12 @@
                         <!--登录后-->
                         <div class="lrAfter">
                             <!--用户名-->
-                            <span class="userName"><a href="/account.php" title="" target="_blank"><?php echo $info['username']?></a></span>
+                            <span class="userName"><a href="/account/info" title="" target="_blank"><?php echo $info['username']?></a></span>
                             <!--用户名 end-->
                             <!--U币数量-->
-                            <span class="goldCoin"><i class="ubIco"></i><a href="/pay.php" title="" target="_blank"><?php if(isset($info['coin'])) echo $info['coin']; else echo 0;?></a></span>
+                            <span class="goldCoin"><i class="ubIco"></i><a href="/pay/index" title="" target="_blank"><?php if(isset($info['coin'])) echo $info['coin']; else echo 0;?></a></span>
                             <!--U币数量 end-->
-                            <span class="reCharge"><a href="/pay" title="" target="_blank">充值</a></span>
+                            <span class="reCharge"><a href="/pay/index" title="" target="_blank">充值</a></span>
                             <span class="exitIco"><a href="/user/logout" title="" id="out">退出</a></span>
                             <span class="registerLink"><a href="/help/anchor" title="" target="_blank">反馈</a></span>
                         </div>
@@ -106,8 +105,8 @@
                 <p class="backHome"><a href="#">返回首页</a></p>
                 <p class="footerRaletion">
                     <a href="/help/anchor" title="" target="_blank">帮助中心</a>|
-                    <a href="/help.php?act=qq_tel" title="" target="_blank">客服中心</a>|
-                    <a href="/help.php?act=protocol" title="" target="_blank">服务条款</a>
+                    <a href="/service/index" title="" target="_blank">客服中心</a>|
+                    <a href="/service/index/type/3" title="" target="_blank">服务条款</a>
                     <a href="#" title="" target="_blank"></a>
                 </p>
                 <p class="footerContact">Copyright © 2014 北京星烨互动娱乐科技有限公司 京ICP 备14057547号-1</p>

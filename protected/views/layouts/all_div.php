@@ -435,7 +435,7 @@
         <div class="carPosList">
             <ul>
                 <li>
-                    <span class="carPosPic"><i></i><img src="images/carShopPic01.png" /></span>
+                    <span class="carPosPic"><i></i><img src="/images/carShopPic01.png" /></span>
                     <dl>
                         <dd>
                             <strong>座驾名称：</strong>
@@ -457,7 +457,7 @@
                     <div class="tr"><a class="pinkBtn" title="" href="#"><i>停用</i></a> </div>
                 </li>
                 <li>
-                    <span class="carPosPic"><i></i><img src="images/carShopPic02.png" /></span>
+                    <span class="carPosPic"><i></i><img src="/images/carShopPic02.png" /></span>
                     <dl>
                         <dd>
                             <strong>座驾名称：</strong>
@@ -517,7 +517,7 @@
         <div class="carPosList">
             <ul>
                 <li>
-                    <span class="carPosPic"><i></i><img src="images/carShopPic05.png" /></span>
+                    <span class="carPosPic"><i></i><img src="/images/carShopPic05.png" /></span>
                     <dl>
                         <dd>
                             <strong>座驾名称：</strong>
@@ -539,7 +539,7 @@
                     <div class="tr"><a class="pinkBtn" title="" href="#"><i>领取</i></a></div>
                 </li>
                 <li>
-                    <span class="carPosPic"><i></i><img src="images/carShopPic06.png" /></span>
+                    <span class="carPosPic"><i></i><img src="/images/carShopPic06.png" /></span>
                     <dl>
                         <dd>
                             <strong>座驾名称：</strong>
@@ -561,7 +561,7 @@
                     <div class="tr"><a class="pinkBtn" title="" href="#"><i>领取</i></a></div>
                 </li>
                 <li>
-                    <span class="carPosPic"><i></i><img src="images/carShopPic04.png" /></span>
+                    <span class="carPosPic"><i></i><img src="/images/carShopPic04.png" /></span>
                     <dl>
                         <dd>
                             <strong>座驾名称：</strong>

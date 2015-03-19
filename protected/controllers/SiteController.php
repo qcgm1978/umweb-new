@@ -54,11 +54,25 @@ class SiteController extends Controller
 	public function actionRoom($id){
 		$this->layout = false;
 		$room_info = Room::getInfoByAnchor($id);
+        if (!$room_info) {
+            $this->redirect('/');
+        }
 		$anchor_info = User::anchorInfo($id);  // TODO: no needs ??
         $is_fav = User::checkFav($id);
         $user_info = User::info();
         $common_info = Room::getCommonInfo();
-		$this->render('room', array('anchor_info'=>$anchor_info, 'room_info'=>$room_info, 'is_fav'=>$is_fav, 'common_info'=>$common_info, 'user_info'=>$user_info));
+
+        if (!$user_info) {
+            $level = 1;
+        }elseif($user_info['anchor_id'] == $id || $user_info['uid'] == $id){
+            $level = 2000;
+        }elseif($user_info['is_watcher']){
+            $level = 6000;
+        }else{
+            $level = 500;
+        }
+
+		$this->render('room', array('level'=>$level, 'anchor_info'=>$anchor_info, 'room_info'=>$room_info, 'is_fav'=>$is_fav, 'common_info'=>$common_info, 'user_info'=>$user_info));
 	}
 
     public function actionRank($top=0){
@@ -79,24 +93,9 @@ class SiteController extends Controller
         $this->render('top', array('rank'=>$rank));
     }
 
-    public function actionPay(){
-        $this->menu_key = 'payment';
-        $this->render('coming');
-        return;
-        $this->render('pay', array('mod'=>'payment'));
-    }
-
-    public function actionShop(){
-        $this->menu_key = 'shop';
-        $this->render('coming');
-        return;
-        $this->render('shop', array('mod'=>'payment'));
-    }
-
-    public function actionAccount(){
-        $this->menu_key = 'account';
-        $this->render('coming');
-        return;
-        $this->render('account', array('mod'=>'payment'));
+    public function actionLogin()
+    {
+        $this->layout = false;
+        $this->render('login');
     }
 }

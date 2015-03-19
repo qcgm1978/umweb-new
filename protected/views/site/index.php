@@ -96,6 +96,7 @@
             <!--focusMain-->
             <div class="focusMain">
                 <ul>
+                    <?php if ($rooms): ?>
                     <?php foreach($rooms as $i => $one): ?>
                     <?php if($i < 3): ?>
                     <li>
@@ -122,12 +123,14 @@
                     </li>
                         <?php endif ?>
                     <?php endforeach ?>
+                    <?php endif ?>
                 </ul>
             </div>
             <!--focusMain end-->
             <!--focusNum-->
             <div class="focusNum">
                 <ul>
+                    <?php if ($rooms): ?>
                     <?php foreach($rooms as $i => $one): ?>
                     <?php if($i < 3): ?>
                     <li class="current">
@@ -147,6 +150,7 @@
                     </li>
                     <?php endif ?>
                     <?php endforeach ?>
+                    <?php endif ?>
                 </ul>
             </div>
             <!--focusNum end-->
@@ -240,6 +244,7 @@
                 <h3><span>人气主播推荐</span></h3>
                 <div class="hotHostList">
                     <ol>
+                        <?php if ($rooms): ?>
                         <?php foreach($rooms as $i => $one): ?>
                         <li>
                             <div class="hotHostPic">
@@ -265,6 +270,7 @@
                             </div>
                         </li>
                         <?php endforeach ?>
+                        <?php endif?>
                     </ol>
                 </div>
             </div>
@@ -339,6 +345,7 @@
 </div>
 <!--内容区 end-->
 <div class="masterEle" style="display:none;">遮罩</div>
+<script src="/js/view/index.js"></script>
 <script>
 
 
