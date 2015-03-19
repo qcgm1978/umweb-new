@@ -1,4 +1,11 @@
-window.RoomCommon = {
+/**
+ * Description: common modules
+ *
+ * @module SiteCommon
+ * @class SiteCommon
+ * @static
+ */
+window.SiteCommon = {
     setChatDialog: function ($ele, func) {
         $ele.keypress(function (event) {
             if (event.which == 13) {
@@ -79,7 +86,11 @@ $(function () {
  });*/
 /*全部|管理*/
 $(function () {
-    autologin(islogined);
+    try {
+        autologin(islogined);
+    } catch (e) {
+        console.log('it\' login in page')
+    }
     if ($("#out").length) {
         $("#out").attr("href", "/user/logout");
     }
@@ -511,7 +522,7 @@ $(function () {
 });
 /* 登陆注册层 */
 $(function () {
-    RoomCommon.setChatDialog($('.controlGroup input'), function (data) {
+    SiteCommon.setChatDialog($('.controlGroup input'), function (data) {
         $('.pubLinks:visible').click()
     })
 });

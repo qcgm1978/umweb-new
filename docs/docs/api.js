@@ -2,6 +2,7 @@ YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
         "LoginWithOthers",
+        "RoomCommon",
         "SendGift",
         "User",
         "chat_panel",
@@ -15,6 +16,7 @@ YUI.add("yuidoc-meta", function(Y) {
     ],
     "modules": [
         "Login",
+        "RoomCommon",
         "SendGift",
         "room",
         "xchat"
@@ -29,6 +31,11 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "room",
             "name": "room",
             "description": "Room page module"
+        },
+        {
+            "displayName": "RoomCommon",
+            "name": "RoomCommon",
+            "description": "Description: common modules"
         },
         {
             "displayName": "SendGift",

@@ -109,7 +109,7 @@ function SendGift() {
 }
 $(function () {
     makeGitfTip();
-    RoomCommon.setChatDialog($('#gift_count'), function (data) {
+    SiteCommon.setChatDialog($('#gift_count'), function (data) {
         SendGift()
     })
 });

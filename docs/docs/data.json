@@ -20,6 +20,17 @@
             "fors": {},
             "namespaces": {}
         },
+        "js\\bootJs.js": {
+            "name": "js\\bootJs.js",
+            "modules": {
+                "RoomCommon": 1
+            },
+            "classes": {
+                "RoomCommon": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "js\\jquery-1.11.1.js": {
             "name": "js\\jquery-1.11.1.js",
             "modules": {},
@@ -108,6 +119,20 @@
         }
     },
     "modules": {
+        "RoomCommon": {
+            "name": "RoomCommon",
+            "submodules": {},
+            "classes": {
+                "RoomCommon": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "js\\bootJs.js",
+            "line": 1,
+            "description": "Description: common modules",
+            "static": 1
+        },
         "Login": {
             "name": "Login",
             "submodules": {},
@@ -168,6 +193,20 @@
         }
     },
     "classes": {
+        "RoomCommon": {
+            "name": "RoomCommon",
+            "shortname": "RoomCommon",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "RoomCommon",
+            "namespace": "",
+            "file": "js\\bootJs.js",
+            "line": 1,
+            "description": "Description: common modules"
+        },
         "LoginWithOthers": {
             "name": "LoginWithOthers",
             "shortname": "LoginWithOthers",
@@ -343,13 +382,13 @@
             "file": "js\\libraries\\base64.js",
             "line": 1,
             "description": "Base64 encode / decode\n  http://www.webtoolkit.info/",
-            "class": "LoginWithOthers"
+            "class": "RoomCommon"
         },
         {
             "file": "js\\view\\index.js",
             "line": 1,
             "description": "Description:",
-            "class": "LoginWithOthers",
+            "class": "RoomCommon",
             "module": ""
         },
         {
@@ -361,7 +400,7 @@
                 "type": "Function(string, Object)"
             },
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -375,7 +414,7 @@
                 }
             ],
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -389,7 +428,7 @@
                 }
             ],
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -408,7 +447,7 @@
                 }
             ],
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -431,7 +470,7 @@
                 "type": "Number"
             },
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -445,7 +484,7 @@
                 }
             ],
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -459,7 +498,7 @@
                 }
             ],
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -473,7 +512,7 @@
                 }
             ],
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -491,7 +530,7 @@
                 "type": "Element|Object|Boolean"
             },
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -509,7 +548,7 @@
                 "type": "Boolean"
             },
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -528,7 +567,7 @@
                 "type": "Object"
             },
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -542,7 +581,7 @@
                 }
             ],
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -556,7 +595,7 @@
                 }
             ],
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -587,28 +626,28 @@
                 }
             ],
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
             "line": 3453,
             "description": "Clean-up method for dom ready events",
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
             "line": 3467,
             "description": "The ready event handler and self cleanup method",
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
             "line": 3614,
             "description": "Determines whether an object can have data",
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -627,7 +666,7 @@
                 }
             ],
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
@@ -641,21 +680,21 @@
                 }
             ],
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
             "line": 9936,
             "description": "Load a url into a page",
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\jquery-1.11.1.js",
             "line": 10011,
             "description": "Gets a window from an element",
             "class": "LoginWithOthers",
-            "module": ""
+            "module": "RoomCommon"
         },
         {
             "file": "js\\pgwslider.js",
