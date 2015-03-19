@@ -1,43 +1,47 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=8,chrome=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta property="qc:admins" content="35501606000165551563757" />
-    <meta property="wb:webmaster" content="baf4120dff58920e" />
-    <title><?php if($room_info)echo $room_info['room_name'] ?>直播间 | U美直播社区 - 美女主播 - 才艺表演 - 视频聊天 - 视频交友</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta property="qc:admins" content="35501606000165551563757"/>
+    <meta property="wb:webmaster" content="baf4120dff58920e"/>
+    <title><?php if ($room_info) echo $room_info['room_name'] ?>直播间 | U美直播社区 - 美女主播 - 才艺表演 - 视频聊天 - 视频交友</title>
 
-    <meta name="description" content="U美直播社区是U美网旗下的大型真人视频互动直播社区,拥有众多美女主播,支持多人同时在线视频聊天,K歌跳舞,才艺表演,视频交友.赶快加入,免费与美女主播在线互动." />
+    <meta name="description"
+          content="U美直播社区是U美网旗下的大型真人视频互动直播社区,拥有众多美女主播,支持多人同时在线视频聊天,K歌跳舞,才艺表演,视频交友.赶快加入,免费与美女主播在线互动."/>
 
-    <meta name="keywords" content="美女,主播,秀场,视频,直播间,交友,美女主播,美女秀场,美女视频,美女聊天,视频直播,视频聊天,视频交友" />
+    <meta name="keywords" content="美女,主播,秀场,视频,直播间,交友,美女主播,美女秀场,美女视频,美女聊天,视频直播,视频聊天,视频交友"/>
 
-    <link href="/css/master.css" rel="stylesheet" type="text/css" />
+    <link href="/css/master.css" rel="stylesheet" type="text/css"/>
     <script src="/js/login_reg.js"></script>
-    <link href="/css/showLoading.css" rel="stylesheet" type="text/css" />
+    <link href="/css/showLoading.css" rel="stylesheet" type="text/css"/>
 
     <script src="/js/xid.js"></script>
 
-    <link href="/room/css/kefu.css" rel="stylesheet" type="text/css" />
+    <link href="/room/css/kefu.css" rel="stylesheet" type="text/css"/>
     <script src="/room/script/chat_v1.source.js"></script>
-    <link href="/css/common.css" rel="stylesheet" type="text/css" />
-    <link href="/css/live.css" rel="stylesheet" type="text/css" />
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/live.css" rel="stylesheet" type="text/css"/>
 
     <style type="text/css">
-        body{
-            background:url(css/img/liveBg.jpg) no-repeat center top #000;
-            margin: 0px;
-            padding: 0px;
+        body {
+            background: url(css/img/liveBg.jpg) no-repeat center top #000;
+            margin: 0;
+            padding: 0;
         }
-        article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
+
+        article, aside, dialog, footer, header, section, footer, nav, figure, menu {
+            display: block
+        }
     </style>
 
     <link href="/room/css/room.css" rel="stylesheet">
 
-    <script src="/room/script/swfobject.js"></script>
+    <script src="/js/libraries/swfobject.js"></script>
 
-    <script src="/room/script/base64.js"></script>
+    <script src="/js/libraries/base64.js"></script>
 
     <script src="/room/script/xchat.js"></script>
 
@@ -47,7 +51,7 @@
 
     <script src="/room/script/car.js"></script>
 
-    <link href="/css/master.css" rel="stylesheet" type="text/css" />
+    <link href="/css/master.css" rel="stylesheet" type="text/css"/>
 
 </head>
 
@@ -68,28 +72,30 @@
                 <!--导航 end-->
                 <!--登录注册-->
                 <div class="loginRegister">
-                    <?php if(!$user_info = User::info()):?>
-                    <!--登录前-->
-                    <div class="lrBefore">
-                        <span class="loginLink"><a href="javascript:;" id="loginBox" title="">登录</a></span>
-                        <span class="registerLink"><a href="javascript:;" id="registerBox" title="">注册</a></span>
-                        <span class="registerLink"><a href="/help/anchor" title="" target="_blank">反馈</a></span>
-                    </div>
+                    <?php if (!$user_info = User::info()): ?>
+                        <!--登录前-->
+                        <div class="lrBefore">
+                            <span class="loginLink"><a href="javascript:;" id="loginBox" title="">登录</a></span>
+                            <span class="registerLink"><a href="javascript:;" id="registerBox" title="">注册</a></span>
+                            <span class="registerLink"><a href="/help/anchor" title="" target="_blank">反馈</a></span>
+                        </div>
                     <?php else: ?>
-                    <!--登录前 end-->
-                    <!--登录后-->
-                    <div class="lrAfter">
-                        <!--用户名-->
-                        <span class="userName"><a href="/account.php" title="" target="_blank"><?php echo $user_info['nickname'] ?></a></span>
-                        <!--用户名 end-->
-                        <!--U币数量-->
-                        <span class="goldCoin"><i class="ubIco"></i><a href="/pay.php" title="" target="_blank" id="mycoin"><?php echo $user_info['coin'] ?></a></span>
-                        <!--U币数量 end-->
-                        <span class="reCharge"><a href="/pay.php" title="" target="_blank">充值</a></span>
-                        <span class="exitIco"><a href="/user/logout" id="out" title="">退出</a></span>
-                        <span class="registerLink"><a href="/help/anchor" title="" target="_blank">反馈</a></span>
-                    </div>
-                    <!--登录后 end-->
+                        <!--登录前 end-->
+                        <!--登录后-->
+                        <div class="lrAfter">
+                            <!--用户名-->
+                            <span class="userName"><a href="/account.php" title=""
+                                                      target="_blank"><?php echo $user_info['nickname'] ?></a></span>
+                            <!--用户名 end-->
+                            <!--U币数量-->
+                            <span class="goldCoin"><i class="ubIco"></i><a href="/pay.php" title="" target="_blank"
+                                                                           id="mycoin"><?php echo $user_info['coin'] ?></a></span>
+                            <!--U币数量 end-->
+                            <span class="reCharge"><a href="/pay.php" title="" target="_blank">充值</a></span>
+                            <span class="exitIco"><a href="/user/logout" id="out" title="">退出</a></span>
+                            <span class="registerLink"><a href="/help/anchor" title="" target="_blank">反馈</a></span>
+                        </div>
+                        <!--登录后 end-->
                     <?php endif ?>
                 </div>
                 <!--登录注册 end-->
@@ -113,7 +119,7 @@
                 <div class="livePlayer">
                     <!--lpMsn-->
                     <div class="lpMsn">
-                        <span class="lpUserPic"><img src="<?php echo $anchor_info['avatar']?>"/><i>遮罩</i></span>
+                        <span class="lpUserPic"><img src="<?php echo $anchor_info['avatar'] ?>"/><i>遮罩</i></span>
                     </div>
                     <!--lpMsn end-->
                     <!--lpInfor-->
@@ -121,22 +127,32 @@
                         <h2>
                             <b><?php echo $anchor_info['nickname'] ?></b>
                             <b class="ipInforId">（<?php echo $anchor_info['anchor_id'] ?>）</b>
-                            <?php if($anchor_info['family_name']): ?><i class="clubIcoText"><em><?php echo $anchor_info['family_name'] ?></em></i><?php endif ?>
+                            <?php if ($anchor_info['family_name']): ?><i class="clubIcoText">
+                                <em><?php echo $anchor_info['family_name'] ?></em></i><?php endif ?>
                         </h2>
+
                         <div class="lpLevel" id="star_levl_next">
-                            <span class="lpLevelStart"><i class="zhuboIco zb<?php echo $anchor_info['anchor_level'] ?>"></i></span>
+                            <span class="lpLevelStart"><i
+                                    class="zhuboIco zb<?php echo $anchor_info['anchor_level'] ?>"></i></span>
+
                             <div class="lpLevelPro">
                                 <p class="lpLevleData">还差<b><?php echo $anchor_info['anchor_next_need'] ?></b>U豆到</p>
                                 <span><i style="width:<?php echo $anchor_info['anchor_next_percent'] ?>%;"></i></span>
                             </div>
-                            <span class="lpLevelEnd"><i class="zhuboIco zb<?php echo $anchor_info['anchor_next_level'] ?>"></i></span>
+                            <span class="lpLevelEnd"><i
+                                    class="zhuboIco zb<?php echo $anchor_info['anchor_next_level'] ?>"></i></span>
                         </div>
                     </div>
                     <!--lpInfor end-->
                     <!--lpRelation-->
                     <div class="lpRelation">
                         <!--关注-->
-                        <span class="lpFocusIco" id="userfav"><?php if($is_fav): ?><a href="javascript:;" onclick="delfav('<?php echo $room_info['room_id'] ?>')" class="orangeBtn"><i>取消关注</i></a><?php else: ?><a href="javascript:;" onclick="addfav('<?php echo $room_info['room_id'] ?>')" class="orangeBtn"><i>添加关注</i></a><?php endif ?></span>
+                        <span class="lpFocusIco" id="userfav"><?php if ($is_fav): ?><a href="javascript:;"
+                                                                                       onclick="delfav('<?php echo $room_info['room_id'] ?>')"
+                                                                                       class="orangeBtn"><i>取消关注</i>
+                                </a><?php else: ?><a href="javascript:;"
+                                                     onclick="addfav('<?php echo $room_info['room_id'] ?>')"
+                                                     class="orangeBtn"><i>添加关注</i></a><?php endif ?></span>
                         <!--关注 end-->
                         <span class="lpFocusIco1" id="anchor_fans">粉丝人数（0）</span>
                     </div>
@@ -148,7 +164,8 @@
                     <!--lmaTab-->
                     <div class="lmaTab manageNav">
                         <ul>
-                            <li class="current" id="th1"><a href="#" title=""><i>全部<label id="user_count">(0)</label></i></a></li>
+                            <li class="current" id="th1"><a href="#" title=""><i>全部<label
+                                            id="user_count">(0)</label></i></a></li>
                             <li id="th2"><a href="#" title=""><i>管理 <label id="admin_count">(0)</label></i></a></li>
                         </ul>
                     </div>
@@ -156,7 +173,8 @@
                     <!--lmaSearch-->
                     <div class="lmaSearch">
                         <div class="lmaSearchBox">
-                            <input name="" type="text" class="lmaInputStyle" placeholder="输入昵称或ID查找" autocomplete="off"/>
+                            <input name="" type="text" class="lmaInputStyle" placeholder="输入昵称或ID查找"
+                                   autocomplete="off"/>
                             <a href="#" title="" class="lmaBut">搜索</a>
                         </div>
                     </div>
@@ -207,7 +225,7 @@
                     <div id="video_zone"></div>
                 </div>
                 <!--视频区-->
-                <div class="liveVideo"  style="display: none">
+                <div class="liveVideo" style="display: none">
                     <!--直播尚未开始，看看别的-->
                     <div class="scanOther">
                         <h2><i></i><span>直播尚未开始，看看别的</span></h2>
@@ -221,18 +239,20 @@
                     <!--直播尚未开始，看看别的 end-->
                     <!--视频框-->
                     <div class="liveVideoSwf">
-                        <img src="images/livePic.jpg" alt="" />
+                        <img src="images/livePic.jpg" alt=""/>
                     </div>
                     <!--视频框 end-->
                     <!--您被踢出房间-->
                     <div class="liveVideoForce">
                         <h2>您被踢出房间</h2>
+
                         <p><a class="normalBtn" title="" href="#"><i>返回大厅看看其他的</i></a></p>
                     </div>
                     <!--您被踢出房间 end-->
                     <!--直播刚刚结束-->
                     <div class="liveVideoForce liveVideoForceNew">
                         <h2>直播刚刚结束</h2>
+
                         <p><a class="normalBtn" title="" href="#"><i>返回大厅看看其他的</i></a></p>
                     </div>
                     <!--直播刚刚结束 end-->
@@ -276,9 +296,11 @@
                     <!--送礼物-->
                     <div class="livePresent">
                         <span>送给</span>
+
                         <div class="lpToDefault">
                             <select name="select" class="selectList" id="gift_to" onchange="gift_to_change(this)">
-                                <option value="<?php echo $anchor_info['uid'] ?>"><?php echo $anchor_info['nickname'] ?></option>
+                                <option
+                                    value="<?php echo $anchor_info['uid'] ?>"><?php echo $anchor_info['nickname'] ?></option>
                             </select>
                             <input type="hidden" readonly id="gift_to_uid" value="<?php echo $anchor_info['uid'] ?>">
                         </div>
@@ -286,12 +308,16 @@
                             <input type="text" class="inputStyle" id="gift_count"/>
                         </div>
                         <span>个</span>
+
                         <div class="lpToDefault">
                             <input type="text" class="inputStyle1" id="gift_name" readonly="readonly"/>
                         </div>
-                        <span class="lpSent"><a class="redBtn" title="" href="javascript:;" onclick='javascript:SendGift()'><i>赠送</i></a></span>
-                        <span class="lpCharge"><a class="whiteBtn" title="" href="javascript:;" onclick="window.open('/pay.php')"><i>充值</i></a></span>
-                        <span><a href="/shop.php?act=vipshop" target="_shop" title="" class="redSmall"><i>VIP</i></a></span>
+                        <span class="lpSent"><a class="redBtn" title="" href="javascript:;"
+                                                onclick='javascript:SendGift()'><i>赠送</i></a></span>
+                        <span class="lpCharge"><a class="whiteBtn" title="" href="javascript:;"
+                                                  onclick="window.open('/pay.php')"><i>充值</i></a></span>
+                        <span><a href="/shop.php?act=vipshop" target="_shop" title=""
+                                 class="redSmall"><i>VIP</i></a></span>
                         <span><a href="/shop.php?act=mycar" target="_account" class="redSmall"><i>我的座驾</i></a></span>
                     </div>
                     <!--送礼物 end-->
@@ -307,6 +333,7 @@
                     <div class="liveRankNav liveRankToday">
                         <span class="lrTitle">今日榜</span>
                         <span class="lrIco"></span>
+
                         <div class="lrInfor" id="todayfirst">
                         </div>
                     </div>
@@ -315,6 +342,7 @@
                     <div class="liveRankNav liveRankAll">
                         <span class="lrTitle">总榜</span>
                         <span class="lrIco"></span>
+
                         <div class="lrInfor" id="allfirst">
                         </div>
                     </div>
@@ -325,7 +353,7 @@
                 <div class="lineRank posZ" id="con_fan_1">
                     <!--lineRankTop-->
                     <div class="lineRankTop">
-                        <ol >
+                        <ol>
                             <li class="lrtFirst">
                                 <span class="lrtPic">
                                     <img src="/images/avatar.jpg" alt=""/>
@@ -333,6 +361,7 @@
                                     <em class="lrtTu"><i class="rankIco rankSecond"></i></em>
                                 </span>
                                 <strong>无人</strong>
+
                                 <p><b>0</b><i class="ubIco"></i></p>
                             </li>
                             <li class="lrtSecond">
@@ -342,6 +371,7 @@
                                     <em class="lrtTu"><i class="rankIco rankFirst"></i></em>
                                 </span>
                                 <strong>无人</strong>
+
                                 <p><b>0</b><i class="ubIco"></i></p>
                             </li>
                             <li class="lrtThird">
@@ -351,6 +381,7 @@
                                     <em class="lrtTu"><i class="rankIco rankThird"></i></em>
                                 </span>
                                 <strong>无人</strong>
+
                                 <p><b>0</b><i class="ubIco"></i></p>
                             </li>
                         </ol>
@@ -359,7 +390,8 @@
                     <!--列表-->
                     <div class="liveScrollMain">
                         <!--模拟滚条-->
-                        <div class="liveScrollBg liveScrollBgWhite"><span style="top:20px" class="liveScrollBtn">滚动条</span></div>
+                        <div class="liveScrollBg liveScrollBgWhite"><span style="top:20px"
+                                                                          class="liveScrollBtn">滚动条</span></div>
                         <!--模拟滚条 end-->
                         <div class="liveScrollCon" id="jinribang">
                             <!--lineRankBot-->
@@ -385,6 +417,7 @@
                                     <em class="lrtTu"><i class="rankIco rankSecond"></i></em>
                                 </span>
                                 <strong>无人</strong>
+
                                 <p><b>0</b><i class="ubIco"></i></p>
                             </li>
                             <li class="lrtSecond">
@@ -394,6 +427,7 @@
                                     <em class="lrtTu"><i class="rankIco rankFirst"></i></em>
                                 </span>
                                 <strong>无人</strong>
+
                                 <p><b>0</b><i class="ubIco"></i></p>
                             </li>
                             <li class="lrtThird">
@@ -403,6 +437,7 @@
                                     <em class="lrtTu"><i class="rankIco rankThird"></i></em>
                                 </span>
                                 <strong>无人</strong>
+
                                 <p><b>0</b><i class="ubIco"></i></p>
                             </li>
                         </ol>
@@ -411,7 +446,8 @@
                     <!--列表-->
                     <div class="liveScrollMain">
                         <!--模拟滚条-->
-                        <div class="liveScrollBg liveScrollBgWhite"><span style="top:20px" class="liveScrollBtn">滚动条</span></div>
+                        <div class="liveScrollBg liveScrollBgWhite"><span style="top:20px"
+                                                                          class="liveScrollBtn">滚动条</span></div>
                         <!--模拟滚条 end-->
                         <div class="liveScrollCon" id="zongbang">
                             <!--lineRankBot-->
@@ -444,6 +480,7 @@
                             <!--liveRoomWord-->
                             <div class="liveRoomWord">
                                 <span class="vrrTitle">[房间公告]：</span>
+
                                 <div class="lrrWord" id="bullet"></div>
                             </div>
                             <!--liveRoomWord end-->
@@ -468,9 +505,13 @@
                             <div class="liveScrollMain">
                                 <!--清屏浮层-->
                                 <div class="popfn">
-                                    <span class="popClear"><a href="javascript:;" onclick="uu89pub.userclear();" title="">清屏</a></span>
-                                    <span class="popScroll  popScrollNo" id="popScrollPubYes"><a href="javascript:;" title="" onclick="beginScrollTimerpub()">滚屏</a></span>
-                                    <span class="popScroll" id="popScrollPubNo"><a href="javascript:;" title="" onclick="clearScrollTimerpub()">滚屏</a></span>
+                                    <span class="popClear"><a href="javascript:;" onclick="uu89pub.userclear();"
+                                                              title="">清屏</a></span>
+                                    <span class="popScroll  popScrollNo" id="popScrollPubYes"><a href="javascript:;"
+                                                                                                 title=""
+                                                                                                 onclick="beginScrollTimerpub()">滚屏</a></span>
+                                    <span class="popScroll" id="popScrollPubNo"><a href="javascript:;" title=""
+                                                                                   onclick="clearScrollTimerpub()">滚屏</a></span>
                                 </div>
                                 <!--清屏浮层 end-->
                                 <div class="liveScrollBg"><span class="liveScrollBtn">滚动条</span></div>
@@ -494,9 +535,14 @@
                             <div class="liveScrollMain">
                                 <!--清屏浮层-->
                                 <div class="popfn">
-                                    <span class="popClear"><a href="javascript:;" onclick="uu89prv.userclear();" title="">清屏</a></span>
-                                    <span class="popScroll  popScrollNo" id="popScrollPrvYes"><a href="javascript:;" onclick="beginScrollTimerprv();" title="">滚屏</a></span>
-                                    <span class="popScroll" id="popScrollPrvNo"><a href="javascript:;" onclick="clearScrollTimerprv();" title="">滚屏</a></span>
+                                    <span class="popClear"><a href="javascript:;" onclick="uu89prv.userclear();"
+                                                              title="">清屏</a></span>
+                                    <span class="popScroll  popScrollNo" id="popScrollPrvYes"><a href="javascript:;"
+                                                                                                 onclick="beginScrollTimerprv();"
+                                                                                                 title="">滚屏</a></span>
+                                    <span class="popScroll" id="popScrollPrvNo"><a href="javascript:;"
+                                                                                   onclick="clearScrollTimerprv();"
+                                                                                   title="">滚屏</a></span>
                                 </div>
                                 <!--清屏浮层 end-->
                                 <div class="liveScrollBg"><span class="liveScrollBtn">滚动条</span></div>
@@ -518,6 +564,7 @@
                             <!--lwfTop-->
                             <div class="lwfTop lpToClear2">
                                 <span>对</span>
+
                                 <div class="lpToDefault">
                                     <select name="select" class="selectList" id="message_to">
                                         <option value="0">所有人</option>
@@ -526,7 +573,8 @@
                                 <span class="lwRadio">
                                     <input name="" type="checkbox" value="" id="secret_check" disabled/>悄悄
                                 </span>
-                                <span class="lwFace"><a href="#" title=""><img src="css/img/face/ico8.png" class="eleCss"/></a>
+                                <span class="lwFace"><a href="#" title=""><img src="css/img/face/ico8.png"
+                                                                               class="eleCss"/></a>
                                 </span>
                             </div>
                             <!--lwfTop end-->
@@ -558,54 +606,63 @@
                     </ul>
                 </div>
             </div>
-            <?php if(!$anchor_info['is_watcher']): ?>
-            <div class="lbIcono">发广播</div>
+            <?php if (!$anchor_info['is_watcher']): ?>
+                <div class="lbIcono">发广播</div>
             <?php endif ?>
-            <?php if($anchor_info['is_watcher']): ?>
-            <div class="lbIco">发广播</div>
-            <script>
-                function sendspeaker(){
-                    var spmsg = jQuery("#sperkercont").val();
-                    if(spmsg.length < 1){
-                        alert("喇叭必须填写内容");
-                        return false;
+            <?php if ($anchor_info['is_watcher']): ?>
+                <div class="lbIco">发广播</div>
+                <script>
+                    function sendspeaker() {
+                        var spmsg = jQuery("#sperkercont").val();
+                        if (spmsg.length < 1) {
+                            alert("喇叭必须填写内容");
+                            return false;
+                        }
+                        if (spmsg.length > 100) {
+                            alert("字数不能大于100");
+                            return false;
+                        }
+                        var url = "/room/consume";
+                        var data = {
+                                'CONSUMETYPE': 10,
+                                'FROMGID': {$userinfo.uid}
+                            },
+                            'OBJ'
+                    :
+                        {
+                            'MSG'
+                        :
+                            spmsg,
+                                'room_id'
+                        :
+                            {
+                                $room_id
+                            }
+                        }
                     }
-                    if(spmsg.length > 100){
-                        alert("字数不能大于100");
-                        return false;
+                    jQuery.post(url, JSON.stringify(data), function (result) {
+                        console.log(result);
+                        jQuery("#sperker").hide();
+                        jQuery("#sperkercont").val("");
+                        var r = jQuery.parseJSON(result);
+                        {
+                            console.log('call SendspeakerCB');
+                            SendspeakerCB(r);
+                        }
+                    })
+                        .fail(function () {
+                            console.log('error');
+                            alert('发送小喇叭失败！');
+                        });
                     }
-                    var url = "/room/consume";
-                    var data = {
-                            'CONSUMETYPE':10,
-                            'FROMGID':{$userinfo.uid},
-                        'OBJ' : {
-                        'MSG': spmsg,
-                            'room_id':{$room_id}
-                    }
-                }
-                jQuery.post(url,JSON.stringify(data),function(result){
-                    console.log(result);
-                    jQuery("#sperker").hide();
-                    jQuery("#sperkercont").val("");
-                    var r = jQuery.parseJSON(result);
-                    {
-                        console.log('call SendspeakerCB');
-                        SendspeakerCB(r);
-                    }
-                })
-                    .fail(function(){
-                        console.log('error');
-                        alert('发送小喇叭失败！');
-                    });
 
-                }
-
-            </script>
+                </script>
             <?php endif ?>
 
             <!--发表广播-->
             <div class="radioWord">
                 <span class="radiaClose">关闭</span>
+
                 <div class="rwTextArea">
                     <textarea name="" cols="" rows="" style="height:65px;" id="sperkercont"></textarea>
                 </div>
@@ -617,7 +674,7 @@
                 <div class="rwSub">
                     <p>还能输入<i>45</i>字</p>
                     <span class="rwSubRight">
-                    	<img src="css/img/castWordIco.jpg" align="middle" />
+                    	<img src="css/img/castWordIco.jpg" align="middle"/>
                     	<a href="javascript:;" title="" class="pinkBtn" onclick="sendspeaker()"><i>发言</i></a>
                     </span>
                 </div>
@@ -641,6 +698,7 @@
     <!--umInfor-->
     <div class="umInfor">
         <h2><strong>@小猪宝贝@!</strong><span>29872</span></h2>
+
         <p>
             <i class="chaoIco c2"></i>
             <i class="jwIco V2"></i>
@@ -657,21 +715,21 @@
             <li><a href="javascript:;" id="m_chat" title="">公聊</a></li>
             <li><a href="javascript:;" id="m_chat_p" title="">私聊</a></li>
         </ul>
-        <?php if($level > 900):?>
-        <ul>
-            <?php if($level == 2000):?>
-            <li><a href="javascript:;" id="m_setadmin" title="">加管理/取消管理</a></li>
-            <?php endif?>
-            <li><a href="javascript:;" id="m_disable_chat" title="">禁言</a></li>
-            <li><a href="javascript:;" id="m_kick" title="">踢出房间</a></li>
-        </ul>
-        <?php endif?>
-        <?php if($anchor_info['is_watcher']): ?>
-        <ul>
-            <li><a href="#" title="">踢出全站</a></li>
-            <li><a href="#" title="">封ID</a></li>
-            <li><a href="#" title="">停止直播</a></li>
-        </ul>
+        <?php if ($level > 900): ?>
+            <ul>
+                <?php if ($level == 2000): ?>
+                    <li><a href="javascript:;" id="m_setadmin" title="">加管理/取消管理</a></li>
+                <?php endif ?>
+                <li><a href="javascript:;" id="m_disable_chat" title="">禁言</a></li>
+                <li><a href="javascript:;" id="m_kick" title="">踢出房间</a></li>
+            </ul>
+        <?php endif ?>
+        <?php if ($anchor_info['is_watcher']): ?>
+            <ul>
+                <li><a href="#" title="">踢出全站</a></li>
+                <li><a href="#" title="">封ID</a></li>
+                <li><a href="#" title="">停止直播</a></li>
+            </ul>
         <?php endif ?>
     </div>
     <!--umFn end-->
@@ -682,7 +740,16 @@
 <!--礼物提示end-->
 
 <!-- 头部logo-begin-->
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdUrl":"http://www.uumie.com/<?php echo $anchor_info['anchor_id'] ?>","bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"http://www.uumie.com/<?php echo $anchor_info['avatar'] ?>","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"7","bdPos":"right","bdTop":"100"},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+<script>window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {}, "bdUrl": "http://www.uumie.com/<?php echo $anchor_info['anchor_id'] ?>", "bdText": "",
+            "bdMini": "2", "bdMiniList": false, "bdPic": "http://www.uumie.com/<?php echo $anchor_info['avatar'] ?>",
+            "bdStyle": "0", "bdSize": "16"
+        }, "slide": {"type": "slide", "bdImg": "7", "bdPos": "right", "bdTop": "100"},
+        "image": {"viewList": ["qzone", "tsina", "tqq", "renren", "weixin"], "viewText": "分享到：", "viewSize": "16"},
+        "selectShare": {"bdContainerClass": null, "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]}
+    };
+    with (document)0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
 <div id="online_qq_layer">
     <div id="online_qq_tab">
         <a id="floatShow" style="display:block;" href="javascript:void(0);">收缩</a>
@@ -693,13 +760,21 @@
             <h3 class="tQQ">QQ在线客服</h3>
             <ul>
                 <li class="tli zixun">U美客服01</li>
-                <li><a target="_blank" href="tencent://message/?uin=3152262151&Site=U美&Menu=yes"><img src="img/qq.gif"></a></li>
+                <li><a target="_blank" href="tencent://message/?uin=3152262151&Site=U美&Menu=yes"><img src="img/qq.gif"></a>
+                </li>
                 <li class="tli zixun">U美客服02</li>
-                <li><a target="_blank" href="tencent://message/?uin=3057244998&Site=U美&Menu=yes"><img src="img/qq.gif"></a></li>
+                <li><a target="_blank" href="tencent://message/?uin=3057244998&Site=U美&Menu=yes"><img src="img/qq.gif"></a>
+                </li>
                 <li class="tli zixun">U美新手咨询群</li>
-                <li class="last"><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=15eda276ddedca79ed81ec513503c132b42ae22b814d76c21d7b4cade3ba9b5a"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="U美新手咨询群" title="U美新手咨询群"></a></li>
+                <li class="last"><a target="_blank"
+                                    href="http://shang.qq.com/wpa/qunwpa?idkey=15eda276ddedca79ed81ec513503c132b42ae22b814d76c21d7b4cade3ba9b5a"><img
+                            border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="U美新手咨询群" title="U美新手咨询群"></a>
+                </li>
                 <li class="tli zixun">U美增值服务群</li>
-                <li class="last"><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=5cac8c7651853122ef3cfddfadbeab41db35928b29d804ef4d4953a860b45a3f"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="U美增值咨询群" title="U美增值咨询群"></a></li>
+                <li class="last"><a target="_blank"
+                                    href="http://shang.qq.com/wpa/qunwpa?idkey=5cac8c7651853122ef3cfddfadbeab41db35928b29d804ef4d4953a860b45a3f"><img
+                            border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="U美增值咨询群" title="U美增值咨询群"></a>
+                </li>
             </ul>
         </div>
 
@@ -711,104 +786,98 @@
 <!-- 头部logo end-->
 <div id="xchat"></div>
 <div id="gift_display" class="gift_show"></div>
-<script src="/room/script/jquery-1.11.1.js"></script>
+<script src="/js/jquery-1.11.1.js"></script>
 <script src="/js/jquery.showLoading.js"></script>
 <script src="/js/bootJs.js"></script>
 <script src="/room/script/drop.js"></script>
 <script src="/js/effect.js"></script>
-<script src="/room/script/utils.source.js"></script>
+<script src="/js/common/utils.source.js"></script>
 <script src="/js/login_reg.js"></script>
 <script>
-    $(function(){
-        if(readcookie("xid")==''){
-            setCookie("xid",new Date().getTime()+":"+"");
+    $(function () {
+        if (readcookie("xid") == '') {
+            setCookie("xid", new Date().getTime() + ":" + "");
         }
     });
-
-//    var _hmt = _hmt || [];
-//    (function() {
-//        var hm = document.createElement("script");
-//        hm.src = "//hm.baidu.com/hm.js?b2f6208338d5d0e7314443606931adf7";
-//        var s = document.getElementsByTagName("script")[0];
-//        s.parentNode.insertBefore(hm, s);
-//    })();
-
-    (function() {
+    //    var _hmt = _hmt || [];
+    //    (function() {
+    //        var hm = document.createElement("script");
+    //        hm.src = "//hm.baidu.com/hm.js?b2f6208338d5d0e7314443606931adf7";
+    //        var s = document.getElementsByTagName("script")[0];
+    //        s.parentNode.insertBefore(hm, s);
+    //    })();
+    (function () {
         if (!
                 /*@cc_on!@*/
                 0) return;
         var e = "abbr, article, aside, audio, canvas, datalist, details, dialog, eventsource, figure, footer, header, hgroup, mark, menu, meter, nav, output, progress, section, time, video".split(', ');
-        var i= e.length;
-        while (i--){
+        var i = e.length;
+        while (i--) {
             document.createElement(e[i])
         }
     })()
-    jQuery(document).ready(function(){
-
-        jQuery("#floatShow").bind("mouseenter",function(){
-
-            jQuery("#onlineService").animate({width:"show", opacity:"show"}, "normal" ,function(){
+    jQuery(document).ready(function () {
+        jQuery("#floatShow").bind("mouseenter", function () {
+            jQuery("#onlineService").animate({width: "show", opacity: "show"}, "normal", function () {
                 jQuery("#onlineService").show();
             });
-
             jQuery("#floatShow").show();
             jQuery("#floatHide").hide();
-
             return false;
         });
-
-        jQuery("#online_qq_layer").bind("mouseleave",function(){
-
-            jQuery("#onlineService").animate({width:"hide", opacity:"hide"}, "normal" ,function(){
+        jQuery("#online_qq_layer").bind("mouseleave", function () {
+            jQuery("#onlineService").animate({width: "hide", opacity: "hide"}, "normal", function () {
                 jQuery("#onlineService").hide();
             });
-
             jQuery("#floatShow").show();
             jQuery("#floatHide").hide();
-
             return false;
         });
-
     });
-
-    var uu89pub = new chat('content_pub',1,$('#liuyan'));
-
-    var uu89prv = new chat('content_prv',1,$('#xitong'));
-
+    var uu89pub = new chat('content_pub', 1, $('#liuyan'));
+    var uu89prv = new chat('content_prv', 1, $('#xitong'));
     uu89prv.kw_filter = /<?php echo $common_info['word_banned'] ?>/ig;
-
-    uu89pub.kw_filter = /<?php echo $common_info['word_banned'] ?>/ig;
-
+        uu89pub.kw_filter = /<?php echo $common_info['word_banned'] ?>/ig;
     var room_id = <?php echo $room_info['room_id'] ?>;
-
-    var roompara = {"serverip":"<?php echo $room_info['cserver_ip'] ?>","serverport":<?php echo $room_info['cserver_port'] ?>,"mserverip":"<?php echo $room_info['mserver_ip'] ?>","mserverport":<?php echo $room_info['mserver_port'] ?>,"welcome":"welcome","v1":0,"v2":-1,"v3":-1,"m_bitrate":<?php echo $room_info['bitrate'] ?>};
-
+    var roompara = {
+        "serverip": "<?php echo $room_info['cserver_ip'] ?>", "serverport":<?php echo $room_info['cserver_port'] ?>,
+        "mserverip": "<?php echo $room_info['mserver_ip'] ?>", "mserverport":<?php echo $room_info['mserver_port'] ?>,
+        "welcome": "welcome", "v1": 0, "v2": -1, "v3": -1, "m_bitrate":<?php echo $room_info['bitrate'] ?>
+    };
     <?php if($user_info):?>
-        var userpara = {"uid":<?php echo $user_info['uid'] ?>, "gid":<?php echo $user_info['uid'] ?>,"nicegid":<?php echo $user_info['anchor_id'] ?>,"nickname_b64":"<?php echo base64_encode($user_info['nickname']) ?>","icon":0,"vip":<?php echo $user_info['user_level'] ?>,"vip2":<?php echo $user_info['vip'] ?>,"badge":0,"levelinroom":<?php echo $level?>,"title":0,"role":0,"agency":0,"watchman":<?php echo $user_info['is_watcher'] ?>,"roomer":<?php if($user_info['uid'] == $room_info['uid']) echo 4; else echo 0; ?>,"starlevel":0,"car_id":<?php echo $user_info['car'] ?>,"family_name":"0"};
+    var userpara = {
+        "uid":<?php echo $user_info['uid'] ?>, "gid":<?php echo $user_info['uid'] ?>,
+        "nicegid":<?php echo $user_info['anchor_id'] ?>,
+        "nickname_b64": "<?php echo base64_encode($user_info['nickname']) ?>", "icon": 0,
+        "vip":<?php echo $user_info['user_level'] ?>, "vip2":<?php echo $user_info['vip'] ?>, "badge": 0,
+        "levelinroom":<?php echo $level?>, "title": 0, "role": 0, "agency": 0,
+        "watchman":<?php echo $user_info['is_watcher'] ?>,
+        "roomer":<?php if($user_info['uid'] == $room_info['uid']) echo 4; else echo 0; ?>, "starlevel": 0,
+        "car_id":<?php echo $user_info['car'] ?>, "family_name": "0"
+    };
     <?php else:?>
-        var userpara = { "gid":0,"nicegid":0,"nickname_b64":"<?php echo base64_encode('游客') ?>","icon":0,"vip":0,"vip2":0,"badge":0,"levelinroom":1,"title":0,"role":0,"agency":0,"watchman":0,"roomer":0,"starlevel":0,"car_id":0,"family_name":"0"};
+    var userpara = {
+        "gid": 0, "nicegid": 0, "nickname_b64": "<?php echo base64_encode('游客') ?>", "icon": 0, "vip": 0, "vip2": 0,
+        "badge": 0, "levelinroom": 1, "title": 0, "role": 0, "agency": 0, "watchman": 0, "roomer": 0, "starlevel": 0,
+        "car_id": 0, "family_name": "0"
+    };
     <?php endif?>
-
     var _chat_pub_loaded = 0;
-
     var _chat_prv_loaded = 0;
-
     var room_welcome = '<?php echo $room_info['welcome'] ?>';
-
     var room_owner_uid = <?php echo $room_info['uid'] ?>;
-
-
-    function load_room_bullet(){
+    var nicknameIniVal = '<?php echo $user_info['nickname'] ?>';
+    function load_room_bullet() {
         var url = '/room/bulletin/id/<?php echo $room_info['anchor_info']['anchor_id'] ?>';
-        $.get(url,function(result){
+        $.get(url, function (result) {
                 //console.log('load_gift_message. ' + result);
                 $('#bullet').html(result);
             }
         );
     }
-    function load_anchor_fans(){
+    function load_anchor_fans() {
         var url = '/room/fans/id/<?php echo $room_info['anchor_info']['anchor_id'] ?>';
-        $.get(url,function(result){
+        $.get(url, function (result) {
                 //console.log('load_gift_message. ' + result);
                 $('#anchor_fans').html(result);
             }

@@ -354,7 +354,8 @@ function load_emotion() {
  */
 function owshowcar() {
     if (userpara.car_id > 0) {
-        userpara.nickname = '{$userinfo.nickname}';
+        var nickname = nicknameIniVal;
+        userpara.nickname = nickname;
         showcar(userpara);
     } else {
         userpara.nickname = Base64.decode(userpara.nickname_b64);
