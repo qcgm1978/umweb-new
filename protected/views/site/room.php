@@ -27,7 +27,7 @@
 
     <style type="text/css">
         body {
-            background: url(css/img/liveBg.jpg) no-repeat center top #000;
+            background: url(/css/img/liveBg.jpg) no-repeat center top #000;
             margin: 0;
             padding: 0;
         }
@@ -611,52 +611,6 @@
             <?php endif ?>
             <?php if ($anchor_info['is_watcher']): ?>
                 <div class="lbIco">发广播</div>
-                <script>
-                    function sendspeaker() {
-                        var spmsg = jQuery("#sperkercont").val();
-                        if (spmsg.length < 1) {
-                            alert("喇叭必须填写内容");
-                            return false;
-                        }
-                        if (spmsg.length > 100) {
-                            alert("字数不能大于100");
-                            return false;
-                        }
-                        var url = "/room/consume";
-                        var data = {
-                                'CONSUMETYPE': 10,
-                                'FROMGID': {$userinfo.uid}
-                            },
-                            'OBJ'
-                    :
-                        {
-                            'MSG'
-                        :
-                            spmsg,
-                                'room_id'
-                        :
-                            {
-                                $room_id
-                            }
-                        }
-                    }
-                    jQuery.post(url, JSON.stringify(data), function (result) {
-                        console.log(result);
-                        jQuery("#sperker").hide();
-                        jQuery("#sperkercont").val("");
-                        var r = jQuery.parseJSON(result);
-                        {
-                            console.log('call SendspeakerCB');
-                            SendspeakerCB(r);
-                        }
-                    })
-                        .fail(function () {
-                            console.log('error');
-                            alert('发送小喇叭失败！');
-                        });
-                    }
-
-                </script>
             <?php endif ?>
 
             <!--发表广播-->
@@ -867,6 +821,7 @@
     var room_welcome = '<?php echo $room_info['welcome'] ?>';
     var room_owner_uid = <?php echo $room_info['uid'] ?>;
     var nicknameIniVal = '<?php echo $user_info['nickname'] ?>';
+    var fromgidIniVal = '<?php echo $user_info['uid'] ?>';
     function load_room_bullet() {
         var url = '/room/bulletin/id/<?php echo $room_info['anchor_info']['anchor_id'] ?>';
         $.get(url, function (result) {
