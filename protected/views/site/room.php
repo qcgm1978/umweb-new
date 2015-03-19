@@ -741,7 +741,7 @@
 <div id="gift_display" class="gift_show"></div>
 <script src="/js/jquery-1.11.1.js"></script>
 <script src="/js/jquery.showLoading.js"></script>
-<script src="/js/bootJs.js"></script>
+<script src="/js/common/bootJs.js"></script>
 <script src="/room/script/drop.js"></script>
 <script src="/js/effect.js"></script>
 <script src="/js/common/utils.source.js"></script>
