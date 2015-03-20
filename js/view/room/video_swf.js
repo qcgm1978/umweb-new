@@ -1,3 +1,10 @@
+/**
+ * Description: handling communication between flash and server
+ *
+ * @moudle video_swf
+ * @class video_swf
+ * @static
+ */
 var video_swf = {
     live: 0,
     swf_name: 'recv',
@@ -35,8 +42,9 @@ var video_swf = {
         attributes.id = swf_name;
         attributes.name = swf_name;
         attributes.align = "middle";
+        var dir = SiteCommon.SWF_DIR;
         swfobject.embedSWF(
-            "/room/" + swf_name + ".swf",
+            dir + swf_name + ".swf",
             div_id,
             480, 360,
             swfVersionStr, xiSwfUrlStr,
@@ -121,7 +129,7 @@ function ucast_h264_log(log) {
     };
 
     jQuery.post(url, JSON.stringify(data), function (result) {
-        console.log(result);
+        //console.log(result);
         /*
          var r = jQuery.parseJSON(result);
          console.log(r.RES);

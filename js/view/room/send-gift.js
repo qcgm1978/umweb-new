@@ -31,7 +31,7 @@ function SelectGift(gift, obj) {
     $(".liveGiftsBox li").removeClass("current");
     $(obj).addClass("current");
     var g = jQuery.parseJSON(gift);
-    console.log(g.GIFTID);
+    //console.log(g.GIFTID);
     $('#gift_name').val(g.NAME);
     gift_id = g.GIFTID;
 }
@@ -78,10 +78,10 @@ function SendGift() {
             'ROOMID': room_id
         }
     };
-    console.log(data);
+    //console.log(data);
     //return;
     $.post(url, JSON.stringify(data), function (result) {
-        console.log(result);
+        //console.log(result);
         var r = jQuery.parseJSON(result);
         /*
          if (r.RES==0){
@@ -93,12 +93,12 @@ function SendGift() {
          */
         //if (room_id>0)
         {
-            console.log('call SendGiftCB');
+            //console.log('call SendGiftCB');
             SendGiftCB(r);
         }
     })
         .fail(function () {
-            console.log('error');
+            //console.log('error');
             $("#returnmsg").html('赠送礼物操作发生错误！');
             $("#tips02Pop .pinkBtn").removeAttr("onclick");
             $("#tips02Pop .pinkBtn").click(function () {

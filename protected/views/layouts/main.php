@@ -12,9 +12,6 @@
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/live.css" rel="stylesheet" type="text/css"/>
     <link href="/css/master.css" rel="stylesheet" type="text/css"/>
-    <!--    todo to del in production code-->
-    <link href="/room/script/fauxconsole.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="/room/script/fauxconsole.js"></script>
     <link href="/css/showLoading.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -73,7 +70,7 @@
         </div>
         <!--头部 end-->
         <script type="text/javascript" src="/js/libraries/jquery-1.11.1.js"></script>
-        <script type="text/javascript" src="/js/common/bootJs.js"></script>
+        <script type="text/javascript" src="/js/common/general.js"></script>
         <script type="text/javascript" src="/js/libraries/jquery.showLoading.js"></script>
         <script src="/js/common/xid.js"></script>
         <!--[if IE 6]>

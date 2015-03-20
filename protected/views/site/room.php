@@ -741,11 +741,10 @@
 <div id="gift_display" class="gift_show"></div>
 <script src="/js/libraries/jquery-1.11.1.js"></script>
 <script src="/js/libraries/jquery.showLoading.js"></script>
-<script src="/js/common/bootJs.js"></script>
+<script src="/js/common/general.js"></script>
 <script src="/js/view/room/drop.js"></script>
 <script src="/js/view/room/effect.js"></script>
 <script src="/js/common/utils.source.js"></script>
-<script src="/js/common/login_reg.js"></script>
 <script>
     $(function () {
         if (readcookie("xid") == '') {

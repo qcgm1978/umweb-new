@@ -130,9 +130,9 @@
 
     {
 
-        console.log('insert_rank');
+        //console.log('insert_rank');
 
-        console.log(arr);
+        //console.log(arr);
 
         var tmp ='';
 
@@ -189,7 +189,7 @@
             tmp +='</li>';
         }
 
-        console.log(tmp);
+        //console.log(tmp);
 
 
 

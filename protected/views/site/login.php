@@ -26,7 +26,7 @@
     <link href="/css/live.css" rel="stylesheet" type="text/css" />
     <link href="/css/master.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="/js/libraries/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="/js/common/bootJs.js"></script>
+    <script type="text/javascript" src="/js/common/general.js"></script>
     <script type="text/javascript" src="/js/view/login.js"></script>
     <script type="text/javascript">
         var childWindow;

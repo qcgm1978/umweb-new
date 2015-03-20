@@ -353,17 +353,17 @@
 
     {
 
-        console.log('get_rank');
+        //console.log('get_rank');
 
         var url = '/site/rank';
 
         $.post(url,function(result){
 
-                console.log('update_rank. ' + result);
+                //console.log('update_rank. ' + result);
 
                 var res = jQuery.parseJSON(result);
 
-                console.log(res);
+                //console.log(res);
 
                 var rich = res.rich;
 
@@ -397,9 +397,9 @@
 
     {
 
-        console.log('insert_rank');
+        //console.log('insert_rank');
 
-        console.log(arr);
+        //console.log(arr);
 
         var tmp ='';
 
@@ -479,7 +479,7 @@
 
         }
 
-        console.log(tmp);
+        //console.log(tmp);
 
 
 
@@ -499,7 +499,7 @@
 
         $.post(url,function(result){
 
-                console.log('cat_it. ' + result);
+                //console.log('cat_it. ' + result);
 
                 $('.mainContent').html(result);
 
@@ -519,7 +519,7 @@
 
         $.post(url,function(result){
 
-                console.log('cat_it. ' + result);
+                //console.log('cat_it. ' + result);
 
                 $('#family_com').html(result);
 

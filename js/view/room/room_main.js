@@ -106,8 +106,8 @@ function xchat_start() {
 
 
 function SendGiftCB(r) {
-    console.log('SendGiftCB Called.');
-    console.log(r);
+    //console.log('SendGiftCB Called.');
+    //console.log(r);
     if (r.RES == 0) {
         $("#returnmsg").html(r.HINT);
         $("#tips02").click();
@@ -241,7 +241,7 @@ function load_emotion() {
     var s = '';
     var count = 60;
     for (var i = 0; i < count; i++) {
-        s += '<a href="javascript:emotion_it(' + i + ')"><img src="/room/images/emotion/' + i + '.gif" ></a>';
+        s += '<a href="javascript:emotion_it(' + i + ')"><img src="/images/room/emotion/' + i + '.gif" ></a>';
     }
     jQuery(".lwfFaceList").html(s);
     s = s.replace(/emotion_it/g, "emotion_it_o")
@@ -364,23 +364,23 @@ function sendspeaker() {
         }
     }
     jQuery.post(url, JSON.stringify(data), function (result) {
-        console.log(result);
+        //console.log(result);
         jQuery("#sperker").hide();
         jQuery("#sperkercont").val("");
         var r = jQuery.parseJSON(result);
         {
-            console.log('call SendspeakerCB');
+            //console.log('call SendspeakerCB');
             SendspeakerCB(r);
         }
     })
         .fail(function () {
-            console.log('error');
+            //console.log('error');
             alert('发送小喇叭失败！');
         });
 }
 function SendspeakerCB(r) {
-    console.log('SendspeakerCB Called.');
-    console.log(r);
+    //console.log('SendspeakerCB Called.');
+    //console.log(r);
     if (r.RES == 0) {
         alert(r.HINT);
     }

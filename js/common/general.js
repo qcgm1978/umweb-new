@@ -6,6 +6,7 @@
  * @static
  */
 window.SiteCommon = {
+    SWF_DIR:'/swf/',
     setChatDialog: function ($ele, func) {
         $ele.keypress(function (event) {
             if (event.which == 13) {
@@ -14,83 +15,8 @@ window.SiteCommon = {
         });
     }
 }
-//滚动插件
-$(function () {
-    //对象+命名空间
-    $.fn.scrollElement = function (options) {
-        //默认值
-        var defaults = {
-            "fatherEle": "liveScrollEle",
-            "marginDefault": 20,
-            "time": 2500
-        }
-        //合并默认值与参数
-        var options = $.extend(defaults, options);
-        //操作代码
-        this.each(function () {
-            var This = $(this);
-            var liveScrollEle = $("." + options.fatherEle);
-            var fatherWidth = $(liveScrollEle).width();
-            var ulElement = $(liveScrollEle).find("ul")[0];
-            var liEle = $(liveScrollEle).find('li');
-            var liLength = $(liveScrollEle).find('li').length;
-            var paraWidth = 0;
-            var marginWidth = 0;
-            var marginDefault = 20;
-            var paraCurrent = -1;
-            var timeAnimate = null;
-            var timeSpace = options.timeSpace;
-            //判断元素宽度和
-            var wMath = 0;
-            for (var i = 0; i < liLength; i++) {
-                wMath += $(liEle).eq(i).width();
-            }
-            ;
-            //ulElement.innerHTML += ulElement.innerHTML;
-            if (wMath >= fatherWidth) {
-                ulElement.innerHTML += ulElement.innerHTML;
-                this.timeAnimate = setInterval(scrollEle, timeSpace);
-            }
-            ;
-            function scrollEle() {
-                if (paraCurrent < liLength - 1) {
-                    paraCurrent++;
-                    paraWidth += $(ulElement).find('li').eq(paraCurrent).width();
-                    marginWidth += marginDefault * paraCurrent
-                    $(ulElement).animate({"left": -paraWidth - marginWidth});
-                } else {
-                    paraCurrent = -1;
-                    paraWidth = 0;
-                    $(ulElement).css({"left": 0});
-                }
-                ;
-            };
-        });
-    }
-});
-//直播间顶部滚动
-/*$(function(){
- $(".liveScrollEle").scrollElement({
- "fatherEle":"liveScrollEle",//父容器
- "marginDefault":20,//元素间隙
- "timeSpace":2500//滚动时间
- });
- });*/
-//直播间底部滚动
-/*$(function(){
- $(".noticeInfor").scrollElement({
- "fatherEle":"noticeInfor",//父容器
- "marginDefault":20,//元素间隙
- "timeSpace":2500//滚动时间
- });
- });*/
 /*全部|管理*/
 $(function () {
-    try {
-        autologin(islogined);
-    } catch (e) {
-        console.log('it\'s in login page')
-    }
     if ($("#out").length) {
         $("#out").attr("href", "/user/logout");
     }

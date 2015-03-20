@@ -4,7 +4,7 @@
  * @module Login
  *
  */
-
+autologin(islogined);
 function autologin(isLogined) {
     if (isLogined == 0) {
         var delay = 120000;
@@ -30,7 +30,7 @@ function login() {
         },
         url: "/user/login",
         success: function (data, status) {
-            console.log(data);
+            //console.log(data);
             var ms = JSON.parse(data);
             if (ms.error == 0) {
                 jQuery(".erroTipInfor").html(ms.message);

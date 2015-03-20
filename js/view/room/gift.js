@@ -106,7 +106,7 @@ var gift_center = {
 	},
 	
 	small_gift : function(swf,count,life,data){
-		console.log('small_gift');
+		//console.log('small_gift');
 		
 		if (count>=18){
 			count = 18;
@@ -125,8 +125,8 @@ var gift_center = {
 		if (x<0) x=0;
 		if (y<0) y=0;
 		
-		console.log(get_w_w() + ',' + get_w_h());
-		console.log(z_w + ',' + z_h + ',' + x + ',' + y);
+		//console.log(get_w_w() + ',' + get_w_h());
+		//console.log(z_w + ',' + z_h + ',' + x + ',' + y);
 		
 		for (var i=0;i<count;i++){
 			var r = Math.floor(i/9);
@@ -180,7 +180,7 @@ var gift_center = {
 					d.life = 5;
 					
 					gift_center.queue.push(d);
-					console.log('gift_center.queue.push(d) B');
+					//console.log('gift_center.queue.push(d) B');
 					
 					count -= 10;
 				}
@@ -189,7 +189,7 @@ var gift_center = {
 					d.life = life;
 					
 					gift_center.queue.push(d);
-					console.log('gift_center.queue.push(d) B');
+					//console.log('gift_center.queue.push(d) B');
 					break;
 				}
 			}

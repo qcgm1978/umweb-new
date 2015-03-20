@@ -615,7 +615,7 @@ var xMessager = {
         //gift_center.show_gift("B","big.swf",1,15);
     },
     OnGift: function (data) {
-        console.log('OnGift');
+        //console.log('OnGift');
         var is_my_message = false;
         if (data.from_uid == this.uid || data.to_uid == this.uid) {
             is_my_message = true;
@@ -627,20 +627,20 @@ var xMessager = {
         message_display.gift(data, is_my_message);
         gift_center.show_gift(data.type, data.gift_swf, data.sum, data.gift_swf_life, data);
         if (data.from_uid == room_owner_uid || data.to_uid == room_owner_uid) {
-            console.log('room_owner data need change!');
+            //console.log('room_owner data need change!');
             load_room_data();
         }
     },
     OnSpeaker: function (data) {
-        console.log('OnSpeaker');
+        //console.log('OnSpeaker');
         load_speak_data();
     },
     OnAnchorFans: function (data) {
-        console.log('OnAnchorFans');
+        //console.log('OnAnchorFans');
         load_anchor_fans();
     },
     OnBanner: function () {
-        console.log('OnBanner');
+        //console.log('OnBanner');
         load_gift_message();
     },
     OnSetAdmin: function (param) {
@@ -949,8 +949,9 @@ var xchat_swf = {
          *
          * @method swfobject.embedSWF
          */
-        var swfmame = "/room/old_xchat.swf";
-        swfmame = "/room/new_xchat.swf";
+        var dir = SiteCommon.SWF_DIR;
+        var swfmame = dir +
+            "new_xchat.swf";
         swfobject.embedSWF(
             swfmame, div_id,
             $("#" + div_id).width(), $("#" + div_id).height(),
