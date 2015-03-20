@@ -89,7 +89,7 @@ $(function () {
     try {
         autologin(islogined);
     } catch (e) {
-        console.log('it\' login in page')
+        console.log('it\'s in login page')
     }
     if ($("#out").length) {
         $("#out").attr("href", "/user/logout");
@@ -152,7 +152,6 @@ $(function () {
                 } else {
                     $(userMenu).css({"left": (event.pageX - useMeWidth - 10)});
                 }
-                ;
             }
         });
     });

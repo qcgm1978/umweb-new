@@ -385,7 +385,7 @@ var chat_panel = {
         $(&quot;#message_to&quot;).change(function () {
             g_UserList.UserSelected(parseInt($(this).val()));
         });
-        RoomCommon.setChatDialog($(&quot;#message_input&quot;), function ($ele) {
+        SiteCommon.setChatDialog($(&quot;#message_input&quot;), function ($ele) {
             xMessager.message($ele.val(), $(&quot;#secret_check&quot;).is(&#039;:checked&#039;));
             $ele.val(&quot;&quot;);
         });
