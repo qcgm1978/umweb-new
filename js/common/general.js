@@ -17,9 +17,6 @@ window.SiteCommon = {
 }
 /*全部|管理*/
 $(function () {
-    if ($("#out").length) {
-        $("#out").attr("href", "/user/logout");
-    }
     $(".lmaTab a").each(function (index) {
         $(this).click(function (event) {
             event.preventDefault();
