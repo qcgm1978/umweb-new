@@ -16,7 +16,7 @@
 
     <!--[if lte IE 6]>
 
-    <script type="text/javascript" src="/js/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script type="text/javascript" src="/js/libraries/DD_belatedPNG.js"></script>
     <script type="text/javascript">
         DD_belatedPNG.fix('#login');
     </script>
@@ -25,7 +25,7 @@
     <link href="/css/common.css" rel="stylesheet" type="text/css" />
     <link href="/css/live.css" rel="stylesheet" type="text/css" />
     <link href="/css/master.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="/js/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="/js/libraries/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="/js/common/bootJs.js"></script>
     <script type="text/javascript" src="/js/view/login.js"></script>
     <script type="text/javascript">

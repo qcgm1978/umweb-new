@@ -739,8 +739,8 @@
 <!-- 头部logo end-->
 <div id="xchat"></div>
 <div id="gift_display" class="gift_show"></div>
-<script src="/js/jquery-1.11.1.js"></script>
-<script src="/js/jquery.showLoading.js"></script>
+<script src="/js/libraries/jquery-1.11.1.js"></script>
+<script src="/js/libraries/jquery.showLoading.js"></script>
 <script src="/js/common/bootJs.js"></script>
 <script src="/room/script/drop.js"></script>
 <script src="/js/effect.js"></script>

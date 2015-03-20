@@ -1,0 +1,14 @@
+{
+  "name": "DD_belatedPNG",
+  "homepage": "https://github.com/plus2/DD_belatedPNG",
+  "_release": "bda3269676",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "bda326967679c600aa0f08d6a1f14a9ed98b1eb5"
+  },
+  "_source": "https://github.com/plus2/DD_belatedPNG.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/plus2/DD_belatedPNG.git",
+  "_direct": true
+}

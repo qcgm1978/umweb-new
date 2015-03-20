@@ -72,9 +72,9 @@
             <div class="outZone"><span>分离区</span></div>
         </div>
         <!--头部 end-->
-        <script type="text/javascript" src="/js/jquery-1.11.1.js"></script>
+        <script type="text/javascript" src="/js/libraries/jquery-1.11.1.js"></script>
         <script type="text/javascript" src="/js/common/bootJs.js"></script>
-        <script type="text/javascript" src="/js/jquery.showLoading.js"></script>
+        <script type="text/javascript" src="/js/libraries/jquery.showLoading.js"></script>
         <script src="/js/xid.js"></script>
         <!--[if IE 6]>
         <script type="text/javascript" src="js/DD_belatedPNG.js"></script>

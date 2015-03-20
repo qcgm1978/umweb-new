@@ -102,7 +102,7 @@ module.exports = function (grunt) {
                     exclude: /(\.min)|(jquery.*)|(swfobject)\.js$/    // excludes source files finishing with ".min.js"
                 },
                 files: {
-                    'docs/code-complexity-report': ['js/*.js','room/script/**/*.js','!ajax.js','!content_zoom.js','!base64.js','!fauxconsole.js']
+                    'docs/code-complexity-report': ['js/*.js','room/script/**/*.js','!js/libraries/*.js']
                 }
             }
         }
