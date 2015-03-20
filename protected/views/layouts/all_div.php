@@ -15,7 +15,7 @@ if ($user_info = User::info()) {
 
     var islogined = '<?php echo $login ?>';
 </script>
-<script type="text/javascript" src="/js/login_reg.js"></script>
+<script type="text/javascript" src="/js/common/login_reg.js"></script>
 <div style="height:10px;font-size:15px;display: none;">
     <span id="tips01">提示01</span>
     <span id="tips02">提示02</span>

@@ -17,7 +17,7 @@
     <link href="/css/master.css" rel="stylesheet" type="text/css"/>
     <link href="/css/showLoading.css" rel="stylesheet" type="text/css"/>
 
-    <link href="/room/css/kefu.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/kefu.css" rel="stylesheet" type="text/css"/>
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/live.css" rel="stylesheet" type="text/css"/>
 
@@ -32,23 +32,23 @@
             display: block
         }
     </style>
-    <script src="/js/xid.js"></script>
+    <script src="/js/common/xid.js"></script>
 
-    <script src="/room/script/chat_v1.source.js"></script>
+    <script src="/js/view/room/chat_v1.source.js"></script>
 
-    <link href="/room/css/room.css" rel="stylesheet">
+    <link href="/css/room.css" rel="stylesheet">
 
     <script src="/js/libraries/swfobject.js"></script>
 
     <script src="/js/libraries/base64.js"></script>
 
-    <script src="/room/script/xchat.js"></script>
+    <script src="/js/view/room/xchat.js"></script>
 
-    <script src="/room/script/video_swf.js"></script>
+    <script src="/js/view/room/video_swf.js"></script>
 
-    <script src="/room/script/gift.js"></script>
+    <script src="/js/view/room/gift.js"></script>
 
-    <script src="/room/script/car.js"></script>
+    <script src="/js/view/room/car.js"></script>
 
     <link href="/css/master.css" rel="stylesheet" type="text/css"/>
 
@@ -742,10 +742,10 @@
 <script src="/js/libraries/jquery-1.11.1.js"></script>
 <script src="/js/libraries/jquery.showLoading.js"></script>
 <script src="/js/common/bootJs.js"></script>
-<script src="/room/script/drop.js"></script>
-<script src="/js/effect.js"></script>
+<script src="/js/view/room/drop.js"></script>
+<script src="/js/view/room/effect.js"></script>
 <script src="/js/common/utils.source.js"></script>
-<script src="/js/login_reg.js"></script>
+<script src="/js/common/login_reg.js"></script>
 <script>
     $(function () {
         if (readcookie("xid") == '') {
@@ -838,8 +838,8 @@
         );
     }
 </script>
-<script src="/js/room_main.js"></script>
+<script src="/js/view/room/room_main.js"></script>
 <?php $this->renderPartial('/layouts/all_div'); ?>
-<script src="/js/send-gift.js"></script>
+<script src="/js/view/room/send-gift.js"></script>
 </body>
 </html>

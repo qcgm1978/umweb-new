@@ -1,17 +1,5 @@
 module.exports = function (grunt) {
     'use strict';
-    //require('nopt-grunt')(grunt);
-    //grunt.initOptions({
-    //    // longhand
-    //    'no-sort': {
-    //        info: 'Some flag of interest.',
-    //        type: Boolean
-    //    },
-    //
-    //    // shorthand
-    //    bar: [Number, null]
-    //});
-    // Project configuration
     grunt.initConfig({
         // Metadata
         pkg: grunt.file.readJSON('package.json'),
@@ -20,63 +8,7 @@ module.exports = function (grunt) {
             '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
             '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
             ' Licensed <%= props.license %> */\n',
-        // Task configuration
-        concat: {
-            options: {
-                banner: '<%= banner %>',
-                stripBanners: true
-            },
-            dist: {
-                src: ['lib/umweb remote.js'],
-                dest: 'dist/umweb remote.js'
-            }
-        },
-        uglify: {
-            options: {
-                banner: '<%= banner %>'
-            },
-            dist: {
-                src: '<%= concat.dist.dest %>',
-                dest: 'dist/umweb remote.min.js'
-            }
-        },
-        jshint: {
-            options: {
-                node: true,
-                curly: true,
-                eqeqeq: true,
-                immed: true,
-                latedef: true,
-                newcap: true,
-                noarg: true,
-                sub: true,
-                undef: true,
-                unused: true,
-                eqnull: true,
-                browser: true,
-                globals: { jQuery: true },
-                boss: true
-            },
-            gruntfile: {
-                src: 'gruntfile.js'
-            },
-            lib_test: {
-                src: ['lib/**/*.js', 'test/**/*.js']
-            }
-        },
-        qunit: {
-            files: ['test/**/*.html']
-        },
-        watch: {
-            gruntfile: {
-                files: '<%= jshint.gruntfile.src %>',
-                tasks: ['jshint:gruntfile']
-            },
-            lib_test: {
-                files: '<%= jshint.lib_test.src %>',
-                tasks: ['jshint:lib_test', 'qunit']
-            }
-        },
+
         yuidoc: {
             compile: {
                 name: '<%= pkg.name %>',
@@ -99,14 +31,13 @@ module.exports = function (grunt) {
                 options : {
                     //jshint : false,
                     switchcase : false,
-                    exclude: /(\.min)|(jquery.*)|(swfobject)\.js$/    // excludes source files finishing with ".min.js"
+                    //exclude: /(\.min)|(jquery.*)/    // excludes source files finishing with ".min.js"
                 },
                 files: {
-                    'docs/code-complexity-report': ['js/*.js','room/script/**/*.js','!js/libraries/*.js']
+                    'docs/code-complexity-report': ['js/**/*.js','room/script/**/*.js','!js/libraries/**/*.js']
                 }
             }
         }
-    //    $ grasp -r -e 'calc($u, $t, $a, $n, $c)' -R 'calc({ user: {{u}}, target: {{t}}, action: {{a}}, amount: {{n}}, clear: {{c}} })' .
     });
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
     grunt.loadNpmTasks('grunt-readme');

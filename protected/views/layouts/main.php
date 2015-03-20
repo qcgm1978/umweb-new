@@ -75,7 +75,7 @@
         <script type="text/javascript" src="/js/libraries/jquery-1.11.1.js"></script>
         <script type="text/javascript" src="/js/common/bootJs.js"></script>
         <script type="text/javascript" src="/js/libraries/jquery.showLoading.js"></script>
-        <script src="/js/xid.js"></script>
+        <script src="/js/common/xid.js"></script>
         <!--[if IE 6]>
         <script type="text/javascript" src="js/DD_belatedPNG.js"></script>
         <script language="javascript" type="text/javascript">
