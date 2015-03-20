@@ -32,23 +32,9 @@
             display: block
         }
     </style>
-    <script src="/js/common/xid.js"></script>
-
-    <script src="/js/view/room/chat_v1.source.js"></script>
 
     <link href="/css/room.css" rel="stylesheet">
 
-    <script src="/js/libraries/swfobject.js"></script>
-
-    <script src="/js/libraries/base64.js"></script>
-
-    <script src="/js/view/room/xchat.js"></script>
-
-    <script src="/js/view/room/video_swf.js"></script>
-
-    <script src="/js/view/room/gift.js"></script>
-
-    <script src="/js/view/room/car.js"></script>
 
     <link href="/css/master.css" rel="stylesheet" type="text/css"/>
 
@@ -739,9 +725,25 @@
 <!-- 头部logo end-->
 <div id="xchat"></div>
 <div id="gift_display" class="gift_show"></div>
+<script src="/js/common/xid.js"></script>
+
+<script src="/js/view/room/chat_v1.source.js"></script>
+
+<script src="/js/libraries/swfobject.js"></script>
+
+<script src="/js/libraries/base64.js"></script>
+
+<script src="/js/view/room/xchat.js"></script>
+
+<script src="/js/view/room/video_swf.js"></script>
+
+<script src="/js/view/room/gift.js"></script>
+
+<script src="/js/view/room/car.js"></script>
 <script src="/js/libraries/jquery-1.11.1.js"></script>
 <script src="/js/libraries/jquery.showLoading.js"></script>
 <script src="/js/common/general.js"></script>
+<script src="/js/view/room/controller.js"></script>
 <script src="/js/view/room/drop.js"></script>
 <script src="/js/view/room/effect.js"></script>
 <script src="/js/common/utils.source.js"></script>

@@ -29,8 +29,8 @@
                     <!--我管理的登录后-->
                     <div class="manageShow">
                         <ol>
-                        <?php if($m = User::managedAnchor()): ?>
-                            <?php foreach ($m as $i => $one): ?>
+                        <?php if($m = User::managedAnchor(1, 3)): ?>
+                            <?php foreach ($m['list'] as $i => $one): ?>
                                 <li>
                                 <span class="authorName"><a href="/<?php echo $one['anchor_id']?>" title="" target="_blank"><?php echo $one['room_name']?></a></span>
                                 <span class="msliveState"><?php if($one['start_time']!=''): ?><?php echo $one['start_time'];?>开播<?php else: ?>暂未直播<?php endif ?></span>
@@ -63,8 +63,8 @@
                     <!--我关注的登录后-->
                     <div class="manageShow">
                         <ol>
-                            <?php if($m = User::favoriteAnchor()): ?>
-                                <?php foreach ($m as $i => $one): ?>
+                            <?php if($m = User::favoriteAnchor(1, 3)): ?>
+                                <?php foreach ($m['list'] as $i => $one): ?>
                             <li>
                                 <span class="authorName"><a href="/<?php echo $one['anchor_id']?>" title="" target="_blank"><?php echo $one['room_name']?></a></span>
                                 <span class="msliveState"><?php if($one['start_time']!=''): ?><?php echo $one['start_time'];?>开播<?php else: ?>暂未直播<?php endif ?></span>
