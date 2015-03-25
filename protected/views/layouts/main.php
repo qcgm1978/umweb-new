@@ -70,7 +70,7 @@
         </div>
         <!--头部 end-->
         <script type="text/javascript" src="/js/libraries/jquery-1.11.1.js"></script>
-        <script type="text/javascript" src="/js/common/general.js"></script>
+<!--        <script type="text/javascript" src="/js/common/general.js"></script>-->
         <script type="text/javascript" src="/js/libraries/jquery.showLoading.js"></script>
         <script src="/js/common/xid.js"></script>
         <!--[if IE 6]>
@@ -81,6 +81,9 @@
         </script>
         <![endif]-->
         <script>
+            if(!/pay/.test(location.href)){
+                $.getScript("/js/common/general.js")
+            }
             var _hmt = _hmt || [];
             (function () {
                 var hm = document.createElement("script");

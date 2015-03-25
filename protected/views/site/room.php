@@ -62,7 +62,7 @@
                         <div class="lrBefore">
                             <span class="loginLink"><a href="javascript:;" id="loginBox" title="">登录</a></span>
                             <span class="registerLink"><a href="javascript:;" id="registerBox" title="">注册</a></span>
-                            <span class="registerLink"><a href="/help/anchor" title="" target="_blank">反馈</a></span>
+                            <span class="registerLink"><a href="/service/index/type/3" title="" target="_blank">反馈</a></span>
                         </div>
                     <?php else: ?>
                         <!--登录前 end-->
@@ -78,7 +78,7 @@
                             <!--U币数量 end-->
                             <span class="reCharge"><a href="/pay.php" title="" target="_blank">充值</a></span>
                             <span class="exitIco"><a href="/user/logout" id="out" title="">退出</a></span>
-                            <span class="registerLink"><a href="/help/anchor" title="" target="_blank">反馈</a></span>
+                            <span class="registerLink"><a href="/service/index/type/3" title="" target="_blank">反馈</a></span>
                         </div>
                         <!--登录后 end-->
                     <?php endif ?>
@@ -753,13 +753,7 @@
             setCookie("xid", new Date().getTime() + ":" + "");
         }
     });
-    var _hmt = _hmt || [];
-    (function () {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?b2f6208338d5d0e7314443606931adf7";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
+
     (function () {
         if (!
                 /*@cc_on!@*/

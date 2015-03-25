@@ -70,45 +70,7 @@ User.prototype = {
         }
         s += '</i></div>';
         s += '<div class="lmlInfor">';
-        //if (this.appdata.roomer || this.appdata.title>0 || this.appdata.vip>0 || this.appdata.vip2>0 || this.appdata.watchman>0 || this.level==900 || this.appdata.agency>0){
-        if (this.appdata.roomer) {
-            s += '<i class="zhuboIco zb' + this.appdata.starlevel + '"></i>';
-        }
-        else {
-            if (this.appdata.title > 999999999) {
-                s += '<img src="/room/images/title/t' + this.appdata.title + '.gif">';
-            }
-            if (this.appdata.vip > 0) {
-                s += '<i class="jwIco V' + this.appdata.vip + '"></i>';
-            } else {
-                if ((this.appdata.nicegid + "").length < 9 && this.appdata.watchman <= 0 && !this.appdata.roomer) {
-                    s += '<i class="lmIco"></i>';
-                }
-            }
-            if (this.appdata.vip2 > 0) {
-                s += '<i class="vipIco"></i>';
-            }
-            if (this.appdata.watchman > 0) {
-                s += '<i class="xunIco"></i>';
-            }
-            else {
-                if (this.level == 900) {
-                    s += '<i class="manageIco"></i>';
-                }
-            }
-            if (this.appdata.agency > 0) {
-                s += '<img src="/images/room/role/r128.gif">';
-            }
-        }
-        //}
-        if (this.appdata.family_name && Base64.decode(this.appdata.family_name) != "0") {
-            s += '<i class="clubIcoText"><em>' + Base64.decode(this.appdata.family_name) + '</em></i>';
-        }
-        //if (this.appdata.family_id){
-        //	s += '<img src="/upload/family_img/'+this.appdata.family_id+'.png">';
-        //}
-        s += '</div></li>';
-        return s;
+        return uu89pub.getIconStr.call(uu89pub, this.appdata, s, '</div></li>');
     },
     IsAdmin: function () {
         if (this.level == 900)
@@ -139,10 +101,7 @@ User.prototype = {
     AddToMemberListUI: function (before_user) {
         var data = {user: this};
         var element = $("<li>").attr("id", this.uid).append(this.hint()
-        ).click(data, function (event) {
-                //$(this).addClass("active");
-                ////event.data.user.Selected();
-            });
+        );
         if (before_user == null) {
             var room_member_list = '#con_th_1';
             $(room_member_list).append(element);
@@ -169,34 +128,9 @@ User.prototype = {
     DisplayMenu: function (para, x, y) {
         g_UserList.menu_selected_uid = para.uid;
         this.ControlMenuItem(para);
-        var viewHeight = $(window).height();
-        var useMeHeight = $(".userMenu").height();
         var userMenu = $(".userMenu");
-        var info = '<h2><strong>' + para.appdata.nickname + '</strong><span>' + para.uid + '</span></h2><p>';
-        if (para.appdata.roomer) {
-            info += '<i class="zhuboIco zb' + para.appdata.starlevel + '"></i>';
-        }
-        if (para.appdata.vip > 0) {
-            info += '<i class="jwIco V' + para.appdata.vip + '"></i>';
-        } else {
-            if ((para.appdata.nicegid + "").length < 9 && para.appdata.watchman <= 0 && !para.appdata.roomer) {
-                info += '<i class="lmIco"></i>';
-            }
-        }
-        if (para.appdata.vip2 > 0) {
-            info += '<i class="vipIco"></i>';
-        }
-        if (para.appdata.watchman > 0) {
-            info += '<i class="xunIco"></i>';
-        }
-        else {
-            if (para.level == 900) {
-                info += '<i class="manageIco"></i>';
-            }
-        }
-        if (para.appdata.family_name && Base64.decode(para.appdata.family_name) != "0") {
-            info += '<i class="clubIcoText"><em>' + Base64.decode(para.appdata.family_name) + '</em></i>';
-        }
+        var info = '<h2><strong>' + para.appdata.nickname + '</strong><span>' + para.uid + '</span></h2>';
+        info += uu89pub.getIconStr.call(uu89pub, para.appdata, '<p>', '</p>');
         info += '</p><span class="umInforCorner"></span>';
         $(".umInfor").html(info);
         viewHeight = $(window).height();
@@ -1031,7 +965,7 @@ function xchat_swf_message_new(pid, param) {
                 message_display.prv('<font color="#FF4444">主播欢迎你:</font>' + room_welcome + '');
                 xMessager.logined = true;
                 xMessager.uid = param.uid;
-                owshowcar();
+                //owshowcar();
             }
             break;
         case 122:

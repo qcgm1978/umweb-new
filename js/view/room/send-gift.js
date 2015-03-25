@@ -108,7 +108,6 @@ function SendGift() {
         });
 }
 $(function () {
-    makeGitfTip();
     SiteCommon.setChatDialog($('#gift_count'), function (data) {
         SendGift()
     })

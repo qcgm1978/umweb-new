@@ -124,6 +124,7 @@ function load_gift_list() {
     $.get(url, function (result) {
             //console.log('load_gift_message. ' + result);
             $('#liwu').html(result);
+            makeGitfTip();
         }
     );
 }
@@ -259,10 +260,10 @@ function owshowcar() {
         var nickname = nicknameIniVal;
         userpara.nickname = nickname;
         showcar(userpara);
-    } else {
+    } /*else {
         userpara.nickname = Base64.decode(userpara.nickname_b64);
         member_in_out_hint(userpara, 1);
-    }
+    }*/
 }
 function showcar(appdata) {
     var url = '/room/car/id/' + appdata.car_id;

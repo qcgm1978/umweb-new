@@ -291,6 +291,7 @@ a.lmaBut{display:block;float:right;display:inline;margin:6px 8px 0px 0px;width:2
     /*display:block;*/
     color:#D9D9D9;
     font-size: 14px;
+    width:80%;
 }
 .lcList li .lcWord img{display:inline-block; vertical-align:middle;}
 .lcListNew li .lcWord{font-size:14px;width: 80%;}

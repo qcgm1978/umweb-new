@@ -234,73 +234,68 @@ chat.prototype = {
         var e_id = user.fromwho.gid + "_" + makeid();
         var e_id_1 = user.sendwho.gid + "_" + makeid();
         this.insert('<a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + user.fromwho.gid + ')"><span class="username">' + user.fromwho.nickname + '</span></a>&nbsp;对&nbsp;<a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + user.sendwho.gid + ')"><span class="username">' + user.sendwho.nickname + '</span></a>&nbsp;说：' + fl);
-        //install_user_click(e_id,this.chat_type,user.fromwho.gid);
-        //install_user_click(e_id_1,this.chat_type,user.sendwho.gid);
     },
     // 人员进出房间
     disinout: function (info) {
-        var type = (info.type == 1) ? '进入房间</div>' : '离开房间</div>';
-        var prefix = (info.type == 1) ? '<div class="lcWord">欢迎 ' : '<div class="lcWord">欢送 ';//;
-        if ((info.nicegid + "").length > 8 && info.type == 1) {
-            this.insert(prefix + '<span class="green"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + info.gid + ')">' + info.nickname + '</a></span>&nbsp;' + type);
+        if (info.type != 1) { //只显示进入房间信息
             return;
         }
-        var carmsg = '';
+        var strEnd = (info.type == 1) ? '进入房间</div>' : '离开房间</div>';
+        var strStart = (info.type == 1) ? '<div class="lcWord">欢迎 ' : '<div class="lcWord">欢送 ';
+        var strCar = '';
         if (parseInt(info.car_id) > 0) {
-            carmsg = info.carmsg;
-            type = '</div>';
+            strCar = info.carmsg;
+            strEnd = '</div>';
         }
-        var timg = info.vip && !info.roomer ? '<i class="jwIco V' + info.vip + '"></i>' : '';
-        if (!info.vip && !info.roomer && !info.watchman && (info.nicegid + "").length <= 8) {
-            timg = '<i class="lmIco"></i>';
+        var color = (info.nicegid + "").length > 8 ? 'green' : 'purple'
+        var niceGid = (info.nicegid !== 0) ? '(<u>' + info.nicegid + '</u>)' : '(' + info.gid + ')';
+        var strTxt = '<span class="' +
+            color +
+            '">' +
+            '<a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + info.gid + ')">' + info.nickname + niceGid + '</a></span>';
+        this.insert(this.getIconStr.call(this, info, strStart, strTxt + strCar + strEnd))
+    },
+    getIconStr: function (info, start, end) {
+        end = end || '';
+        start = start || '';
+        var consumeGrade = info.vip ? '<i class="jwIco V' + info.vip + '"></i>' : '<i class="lmIco"></i>';
+        var strVip = info.vip2 ? '<i class="vipIco"></i>' : '';
+        var strAdmin = info.level >= 900 ? '<i class="manageIco"></i>' : '';
+        var strWatchman = info.watchman ? '<i class="xunIco"></i>' : '';
+        var isAnchor = (info.roomer == 4);
+        var strAnchor = (isAnchor) ? '<i class="zhuboIco zb' + info.starlevel + '"></i>' : '';
+        var strGoodCode = (info.nicegid + "").length < 8 ? '<i class="lhIco"></i>' : '';
+        var strFamily = Base64.decode(info.family_name) != "" ? '<i class="clubIcoText"><em>' + Base64.decode(info.family_name) + '</em></i>' : '';
+        /**
+         * Description: how to display user info
+         *
+         * @method
+         */
+        var infoEnd = end;
+        var strFull = start
+        //todo roomer is 0 or 1 currently, set 4 temp
+        info.roomer=4
+        if (info.roomer == 0) {//游客
+            strFull += ''
+        } else if (info.watchman > 0) {//watchman
+            strFull += strWatchman
+        } else if (isAnchor) {//anchor
+            strFull += strAnchor + consumeGrade + strVip + strFamily
+        } else {
+            strFull += consumeGrade + strVip + strGoodCode + strAdmin + strFamily
         }
-        var vimg = info.vip2 ? '<i class="vipIco"></i>' : '';
-        var adminimg = info.levelinroom == 900 ? '<i class="manageIco"></i>' : '';
-        var watchmanimg = info.watchman ? '<i class="xunIco"></i>' : '';
-        var simg = info.roomer ? '<i class="zhuboIco zb' + info.starlevel + '"></i>' : '';
-        var e_id = info.gid + "_" + makeid();
-        var nicegid = (info.nicegid + "").length < 8 ? '(<u>' + info.nicegid + '</u>)' : '(' + info.nicegid + ')';
-        var lhimg = (info.nicegid + "").length < 8 ? '<i class="lhIco"></i>' : '';
-        var fimg = Base64.decode(info.family_name) != "0" ? '<i class="clubIcoText"><em>' + Base64.decode(info.family_name) + '</em></i>' : '';
-        if (info.type == 1) { //只显示进入房间信息
-            if (info.title || info.vip || info.roomer || info.levelinroom == 900 || info.vip2) {
-                this.insert(prefix + simg + timg + vimg + adminimg + watchmanimg + fimg + '<span class="purple"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + info.gid + ')">' + info.nickname + nicegid + '</a></span>' + lhimg + carmsg + type);
-            } else {
-                this.insert(prefix + timg + adminimg + watchmanimg + fimg + '<span class="purple"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + info.gid + ')">' + info.nickname + nicegid + '</a></span>' + lhimg + carmsg + type);
-            }
-        }
+        return strFull + infoEnd
     },
     display_chatmessage: function (chatdata) {
         if (this.kw_filter) {
             chatdata.message = chatdata.message.replace(this.kw_filter, '***');
         }
-        //alert(chatdata.message);
-        //'/' html escaped. &#47;
         chatdata.message = chatdata.message.replace(/&#47;b(\d+)/g, "<img src='" + ImageBase + "/room/images/emotion/$1.gif'>");
-        var t = '<div class="lcWord">';
+        var start = '<div class="lcWord">';
+        var info = chatdata.fromu.appdata;
         if (chatdata.touid) {
             var tou = chatdata.tou.appdata;
-            var toadminimg = tou.tolevelinroom == 900 && !tou.towatchman ? '<i class="manageIco"></i>' : '';
-            var towatchmanimg = tou.watchman ? '<i class="xunIco"></i>' : '';
-            var tosimg = tou.roomer ? '<i class="zhuboIco zb' + tou.starlevel + '"></i>' : '';
-            var tovimg = tou.vip2 ? '<i class="vipIco"></i>' : '';
-            var totimg = tou.vip && !tou.roomer ? '<i class="jwIco V' + tou.vip + '"></i>' : '';
-            var tofimg = Base64.decode(tou.family_name) != "0" ? '<i class="clubIcoText"><em>' + Base64.decode(tou.family_name) + '</em></i>' : '';
             var togid = (tou.nicegid + "").length < 8 ? '(<u>' + tou.nicegid + '</u>)<i class="lhIco"></i>' : '(' + tou.nicegid + ')';
-            if (!tou.vip && !tou.roomer && !tou.watchman && (tou.nicegid + "").length <= 8) {
-                totimg = '<i class="lmIco"></i>';
-            }
-        }
-        var fromu = chatdata.fromu.appdata;
-        var watchmanimg = fromu.watchman ? '<i class="xunIco"></i>' : '';
-        var adminimg = fromu.levelinroom == 900 && !fromu.watchman ? '<i class="manageIco"></i>' : '';
-        var simg = fromu.roomer ? '<i class="zhuboIco zb' + fromu.starlevel + '"></i>' : '';
-        var vimg = fromu.vip2 ? '<i class="vipIco"></i>' : '';
-        var timg = fromu.vip && !fromu.roomer ? '<i class="jwIco V' + fromu.vip + '"></i>' : '';
-        var fimg = Base64.decode(fromu.family_name) != "0" ? '<i class="clubIcoText"><em>' + Base64.decode(fromu.family_name) + '</em></i>' : '';
-        var fgid = (fromu.nicegid + "").length < 8 ? '(<u>' + fromu.nicegid + '</u>)<i class="lhIco"></i>' : '(' + fromu.nicegid + ')';
-        if (!fromu.vip && !fromu.roomer && !fromu.watchman && (fromu.nicegid + "").length <= 8) {
-            timg = '<i class="lmIco"></i>';
         }
         var my_css = "cyan";
         var to_css = "cyan";
@@ -325,19 +320,31 @@ chat.prototype = {
         if (!chatdata.is_my && !chatdata.is_my_to) {
             to_css = "yellow";
         }
+        var end = ''
         if (chatdata.touid == 0) {
-            t += simg + timg + vimg + fimg + watchmanimg + adminimg + '<span class="greenLight"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.uid + ')">' + chatdata.nickname + fgid + '</a></span> 说:<span class="' + msg_css + '">' + chatdata.message + '</span>';
-            this.insert(t);
+            end += '<span class="greenLight"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.uid + ')">' + chatdata.nickname + '</a></span>' +
+            ' 说:<span class="' + msg_css + '">' + chatdata.message + '</span>';
         }
         else {
+            var senderIcons=''
+            if (chatdata.is_my) {
+                senderIcons = this.getIconStr.call(this, tou);
+            }
             if (chatdata.secret) {
-                t += simg + timg + vimg + fimg + watchmanimg + adminimg + '<span class="' + my_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.uid + ')">' + chatdata.nickname + fgid + '</a></span> 对' + tosimg + totimg + tovimg + tofimg + towatchmanimg + toadminimg + '<span class="' + to_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.touid + ')">' + chatdata.to_nickname + togid + '</a></span>[悄悄的]说:<span class="' + msg_css + '">' + chatdata.message + '</span>';
+                end += '<span class="' + my_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.uid + ')">' + chatdata.nickname + '</a></span> ' +
+                '对' + senderIcons + '<span class="' + to_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.touid + ')">' + chatdata.to_nickname + togid + '</a></span>' +
+                '[悄悄的]说:<span class="' + msg_css + '">' + chatdata.message + '</span>';
             }
             else {
-                t += simg + timg + vimg + fimg + watchmanimg + adminimg + '<span class="' + my_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.uid + ')">' + chatdata.nickname + fgid + '</a></span> 对 ' + tosimg + totimg + tovimg + tofimg + towatchmanimg + toadminimg + '<span class="' + to_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.touid + ')">' + chatdata.to_nickname + togid + '</a></span>说:<span class="' + msg_css + '">' + chatdata.message + '</span>';
+                end += '<span class="' + my_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.uid + ')">' + chatdata.nickname + '</a></span>' +
+                ' 对 ' + senderIcons + '<span class="' + to_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.touid + ')">' + chatdata.to_nickname + togid + '</a></span>说:<span class="' + msg_css + '">' + chatdata.message + '</span>';
             }
-            t += '</div>';
-            this.insert(t);
+            end += '</div>';
+        }
+        if (chatdata.is_my) {
+            this.insert(start + end)
+        } else {
+            this.insert(this.getIconStr.call(this, info, start, end))
         }
     }
 };
