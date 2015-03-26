@@ -69,7 +69,7 @@
                         <!--登录后-->
                         <div class="lrAfter">
                             <!--用户名-->
-                            <span class="userName"><a href="/account.php" title=""
+                            <span class="userName"><a href="/account/info" title=""
                                                       target="_blank"><?php echo $user_info['nickname'] ?></a></span>
                             <!--用户名 end-->
                             <!--U币数量-->
@@ -699,10 +699,10 @@
             <h3 class="tQQ">QQ在线客服</h3>
             <ul>
                 <li class="tli zixun">U美客服01</li>
-                <li><a target="_blank" href="tencent://message/?uin=3152262151&Site=U美&Menu=yes"><img src="img/qq.gif"></a>
+                <li><a target="_blank" href="tencent://message/?uin=3152262151&Site=U美&Menu=yes"><img src="/images/qq.gif"></a>
                 </li>
                 <li class="tli zixun">U美客服02</li>
-                <li><a target="_blank" href="tencent://message/?uin=3057244998&Site=U美&Menu=yes"><img src="img/qq.gif"></a>
+                <li><a target="_blank" href="tencent://message/?uin=3057244998&Site=U美&Menu=yes"><img src="/images/qq.gif"></a>
                 </li>
                 <li class="tli zixun">U美新手咨询群</li>
                 <li class="last"><a target="_blank"

@@ -971,7 +971,7 @@ function xchat_swf_message_new(pid, param) {
                 message_display.prv('<font color="#FF4444">主播欢迎你:</font>' + room_welcome + '');
                 xMessager.logined = true;
                 xMessager.uid = param.uid;
-                owshowcar();
+                //owshowcar();
             }
             break;
         case 122:

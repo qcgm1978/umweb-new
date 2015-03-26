@@ -6,7 +6,7 @@
  * @static
  */
 window.SiteCommon = {
-    anchorVal: 1,//todo roomer is 0 or 1 currently, set 4 temp
+    anchorVal: 4,//todo roomer is 0 or 1 currently, set 4 temp
     SWF_DIR: '/swf/',
     isAnchor: function (roomer) {
         return roomer == this.anchorVal
