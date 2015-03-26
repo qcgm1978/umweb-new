@@ -17,6 +17,19 @@ window.SiteCommon = {
                 func.call(this, $ele);
             }
         });
+    },
+    /**
+     *  @method isMaxUserName
+      * @param begin 截取开始的索引
+      * @param num 截取的长度
+      */
+    substrTrad: function (txt, begin, num) {
+        var ascRegexp = /[^\x00-\xFF]/g, i = 0;
+        while (i < begin) (i++ && this.charAt(i).match(ascRegexp) && begin--);
+        i = begin;
+        var end = begin + num;
+        while (i < end) (i++ && txt.charAt(i).match(ascRegexp) && end--);
+        return txt.substring(begin, end);
     }
 }
 /*二级页面左侧导航*/

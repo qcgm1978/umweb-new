@@ -47,7 +47,7 @@ if ($user_info = User::info()) {
                             <em class="cgIco userNameIco">用户名图标</em>
                             <!--下面注释掉的为删除图标，当输入文字时出现，点击后删掉输入的文字-->
                             <!--em class="keypadIco keypadIcoClose">删除图标</em-->
-                            <input id="regusername" type="text" value="" class="cgInput" placeholder="4~16个字符，不能以数字开头" maxlength="16" autocomplete="off"/>
+                            <input id="regusername" type="text" value="" class="cgInput" placeholder="4~16个字符，不能以数字开头" maxlength="16" pattern=".{4,16}" autocomplete="off"/>
                         </div>
                     </li>
                     <li><!--鼠标点击输入框后，小图标变为粉红色-->

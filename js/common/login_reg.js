@@ -4,7 +4,16 @@
  * @module Login
  *
  */
-autologin(islogined);
+$(function () {
+    autologin(islogined);
+    $('#regusername').keyup(function (event) {
+        var txt = $(this).val();
+        var maxLen = 16;
+        if (txt.length > maxLen / 2) {
+            $(this).val(SiteCommon.substrTrad(txt, 0, maxLen - 1))
+        }
+    })
+});
 function autologin(isLogined) {
     if (isLogined == 0) {
         var delay = 120000;
@@ -93,11 +102,11 @@ function tologin() {
     $("#loginBox").click();
 }
 function change_captcha() {
-    jQuery("#captchaimg").attr("src", "/captcha.php?" + Math.random());
+    jQuery("#captchaimg").attr("src", "/captcha");
     return;
 }
 function change_regcaptcha() {
-    jQuery("#regcaptchaimg").attr("src", "/captcha.php?" + Math.random());
+    jQuery("#regcaptchaimg").attr("src", "/captcha");
     return;
 }
 function checklogin() {
@@ -109,7 +118,6 @@ function checklogin() {
     }
     return true;
 }
-
 /**
  * Description: login in with the third party info, the html commented out
  *
