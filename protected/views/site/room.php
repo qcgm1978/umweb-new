@@ -60,8 +60,8 @@
                     <?php if (!$user_info = User::info()): ?>
                         <!--登录前-->
                         <div class="lrBefore">
-                            <span class="loginLink"><a href="javascript:;" id="loginBox" title="">登录</a></span>
-                            <span class="registerLink"><a href="javascript:;" id="registerBox" title="">注册</a></span>
+                            <span class="loginLink"><a href="javascript:void(0)" id="loginBox" title="">登录</a></span>
+                            <span class="registerLink"><a href="javascript:void(0)" id="registerBox" title="">注册</a></span>
                             <span class="registerLink"><a href="/service/index/type/3" title="" target="_blank">反馈</a></span>
                         </div>
                     <?php else: ?>
@@ -73,10 +73,10 @@
                                                       target="_blank"><?php echo $user_info['nickname'] ?></a></span>
                             <!--用户名 end-->
                             <!--U币数量-->
-                            <span class="goldCoin"><i class="ubIco"></i><a href="/pay.php" title="" target="_blank"
+                            <span class="goldCoin"><i class="ubIco"></i><a href="/pay/index" title="" target="_blank"
                                                                            id="mycoin"><?php echo $user_info['coin'] ?></a></span>
                             <!--U币数量 end-->
-                            <span class="reCharge"><a href="/pay.php" title="" target="_blank">充值</a></span>
+                            <span class="reCharge"><a href="/pay/index" title="" target="_blank">充值</a></span>
                             <span class="exitIco"><a href="/user/logout" id="out" title="">退出</a></span>
                             <span class="registerLink"><a href="/service/index/type/3" title="" target="_blank">反馈</a></span>
                         </div>
@@ -132,10 +132,10 @@
                     <!--lpRelation-->
                     <div class="lpRelation">
                         <!--关注-->
-                        <span class="lpFocusIco" id="userfav"><?php if ($is_fav): ?><a href="javascript:;"
+                        <span class="lpFocusIco" id="userfav"><?php if ($is_fav): ?><a href="javascript:void(0)"
                                                                                        onclick="delfav('<?php echo $room_info['room_id'] ?>')"
                                                                                        class="orangeBtn"><i>取消关注</i>
-                                </a><?php else: ?><a href="javascript:;"
+                                </a><?php else: ?><a href="javascript:void(0)"
                                                      onclick="addfav('<?php echo $room_info['room_id'] ?>')"
                                                      class="orangeBtn"><i>添加关注</i></a><?php endif ?></span>
                         <!--关注 end-->
@@ -297,13 +297,13 @@
                         <div class="lpToDefault">
                             <input type="text" class="inputStyle1" id="gift_name" readonly="readonly"/>
                         </div>
-                        <span class="lpSent"><a class="redBtn" title="" href="javascript:;"
+                        <span class="lpSent"><a class="redBtn" title="" href="javascript:void(0)"
                                                 onclick='javascript:SendGift()'><i>赠送</i></a></span>
-                        <span class="lpCharge"><a class="whiteBtn" title="" href="javascript:;"
-                                                  onclick="window.open('/pay.php')"><i>充值</i></a></span>
-                        <span><a href="/shop.php?act=vipshop" target="_shop" title=""
+                        <span class="lpCharge"><a class="whiteBtn" title="" href="javascript:void(0)"
+                                                  onclick="window.open('/pay/index')"><i>充值</i></a></span>
+                        <span><a href="/shop/vip" target="_shop" title=""
                                  class="redSmall"><i>VIP</i></a></span>
-                        <span><a href="/shop.php?act=mycar" target="_account" class="redSmall"><i>我的座驾</i></a></span>
+                        <span><a href="/shop/car" target="_account" class="redSmall"><i>我的座驾</i></a></span>
                     </div>
                     <!--送礼物 end-->
                 </div>
@@ -490,12 +490,12 @@
                             <div class="liveScrollMain">
                                 <!--清屏浮层-->
                                 <div class="popfn">
-                                    <span class="popClear"><a href="javascript:;" onclick="uu89pub.userclear();"
+                                    <span class="popClear"><a href="javascript:void(0)" onclick="uu89pub.userclear();"
                                                               title="">清屏</a></span>
-                                    <span class="popScroll  popScrollNo" id="popScrollPubYes"><a href="javascript:;"
+                                    <span class="popScroll  popScrollNo" id="popScrollPubYes"><a href="javascript:void(0)"
                                                                                                  title=""
                                                                                                  onclick="beginScrollTimerpub()">滚屏</a></span>
-                                    <span class="popScroll" id="popScrollPubNo"><a href="javascript:;" title=""
+                                    <span class="popScroll" id="popScrollPubNo"><a href="javascript:void(0)" title=""
                                                                                    onclick="clearScrollTimerpub()">滚屏</a></span>
                                 </div>
                                 <!--清屏浮层 end-->
@@ -520,12 +520,12 @@
                             <div class="liveScrollMain">
                                 <!--清屏浮层-->
                                 <div class="popfn">
-                                    <span class="popClear"><a href="javascript:;" onclick="uu89prv.userclear();"
+                                    <span class="popClear"><a href="javascript:void(0)" onclick="uu89prv.userclear();"
                                                               title="">清屏</a></span>
-                                    <span class="popScroll  popScrollNo" id="popScrollPrvYes"><a href="javascript:;"
+                                    <span class="popScroll  popScrollNo" id="popScrollPrvYes"><a href="javascript:void(0)"
                                                                                                  onclick="beginScrollTimerprv();"
                                                                                                  title="">滚屏</a></span>
-                                    <span class="popScroll" id="popScrollPrvNo"><a href="javascript:;"
+                                    <span class="popScroll" id="popScrollPrvNo"><a href="javascript:void(0)"
                                                                                    onclick="clearScrollTimerprv();"
                                                                                    title="">滚屏</a></span>
                                 </div>
@@ -566,7 +566,7 @@
                             <!--lwfBot-->
                             <div class="lwfBot">
                                 <span class="lwfInput"><input name="" type="text" id="message_input"/></span>
-                                <span class="lwfBtn"><a href="javascript:;" title="" class="redBtn" id="message_btn"><i>发表</i></a></span>
+                                <span class="lwfBtn"><a href="javascript:void(0)" title="" class="redBtn" id="message_btn"><i>发表</i></a></span>
                             </div>
                             <!--lwfBot end-->
                             <!--lwfFaceList-->
@@ -614,7 +614,7 @@
                     <p>还能输入<i>45</i>字</p>
                     <span class="rwSubRight">
                     	<img src="css/img/castWordIco.jpg" align="middle"/>
-                    	<a href="javascript:;" title="" class="pinkBtn" onclick="sendspeaker()"><i>发言</i></a>
+                    	<a href="javascript:void(0)" title="" class="pinkBtn" onclick="sendspeaker()"><i>发言</i></a>
                     </span>
                 </div>
             </div>
@@ -650,17 +650,17 @@
     <!--umFn-->
     <div class="umFn">
         <ul>
-            <li><a href="javascript:;" id="m_gift" title="">送礼物</a></li>
-            <li><a href="javascript:;" id="m_chat" title="">公聊</a></li>
-            <li><a href="javascript:;" id="m_chat_p" title="">私聊</a></li>
+            <li><a href="javascript:void(0)" id="m_gift" title="">送礼物</a></li>
+            <li><a href="javascript:void(0)" id="m_chat" title="">公聊</a></li>
+            <li><a href="javascript:void(0)" id="m_chat_p" title="">私聊</a></li>
         </ul>
         <?php if ($level > 900): ?>
-            <ul>
+            <ul class="J_manage">
                 <?php if ($level == 2000): ?>
-                    <li><a href="javascript:;" id="m_setadmin" title="">加管理/取消管理</a></li>
+                    <li><a href="javascript:void(0)" id="m_setadmin" title="">加管理/取消管理</a></li>
                 <?php endif ?>
-                <li><a href="javascript:;" id="m_disable_chat" title="">禁言</a></li>
-                <li><a href="javascript:;" id="m_kick" title="">踢出房间</a></li>
+                <li><a href="javascript:void(0)" id="m_disable_chat" title="">禁言</a></li>
+                <li><a href="javascript:void(0)" id="m_kick" title="">踢出房间</a></li>
             </ul>
         <?php endif ?>
         <?php if ($anchor_info['is_watcher']): ?>

@@ -6,7 +6,11 @@
  * @static
  */
 window.SiteCommon = {
-    SWF_DIR:'/swf/',
+    anchorVal: 1,//todo roomer is 0 or 1 currently, set 4 temp
+    SWF_DIR: '/swf/',
+    isAnchor: function (roomer) {
+        return roomer == this.anchorVal
+    },
     setChatDialog: function ($ele, func) {
         $ele.keypress(function (event) {
             if (event.which == 13) {
@@ -15,7 +19,6 @@ window.SiteCommon = {
         });
     }
 }
-
 /*二级页面左侧导航*/
 $(function () {
     var menuSide = $(".menuSide");
@@ -35,7 +38,6 @@ $(function () {
         });
     });
 });
-
 function pos(obj) {
     var lt = {"left": 0, "top": 0};
     while (obj) {
@@ -60,7 +62,6 @@ function scrollLT() {
     lt.top = document.body.scrollTop || document.documentElement.scrollTop;
     return lt;
 };
-
 /* 登陆注册层 */
 $(function () {
     SiteCommon.setChatDialog($('.controlGroup input'), function (data) {

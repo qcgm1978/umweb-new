@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title><?php if (isset($this->title) && $this->title) echo $this->title; else echo "U美网"; ?> | U美网直播社区 - 美女主播 - 美女秀场
         - 视频聊天 - 视频交友 </title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=8,chrome=1">
     <meta name="keywords" content="美女,主播,秀场,视频,直播间,交友,美女主播,美女秀场,美女视频,美女聊天,视频直播,视频聊天,视频交友"/>
     <meta name="description" content="U美直播社区是U美网旗下的大型真人视频互动直播社区,拥有众多美女主播,支持多人同时在线视频聊天,K歌跳舞,才艺表演.赶快加入,免费与美女主播互动聊天."/>
     <meta property="qc:admins" content="35501602246555156375"/>

@@ -2,6 +2,8 @@
  * Provides chat interaction
  *
  * @module xchat
+ * @method CalcRank
+ * compare ranks of different users' order
  */
 function CalcRank(appdata) {
     var score = 0;
@@ -134,37 +136,21 @@ User.prototype = {
         info += '</p><span class="umInforCorner"></span>';
         $(".umInfor").html(info);
         viewHeight = $(window).height();
-        //$(this).addClass("current").siblings().removeClass("current");
         $(userMenu).css({"display": "block", "left": x + 10, "top": y + 10});
-        //alert(viewHeight);
+        var $chatOption = $('[id^=m_chat]');
+        var $JManage = $('.J_manage');
+        if (SiteCommon.isAnchor(para.appdata.roomer)) {
+            $chatOption.hide()
+            $JManage.show()
+        } else {
+            $chatOption.show()
+            $JManage.hide()
+        }
         if (y + 10 < viewHeight) {
             $(userMenu).css({"left": x + 10, "top": y + 10});
         } else {
             $(userMenu).css({"left": x + 10, "top": 315});
         }
-        //$(".m_nickname").html(para.appdata.nickname);
-        //$(this.menu_id).css({ top: y, left: x })
-        //$(this.menu_id).show();
-        /*
-         window.setTimeout(function(){
-         document.onclick = function (){
-         //关闭右键菜单
-         $("#MemberMenu").hide();
-
-         document.onclick = function (){};
-         };
-         },1000);
-         */
-        /*
-         if (chat_panel.get_menu_flag()==0){
-         chat_panel.set_menu_flag(1);
-         $("#MemberMenu").show();
-         }
-         else{
-         chat_panel.set_menu_flag(0);
-         $("#MemberMenu").hide();
-         }
-         */
     },
     ControlMenuItem: function (para) {
         var ADMIN_LEVEL = 900;
@@ -351,14 +337,33 @@ var g_UserList = {
             $('#secret_check').removeAttr('disabled')
         }
     },
+    isDominated: function (curUserData, newUserData) {
+        //todo to modify or del when CalcRank method not effect
+        var toBeInsert = false
+        // anchor first
+        if (SiteCommon.isAnchor(curUserData.appdata.roomer)) {
+            toBeInsert = false
+        } else if (SiteCommon.isAnchor(newUserData.roomer) ||
+            newUserData.watchman > 0 ||//    is watchman
+            newUserData.vip > curUserData.vip ||//peerage
+            newUserData.rank > curUserData.rank// val from server
+            || (newUserData.rank == curUserData.rank && newUserData.nicegid < curUserData.appdata.nicegid)// nice code comparation
+        ) {
+            toBeInsert = true
+        }
+        return toBeInsert;
+    },
     UserIn: function (user) {
         this.members[user.uid] = user;
         var before_u = null;
         var arrayLength = this.member_ui_array.length;
         for (var i = 0; i < arrayLength; i++) {
-            var u = this.member_ui_array[i];
-            if (user.rank > u.rank || (user.rank == u.rank && user.appdata.nicegid < u.appdata.nicegid)) {
-                before_u = u;
+            var curUserData = this.member_ui_array[i];
+            var newUserData = user.appdata;
+            newUserData.rank = user.rank
+            var toBeInsert = this.isDominated(curUserData, newUserData);
+            if (toBeInsert) {
+                before_u = curUserData;
                 this.member_ui_array.insert(i, user);
                 break;
             }
@@ -514,7 +519,7 @@ var xMessager = {
         }
         message_display.prv('<font class="warning">玩命加载中，请稍后。。。</font>');
         g_UserList.Clear();
-        xchat_start();
+        //xchat_start();
     },
     OnChat: function (chatdata) {
         var is_my_message = false;
@@ -865,7 +870,8 @@ var xchat_swf = {
             uid: swf_param.uid,
             level: swf_param.level,
             token: swf_param.token,
-            appdata: swf_param.appdata
+            appdata: swf_param.appdata,
+            userToken: readcookie("umei_token")
         };
         var params = {};
         params.quality = "high";
@@ -965,11 +971,12 @@ function xchat_swf_message_new(pid, param) {
                 message_display.prv('<font color="#FF4444">主播欢迎你:</font>' + room_welcome + '');
                 xMessager.logined = true;
                 xMessager.uid = param.uid;
-                //owshowcar();
+                owshowcar();
             }
             break;
         case 122:
             var user;
+            param.gid=param.room_id;
             if (param.in_out_hint) {
                 user = new User(param.uid, param.level, param);
                 g_UserList.UserIn(user);

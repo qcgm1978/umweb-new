@@ -103,8 +103,6 @@ function xchat_start() {
     xMessager.init(swfParam);
     xchat_swf.Init(swfParam, 'xchat', null);
 }
-
-
 function SendGiftCB(r) {
     //console.log('SendGiftCB Called.');
     //console.log(r);
@@ -118,7 +116,6 @@ function SendGiftCB(r) {
         xMessager.giftmessage(r.PARAM0, JSON.parse(r.PARAM1), r.PARAM2);
     }
 }
-
 function load_gift_list() {
     var url = '/room/giftList';
     $.get(url, function (result) {
@@ -260,10 +257,11 @@ function owshowcar() {
         var nickname = nicknameIniVal;
         userpara.nickname = nickname;
         showcar(userpara);
-    } /*else {
-        userpara.nickname = Base64.decode(userpara.nickname_b64);
-        member_in_out_hint(userpara, 1);
-    }*/
+    }
+    /*else {
+     userpara.nickname = Base64.decode(userpara.nickname_b64);
+     member_in_out_hint(userpara, 1);
+     }*/
 }
 function showcar(appdata) {
     var url = '/room/car/id/' + appdata.car_id;
@@ -277,6 +275,12 @@ function showcar(appdata) {
             }
         }
     );
+}
+function setFansVal(offset) {
+    $('#anchor_fans').text(function (index, txt) {
+        var num = Number(/\d+/.exec(txt)[0])
+        return txt.replace(/\d+/, num + offset)
+    });
 }
 /**
  * Description: load and render fans num on left-top about anchor info
@@ -300,6 +304,8 @@ function addfav(roomid) {
                 var str = '<a href="javascript:;" onclick="delfav(' + roomid + ');" class="orangeBtn"><i>取消关注</i></a>';
                 jQuery("#userfav").html(str);
                 xMessager.anchorfans();
+                var offset = 1;
+                setFansVal(offset);
             }
         }
     });
@@ -315,6 +321,7 @@ function delfav(roomid) {
                 var str = '<a href="javascript:;" onclick="addfav(' + roomid + ');" class="orangeBtn"><i>添加关注</i></a>';
                 jQuery("#userfav").html(str);
                 xMessager.anchorfans();
+                setFansVal(-1);
             }
         }
     });
@@ -332,7 +339,6 @@ function load_room_recommended() {
         }
     );
 }
-
 /**
  * Description:
  *

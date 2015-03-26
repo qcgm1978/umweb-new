@@ -154,21 +154,6 @@ chat.prototype = {
     // 显示礼物
     disgift: function (gift, win) {
         var self = this;
-        /*
-         if(win == 1) // 公聊区
-         {
-         var showimg = '<img src='+ gift.img +' />';
-         if(gift.type=='S'){	 // 批量显示
-         this.sgift(gift.text, showimg, gift.sum, gift.unit);
-         }
-         else if(gift.type=='B'){ // 刷屏显示
-         this.bgift(gift.text, showimg, gift.sum, gift.unit);
-         }
-         }else{// 私聊区
-         var showimg = '<img src="'+ gift.img +'" height="20"/>';
-         this.insert(gift.text + '&nbsp;' + showimg);
-         }
-         */
         var showimg = '';
         var count = gift.sum > 10 ? 10 : gift.sum;
         if (gift.type == 'S') {
@@ -262,7 +247,7 @@ chat.prototype = {
         var strVip = info.vip2 ? '<i class="vipIco"></i>' : '';
         var strAdmin = info.level >= 900 ? '<i class="manageIco"></i>' : '';
         var strWatchman = info.watchman ? '<i class="xunIco"></i>' : '';
-        var isAnchor = (info.roomer == 4);
+        var isAnchor = SiteCommon.isAnchor(info.roomer);
         var strAnchor = (isAnchor) ? '<i class="zhuboIco zb' + info.starlevel + '"></i>' : '';
         var strGoodCode = (info.nicegid + "").length < 8 ? '<i class="lhIco"></i>' : '';
         var strFamily = Base64.decode(info.family_name) != "" ? '<i class="clubIcoText"><em>' + Base64.decode(info.family_name) + '</em></i>' : '';
@@ -273,13 +258,11 @@ chat.prototype = {
          */
         var infoEnd = end;
         var strFull = start
-        //todo roomer is 0 or 1 currently, set 4 temp
-        info.roomer=4
         if (info.roomer == 0) {//游客
             strFull += ''
         } else if (info.watchman > 0) {//watchman
             strFull += strWatchman
-        } else if (isAnchor) {//anchor
+        } else if (SiteCommon.isAnchor(info.roomer)) {//anchor
             strFull += strAnchor + consumeGrade + strVip + strFamily
         } else {
             strFull += consumeGrade + strVip + strGoodCode + strAdmin + strFamily
@@ -326,7 +309,7 @@ chat.prototype = {
             ' 说:<span class="' + msg_css + '">' + chatdata.message + '</span>';
         }
         else {
-            var senderIcons=''
+            var senderIcons = ''
             if (chatdata.is_my) {
                 senderIcons = this.getIconStr.call(this, tou);
             }

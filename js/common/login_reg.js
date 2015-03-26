@@ -30,7 +30,6 @@ function login() {
         },
         url: "/user/login",
         success: function (data, status) {
-            //console.log(data);
             var ms = JSON.parse(data);
             if (ms.error == 0) {
                 jQuery(".erroTipInfor").html(ms.message);

@@ -47,8 +47,7 @@ if ($user_info = User::info()) {
                             <em class="cgIco userNameIco">用户名图标</em>
                             <!--下面注释掉的为删除图标，当输入文字时出现，点击后删掉输入的文字-->
                             <!--em class="keypadIco keypadIcoClose">删除图标</em-->
-                            <input id="regusername" type="text" value="" class="cgInput" placeholder="用户名"
-                                   autocomplete="off"/>
+                            <input id="regusername" type="text" value="" class="cgInput" placeholder="4~16个字符，不能以数字开头" maxlength="16" autocomplete="off"/>
                         </div>
                     </li>
                     <li><!--鼠标点击输入框后，小图标变为粉红色-->
@@ -56,8 +55,7 @@ if ($user_info = User::info()) {
                             <!--下面注释掉的为删除图标，当输入文字时出现，点击后删掉输入的文字-->
                             <!--em class="keypadIco keypadIcoClose">删除图标</em-->
                             <em class="cgIco passwordIco">密码图标</em>
-                            <input id="regpassword" type="password" value="" class="cgInput" placeholder="密码"
-                                   autocomplete="off"/>
+                            <input id="regpassword" type="password" value="" class="cgInput" placeholder="6~20个字符，区分大小写" autocomplete="off" maxlength="20"/>
                         </div>
                     </li>
                     <li><!--鼠标点击输入框后，小图标变为粉红色-->
@@ -66,22 +64,21 @@ if ($user_info = User::info()) {
                             <!--下面注释掉的为删除图标，当输入文字时出现，点击后删掉输入的文字-->
                             <!--em class="keypadIco keypadIcoClose">删除图标</em>
                             <em class="keypadIco keypadIcoClose">删除图标</em-->
-                            <input id="regconfirm_password" type="password" value="" class="cgInput" placeholder="确认密码"
-                                   autocomplete="off"/>
+                            <input id="regconfirm_password" type="password" value="" class="cgInput" placeholder="确认密码" maxlength="20" autocomplete="off"/>
                         </div>
                     </li>
                     <li>
                         <div class="cgCodeBox">
                             <span class="cgCode"><input id="regcaptcha" type="text" class="cgInput" maxlength="4"
                                                         placeholder="验证码" autocomplete="off"/></span>
-                            <span class="cgCodeImg"><img src="/site/captcha" id="regcaptchaimg" alt="验证码"/></span>
+                            <span class="cgCodeImg"><img src="/captcha" id="regcaptchaimg" alt="验证码"/></span>
                             <span class="cgCodeFress"><a href="javascript:;" onclick="change_regcaptcha()"
                                                          title="">换一张</a></span>
                         </div>
                     </li>
                     <li>
                         <span><input name="CheckboxGroup1" type="checkbox" id="agreeCont" value="复选框"
-                                     checked="checked"/> <a href="/help.php?act=protocol" title="" target="_blank">我已阅读并同意《U美网用户服务协议》</a></span>
+                                     checked="checked"/> <a href="/service/index/type/2" title="" target="_blank">我已阅读并同意《U美网用户服务协议》</a></span>
                     </li>
                 </ul>
             </div>
@@ -126,9 +123,10 @@ if ($user_info = User::info()) {
             <div class="ok01">
                 √ 注册成功
             </div>
-            <div class="formSubmit2">您的U美账号：<span class="ok02" id="okusername">米老鼠和刘老根儿</span>。ID号：<span class="ok02"
-                                                                                                         id="okuid">32037319</span>　<span><a
-                        href="/account.php?act=profile&type=6" title="" class="mbyx01">设置密保邮箱</a></span></div>
+            <?php //TODO: real name and id below ?>
+            <div class="formSubmit2">您的U美账号：<span class="ok02" id="okusername"></span>。
+                ID号：<span class="ok02" id="okuid"></span>　
+                <span><a href="/account/setMail" title="" class="mbyx01">设置密保邮箱</a></span></div>
             <div class="formSubmit1"><a href="javascript:;" title="" onclick="window.location.reload();"
                                         class="pubLinks1">直接进入网站</a></div>
         </div>
@@ -171,12 +169,10 @@ if ($user_info = User::info()) {
                         </div>
                     </li>
                     <!--验证码-->
-                    <li id="yzm" {if $login_fail lt 3}style="display: none;" {
-                    /if}>
+                    <li id="yzm" <?php if (!isset(Yii::app()->session['login_fail_count']) || Yii::app()->session['login_fail_count'] <= 3): ?>style="display: none;" <?php endif ?>>
                     <div class="cgCodeBox">
-                        <span class="cgCode"><input id="captcha" type="text" class="cgInput" maxlength="4"
-                                                    placeholder="验证码" autocomplete="off"/></span>
-                        <span class="cgCodeImg"><img src="/captcha.php?{$rand}" id="captchaimg" alt="验证码"/></span>
+                        <span class="cgCode"><input id="captcha" type="text" class="cgInput" maxlength="4" placeholder="验证码" autocomplete="off"/></span>
+                        <span class="cgCodeImg"><img src="/captcha" id="captchaimg" alt="验证码"/></span>
                         <span class="cgCodeFress"><a href="javascript:;" onclick="change_captcha()"
                                                      title="">换一张</a></span>
                     </div>
@@ -186,8 +182,7 @@ if ($user_info = User::info()) {
                         <div class="remeberInfor">
                             <!--span><input name="CheckboxGroup1" type="checkbox" id="CheckboxGroup1_0" value="复选框" checked="checked" /> 记住我</span-->
                             <div class="cgLinks">
-                                <!--  ><a href="#" title="">忘记用户名</a>|--><a href="/help.php?act=return_pwd" title=""
-                                                                            target="_blank">忘记密码</a>
+                                <!--  ><a href="#" title="">忘记用户名</a>|--><a href="/service/getPassword" title="" target="_blank">忘记密码</a>
                             </div>
                         </div>
                         <!--formSubmit-->
@@ -327,8 +322,11 @@ if ($user_info = User::info()) {
             <ul class="uPubUl">
                 <li>
                     <div class="uNav">赠送给：</div>
-                    <div class="uCont"><span class="spanInput"><input type="text" id="togid"><input type="text"
-                                                                                                    id="nicegid"></span>
+                    <div class="uCont">
+                        <span class="spanInput">
+                            <input type="text" id="togid" placeholder="请输入接收者的主播靓号">
+                            <input type="text" id="nicegid">
+                        </span>
                     </div>
                 </li>
             </ul>
