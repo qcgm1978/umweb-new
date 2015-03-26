@@ -17,7 +17,7 @@
         <!--manageMyInfor-->
         <div class="manageMyInfor">
             <!--我管理的-->
-            <div class="managePub">
+            <div class="managePub administration">
                 <h2><a href="/account/managed" title=""><span>more</span>我管理的......>></a></h2>
                 <!--manageMid-->
                 <div class="manageMid">
@@ -50,7 +50,7 @@
             </div>
             <!--我管理的 end-->
             <!--我关注的-->
-            <div class="managePub">
+            <div class="managePub attention">
                 <h2><a href="/account/favorite" title=""><span>more</span>我关注的......>></a></h2>
                 <!--manageMid-->
                 <div class="manageMid">
@@ -299,8 +299,8 @@
                 </div>
                 <!--金牌社团 end-->
                 <!--主播榜-->
-                <div class="hostRank">
-                    <div class="rankTitle">
+                <div class="hostRank hostlist">
+                    <div class="rankTitle hostlist">
                         <span class="rankHostTitle fhTop">主播榜</span>
                                 <span class="rankHostDate">
                                 	<a href="javascript:;" onclick="setTab('one',1,4)" id="one1" title="" class="current">日</a>|
@@ -318,8 +318,8 @@
                 </div>
                 <!--主播榜 end-->
                 <!--富豪榜-->
-                <div class="hostRank">
-                    <div class="rankTitle">
+                <div class="hostRank richlist">
+                    <div class="rankTitle richlist">
                         <span class="rankHostTitle fhTop">富豪榜</span>
                                 <span class="rankHostDate">
                                 	<a href="javascript:;" id="two1" onclick="setTab('two',1,4)" title="" class="current">日</a>|
