@@ -12,7 +12,7 @@ function makeid()
 function generate_gift(swf,x,y,z,w,h,life)
 {
 	var div_id = 'gift_display' + makeid();
-	var css_style = 'z-index: ' + (70+z) +'; overflow:hidden;position: absolute;background-color: rgba(255, 255, 255, 0.1);';
+	var css_style = 'overflow:hidden;position: absolute;z-index:10000;';
 	css_style += "width: " + w +"px; height: " + h +"px; left: " + x + "px; top: " + y + "px;"; 
 	swfobject.createCSS("#"+div_id, css_style);
 	var $div = $('<div />').appendTo('body');
@@ -37,7 +37,7 @@ function generate_gift(swf,x,y,z,w,h,life)
 function generate_gift_1(swf,x,y,z,w,h,life)
 {
 	var div_id = 'gift_display' + makeid();
-	var css_style = 'z-index: ' + (70+z) +'; overflow:hidden;position: absolute;background-color: rgba(255, 255, 255, 0.1);';
+	var css_style = 'z-index: ' + (70+z) +'; overflow:hidden;position: absolute;';
 	css_style += "width: " + w +"px; height: " + h +"px; left: " + x + "px; top: " + y + "px;"; 
 	swfobject.createCSS("#"+div_id, css_style);
 	var $div = $('<div />').appendTo('body');
@@ -99,10 +99,10 @@ var gift_center = {
 		return r;
 	},	
 
-	display_screen_hint : function(gift){
+	display_screen_hint : function(gift,life){
 		var text;
 		text = '[礼物]' + gift.from_nickname + ' 向 ' + gift.to_nickname + ' 送：' + gift.sum + gift.unit + gift.gift_name;
-		balloon_message(text);
+		balloon_message(text,life);
 	},
 	
 	small_gift : function(swf,count,life,data){
@@ -110,7 +110,7 @@ var gift_center = {
 		
 		if (count>=18){
 			count = 18;
-			//gift_center.display_screen_hint(data);
+			gift_center.display_screen_hint(data,life);
 		}
 		var row = Math.floor(count/9)+1;
 		var z_w,z_h;
