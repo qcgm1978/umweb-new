@@ -442,6 +442,7 @@ a.noBg:hover i{background-position:right -2584px;}
 
 /*排行数*/
 .rankTop{overflow:hidden;display:inline-block;width:26px;height:36px; vertical-align:middle;font-size:0px;line-height:0px;}
+.rankTop-anchor{background-position:-26px 0px;}
 .rankTop1{background-position:0px 0px;}
 .rankTop2{background-position:0px -44px;}
 .rankTop3{background-position:0px -94px;}

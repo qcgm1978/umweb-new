@@ -379,7 +379,7 @@
                 var temp = '';
 
                 if (i==0){
-                    temp = '<li class="rankChamp"><span class="rankTop rankTop1"><i class="crownIco"></i></span><div class="rankPicture"><a class="rankPic"><img src="' + arr[i].avatar+ '" alt="" /><i>遮罩</i></a><p><a href="';
+                    temp = '<li class="rankChamp"><span class="rankTop rankTop-anchor"><i class="crownIco"></i></span><div class="rankPicture"><a class="rankPic"><img src="' + arr[i].avatar+ '" alt="" /><i>遮罩</i></a><p><a href="';
                     //temp = '<li class="mranking-lm lm1 f-cb"><div class="state-biao bc-pink">' + arr[i].rank + '</div><img class="mranking-img" src="' + arr[i].avatar+ '" width="60" height="60" title=""><b class="mranking-tt"><a class="c-pink" href="';
                 }
                 else{
