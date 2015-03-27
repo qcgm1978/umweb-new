@@ -1,31 +1,11 @@
-/**
- * Description:
- *
- * @module
- */
-class SkinnedMesh extends THREE.Mesh {
-    constructor(geometry, materials) {
-        super(geometry, materials);
-        this.idMatrix = SkinnedMesh.defaultMatrix();
-        this.bones = [];
-        this.boneMatrices = [];
-        //...
+let obj = {
+    method: function () {
+        return () => this;
     }
+};
+// Due to lexical scope obj.method()() <===> obj
 
-    update(camera) {
-        //...
-        super.update();
-    }
-    get boneCount() {
-        return this.bones.length;
-    }
+let fact = (n) => { return n === 0 ? 1 : n * fact(n-1); };
 
-    set matrixType(matrixType) {
-        this.idMatrix = SkinnedMesh[matrixType]();
-    }
-
-    static defaultMatrix() {
-        return new THREE.Matrix4();
-    }
-
-}
+let fib = (n) => { return n < 2 ? n : fib(n-1) + fib(n-2); };
+console.log(obj.method() instanceof Function)

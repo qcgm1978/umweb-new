@@ -189,19 +189,19 @@ chat.prototype = {
             var togid = '';
             var lhimg = '';
         }
-        var fromu = gift.fromu.appdata;
-        var watchmanimg = fromu.watchman ? '<i class="xunIco"></i>' : '';
-        var adminimg = fromu.levelinroom == 900 && !fromu.watchman ? '<i class="manageIco"></i>' : '';
-        var simg = fromu.roomer ? '<i class="zhuboIco zb' + fromu.starlevel + '"></i>' : '';
-        var vimg = fromu.vip2 ? '<i class="vipIco"></i>' : '';
-        var timg = fromu.vip && !fromu.roomer ? '<i class="jwIco V' + fromu.vip + '"></i>' : '';
-        var fimg = Base64.decode(fromu.family_name) != "0" ? '<i class="clubIcoText"><em>' + Base64.decode(fromu.family_name) + '</em></i>' : '';
-        if (!fromu.vip && !fromu.roomer && !fromu.watchman && (fromu.nicegid + "").length <= 8) {
+        var senderInfo = gift.fromu.appdata;
+        var watchmanimg = senderInfo.watchman ? '<i class="xunIco"></i>' : '';
+        var adminimg = senderInfo.levelinroom == 900 && !senderInfo.watchman ? '<i class="manageIco"></i>' : '';
+        var simg = senderInfo.roomer ? '<i class="zhuboIco zb' + senderInfo.starlevel + '"></i>' : '';
+        var vimg = senderInfo.vip2 ? '<i class="vipIco"></i>' : '';
+        var timg = senderInfo.vip && !senderInfo.roomer ? '<i class="jwIco V' + senderInfo.vip + '"></i>' : '';
+        var fimg = Base64.decode(senderInfo.family_name) != "0" ? '<i class="clubIcoText"><em>' + Base64.decode(senderInfo.family_name) + '</em></i>' : '';
+        if (!senderInfo.vip && !senderInfo.roomer && !senderInfo.watchman && (senderInfo.nicegid + "").length <= 8) {
             timg = '<i class="lmIco"></i>';
         }
-        var fgid = (fromu.nicegid + "").length < 8 ? '(<u>' + fromu.nicegid + '</u>)<i class="lhIco"></i>' : '(' + fromu.nicegid + ')';
-        //text = '<font class=red>[礼物]</font><a href="javascript:void(0)" onClick="select_it('+this.chat_type+','+gift.from_uid+')"><span class="username">' + gift.from_nickname + '</span></a> 向 <a href="javascript:void(0)" onClick="select_it('+this.chat_type+','+gift.to_uid+')"><span class="username">' + gift.to_nickname + '</span></a> 送：' + gift.sum + gift.unit + gift.gift_name;
-        text += simg + timg + vimg + fimg + watchmanimg + adminimg + '<span class="blue"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + gift.from_uid + ')">' + gift.from_nickname + fgid + '</a></span> 送给 ' + tosimg + totimg + tovimg + tofimg + towatchmanimg + toadminimg + '<span class="yellow"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + gift.to_uid + ')">' + gift.to_nickname + togid + '</a></span> 送：<span class="pink">' + gift.sum + gift.unit + gift.gift_name + '</span>';
+        var fgid = (senderInfo.nicegid + "").length < 8 ? '(<u>' + senderInfo.nicegid + '</u>)<i class="lhIco"></i>' : '(' + senderInfo.nicegid + ')';
+        var senderIcons = this.getIconStr.call(this, senderInfo);
+        text += senderIcons + '<span class="blue"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + gift.from_uid + ')">' + gift.from_nickname + fgid + '</a></span> 送给 ' + tosimg + totimg + tovimg + tofimg + towatchmanimg + toadminimg + '<span class="yellow"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + gift.to_uid + ')">' + gift.to_nickname + togid + '</a></span> 送：<span class="pink">' + gift.sum + gift.unit + gift.gift_name + '</span>';
         this.insert(text + '&nbsp;' + showimg + '</div>');
         window.setTimeout(function () {
             self.rolling();

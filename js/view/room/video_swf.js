@@ -25,7 +25,8 @@ var video_swf = {
             nickname: swf_param.nickname,
             splash: swf_param.splash,
             bps: swf_param.bps,
-            vq: swf_param.vq
+            vq: swf_param.vq,
+            version:'1'
         };
         var swf_name = 'recv';
         if (type == 1) {
