@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/view/room/send-gift.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/view/room/send-gift.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">68.99</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">109</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">17.31</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.96</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+
+ @module SendGift
+ @class SendGift
+
+ **/
+var gift_id = 0;
+var gift_to_uid = 0;
+
+
+function SetGiftRX(uid, nickname) {
+    gift_to_uid = uid;
+    if ($(&quot;#gift_to option[value=&#039;&quot; + uid + &quot;&#039;]&quot;).length == 0) {
+        //$(&quot;#gift_to&quot;).append(new Option(nickname,uid));
+        var objOption = document.createElement(&quot;OPTION&quot;);
+        objOption.text = nickname;
+        objOption.value = uid;
+        document.getElementById(&quot;gift_to&quot;).options.add(objOption);
+    }
+    $(&quot;#gift_to option[value!=&#039;&quot; + uid + &quot;&#039;]&quot;).attr(&quot;selected&quot;, false);
+    $(&quot;#gift_to option[value=&#039;&quot; + uid + &quot;&#039;]&quot;).attr(&quot;selected&quot;, true);
+    //$(&#039;#gift_to&#039;).val(nickname);
+}
+
+function gift_to_change(obj) {
+    $(&#039;#gift_name&#039;).val(obj.key);
+    gift_to_uid = obj.value;
+}
+
+function SelectGift(gift, obj) {
+    $(&quot;.liveGiftsBox li&quot;).removeClass(&quot;current&quot;);
+    $(obj).addClass(&quot;current&quot;);
+    var g = jQuery.parseJSON(gift);
+    console.log(g.GIFTID);
+    $(&#039;#gift_name&#039;).val(g.NAME);
+    gift_id = g.GIFTID;
+}
+
+function SendGift() {
+    if (!checklogin()) {
+        return false;
+    }
+    if (gift_to_uid == 0) {
+        gift_to_uid = $(&quot;#gift_to_uid&quot;).val()
+    }
+    if (gift_id == 0) {
+        $(&quot;#returnmsg&quot;).html(&#039;要选择礼物才可以赠送哟！&#039;);
+        $(&quot;#tips02Pop .pinkBtn&quot;).removeAttr(&quot;onclick&quot;);
+        $(&quot;#tips02Pop .pinkBtn&quot;).click(function () {
+            $(&quot;#tips02Pop .popPubClose&quot;)[0].click();
+        });
+        $(&quot;#tips02&quot;).click();
+        return;
+    }
+
+    var count = $(&#039;#gift_count&#039;).val();
+    if (Utils.isEmpty(count) || !Utils.isNumber(count) || count &lt;= 0) {
+        $(&quot;#returnmsg&quot;).html(&#039;赠送的礼物数量不正确！请重新输入！&#039;);
+        $(&quot;#tips02Pop .pinkBtn&quot;).removeAttr(&quot;onclick&quot;);
+        $(&quot;#tips02Pop .pinkBtn&quot;).click(function () {
+            $(&quot;#tips02Pop .popPubClose&quot;)[0].click();
+        });
+        $(&quot;#tips02&quot;).click();
+        return;
+    }
+
+    //var url = &quot;http://117.27.158.20/room/consume.php&quot;;
+    var url = &quot;/room/consume.php&quot;;
+    from_u = g_UserList.GetUser(userpara.gid);
+    to_u = g_UserList.GetUser(gift_to_uid);
+    var data = {
+        &#039;CONSUMETYPE&#039;: 30,
+        &#039;FROMGID&#039;: userpara.gid,
+        &#039;TOGID&#039;: gift_to_uid,
+        &#039;OBJ&#039;: {
+            &#039;ID&#039;: gift_id,
+            &#039;SUM&#039;: $(&#039;#gift_count&#039;).val(),
+            &#039;ROOMID&#039;: room_id
+        }
+    };
+    console.log(data);
+    //return;
+    $.post(url, JSON.stringify(data), function (result) {
+        console.log(result);
+        var r = jQuery.parseJSON(result);
+        /*
+         if (r.RES==0){
+         alert(r.HINT);
+         }
+         if (r.RES==1){
+         alert(r.PARAM1);
+         }
+         */
+        //if (room_id&gt;0)
+        {
+            console.log(&#039;call SendGiftCB&#039;);
+            SendGiftCB(r);
+        }
+    })
+        .fail(function () {
+            console.log(&#039;error&#039;);
+            $(&quot;#returnmsg&quot;).html(&#039;赠送礼物操作发生错误！&#039;);
+            $(&quot;#tips02Pop .pinkBtn&quot;).removeAttr(&quot;onclick&quot;);
+            $(&quot;#tips02Pop .pinkBtn&quot;).click(function () {
+                $(&quot;#tips02Pop .popPubClose&quot;)[0].click();
+            });
+            $(&quot;#tips02&quot;).click();
+        });
+}
+$(function () {
+    makeGitfTip();
+    SiteCommon.setChatDialog($(&#039;#gift_count&#039;), function (data) {
+        SendGift()
+    })
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

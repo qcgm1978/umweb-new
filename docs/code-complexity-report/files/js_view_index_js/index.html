@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/view/index.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/view/index.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">71.20</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">91</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">25.50</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.96</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * Description:
+ *
+ * @module
+ */
+/*首页轮播*/
+$(function () {
+    var focusBox = $(&quot;.focusBox&quot;);
+    var liElement = $(&quot;.focusNum a&quot;);
+    var urElement = $(&quot;.focusMain ul&quot;);
+    var w = $(&quot;.focusMain&quot;).width();
+    var h = $(&quot;.focusMain&quot;).height();
+    var animated = null;
+    var time = 2000;//轮播时间
+    var currentPath = 0;//当前索引
+    var trueFale = true;//默认true为自动轮播，false为禁止自动轮播
+    $(liElement).each(function (index) {
+        $(this).mouseenter(function (event) {
+            event.preventDefault();
+            $(this).addClass(&quot;current&quot;).siblings().removeClass(&quot;current&quot;);
+            //$(urElement).animate({&quot;top&quot;: -index * h});
+            var selector = &#039;li:has([src=&quot;&#039; +
+                $(this).find(&#039;img&#039;).attr(&#039;src&#039;) +
+                &#039;&quot;])&#039;;
+            $(&#039;.focusMain&#039;).find(selector).prependTo(&#039;.focusMain ul&#039;)
+            currentPath = index;
+        });
+    });
+    //判断是否自动轮播
+    if (trueFale) {
+        animated = setInterval(autoPaly, time);
+        //清除+还原
+        $(focusBox).hover(function () {
+            clearInterval(animated);
+        }, function () {
+            animated = setInterval(autoPaly, time);
+        });
+    }
+    //自动轮播函数
+    function autoPaly() {
+        $(urElement).animate({&quot;top&quot;: -309}, function () {
+            $(urElement).css(&#039;top&#039;, 0).find(&#039;li:first&#039;).appendTo(urElement)
+
+        });
+        var $li = $(liElement);
+        var $current = $li.eq(currentPath);
+        $current.addClass(&quot;current&quot;).siblings().removeClass(&quot;current&quot;);
+    };
+});
+/*首页-&gt;广告*/
+$(function () {
+    var bannerAd = $(&quot;.bannerAd&quot;);
+    var bannerLi = $(&quot;.bannerEle li&quot;);
+    var bannerLiLength = $(&quot;.bannerEle li&quot;).length;
+    var bannerMenu = $(&quot;.bannerMenu&quot;);
+    var bannerEleUl = $(&quot;.bannerEle ul&quot;);
+    var w = $(&quot;.bannerEle&quot;).width();
+    var h = $(&quot;.bannerEle&quot;).height();
+    var animatedBanner = null;
+    var timeBanner = 2000;//轮播时间
+    var currentPathBanner = 0;//当前索引
+    var trueFale = true;//默认true为自动轮播，false为禁止自动轮播
+    //创建广告导航
+    for (var i = 0; i &lt; bannerLiLength; i++) {
+        $(bannerMenu).append(&#039;&lt;a href=&quot;#&quot;&gt;&#039; + +&#039;&lt;/a&gt;&#039;)
+    }
+    ;
+    $(bannerMenu).find(&quot;a&quot;).eq(0).addClass(&quot;current&quot;);
+    $(&quot;.bannerMenu a&quot;).each(function (index) {
+        $(this).click(function (event) {
+            event.preventDefault();
+            $(this).addClass(&quot;current&quot;).siblings().removeClass(&quot;current&quot;);
+            $(bannerEleUl).animate({&quot;left&quot;: -index * w});
+            currentPath = index;
+        });
+    });
+    //判断是否自动轮播
+    if (trueFale) {
+        animatedBanner = setInterval(autoShow, timeBanner);
+        //清除+还原
+        $(bannerAd).hover(function () {
+            clearInterval(animatedBanner);
+        }, function () {
+            animatedBanner = setInterval(autoShow, timeBanner);
+        });
+    }
+    //自动轮播函数
+    function autoShow() {
+        if (currentPathBanner &lt; bannerLiLength - 1) {
+            currentPathBanner++;
+        } else {
+            currentPathBanner = 0;
+        }
+        $(bannerEleUl).animate({&quot;left&quot;: -currentPathBanner * w});
+        $(&quot;.bannerMenu a&quot;).eq(currentPathBanner).addClass(&quot;current&quot;).siblings().removeClass(&quot;current&quot;);
+    };
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

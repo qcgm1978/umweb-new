@@ -1,15 +1,18 @@
 @charset "utf-8";
 /*视觉区*/
-.visionOut{overflow:hidden;background:url(img/visionOutBg.jpg) no-repeat center top #E4004B;}
+.visionOut{overflow:hidden;background:url(img/visionOutBg.jpg) no-repeat center top #8319bd;}
 .visionIn{overflow:hidden;height:344px;}
-.manageMyInfor{overflow:hidden;zoom:1;float:left;width:249px;height:344px;background:rgba(255,255,255,0.1);}
+.manageMyInfor{overflow:hidden;zoom:1;float:left;width:249px;height:344px;/*background:rgba(255,255,255,0.1);*/}
 .managePub{margin-top:15px;}
 .managePub h2{overflow:hidden;height:40px;font-weight:normal;line-height:30px;}
 .managePub h2 a,.fateBox a{background:url(img/cornerHover.png) no-repeat;}
 .managePub h2 a{overflow:hidden;display:block;padding:0px 10px 0px 40px;height:36px;color:#fff;font-size:15px;background-position:0px 0px;}
 .managePub h2 a span{float:right;}
-.managePub h2 a:hover{background-position:0px -100px;}
+.managePub h2 a:hover{background-position:0px -150px;}
 
+
+.managePub.attention h2 a{background-position:0px -50px;}
+.managePub.attention h2 a:hover{background-position:0px -200px;}
 .manageMid{position:relative;overflow:hidden;height:90px;}
 .manageShow{padding:0px 10px;}
 .manageShow li{position:relative;overflow:hidden;height:28px;line-height:28px;vertical-align:top;font-size:14px;color:#FFA8CE}
@@ -30,7 +33,7 @@
 .loginState a,.loginState a:hover{text-decoration:underline;color:#ffddde;}
 
 .fateBox{overflow:hidden;margin-top:6px;height:36px;}
-.fateBox a{display:block;height:36px;text-indent:-99999px;background-position:0px -200px;}
+.fateBox a{display:block;height:36px;text-indent:-99999px;background-position:0px -100px;}
 .fateBox a:hover{background-position:0px -250px;}
 
 .focusBox{float:left;display:inline;margin:15px 0px 0px 42px;width:576px;height:312px;}
@@ -40,7 +43,8 @@
 .focusInfor{position:absolute;left:0px;bottom:0px;width:100%;height:42px;}
 .focusInfor .whiteMaster{height:42px;}
 .focusInfor .focusInforList{position:absolute;left:0px;top:0px;z-index:10;padding:0px 20px;width:375px;height:42px;font-size:14px;}
-.focusInfor .focusInforList span{float:left;display:inline;margin:0px;line-height:42px;}
+.focusInfor .focusInforList span{float:left;display:inline;margin:0px;line-height:42px; color:#fff;}
+.focusInfor .focusInforList span a{color:#ffff00;}
 .focusInfor .focusInforList span b{font-weight:normal;}
 .focusInfor .focusInforList span.focusLevel{margin-top:15px;}
 .focusInfor .focusInforList span.focusOn,.focusInfor .focusInforList span.focusState{margin-left:10px;float:right;}
@@ -50,14 +54,14 @@
 
 .focusNum{overflow:hidden;float:right;width:132px;}
 .focusNum li{overflow:hidden;position:relative;margin:0px 0px 7px;width:132px;height:99px; vertical-align:top;}
-.focusNum li a{cursor:pointer;display:block;position:relative;width:132px;height:99px;}
+.focusNum li a{cursor:pointer;display:block;position:relative;width:132px;height:99px;color:#fff000;}
 .focusNum li a span{position:absolute;left:0px;bottom:0px;width:100%;height:22px;line-height:22px;}
 .focusNum li img{display:block;width:132px;height:100px;}
 .focusNum li a span.focusNumTitle{width:120px;left:5px;overflow:hidden; white-space:nowrap;text-overflow:ellipsis;}
 .focusNum li a .playIco{display:none;margin-top:-38px;}
 .focusNum li a:hover .playIco{display:block;}
 
-.jionClassy{float:right;overflow:hidden;width:292px;height:344px;background:rgba(255,255,255,0.1);}
+.jionClassy{float:right;overflow:hidden;width:292px;height:344px;/*background:rgba(255,255,255,0.1);*/}
 .jionLink{overflow:hidden;padding:60px 0px 0px;height:126px;position:relative;}
 .jionLink a{display:block;height:40px;margin:0px 0px 5px;text-indent:-99999px;}
 .jionLink a.jionLive{background-position:42px -900px;}
@@ -88,14 +92,14 @@
 .mainSide{float:left;width:190px;}
 .pubArea{margin-bottom:20px;border:1px solid #E7E5E6;background:#fff;}
 .liveAreaList{line-height:42px;}
-.liveAreaList dt{overflow:hidden;height:42px;font-size:14px;text-align:center;color:#fff;font-weight:normal;border-top:1px solid #fff;background:#E71F5D;}
+.liveAreaList dt{overflow:hidden;height:42px;font-size:14px;text-align:center;color:#fff;font-weight:normal;border-top:1px solid #fff;background:#d11796;}
 .liveAreaList dd{overflow:hidden;height:42px; vertical-align:top;}
 .liveAreaList dd a{position:relative;overflow:hidden;height:42px;padding:0px 15px;display:block;color:#353535;font-size:14px;border-top:1px solid #E9E5E6;}
 .liveAreaList dd a:hover,.liveAreaList dd.current a,.liveAreaList dd.current a:hover{color:#353535;background:#FDE6EE;}
 .liveAreaList dd a b{position:absolute;right:15px;top:0px;font-weight:normal;}
 
 .serviceBox{padding:20px 0px 10px;}
-.serviceBox h3{color:#E62B60;font-size:18px;font-weight:normal;text-align:center;}
+.serviceBox h3{color:#2d8ae1;font-size:18px;font-weight:normal;text-align:center;}
 .serviceBox h3 i{display:inline-block;margin:0px 5px;width:28px;height:28px;vertical-align:middle;background-position:0px -1100px;}
 .serviceList{padding:10px 0px 0px 40px;color:#111;}
 .serviceList ul{}
@@ -130,7 +134,7 @@
 /*首页-人气主播推荐*/
 .hotHost{}
 .hotHost h3{overflow:hidden;height:30px;line-height:30px;font-size:18px;font-weight:normal;}
-.hotHost h3 span{display:block;height:30px;color:#E51C53;background:url(img/hotHostTitleBg.jpg) no-repeat 129px 15px;}
+.hotHost h3 span{display:block;height:30px;color:#1d213c;background:url(img/hotHostTitleBg.jpg) no-repeat 129px 15px;}
 
 .hotHostList{overflow:hidden;position:relative;}
 .hotHostList ol{position:relative;}
@@ -138,8 +142,8 @@
 .hotHostList li .numberIco{bottom:auto;top:102px;}
 .hotHostList li .hotHostTitle{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;height:24px;line-height:24px;}
 
-.hotHostList li a{display:block;color:#C93778;font-size:14px;}
-.hotHostList li a:hover{color:#C93778;}
+.hotHostList li a{display:block;color:#323232;font-size:14px;}
+.hotHostList li a:hover,.hotHostList li a.current{color:#de1bb6;}
 .hotHostList li a .playIco{display:none;margin-top:-38px;}
 .hotHostList li a:hover .playIco{display:block;}
 .hotHostList li a img{display:block;width:160px;height:120px;}
@@ -151,9 +155,8 @@
 .hotHostInfor p span.hotHostStart{padding-left:17px;background-position:0px -848px;}
 
 .loadMore{margin-top:16px;}
-.loadMore a{display:block;height:50px;line-height:50px;text-align:center;color:#000;font-size:18px;background:#FCE3E9;}
-
-.loadMore a:hover{color:#E51A52;background:#fcd8e1;}
+.loadMore a{display:block;height:50px;line-height:50px;text-align:center;color:#d11796;font-size:18px;background:#e6e6e6;}
+.loadMore a:hover{color:#d11796;background:#dfdfdf;}
 .loadMore a .cursorStyle{cursor:pointer;display:inline-block;height:50px;width:32px;vertical-align:middle;background-position:-35px -430px;}
 
 /*首页-人气社团推荐*/
@@ -163,22 +166,29 @@
 .hotHostListNew li a img{width:120px;height:120px;}
 
 /*首页-主播榜-富豪榜*/
-.rankTitle{overflow:hidden;margin-bottom:10px;height:46px;line-height:46px;background:#F5B4C8;}
-.rankTitle span{display:block;float:left;display:inline;margin:0px 10px;color:#945367;}
+.rankTitle{overflow:hidden;margin-bottom:10px;height:46px;line-height:46px;background:#0cc3ab;}
+.rankTitle span{display:block;float:left;display:inline;margin:0px 10px;color:#fff;}
 .rankTitle span a:hover{color:#E21B52;}
-.rankTitle span a.current,.rankTitle span a.current:hover{color:#E21B52!important;}
-.rankTitle span.rankHostTitle{font-size:20px;color:#E21B52;}
-.rankTitle span.rankHostDate a{padding:0px 5px 0px 3px;display:inline-block;height:46px; vertical-align:middle;font-size:18px;color:#945367;}
+.rankTitle span a.current,.rankTitle span a:hover{color:#088978!important;}
+.rankTitle span.rankHostTitle{font-size:20px;color:#fff;}
+.rankTitle span.rankHostDate a{padding:0px 5px 0px 3px;display:inline-block;height:46px; vertical-align:middle;font-size:18px;color:#fff;}
+.rankTitle.richlist{ background-color:#e19b13;}
+.rankTitle.richlist span a.current,.rankTitle.richlist span a:hover{color:#916000!important;}
+
+
+
+
+
 
 .rankList{padding:1px 0px 22px;}
 .rankList li{position:relative;overflow:hidden;margin-top:15px;height:36px;line-height:36px;}
 .rankList li a{color:#424A4C;}
-.rankList li a:hover{color:#CA3579;}
+.rankList li a:hover,.rankList li a.current{color:#0cc3ab;}
+.hostRank.richlist .rankList li a:hover,.hostRank.richlist .rankList li a.current{color:#e19b13;}
 .rankList li .rankLinks{display:inline-block;overflow:hidden;height:36px;width:175px; white-space:nowrap;text-overflow:ellipsis;vertical-align:middle;font-size:14px;}
 .rankList li .rankIco{position:absolute;right:7px;top:10px;}
-
-.rankList li .rankTop1{position:relative;}
 .rankList li .rankTop-anchor{position:relative;}
+.rankList li .rankTop1{position:relative;}
 .crownIco{position:absolute;right:-3px;top:-17px;background-position:0px -450px;width:25px;height:25px;}
 .rankList li.rankChamp{height:48px;overflow:visible;}
 .rankList li.rankChamp .rankTop{overflow:visible;float:left;display:inline;margin:13px 5px 0px 0px;}
@@ -204,14 +214,15 @@
 .gtList li span.gtTit{display:block;float:left;width:86%;height:34px;overflow:hidden; white-space:nowrap;text-overflow:ellipsis;font-size:14px;}
 .gtList li span.gtIco{position:absolute;right:5px;top:5px;}
 .gtList li a{color:#424E4C;}
-.gtList li a:hover{color:#C63560;}
+.gtList li a:hover{color:#98099a;}
 
-.gtList li.gtFirst{margin-bottom:5px;padding:10px;background:#EA5D92;}
-.gtList li.gtFirst a{color:#fff;}
-.gtList li.gtFirst a:hover{color:#fff;}
+.gtList li.gtFirst{margin-bottom:5px;padding:10px;background:#e6e6e6;}
+.gtList li.gtFirst .gtIco strong a{color:#323232; cursor:pointer;}
+.gtList li.gtFirst .gtIco p a{color:#fff;cursor:pointer;}
+.gtList li.gtFirst a:hover{color:#98099a;}
 .gtPic{display:block;float:left;display:inline;margin:0px;}
 .gtPic img{display:block;width:76px;height:76px;border:2px solid #fff;}
-.gtIco{overflow:hidden;zoom:1;padding:0px 0px 0px 10px;color:#fbdfe9;font-size:14px;line-height:24px;}
+.gtIco{overflow:hidden;zoom:1;padding:0px 0px 0px 10px;color:#4e4e4e;font-size:14px;line-height:24px;}
 .gtIco strong{padding-bottom:5px;font-weight:normal;font-size:15px;display:block;}
 .gtIco p b{font-weight:normal;}
 
@@ -226,7 +237,7 @@
 .menuSide dl dt{cursor:pointer;overflow:hidden;padding:0px 0px 0px 37px;height:30px;font-size:15px;color:#fff;font-weight:normal;background-position:0px -1150px;}
 .menuSide dl dd{vertical-align:top;margin-top:5px;}
 .menuSide dd a{overflow:hidden;display:block;padding-left:33px;height:30px;color:#403E43;font-size:14px;background-position:-300000px -1200px;background:none;}
-.menuSide dd a:hover,.menuSide dd.current a,.menuSide dd.current a:hover{background-position:0px -1200px;background:#f7e3f2;}
+.menuSide dd a:hover,.menuSide dd.current a,.menuSide dd.current a:hover{background-position:0px -1200px;background:#e6e6e6;}
 .menuSide dl.current dd{display:block;}
 .thumContent{overflow:hidden;zoom:1;min-height:500px;line-height:24px;font-size:14px;color:#848484;}
 .thumContent p{padding:0px 0px 8px;}
@@ -355,7 +366,7 @@
 
 /*商城-座驾商城*/
 .carShop{padding:0px 0px 20px;}
-.carShop ul li{overflow:hidden;float:left;display:inline;margin:15px 15px 0px 0px;width:370px;height:170px;background:#f8d8e2;border: 1px solid #fff;}
+.carShop ul li{overflow:hidden;float:left;display:inline;margin:15px 15px 0px 0px;width:370px;height:170px;background:#eaeaea;border: 1px solid #fff;}
 .carShop02{
 	width:370px;
 	height:170px;
@@ -371,7 +382,7 @@
 	background-position: left top;
 }
 
-.carShop ul li:hover{border: 1px solid #e72b65;background:#fde4ec;}
+.carShop ul li:hover{border: 1px solid #eaeaea;background:#fff;}
 .carShop ul li .carShopPic{float:left;overflow:hidden;width:220px;height:170px;text-align:center;}
 .carShop ul li .carShopPic1{
 	overflow:hidden;
@@ -382,18 +393,18 @@
 .carShop ul li .carShopPic img{display:inline-block; vertical-align:middle;}
 .carShop ul li .carShopPic i{overflow:hidden;display:inline-block;width:1px;height:170px; vertical-align:middle;}
 .carShopDetail{overflow:hidden;zoom:1;padding:15px 0px 0px;text-align:center;color:#152020;}
-.carShopDetail p span{color:#e8037f;}
+.carShopDetail p span{color:#e50e92;}
 .carShopDetail strong{display:block;font-weight:normal;color:#e8037f;font-size:15px;}
-a.buyIco{display:inline-block;overflow:hidden;width:68px;height:22px;text-align:center;line-height:22px;color:#fff;background:url(img/buyIco.png) no-repeat;}
-a.buyIco:hover{color:#fff;background:url(img/buyIco01.png) no-repeat;}
+a.buyIco{display:inline-block;overflow:hidden;width:68px;height:22px;text-align:center;line-height:22px;color:#fff;background:url(img/buyIco.gif) no-repeat;}
+a.buyIco:hover{color:#fff;background:url(img/buyIco01.gif) no-repeat;}
 
 /*商城-靓号商城*/
 .lianghaoShop{position:relative;overflow:hidden;color:#152020;padding:0px 0px 20px;}
 .lianghaoShop ul{position:relative;margin-left:-15px;}
-.lianghaoShop li{float:left;display:inline;margin-left:15px;margin-bottom:15px;overflow:hidden;width:200px;height:170px;text-align:center;border: 1px solid #fff;background:#f6bccd;}
+.lianghaoShop li{float:left;display:inline;margin-left:15px;margin-bottom:15px;overflow:hidden;width:200px;height:170px;text-align:center;border: 1px solid #fff;background:#eaeaea;}
 .lianghaoShop li:hover{
-	border: 1px solid #e72b65;
-	background:#f9cad8;
+	border: 1px solid #eaeaea;
+	background:#fff;
 }
 .lianghaoShop li strong{overflow:hidden;height:36px;line-height:36px;padding:10px 0px 0px;display:block;font-weight:normal;color:#e8037f;font-size:22px;font-weight:normal;}
 .lianghaoShop li p span{color:#e8037f;}
@@ -407,7 +418,7 @@ a.buyIco:hover{color:#fff;background:url(img/buyIco01.png) no-repeat;}
 .rankWrap{overflow:hidden;position:relative;}
 .rwShow{padding:1px 0px 0px;position:relative;margin-left:-37px;}
 .rwBox{background:#fff;border:1px solid #EAEAEA;width:270px;float:left;display:inline;margin-top:20px;margin-left:37px;}
-.rwBox h3{position:relative;padding:0px 10px;overflow:hidden;height:48px;line-height:48px;font-size:15px;color:#fff;background:#f94a7c;}
+.rwBox h3{position:relative;padding:0px 10px;overflow:hidden;height:48px;line-height:48px;font-size:15px;color:#fff;background:#d11796;}
 .rwBox h3 span{display:block;height:48px;width:100%;background:url(img/top20.png) no-repeat 10px 14px;}
 .rwBox h3 strong{position:absolute;right:15px;top:0px;height:48px;}
 .rankWrapList ol{}
@@ -421,14 +432,14 @@ a.buyIco:hover{color:#fff;background:url(img/buyIco01.png) no-repeat;}
 .rankWrapList li span.rankPic img{display:block;width:30px;height:30px;}
 .rankWrapList li span.rankLink{overflow:hidden;display:block;float:left;display:inline;height:46px;width:120px; white-space:nowrap;text-overflow:ellipsis;}
 .rankWrapList li span.rankTB{position:absolute;right:6px;top:12px;height:auto;}
-.rankWrapList li.rankOne .rankNum{background:#f94a7c;color:#fff;}
-.rankWrapList li.rankTwo .rankNum{background:#fe7da2;color:#fff;}
-.rankWrapList li.ranThree .rankNum{background:#feb1c7;color:#fff;}
+.rankWrapList li.rankOne .rankNum{background:#d11796;color:#fff;}
+.rankWrapList li.rankTwo .rankNum{background:#eb42b6;color:#fff;}
+.rankWrapList li.ranThree .rankNum{background:#ff94dd;color:#fff;}
 .pdb{padding-bottom:50px;}
-.rwShowYellow h3{background:#f9904a;}
-.rwShowYellow li.rankOne .rankNum{background:#f9904a;}
-.rwShowYellow li.rankTwo .rankNum{background:#fda56b;}
-.rwShowYellow li.ranThree .rankNum{background:#fdc5a1;}
+.rwShowYellow h3{background:#e19b13;}
+.rwShowYellow li.rankOne .rankNum{background:#e19b13;}
+.rwShowYellow li.rankTwo .rankNum{background:#f5b22f;}
+.rwShowYellow li.ranThree .rankNum{background:#ffcb64;}
 
 /*申请表*/
 .applyData{width:750px;padding:20px 20px 40px;margin:0px auto;background:#fff;border:1px solid #e5e5e5;font-size:14px;line-height:24px;}

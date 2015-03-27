@@ -18,7 +18,8 @@ $(function () {
     xchat_start();
     var splash_base = '/room/images/';
     var video_swf_param = {
-        server: roompara.mserverip + ":19350",
+        server: roompara.mserverip + ":" +
+        roompara.mserverport,
         room_id: room_id,
         uid: userpara.gid,
         level: userpara.levelinroom,
@@ -86,7 +87,7 @@ function video_start(swfParam, roomer) {
 function xchat_start() {
     var xconf_swf_param = {
         ip: roompara.serverip,
-        port: 19188,	//roompara.serverport,
+        port: roompara.serverport,
         room_id: room_id,
         uid: userpara.gid,
         level: userpara.levelinroom,
@@ -96,12 +97,11 @@ function xchat_start() {
         appdata: Base64.encode(JSON.stringify(userpara))
     };
     chat_panel.init();
-    var swfParam = xconf_swf_param;
-    if (/^游客/.test(swfParam.nickname)) {
-        swfParam.uid = 0
+    if (/^游客/.test(xconf_swf_param.nickname)) {
+        xconf_swf_param.uid = 0
     }
-    xMessager.init(swfParam);
-    xchat_swf.Init(swfParam, 'xchat', null);
+    xMessager.init(xconf_swf_param);
+    xchat_swf.Init(xconf_swf_param, 'xchat', null);
 }
 function SendGiftCB(r) {
     //console.log('SendGiftCB Called.');

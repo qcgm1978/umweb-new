@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/view/room/room_main.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/view/room/room_main.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">67.67</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">378</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">27.73</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.53</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * Room page module
+ *
+ * @module room
+ * @class room
+
+ */
+/**
+ * Description: program entry
+ *
+ * @method jquery.ready
+ */
+$(function () {
+    load_emotion();
+    load_gift_list();
+    load_gift_message();
+    load_room_data();
+    xchat_start();
+    var splash_base = &#039;/room/images/&#039;;
+    var video_swf_param = {
+        server: roompara.mserverip + &quot;:19350&quot;,
+        room_id: room_id,
+        uid: userpara.gid,
+        level: userpara.levelinroom,
+        token: &quot;video_token&quot;,
+        nickname: Base64.decode(userpara.nickname_b64),
+        splash: [splash_base + &quot;splash.png&quot;, splash_base + &quot;mic_free.png&quot;, splash_base + &quot;mic_chairman.png&quot;],
+        bps: roompara.m_bitrate,
+        vq: 90
+    };
+    video_start(video_swf_param, userpara.roomer);
+    load_speak_data();
+    load_anchor_fans();
+    load_room_bullet();
+    setTimeout(function () {
+        document.getElementById(&#039;p1&#039;).scrollIntoView();
+    }, 1000);
+});
+/**
+ * Ini video, Requiring attributes from server
+ *
+ * @method video_start
+ * @return {Undefined}
+ *
+ * @param userpara.roomer {Number}
+ * @example
+ *     0
+ * @param roompara
+ * @type {Object}
+ * @example
+ *     {&quot;server&quot;:&quot;182.18.61.9:19350&quot;,&quot;room_id&quot;:201937,&quot;uid&quot;:150858271,&quot;level&quot;:1,&quot;token&quot;:&quot;video_token&quot;,&quot;nickname&quot;:&quot;游客8271&quot;,&quot;splash&quot;:[&quot;/room/images/splash.png&quot;,&quot;/room/images/mic_free.png&quot;,&quot;/room/images/mic_chairman.png&quot;],&quot;bps&quot;:150000,&quot;vq&quot;:90}
+ * @param room_id
+ * @type {Number}
+ * @example
+ *     201855
+ * @param roompara.m_bitrate
+ * @type {Number}
+ * @example
+ *     150000
+ * @param userpara.gid
+ * @type {Number}
+ * @example
+ *     150830239
+ * @param userpara.levelinroom
+ * @type {Number}
+ * @example
+ *     1
+ * @param userpara.nickname_b64
+ * @type {String}
+ * @example
+ *     &quot;5ri45a6iMDIzOQ==&quot;
+ */
+function video_start(swfParam, roomer) {
+    if (roomer) {
+        video_swf.Init(swfParam, &quot;video_zone&quot;, 1, null);
+    }
+    else {
+        video_swf.Init(swfParam, &quot;video_zone&quot;, 0, null);
+    }
+}
+/**
+ * Description: insert flash for server side communication
+ *
+ * @xchat_start
+ */
+function xchat_start() {
+    var xconf_swf_param = {
+        ip: roompara.serverip,
+        port: 19188,	//roompara.serverport,
+        room_id: room_id,
+        uid: userpara.gid,
+        level: userpara.levelinroom,
+        token: &quot;gtoken&quot;,
+        nickname: Base64.decode(userpara.nickname_b64),
+        chatdisable: userpara.chatdisable,
+        appdata: Base64.encode(JSON.stringify(userpara))
+    };
+    chat_panel.init();
+    var swfParam = xconf_swf_param;
+    if (/^游客/.test(swfParam.nickname)) {
+        swfParam.uid = 0
+    }
+    xMessager.init(swfParam);
+    xchat_swf.Init(swfParam, &#039;xchat&#039;, null);
+}
+
+
+function SendGiftCB(r) {
+    console.log(&#039;SendGiftCB Called.&#039;);
+    console.log(r);
+    if (r.RES == 0) {
+        $(&quot;#returnmsg&quot;).html(r.HINT);
+        $(&quot;#tips02&quot;).click();
+        //alert(r.HINT);
+    }
+    if (r.RES == 1) {
+        $(&#039;#mycoin&#039;).html(jQuery.parseJSON(r.PARAM1).coin_after);
+        xMessager.giftmessage(r.PARAM0, JSON.parse(r.PARAM1), r.PARAM2);
+    }
+}
+
+function load_gift_list() {
+    var url = &#039;/room/giftList&#039;;
+    $.get(url, function (result) {
+            //console.log(&#039;load_gift_message. &#039; + result);
+            $(&#039;#liwu&#039;).html(result);
+        }
+    );
+}
+function load_gift_message() {
+    var url = &#039;/room/gift_message.php&#039;;
+    $.post(url, function (result) {
+            $(&#039;#gift_message&#039;).html(result);
+        }
+    );
+}
+/**
+ * Description: load speak data for scroll in the bottom
+ *
+ * @method load_speak_data
+ */
+function load_speak_data() {
+    var url = &#039;/room/broadcast&#039;;
+    $.post(url, function (result) {
+            $(&#039;#spmsg&#039;).html(result);
+        }
+    );
+}
+function fill_gift_list(gift_list) {
+    s = &#039;&#039;;
+    for (var i = 0; i &lt; gift_list.length; i++) {
+        s += &#039;&lt;li&gt;&lt;span&gt;&lt;img src=&quot;&#039; + gift_list[i].gift_img + &#039;&quot;&gt;&lt;/span&gt;&#039;;
+        s += &#039;&lt;span class=&quot;clGiftList01&quot;&gt;&#039; + gift_list[i].gift_sum + &#039;个&lt;/span&gt;&#039;;
+        s += &#039;&lt;span class=&quot;clGiftList02&quot;&gt;&#039; + gift_list[i].from_nickname + &#039;&lt;/span&gt;&#039;;
+        s += &#039;&lt;span class=&quot;clCoin&quot;&gt;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;U&#039; + gift_list[i].total_price + &#039;&lt;/span&gt;&lt;/li&gt;&#039;;
+    }
+    if (s == &#039;&#039;) {
+        s = &#039;&lt;li&gt;&lt;span&gt;还没有收到礼物！&lt;/span&gt;&lt;/li&gt;&#039;;
+    }
+    $(&#039;#clGiftList&#039;).html(s);
+}
+/**
+ * Description: common method to construct list of today and total
+ *
+ * @method fill_fan
+ */
+function fill_fan(fans, d_id) {
+    s = &#039;&#039;;
+    s1 = &#039;&#039;;
+    for (var i = 0; i &lt; fans.length; i++) {
+        var isThree = false;
+        if (i == 0) {
+            s = &#039;&lt;span class=&quot;lrtPic&quot;&gt;&lt;img src=&quot;&#039; + fans[i].avatar + &#039;&quot; alt=&quot;&quot;/&gt;&lt;i class=&quot;zzMaster&quot;&gt;&lt;/i&gt;&lt;em class=&quot;lrtTu&quot;&gt;&lt;i class=&quot;rankIco rankFirst&quot;&gt;&lt;/i&gt;&lt;/em&gt;&lt;/span&gt;&lt;strong&gt;&#039; + fans[i].from_nickname + &#039;&lt;/strong&gt;&lt;p&gt;&lt;b&gt;&#039; + fans[i].total_coin + &#039;&lt;/b&gt;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;&lt;/p&gt;&#039;;
+            jQuery(d_id + &#039; .lrtSecond&#039;).html(s);
+            if (d_id == &#039;#con_fan_1&#039;) {
+                jQuery(&#039;#todayfirst&#039;).html(&#039;&lt;strong class=&quot;ellipsis&quot;&gt;&#039; + fans[i].from_nickname + &#039;&lt;/strong&gt;&lt;p&gt;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;&lt;span&gt;&#039; + fans[i].total_coin + &#039;&lt;/span&gt;&lt;/p&gt;&#039;);
+            } else if (d_id == &#039;#con_fan_3&#039;) {
+                jQuery(&#039;#allfirst&#039;).html(&#039;&lt;strong class=&quot;ellipsis&quot;&gt;&#039; + fans[i].from_nickname + &#039;&lt;/strong&gt;&lt;p&gt;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;&lt;span&gt;&#039; + fans[i].total_coin + &#039;&lt;/span&gt;&lt;/p&gt;&#039;);
+            }
+        } else if (i == 1) {
+            s = &#039;&lt;span class=&quot;lrtPic&quot;&gt;&lt;img src=&quot;&#039; + fans[i].avatar + &#039;&quot; alt=&quot;&quot;/&gt;&lt;i class=&quot;zzMaster&quot;&gt;&lt;/i&gt;&lt;em class=&quot;lrtTu&quot;&gt;&lt;i class=&quot;rankIco rankSecond&quot;&gt;&lt;/i&gt;&lt;/em&gt;&lt;/span&gt;&lt;strong&gt;&#039; + fans[i].from_nickname + &#039;&lt;/strong&gt;&lt;p&gt;&lt;b&gt;&#039; + fans[i].total_coin + &#039;&lt;/b&gt;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;&lt;/p&gt;&#039;;
+            jQuery(d_id + &#039; .lrtFirst&#039;).html(s);
+        } else if (i == 2) {
+            s = &#039;&lt;span class=&quot;lrtPic&quot;&gt;&lt;img src=&quot;&#039; + fans[i].avatar + &#039;&quot; alt=&quot;&quot;/&gt;&lt;i class=&quot;zzMaster&quot;&gt;&lt;/i&gt;&lt;em class=&quot;lrtTu&quot;&gt;&lt;i class=&quot;rankIco rankThird&quot;&gt;&lt;/i&gt;&lt;/em&gt;&lt;/span&gt;&lt;strong&gt;&#039; + fans[i].from_nickname + &#039;&lt;/strong&gt;&lt;p&gt;&lt;b&gt;&#039; + fans[i].total_coin + &#039;&lt;/b&gt;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;&lt;/p&gt;&#039;;
+            jQuery(d_id + &#039; .lrtThird&#039;).html(s);
+        } else {
+            s1 += &#039;&lt;li&gt;&lt;span class=&quot;lrbNum&quot;&gt;&#039; + (i + 1) + &#039;.&lt;/span&gt;&lt;span class=&quot;lrbName&quot;&gt;&#039; + fans[i].from_nickname + &#039;&lt;/span&gt;&lt;span class=&quot;lrbUIco&quot;&gt;&#039; + fans[i].total_coin + &#039;&lt;i class=&quot;ubIco&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/li&gt;&#039;;
+        }
+        //s += &#039;&lt;li class=&quot;f-cb&quot;&gt;&lt;span class=&quot;fl&quot;&gt;&lt;img src=&quot;/room/images/&#039;+(i+1)+&#039;.png&quot; alt=&quot;one&quot; /&gt;&lt;/span&gt;&lt;span class=&quot;l-pic&quot;&gt;&lt;/span&gt;&lt;span class=&quot;l-name&quot;&gt;&#039;;
+        //if (fans[i].vip){
+        //	s += &#039;&lt;img src=&quot;/room/images/vip/v&#039; + fans[i].vip + &#039;.gif&quot;&gt;&#039;;
+        //}
+    }
+    jQuery(d_id + &#039; .other&#039;).html(s1);
+}
+/**
+ * Description: load data for left and right columns
+ *
+ * @method load_room_data
+ */
+function load_room_data() {
+    var url = &#039;/room/room_data.php?room_id=&#039; + room_id;
+    $.post(url, function (result) {
+        if (result.res == 0) {
+            return;
+        }
+        var result = jQuery.parseJSON(result);
+        var s = &#039;&#039;;
+        if (result.glamour &gt; 0) {
+            //s = &#039;&lt;font color=&quot;#EE3A8C&quot;&gt;离&lt;/font&gt;&lt;span class=&quot;star_icon star_&#039;+result.glamour_next+&#039;&quot;&gt;&lt;/span&gt;&lt;font color=&quot;#EE3A8C&quot;&gt;还差&lt;/font&gt;&#039; + result.glamour_need + &#039;U豆&#039;;
+            //s += &#039;&lt;span class=&quot;star_icon star_&#039; + result.glamour + &#039;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;l-dj&#039; + result.glamour_need_percent+ &#039;&quot;&gt;还差&#039; + result.glamour_need + &#039;Ｕ豆,升级到&lt;/span&gt;&lt;span class=&quot;star_icon star_&#039; + result.glamour_next + &#039;&quot;&gt;&lt;/span&gt;&#039;;
+            s = &#039;&lt;span class=&quot;lpLevelStart&quot;&gt;&lt;i class=&quot;zhuboIco zb&#039; + result.glamour + &#039;&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;div class=&quot;lpLevelPro&quot;&gt;&lt;p class=&quot;lpLevleData&quot; &gt;还差&lt;b&gt;&#039; + result.glamour_need + &#039;&lt;/b&gt;U豆到&lt;/p&gt;&lt;span&gt;&lt;i style=&quot;width:&#039; + result.glamour_need_percent + &#039;%;&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/div&gt;&lt;span class=&quot;lpLevelEnd&quot;&gt;&lt;i class=&quot;zhuboIco zb&#039; + result.glamour_next + &#039;&quot;&gt;&lt;/i&gt;&lt;/span&gt;&#039;;
+            $(&#039;#star_levl_next&#039;).html(s);
+            //s = &#039;&lt;span class=&quot;star_icon star_&#039; + result.glamour + &#039;&quot;&gt;&lt;/span&gt;&#039;;
+            //$(&#039;#star_levl_now&#039;).html(s);
+        }
+        s = &#039;富豪等级：&#039;;
+        if (result.rich) {
+            s += &#039;&lt;span class=&quot;rich_icon rich_&#039; + result.rich + &#039;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;l-dj&#039; + result.rich_need_percent + &#039;&quot;&gt;还差&#039; + result.rich_need + &#039;Ｕ币,升级到&lt;/span&gt;&lt;span class=&quot;rich_icon rich_&#039; + result.rich_next + &#039;&quot;&gt;&lt;/span&gt;&#039;;
+            $(&#039;#roomer_title&#039;).html(s);
+        }
+        fill_fan(result.fans[0], &#039;#con_fan_1&#039;);
+        //fill_fan(result.fans[1],&#039;#con_fan_2&#039;);
+        fill_fan(result.fans[2], &#039;#con_fan_3&#039;);
+        fill_gift_list(result.gift_list);
+    });
+}
+function emotion_it(i) {
+    //console.log(&#039;emotion_it:&#039;+i);
+    var s = $(&quot;#message_input&quot;).val() + &quot;/b&quot; + i;
+    jQuery(&quot;#message_input&quot;).val(s);
+    jQuery(&quot;.lwfFaceList&quot;).hide();
+}
+function emotion_it_o(i) {
+    //console.log(&#039;emotion_it:&#039;+i);
+    var s = $(&quot;#sperkercont&quot;).val() + &quot;/b&quot; + i;
+    jQuery(&quot;#sperkercont&quot;).val(s);
+    jQuery(&quot;.gbFaceList&quot;).hide();
+}
+function load_emotion() {
+    var s = &#039;&#039;;
+    var count = 60;
+    for (var i = 0; i &lt; count; i++) {
+        s += &#039;&lt;a href=&quot;javascript:emotion_it(&#039; + i + &#039;)&quot;&gt;&lt;img src=&quot;/room/images/emotion/&#039; + i + &#039;.gif&quot; &gt;&lt;/a&gt;&#039;;
+    }
+    jQuery(&quot;.lwfFaceList&quot;).html(s);
+    s = s.replace(/emotion_it/g, &quot;emotion_it_o&quot;)
+    jQuery(&quot;.gbFaceList&quot;).html(s);
+}
+/**
+ * Description: show cars when page loaded
+ *
+ * @owshowcar
+ * @deprecated Use chat.showCar
+ * instead
+ */
+function owshowcar() {
+    if (userpara.car_id &gt; 0) {
+        var nickname = nicknameIniVal;
+        userpara.nickname = nickname;
+        showcar(userpara);
+    } else {
+        userpara.nickname = Base64.decode(userpara.nickname_b64);
+        member_in_out_hint(userpara, 1);
+    }
+}
+function showcar(appdata) {
+    var url = &#039;/room/car/id/&#039; + appdata.car_id;
+    $.get(url, function (result) {
+            var ms = JSON.parse(result);
+            if (ms.error == 0) {
+                appdata.carmsg = ms.content.msg;
+                member_in_out_hint(appdata, 1);
+                //message_display.pub(ms.content.msg);
+                car_center.show_car(ms.content.swf, 1, ms.content.swf_life);
+            }
+        }
+    );
+}
+/**
+ * Description: load and render fans num on left-top about anchor info
+ *
+ * @method load_anchor_fans
+ * @deprecated Use load_room_data
+ * @since next version
+ */
+
+function addfav(roomid) {
+    if (!checklogin()) {
+        return false;
+    }
+    jQuery.ajax({
+        type: &quot;post&quot;,
+        data: {&quot;room_id&quot;: roomid},
+        url: &quot;/room/addFav&quot;,
+        success: function (data, status) {
+            var ms = JSON.parse(data);
+            if (ms.error == 0) {
+                var str = &#039;&lt;a href=&quot;javascript:;&quot; onclick=&quot;delfav(&#039; + roomid + &#039;);&quot; class=&quot;orangeBtn&quot;&gt;&lt;i&gt;取消关注&lt;/i&gt;&lt;/a&gt;&#039;;
+                jQuery(&quot;#userfav&quot;).html(str);
+                xMessager.anchorfans();
+            }
+        }
+    });
+}
+function delfav(roomid) {
+    jQuery.ajax({
+        type: &quot;post&quot;,
+        data: {&quot;room_id&quot;: roomid},
+        url: &quot;/room/delFav&quot;,
+        success: function (data, status) {
+            var ms = JSON.parse(data);
+            if (ms.error == 0) {
+                var str = &#039;&lt;a href=&quot;javascript:;&quot; onclick=&quot;addfav(&#039; + roomid + &#039;);&quot; class=&quot;orangeBtn&quot;&gt;&lt;i&gt;添加关注&lt;/i&gt;&lt;/a&gt;&#039;;
+                jQuery(&quot;#userfav&quot;).html(str);
+                xMessager.anchorfans();
+            }
+        }
+    });
+}
+/**
+ * Loading recommended rooms if broadcast not starts, to refactor
+ * @method load_room_recommended
+ * @deprecated Use message_display.load_room_recommended
+ *
+ * */
+function load_room_recommended() {
+    var url = &quot;/room/recommend&quot;;
+    jQuery.post(url, function (result) {
+            jQuery(&quot;#room_recommended&quot;).html(result);
+        }
+    );
+}
+
+/**
+ * Description:
+ *
+ * @class todoCode
+ */
+/**
+ * Description: speaking event bind hidden element, not triggered now(.radioWord not displayed)
+ *
+ * @event sendspeaker
+ * @deprecated
+ *
+ */
+function sendspeaker() {
+    var spmsg = jQuery(&quot;#sperkercont&quot;).val();
+    if (spmsg.length &lt; 1) {
+        alert(&quot;喇叭必须填写内容&quot;);
+        return false;
+    }
+    if (spmsg.length &gt; 100) {
+        alert(&quot;字数不能大于100&quot;);
+        return false;
+    }
+    var url = &quot;/room/consume&quot;;
+    var data = {
+        &#039;CONSUMETYPE&#039;: 10,
+        &#039;FROMGID&#039;: fromgidIniVal,
+        &#039;OBJ&#039;: {
+            &#039;MSG&#039;: spmsg,
+            &#039;room_id&#039;: room_id
+        }
+    }
+    jQuery.post(url, JSON.stringify(data), function (result) {
+        console.log(result);
+        jQuery(&quot;#sperker&quot;).hide();
+        jQuery(&quot;#sperkercont&quot;).val(&quot;&quot;);
+        var r = jQuery.parseJSON(result);
+        {
+            console.log(&#039;call SendspeakerCB&#039;);
+            SendspeakerCB(r);
+        }
+    })
+        .fail(function () {
+            console.log(&#039;error&#039;);
+            alert(&#039;发送小喇叭失败！&#039;);
+        });
+}
+function SendspeakerCB(r) {
+    console.log(&#039;SendspeakerCB Called.&#039;);
+    console.log(r);
+    if (r.RES == 0) {
+        alert(r.HINT);
+    }
+    if (r.RES == 1) {
+        xMessager.speakermessage(JSON.parse(r.PARAM1));
+    }
+}</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

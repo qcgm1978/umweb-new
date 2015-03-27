@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/common/bootJs.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/common/bootJs.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">68.49</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">644</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">60.04</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">9.13</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * Description: common modules
+ *
+ * @module SiteCommon
+ * @class SiteCommon
+ * @static
+ */
+window.SiteCommon = {
+    setChatDialog: function ($ele, func) {
+        $ele.keypress(function (event) {
+            if (event.which == 13) {
+                func.call(this, $ele);
+            }
+        });
+    }
+}
+//滚动插件
+$(function () {
+    //对象+命名空间
+    $.fn.scrollElement = function (options) {
+        //默认值
+        var defaults = {
+            &quot;fatherEle&quot;: &quot;liveScrollEle&quot;,
+            &quot;marginDefault&quot;: 20,
+            &quot;time&quot;: 2500
+        }
+        //合并默认值与参数
+        var options = $.extend(defaults, options);
+        //操作代码
+        this.each(function () {
+            var This = $(this);
+            var liveScrollEle = $(&quot;.&quot; + options.fatherEle);
+            var fatherWidth = $(liveScrollEle).width();
+            var ulElement = $(liveScrollEle).find(&quot;ul&quot;)[0];
+            var liEle = $(liveScrollEle).find(&#039;li&#039;);
+            var liLength = $(liveScrollEle).find(&#039;li&#039;).length;
+            var paraWidth = 0;
+            var marginWidth = 0;
+            var marginDefault = 20;
+            var paraCurrent = -1;
+            var timeAnimate = null;
+            var timeSpace = options.timeSpace;
+            //判断元素宽度和
+            var wMath = 0;
+            for (var i = 0; i &lt; liLength; i++) {
+                wMath += $(liEle).eq(i).width();
+            }
+            ;
+            //ulElement.innerHTML += ulElement.innerHTML;
+            if (wMath &gt;= fatherWidth) {
+                ulElement.innerHTML += ulElement.innerHTML;
+                this.timeAnimate = setInterval(scrollEle, timeSpace);
+            }
+            ;
+            function scrollEle() {
+                if (paraCurrent &lt; liLength - 1) {
+                    paraCurrent++;
+                    paraWidth += $(ulElement).find(&#039;li&#039;).eq(paraCurrent).width();
+                    marginWidth += marginDefault * paraCurrent
+                    $(ulElement).animate({&quot;left&quot;: -paraWidth - marginWidth});
+                } else {
+                    paraCurrent = -1;
+                    paraWidth = 0;
+                    $(ulElement).css({&quot;left&quot;: 0});
+                }
+                ;
+            };
+        });
+    }
+});
+//直播间顶部滚动
+/*$(function(){
+ $(&quot;.liveScrollEle&quot;).scrollElement({
+ &quot;fatherEle&quot;:&quot;liveScrollEle&quot;,//父容器
+ &quot;marginDefault&quot;:20,//元素间隙
+ &quot;timeSpace&quot;:2500//滚动时间
+ });
+ });*/
+//直播间底部滚动
+/*$(function(){
+ $(&quot;.noticeInfor&quot;).scrollElement({
+ &quot;fatherEle&quot;:&quot;noticeInfor&quot;,//父容器
+ &quot;marginDefault&quot;:20,//元素间隙
+ &quot;timeSpace&quot;:2500//滚动时间
+ });
+ });*/
+/*全部|管理*/
+$(function () {
+    try {
+        autologin(islogined);
+    } catch (e) {
+        console.log(&#039;it\&#039;s in login page&#039;)
+    }
+    if ($(&quot;#out&quot;).length) {
+        $(&quot;#out&quot;).attr(&quot;href&quot;, &quot;/user/logout&quot;);
+    }
+    $(&quot;.lmaTab a&quot;).each(function (index) {
+        $(this).click(function (event) {
+            event.preventDefault();
+            $(this).parent().addClass(&quot;current&quot;).end().parent().siblings().removeClass();
+            $(&quot;.lmaMain .liveScrollMain&quot;).eq(index).css({&quot;display&quot;: &quot;block&quot;}).siblings().css({&quot;display&quot;: &quot;none&quot;});
+        });
+    });
+    //浮层
+    var viewHeight = $(window).height();
+    var viewWidth = $(window).width();
+    var userMenu = $(&quot;.userMenu&quot;);
+    var useMeHeight = $(&quot;.userMenu&quot;).height();
+    var useMeWidth = $(&quot;.userMenu&quot;).width();
+    /*
+     var lTop = $(&quot;#liuyan&quot;).offset().top;
+     var lLeft = $(&quot;#liuyan&quot;).offset().left;
+     */
+    var hasWord = document.getElementById(&quot;liuyan&quot;);
+    if (hasWord) {
+        var lTop = $(hasWord).offset().top;
+        var lLeft = $(hasWord).offset().left;
+    }
+    ;
+    $(&quot;.liveManageList li&quot;).each(function (index) {
+        $(this).click(function (event) {
+            viewHeight = $(window).height();
+            //$(this).addClass(&quot;current&quot;).siblings().removeClass(&quot;current&quot;);
+            $(userMenu).css({&quot;display&quot;: &quot;block&quot;, &quot;left&quot;: event.pageX + 10, &quot;top&quot;: event.pageY + 10});
+            //alert(viewHeight);
+            if (event.pageX + 10 + event.pageX + 10 &gt; viewHeight) {
+                $(userMenu).css({&quot;left&quot;: event.pageX + 10, &quot;top&quot;: event.pageY + 10});
+            } else {
+                $(userMenu).css({&quot;left&quot;: event.pageX + 10, &quot;top&quot;: 315});
+            }
+        });
+    });
+    //留言板用户名
+    $(&quot;.lcList a&quot;).each(function (index) {
+        $(this).click(function (event) {
+            event.preventDefault();
+            viewHeight = $(window).height();
+            viewWidth = $(window).width();
+            var newH = event.clientY + useMeHeight;
+            var newW = event.clientX + useMeWidth;
+            if ((newH + 10) &lt; viewHeight) {
+                $(userMenu).css({&quot;display&quot;: &quot;block&quot;, &quot;top&quot;: (event.pageY + 10)});
+                if ((newW + 10) &lt; viewWidth) {
+                    $(userMenu).css({&quot;left&quot;: (event.pageX + 10)});
+                } else {
+                    $(userMenu).css({&quot;left&quot;: (event.pageX - useMeWidth - 10)});
+                }
+            } else {
+                $(userMenu).css({&quot;display&quot;: &quot;block&quot;, &quot;top&quot;: event.pageY - (newH - viewHeight + 10)});
+                if ((newW + 10) &lt; viewWidth) {
+                    $(userMenu).css({&quot;left&quot;: (event.pageX + 10)});
+                } else {
+                    $(userMenu).css({&quot;left&quot;: (event.pageX - useMeWidth - 10)});
+                }
+            }
+        });
+    });
+    //清除
+    $(&quot;.lmaMain&quot;).mouseleave(function () {
+        hideEle();
+    });
+    $(userMenu).mouseenter(function () {
+        showEle();
+    });
+    $(userMenu).mouseleave(function () {
+        hideEle();
+    });
+    //隐藏/显示函数
+    function hideEle() {
+        $(userMenu).css({&quot;display&quot;: &quot;none&quot;});
+    }
+
+    function showEle() {
+        $(userMenu).css({&quot;display&quot;: &quot;block&quot;});
+    }
+});
+/*榜单*/
+$(function () {
+    var liveRank = $(&quot;.liveRank .lrTitle&quot;);
+    $(liveRank).each(function (index) {
+        $(this).click(function () {
+            if ($(this).hasClass(&#039;current&#039;)) {
+                $(this).removeClass(&quot;current&quot;);
+                $(&quot;.lineRank&quot;).css({&quot;display&quot;: &quot;none&quot;});
+                $(&quot;.lineRank&quot;).eq(index).css({&quot;display&quot;: &quot;none&quot;});
+            } else {
+                $(this).addClass(&quot;current&quot;);
+                $(&quot;.lineRank&quot;).css({&quot;display&quot;: &quot;none&quot;});
+                $(&quot;.lineRank&quot;).eq(index).css({&quot;display&quot;: &quot;block&quot;});
+            }
+            ;
+        });
+    });
+});
+/*房间公告*/
+$(function () {
+    var lrCloseDown = $(&quot;.lrCloseDown&quot;);
+    var liveRoomWord = $(&quot;.liveRoomWord&quot;);
+    $(lrCloseDown).click(function () {
+        if ($(this).hasClass(&#039;lrCloseUp&#039;)) {
+            $(this).removeClass(&quot;lrCloseUp&quot;);
+            $(liveRoomWord).animate({&quot;height&quot;: 45});
+        } else {
+            $(this).addClass(&quot;lrCloseUp&quot;);
+            $(liveRoomWord).animate({&quot;height&quot;: 30});
+        }
+    });
+});
+/*聊天|礼物*/
+$(function () {
+    var giftShow = $(&quot;.giftShow&quot;)
+    $(&quot;.lmgTab li a&quot;).each(function (index) {
+        $(this).click(function (event) {
+            event.preventDefault();
+            $(this).parent().addClass(&quot;current&quot;).end().parent().siblings().removeClass(&quot;current&quot;);
+            if (index == 0) {
+                $(giftShow).removeClass(&quot;highlight&quot;);
+            } else {
+                $(giftShow).addClass(&quot;highlight&quot;);
+            }
+        });
+    });
+})
+/*清屏滚屏*/
+$(function () {
+    var liveComment = $(&quot;.liveComment&quot;);
+    var liveSystem = $(&quot;.liveSystem&quot;);
+    $(liveComment).hover(function () {
+        $(&quot;.liveComment .popfn&quot;).css({&quot;top&quot;: 25});
+    }, function () {
+        $(&quot;.liveComment .popfn&quot;).css({&quot;top&quot;: -300});
+    });
+    $(liveSystem).hover(function () {
+        $(&quot;.liveSystem .popfn&quot;).css({&quot;top&quot;: 25});
+    }, function () {
+        $(&quot;.liveSystem .popfn&quot;).css({&quot;top&quot;: -300});
+    });
+});
+/*发广播*/
+$(function () {
+    var lbIco = $(&quot;.lbIco&quot;);
+    var radioWord = $(&quot;.radioWord&quot;);
+    var radiaClose = $(&quot;.radiaClose&quot;);
+    var ifState = true;
+    $(lbIco).click(function () {
+        radioFn()
+    });
+    $(radiaClose).click(function () {
+        radioFn();
+    });
+    function radioFn() {
+        if (ifState) {
+            ifState = false;
+            $(radioWord).addClass(&quot;show&quot;);
+        } else {
+            ifState = true;
+            $(radioWord).removeClass(&quot;show&quot;);
+        }
+    }
+});
+/*表情*/
+$(function () {
+    var lwfFaceList = $(&quot;.lwfFaceList&quot;);
+    var trueFalse = 1;
+    $(&quot;.lwFace a&quot;).click(function (event) {
+        event.preventDefault();
+        if (trueFalse) {
+            trueFalse = 1;
+            $(lwfFaceList).css({&quot;display&quot;: &quot;block&quot;});
+        } else {
+            trueFalse = 0;
+            $(lwfFaceList).css({&quot;display&quot;: &quot;none&quot;});
+        }
+    });
+    $(lwfFaceList).mouseleave(function () {
+        $(lwfFaceList).css({&quot;display&quot;: &quot;none&quot;});
+    });
+    $(&quot;body&quot;).click(function (event) {
+        var ele = event.target;
+        var eleClass = $(ele).attr(&quot;class&quot;);
+        if (ele.tagName == &quot;IMG&quot; &amp;&amp; eleClass == &quot;eleCss&quot;) {
+            $(lwfFaceList).animate({&quot;display&quot;: &quot;block&quot;});
+        } else {
+            $(lwfFaceList).css({&quot;display&quot;: &quot;none&quot;});
+        }
+    });
+})
+/*礼物*/
+function makeGitfTip() {
+    var liveTip = $(&quot;#liveTip&quot;);
+    var nowScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    $(&quot;.liveGiftsBox li&quot;).each(function (index) {
+        $(this).mousemove(function (event) {
+            $(&quot;#liveTipText&quot;).html($(this).find(&#039;img&#039;).attr(&#039;alt&#039;));
+            nowScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            $(liveTip).css({&quot;left&quot;: event.clientX + 10, &quot;top&quot;: event.clientY + nowScrollTop + 10});
+        });
+        $(this).mouseenter(function () {
+            $(liveTip).css({&quot;display&quot;: &quot;block&quot;});
+        });
+        $(this).mouseleave(function () {
+            $(liveTip).css({&quot;display&quot;: &quot;none&quot;});
+        });
+    });
+}
+/*二级页面左侧导航*/
+$(function () {
+    var menuSide = $(&quot;.menuSide&quot;);
+    $(&quot;.menuSide dl&quot;).each(function (index) {
+        var dds = $(this).find(&quot;dd&quot;).length;
+        var dlDefaultHeight = 35;
+        var dtDefaultHeight = 35;
+        $(this).css({&quot;height&quot;: dlDefaultHeight});
+        var className = $(this).hasClass(&quot;current&quot;);
+        if (className) {
+            $(this).animate({&quot;height&quot;: dds * dlDefaultHeight + dtDefaultHeight});
+        }
+        ;
+        $(this).click(function (event) {
+            var ddLength = $(this).find(&quot;dd&quot;).length;
+            $(this).animate({&quot;height&quot;: ddLength * 35 + dtDefaultHeight}).siblings().animate({&quot;height&quot;: dtDefaultHeight});
+        });
+    });
+});
+/*滚条置底*/
+var scrollTimerpub;
+$(function () {
+    $(&quot;#popScrollPubYes&quot;).hide();
+});
+$(function () {
+    $(&quot;#popScrollPrvYes&quot;).hide();
+});
+function clearScrollTimerpub() {
+    $(&quot;#popScrollPubNo&quot;).hide();
+    $(&quot;#popScrollPubYes&quot;).show();
+    uu89pub.autoscroll = false;
+}
+function beginScrollTimerpub() {
+    $(&quot;#popScrollPubNo&quot;).show();
+    $(&quot;#popScrollPubYes&quot;).hide();
+    uu89pub.autoscroll = true;
+    uu89pub.rolling();
+}
+function clearScrollTimerprv() {
+    $(&quot;#popScrollPrvYes&quot;).show();
+    $(&quot;#popScrollPrvNo&quot;).hide();
+    uu89prv.autoscroll = false;
+}
+function beginScrollTimerprv() {
+    $(&quot;#popScrollPrvNo&quot;).show();
+    $(&quot;#popScrollPrvYes&quot;).hide();
+    uu89prv.autoscroll = true;
+    uu89prv.rolling();
+}
+//pos(obj)
+function pos(obj) {
+    var lt = {&quot;left&quot;: 0, &quot;top&quot;: 0};
+    while (obj) {
+        lt.left += obj.offsetLeft;
+        lt.top += obj.offsetTop;
+        obj = obj.offsetParent;
+    }
+    ;
+    return lt;
+}
+//viewWH()
+function viewWH() {
+    var wh = {&#039;width&#039;: &#039;&#039;, &#039;height&#039;: &#039;&#039;};
+    wh.width = $(window).width();
+    wh.height = $(window).height();
+    return wh;
+};
+//scrollLT
+function scrollLT() {
+    var lt = {&#039;left&#039;: &#039;&#039;, &#039;top&#039;: &#039;&#039;};
+    lt.left = document.body.scrollLeft || document.documentElement.scrollLeft;
+    lt.top = document.body.scrollTop || document.documentElement.scrollTop;
+    return lt;
+};
+//拖拽
+$(function () {
+    var liuyan = document.getElementById(&#039;liuyan&#039;);//留言列表
+    var dragBar = document.getElementById(&#039;dragBar&#039;);//拖条
+    var xitong = document.getElementById(&#039;xitong&#039;);//系统列表
+    var liveMsgGift = document.getElementById(&#039;liveMsgGift&#039;);
+    var liveMsgGiftTop = pos(liveMsgGift).top;//聊天.礼物父容器至文档顶部top距离
+    if (dragBar) {
+        dragBar.onmousedown = function (ev) {
+            var ev = ev || event;
+            var liveMsgGiftHeight = $(&quot;.liveMsgGift&quot;).height();//聊天.礼物liveMsgGift父容器高度
+            var lmgTabHeight = $(&quot;.lmgTab&quot;).height();//聊天.礼物导航高度
+            var liveRoomReportHeight = $(&quot;.liveRoomReport&quot;).height();//公告高度
+            var liveWordFnHeight = $(&quot;.liveWordFn&quot;).outerHeight(true);//留言区域高度
+            var dragBarHeight = $(&quot;.dragBar&quot;).height();//拖动条高度
+            var lmgMainHeight = $(&quot;.lmgMain&quot;).height() - lmgTabHeight - liveRoomReportHeight - liveWordFnHeight;
+            $(document).mousemove(function (event) {
+                var mouseY = event.pageY;//鼠标至文档顶部Y坐标
+                var topValue = mouseY - liveMsgGiftTop - lmgTabHeight - liveRoomReportHeight;//动态改变留言容器高度
+                var singleLineChatHeight = 27;
+                var offset = singleLineChatHeight * 3;
+                if (topValue &lt;= offset) {
+                    topValue = offset;
+                }
+                var marginBottom = lmgMainHeight + 25 - offset;
+                if (topValue &gt;= marginBottom) {
+                    topValue = marginBottom;
+                }
+                var reduceValue = liveMsgGiftHeight - topValue - liveWordFnHeight - lmgTabHeight - liveRoomReportHeight - dragBarHeight;//动态修改系统信息容器告诉
+                //document.title = &quot;top&quot; +  topValue + &quot;+&quot; + &quot;bottom&quot; +reduceValue;
+                $(liuyan).css({&quot;height&quot;: topValue});
+                $(xitong).css({&quot;height&quot;: reduceValue});
+                return false;//修复ie下拖动后文字闪动
+            });
+            $(document).mouseup(function () {
+                $(document).unbind(&quot;mousemove&quot;);
+                $(document).unbind(&quot;mouseup&quot;);
+            });
+            return false;
+        }
+    }
+})
+/*可视区调整*/
+function viewReset() {
+    var viewWidthHeight = viewWH();
+    var vh = viewWidthHeight.height;//可视窗口高度
+    var lhoHeight = $(&quot;.liveHeaderOut&quot;).outerHeight(true); //顶部导航
+    var lgtHeight = $(&quot;.liveGiftTip&quot;).outerHeight(true); //跑马灯
+    var lpHeight = $(&quot;.livePlayer&quot;).outerHeight(true); //主播信息
+    var mnHeight = $(&quot;.manageNav&quot;).outerHeight(true); //全部 管理
+    var isHeight = $(&quot;.lmaSearch&quot;).outerHeight(true); //搜索框
+    var lvH = $(&quot;.liveVideo&quot;).outerHeight(true); //视频框
+    var ltH = $(&quot;.lgTab&quot;).outerHeight(true); //礼物导航
+    var lpH = $(&quot;.livePresent&quot;).outerHeight(true); //赠送
+    var pb10 = 10;
+    var vrH = $(&quot;.liveRank&quot;).outerHeight(true); //榜单
+    var lrrH = $(&quot;.liveRoomReport&quot;).outerHeight(true); //公告
+    var lsH = $(&quot;.liveSystem&quot;).outerHeight(true); //系统信息
+    var lwfH = $(&quot;.liveWordFn&quot;).outerHeight(true); //留言区
+    var lbHeight = $(&quot;.liveBroad&quot;).outerHeight(true); //广播
+    var lfoHeight = $(&quot;.liveFooterOut&quot;).outerHeight(true); //版权
+    var pb30 = 30;
+    var lrkHeight = $(&quot;.lineRankTop&quot;).outerHeight(true); //今日榜单前三
+    if (vh &gt; 700) {
+        //左侧
+        var resetLeftHeigth = vh - lhoHeight - lgtHeight - lpHeight - mnHeight - isHeight - lbHeight - lfoHeight;
+        $(&quot;#reportBox&quot;).css({&quot;height&quot;: resetLeftHeigth});
+        $(&quot;#guanli&quot;).css({&quot;height&quot;: resetLeftHeigth});
+        //中间
+        var resetMiddleHeigth = vh - lhoHeight - lvH - ltH - lpH - lbHeight - lfoHeight - 53;
+        $(&quot;#liwu&quot;).css({&quot;height&quot;: resetMiddleHeigth});
+        //右侧
+        var resetRightHeigth = vh - lhoHeight - lgtHeight - vrH - lrrH - lsH - lwfH - lbHeight - lfoHeight - 33;
+        $(&quot;#liuyan&quot;).css({&quot;height&quot;: resetRightHeigth});
+        //礼物弹窗
+        var resetGiftHeigth = vh - lhoHeight - lgtHeight - vrH - lbHeight - lfoHeight - 30;
+        $(&quot;#lwListData&quot;).css({&quot;height&quot;: resetGiftHeigth});
+        //今日榜单
+        var resetRwardHeigth = vh - lhoHeight - lgtHeight - lbHeight - lfoHeight - lrkHeight - 50;
+        $(&quot;#jinribang&quot;).css({&quot;height&quot;: resetRwardHeigth});
+        $(&quot;#zongbang&quot;).css({&quot;height&quot;: resetRwardHeigth});
+        //
+    } else {
+        //左侧
+        $(&quot;#reportBox&quot;).css({&quot;height&quot;: &#039;&#039;});
+        $(&quot;#guanli&quot;).css({&quot;height&quot;: &#039;&#039;});
+        //中间
+        $(&quot;#liwu&quot;).css({&quot;height&quot;: &#039;&#039;});
+        //右侧
+        $(&quot;#liuyan&quot;).css({&quot;height&quot;: &#039;&#039;});
+        //礼物弹窗
+        $(&quot;#lwListData&quot;).css({&quot;height&quot;: &#039;&#039;});
+        //今日榜单
+        $(&quot;#jinribang&quot;).css({&quot;height&quot;: &#039;&#039;});
+        $(&quot;#zongbang&quot;).css({&quot;height&quot;: &#039;&#039;});
+    }
+}
+$(window).resize(function () {
+    viewReset();
+});
+$(window).load(function () {
+    viewReset();
+});
+/*发广播表情*/
+$(function () {
+    var rwSubRightImg = $(&quot;.rwSubRight img&quot;);
+    var gbFaceList = $(&quot;.gbFaceList&quot;);
+    var ifTrue = 1;
+    $(rwSubRightImg).click(function () {
+        if (ifTrue) {
+            ifTrue = 0;
+            $(&quot;.gbFaceList&quot;).css({&quot;display&quot;: &quot;block&quot;});
+        } else {
+            ifTrue = 1;
+            $(&quot;.gbFaceList&quot;).css({&quot;display&quot;: &quot;none&quot;});
+        }
+    });
+    gbFaceList.mouseleave(function () {
+        ifTrue = 1;
+        $(this).css({&quot;display&quot;: &quot;none&quot;});
+    });
+    $(&quot;body&quot;).click(function (event) {
+        var ele = event.target;
+        //var eleClass = $(ele).attr(&quot;class&quot;);
+        if (ele.tagName == &quot;IMG&quot;) {
+            gbFaceList.css({&quot;display&quot;: &quot;block&quot;});
+        } else {
+            gbFaceList.css({&quot;display&quot;: &quot;none&quot;});
+        }
+    });
+})
+/*礼物分类*/
+$(function () {
+    $(&quot;.lgTbaUl li a&quot;).each(function (index) {
+        $(this).click(function (event) {
+            event.preventDefault();
+            $(this).parent().addClass(&quot;current&quot;).end().parent().siblings().removeClass(&quot;current&quot;);
+            $(&quot;.liveGiftsBox&quot;).css({&quot;display&quot;: &quot;none&quot;});
+            $(&quot;.liveGiftsBox&quot;).eq(index).css({&quot;display&quot;: &quot;block&quot;});
+        });
+    });
+});
+/* 登陆注册层 */
+$(function () {
+    SiteCommon.setChatDialog($(&#039;.controlGroup input&#039;), function (data) {
+        $(&#039;.pubLinks:visible&#039;).click()
+    })
+});
+function viewWH() {
+    var wh = {&#039;width&#039;: &#039;&#039;, &#039;height&#039;: &#039;&#039;};
+    wh.width = $(window).width();
+    wh.height = $(window).height();
+    return wh;
+};
+var srcPx = $(document).scrollTop();
+//弹框插件
+$(function () {
+    //对象+命名空间
+    $.fn.windowOpen = function (options) {
+        //默认值
+        var defaults = {
+            &quot;clickEle&quot;: &quot;loginReward&quot;,
+            &quot;popEle&quot;: &quot;loginRewardPop&quot;
+        }
+        //合并默认值与参数
+        var options = $.extend(defaults, options);
+        //操作代码
+        this.each(function () {
+            //生命动画变量
+            var This = $(this);
+            var clickEle = &quot;#&quot; + options.clickEle;
+            var popEle = &quot;#&quot; + options.popEle;
+            var popClose = $(popEle).find(&quot;h2&quot;).find(&#039;a&#039;);
+            var popEleH = $(popEle).innerHeight();
+            var popEleW = $(popEle).innerWidth();
+            $(clickEle).click(function () {
+                var posTop = (viewWH().height - popEleH) / 2 + srcPx;
+                var posLeft = -(popEleW / 2)
+                $(&quot;.windowOpen&quot;).css({&quot;display&quot;: &quot;none&quot;});
+                $(&quot;.masterEle&quot;).height(document.body.scrollHeight);
+                $(&quot;.masterEle&quot;).show();
+                $(popEle).css({&quot;display&quot;: &quot;block&quot;, &quot;top&quot;: posTop, &quot;marginLeft&quot;: posLeft});
+            });
+            $(popClose).click(function () {
+                $(popEle).css({&quot;display&quot;: &quot;none&quot;});
+                $(&quot;.masterEle&quot;).hide();
+            });
+            $(window).scroll(function () {
+                resizeEle();
+            });
+            $(window).resize(function () {
+                resizeEle();
+            });
+            function resizeEle() {
+                srcPx = $(document).scrollTop();
+                $(popEle).css({&quot;top&quot;: srcPx + (viewWH().height - popEleH) / 2});
+            }
+        });
+    }
+});
+$(function () {
+    //提示01
+    $(&quot;#tips01&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;tips01&quot;,
+        &quot;popEle&quot;: &quot;tips01Pop&quot;
+    });
+    //提示02
+    $(&quot;#tips02&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;tips02&quot;,
+        &quot;popEle&quot;: &quot;tips02Pop&quot;
+    });
+    //提示03
+    $(&quot;#tips03&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;tips03&quot;,
+        &quot;popEle&quot;: &quot;tips03Pop&quot;
+    });
+    //提示02
+    $(&quot;#tips04&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;tips04&quot;,
+        &quot;popEle&quot;: &quot;tips04Pop&quot;
+    });
+    //提示02
+    $(&quot;#tips05&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;tips05&quot;,
+        &quot;popEle&quot;: &quot;tips05Pop&quot;
+    });
+    //提示02
+    $(&quot;#tips06&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;tips06&quot;,
+        &quot;popEle&quot;: &quot;tips06Pop&quot;
+    });
+    //提示02
+    $(&quot;#tips07&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;tips07&quot;,
+        &quot;popEle&quot;: &quot;tips07Pop&quot;
+    });
+    //提示02
+    $(&quot;#tips08&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;tips08&quot;,
+        &quot;popEle&quot;: &quot;tips08Pop&quot;
+    });
+    //提示02
+    $(&quot;#tips09&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;tips09&quot;,
+        &quot;popEle&quot;: &quot;tips09Pop&quot;
+    });
+    //注册
+    $(&quot;#registerBox&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;registerBox&quot;,
+        &quot;popEle&quot;: &quot;registerPop&quot;
+    });
+    //注册成功
+    $(&quot;#registerokBox&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;registerokBox&quot;,
+        &quot;popEle&quot;: &quot;registerokPop&quot;
+    });
+    //登录
+    $(&quot;#loginBox&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;loginBox&quot;,
+        &quot;popEle&quot;: &quot;loginPop&quot;
+    });
+    //girl
+    $(&quot;#girlBox&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;girlBox&quot;,
+        &quot;popEle&quot;: &quot;girlPop&quot;
+    });
+    //remark
+    $(&quot;#tdBox&quot;).windowOpen({
+        &quot;clickEle&quot;: &quot;tdBox&quot;,
+        &quot;popEle&quot;: &quot;tdPop&quot;
+    });
+})</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - js/view/pay.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>js/view/pay.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">66.94</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">286</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">37.42</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.81</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">(function () {
+    var $ = function (id) {
+        return document.getElementById(id);
+    }
+// 金额鼠标动作
+    if ($(&#039;amounts&#039;)) {
+        $(&#039;amounts&#039;).onafterpaste = check_amount;
+        $(&#039;amounts&#039;).onkeyup = function () {
+            $(&#039;amounts&#039;).value = $(&#039;amounts&#039;).value.replace(/[^\d]/g, &#039;&#039;);
+            jQuery(&#039;#ucoin&#039;).html($(&#039;amounts&#039;).value * 100);
+        }
+        $(&#039;amounts&#039;).ondragenter = function () {
+            return false
+        };
+    }
+// 表单提交标记
+    var is_post = 0;
+// 支付方式Ajax请求
+    function topay() {
+        var amount = Math.floor($(&#039;amounts&#039;).value);
+        var virtual_sn = $(&#039;virtual_sn&#039;).value;
+        var orid = $(&#039;orid&#039;).value;
+        var pay_pass = null;
+        /* 充值是否提交过至第三方支付 */
+        if (is_post) {
+            virtual_sn = 0;
+        }
+        /* 是否需要选择充值通道 */
+        if ($(&#039;pay_pass&#039;)) {
+            pay_pass = $(&#039;pay_pass&#039;).value;
+            if (!pay_pass) {
+                ialert(&#039;请选择网上银行&#039;);
+                return;
+            }
+        }
+        /* 是否需要选择充值面额 */
+        if ($(&#039;parVal&#039;) &amp;&amp; get_radio(&#039;parVal&#039;) == null) {
+            ialert(&#039;请选择要充值的卡面额&#039;);
+            return;
+        }
+        if (amount &lt; 0 || amount == &#039;&#039; || amount == null) {
+            ialert(&#039;请填写要充值的金额&#039;);
+            return;
+        }
+        var args = &#039;amount=&#039; + amount + &#039;&amp;pay_code=&#039; + pay_code + &#039;&amp;virtual_sn=&#039; + virtual_sn + &#039;&amp;orid=&#039; + orid;
+        if (pay_pass) {
+            args += &#039;&amp;pay_pass=&#039; + pay_pass;
+        }
+        Ajax.call(&#039;/pay/deal&#039;, args, function (result) {
+            if (result.error &gt; 0) {
+                ialert(result.message);
+            } else {
+                payinfo(result);
+            }
+        }, &#039;POST&#039;, &#039;JSON&#039;, true, true);
+    }
+
+//显示支付信息，和支付按钮
+    function payinfo(result) {
+        // 展示信息
+        //$(&#039;pay&#039;).style.display  = &#039;&#039;;
+        $(&#039;mask&#039;).style.display = &#039;&#039;;
+        //$(&#039;mask&#039;).style.height  = document.body.offsetHeight + &quot;px&quot;;
+        //$(&#039;mask&#039;).style.width   = document.body.offsetWidth + &quot;px&quot;;
+        //$(&#039;pay&#039;).style.top      = (document.body.scrollHeight - $(&#039;pay&#039;).clientHeight - 50)/2 + &quot;px&quot;;
+        //$(&#039;pay&#039;).style.left     = (document.body.scrollWidth - $(&#039;pay&#039;).clientWidth)/2 + &quot;px&quot;;
+        $(&#039;account&#039;).innerHTML = result.username;
+        $(&#039;uid&#039;).innerHTML = result.uid;
+        $(&#039;amount&#039;).innerHTML = result.amount + &#039;元&#039;;
+        $(&#039;payname&#039;).innerHTML = result.payname;
+        $(&#039;order_sn&#039;).innerHTML = result.order_sn;
+        $(&#039;paybtn&#039;).innerHTML = result.paybtn;
+        jQuery(&#039;#mask&#039;).show();
+        console.log(result.paybtn);
+        // 新表单未提交
+        is_post = 0;
+        return;
+    }
+
+// 检查金额
+    function check_amount() {
+        $(&#039;amounts&#039;).value = $(&#039;amounts&#039;).value.replace(/[^\d]/g, &#039;&#039;);
+        if ($(&#039;amounts&#039;).value &gt; 0) {
+            if ($(&#039;countUB&#039;)) {
+                $(&#039;countUB&#039;).innerHTML = &quot;(&quot; + $(&#039;amounts&#039;).value + &quot;元 = &quot; + $(&#039;amounts&#039;).value * coin_scale + &quot;Ｕ币)&quot;;
+            }
+        } else {
+            $(&#039;amounts&#039;).value = &#039;&#039;;
+        }
+    }
+
+// 获取银行
+    function get_bank(bank_name, bank_id) {
+        $(&quot;pay_pass&quot;).value = bank_id;
+        //$(&#039;notice&#039;).innerHTML = &#039;您选择了：&#039; + bank_name + &#039;。&#039;;
+        $(&#039;notice&#039;).style.display = &#039;&#039;;
+        jQuery(&quot;#bank_pay dt&quot;).each(function () {
+            jQuery(this).removeClass(&quot;current&quot;);  //移除已选中的样式
+        });
+        jQuery(&quot;#bank_&quot; + bank_id).addClass(&quot;current&quot;);
+    }
+
+// 获取游戏卡
+    function change_game() {
+        var sel = $(&#039;games&#039;);
+        var raidoStr = &quot;选择面额：&lt;br /&gt;&quot;;
+        for (var i = 0; i &lt; sel.length; i++) {
+            if (sel.options[i].selected == true &amp;&amp; sel.options[i].value) {
+                var raidoArr = sel.options[i].getAttribute(&#039;nomi&#039;).split(&quot;,&quot;);
+                for (var j = 0; j &lt; raidoArr.length; j++) {
+                    raidoStr += &#039;&lt;input type=&quot;radio&quot; name=&quot;parVal&quot; value=&quot;&#039; + raidoArr[j] + &#039;&quot; onclick=&quot;selectVal(this)&quot;&gt;&#039; + raidoArr[j] + &#039;元 &#039;;
+                    if ((j + 1) % 8 == 0) {
+                        raidoStr += &#039;&lt;br/&gt;&#039;;
+                    }
+                }
+                $(&#039;nomi&#039;).style.display = &#039;&#039;;
+                $(&quot;nomi&quot;).innerHTML = raidoStr;
+                if (sel.options[i].noti) {
+                    $(&quot;remark&quot;).innerHTML += &#039;&lt;br/&gt;◆ &#039; + sel.options[i].noti;
+                }
+                break;
+            } else {
+                $(&quot;remark&quot;).innerHTML = &#039;◇ 游戏点卡和U币兑换比例为1：80&lt;br/&gt;◇ 请务必使用与您选择的面额相同的游戏卡进行支付，否则引起的交易失败交易金额不予退还。&#039;;
+                $(&#039;nomi&#039;).style.display = &#039;none&#039;;
+                $(&#039;notice&#039;).style.display = &#039;none&#039;;
+            }
+        }
+    }
+
+// 循环获取radio表单值
+    function get_radio(r) {
+        var obj = document.getElementsByName(r);
+        if (obj != null) {
+            for (var i = 0; i &lt; obj.length; i++) {
+                if (obj[i].checked) {
+                    return obj[i].value;
+                }
+            }
+        }
+        return null;
+    }
+
+    function selectVal(obj) {
+        if ($(&#039;amounts&#039;)) $(&#039;amounts&#039;).value = obj.value;
+        if ($(&#039;notice&#039;)) {
+            $(&#039;notice&#039;).style.display = &#039;&#039;;
+            $(&#039;notice&#039;).innerHTML = obj.value + &#039; 元 = &#039; + obj.value * coin_scale + &#039; Ｕ币，请注意下方“红色”提示文字。&#039;;
+        }
+    }
+
+    function hidden() {
+        if ($(&#039;mask&#039;)) $(&#039;mask&#039;).style.display = &#039;none&#039;;
+        //if($(&#039;pay&#039;)) $(&#039;pay&#039;).style.display = &#039;none&#039;;
+        return;
+    }
+
+    function calert() {
+        if ($(&#039;mask&#039;)) $(&#039;mask&#039;).style.display = &#039;none&#039;;
+        if ($(&#039;alert&#039;)) $(&#039;alert&#039;).style.display = &#039;none&#039;;
+        jQuery(&quot;#pay_info&quot;).show();
+        return;
+    }
+
+// 普通方式提交
+    function pay_confirm() {
+        // 判断是否充值成功
+        var sn = $(&#039;virtual_sn&#039;).value;
+        Ajax.call(&#039;?act=pquery&#039;, &#039;sn=&#039; + sn, function (res) {
+            if (res.tag == 1) {// 如果该订单已经支付成功，则提示用户
+                payalert(res.msg);
+                return false;
+            } else {
+                $(&#039;payform&#039;).action = $(&#039;gateway&#039;).value;
+                //$(&#039;payform&#039;).target = &#039;_blank&#039;;
+                $(&#039;payform&#039;).submit();
+                // 提交以后还原
+                $(&#039;payform&#039;).action = &#039;javascript:pay_confirm()&#039;;
+                $(&#039;payform&#039;).target = &#039;_self&#039;;
+                // 记录提交
+                is_post = 1;
+                $(&#039;pay_button&#039;).style.display = &#039;none&#039;;
+                $(&#039;checkbtn&#039;).style.display = &#039;block&#039;;
+                return false;
+            }
+        }, &#039;GET&#039;, &#039;JSON&#039;, true, true);
+        return;
+    }
+
+    var qTimer = null;
+    var qCount = 0;
+// ajax方式提交数据，适用于yeepay充值卡
+    function pay_ajax() {
+        var form = document.getElementById(&quot;payform&quot;);
+        var args = &quot;&quot;;
+        var url = $(&#039;gateway&#039;).value;
+        if ($(&#039;cardNO&#039;) &amp;&amp; !$(&#039;cardNO&#039;).value) {
+            ialert(&quot;请填写充值卡卡号&quot;);
+            return;
+        }
+        if ($(&#039;cardPwd&#039;) &amp;&amp; !$(&#039;cardPwd&#039;).value) {
+            ialert(&quot;请填写充值卡密码&quot;);
+            return;
+        }
+        for (var i = 0; i &lt; form.length; i++) {
+            if (form.elements[i].name) {
+                args += &quot;&amp;&quot; + form.elements[i].name + &quot;=&quot; + form.elements[i].value;
+            }
+        }
+        Ajax.call(url, args, function (result) {
+            if (result.error &gt; 0) {
+                ialert(result.message);
+            } else {
+                if (result.tag == &quot;1&quot;) {
+                    //$(&#039;pay&#039;).style.display = &#039;none&#039;;
+                    window.setTimeout(function () {
+                        pquery(result.odsn)
+                    }, 100);
+                } else {
+                    ialert(result.msg);
+                }
+            }
+        }, &#039;POST&#039;, &#039;JSON&#039;, true, true);
+        // 记录提交
+        is_post = 1;
+        return;
+    }
+
+    /* 查询充值是否成功 */
+    function pquery(odsn) {
+        var sn = odsn;
+        qCount++;
+        Ajax.call(&#039;?act=pquery&#039;, &#039;sn=&#039; + sn, function (res) {
+            if (res.tag == 1 || res.tag == 2) {
+                window.clearTimeout(qTimer);
+                payalert(res.msg);
+                return;
+            } else {
+                if (qCount &gt;= 100) {
+                    window.clearTimeout(qTimer);
+                    ialert(&quot;充值还未成功，请联系客服核对。&quot;);
+                    qCount = 0;
+                    return;
+                } else {
+                    ialert(&quot;正在充值，请不要离开本页面。&quot; + qCount + &quot;%&quot;);
+                }
+            }
+        }, &#039;GET&#039;, &#039;JSON&#039;, true, true);
+        qTimer = window.setTimeout(function () {
+            pquery(sn);
+        }, 3000);
+    }
+
+    /* 充值已充值提示 */
+    function payalert(s) {
+        ialert(s);
+        $(&#039;alertbtn&#039;).onclick = function () {
+            calert();
+            document.location.reload();
+        }
+    }
+
+    /* 提示 */
+    function ialert(s) {
+        $(&#039;alertmsg&#039;).innerHTML = s;
+        $(&#039;alert&#039;).style.display = &#039;&#039;;
+        //$(&#039;mask&#039;).style.display  = &#039;&#039;;
+        //$(&#039;mask&#039;).style.height   = document.body.offsetHeight + &quot;px&quot;;
+        //$(&#039;mask&#039;).style.width    = document.body.offsetWidth + &quot;px&quot;;
+        //$(&#039;alert&#039;).style.top     = (document.body.clientHeight - $(&#039;alert&#039;).clientHeight - 100)/2 + &quot;px&quot;;
+        //$(&#039;alert&#039;).style.left    = (document.body.clientWidth - $(&#039;alert&#039;).clientWidth)/2 + &quot;px&quot;;
+        jQuery(&quot;#pay_info&quot;).hide();
+        return;
+    }
+
+    /* 窗口大小变化后控件的位置 */
+    document.body.onresize = function () {
+        //if($(&#039;pay&#039;)){
+        //	$(&#039;pay&#039;).style.top    = (document.body.clientHeight - $(&#039;pay&#039;).clientHeight - 50)/2 + &quot;px&quot;;
+        //	$(&#039;pay&#039;).style.left   = (document.body.clientWidth - $(&#039;pay&#039;).clientWidth)/2 + &quot;px&quot;;
+        //}
+        //if($(&#039;mask&#039;)){
+        //	$(&#039;mask&#039;).style.height = document.body.clientHeight + &quot;px&quot;;
+        //	$(&#039;mask&#039;).style.width  = document.body.clientWidth + &quot;px&quot;;
+        //}
+    };
+})()</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
