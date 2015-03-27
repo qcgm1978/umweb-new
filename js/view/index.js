@@ -18,7 +18,6 @@ $(function () {
         $(this).mouseenter(function (event) {
             event.preventDefault();
             $(this).addClass("current").siblings().removeClass("current");
-            //$(urElement).animate({"top": -index * h});
             var selector = 'li:has([src="' +
                 $(this).find('img').attr('src') +
                 '"])';
@@ -40,7 +39,6 @@ $(function () {
     function autoPaly() {
         $(urElement).animate({"top": -309}, function () {
             $(urElement).css('top', 0).find('li:first').appendTo(urElement)
-
         });
         var $li = $(liElement);
         var $current = $li.eq(currentPath);
@@ -95,3 +93,89 @@ $(function () {
         $(".bannerMenu a").eq(currentPathBanner).addClass("current").siblings().removeClass("current");
     };
 });
+function get_rank() {
+    //console.log('get_rank');
+    var url = '/site/rank';
+    $.post(url, function (result) {
+            //console.log('update_rank. ' + result);
+            var res = jQuery.parseJSON(result);
+            //console.log(res);
+            var rich = res.rich;
+            var glam = res.glam;
+            insert_rank(glam.day, 1, 'con_one_1');
+            insert_rank(glam.week, 1, 'con_one_2');
+            insert_rank(glam.month, 1, 'con_one_3');
+            insert_rank(glam.supe, 1, 'con_one_4');
+            insert_rank(rich.day, 2, 'con_two_1');
+            insert_rank(rich.week, 2, 'con_two_2');
+            insert_rank(rich.month, 2, 'con_two_3');
+            insert_rank(rich.supe, 2, 'con_two_4');
+        }
+    );
+}
+function insert_rank(arr, type, id) {
+    //console.log('insert_rank');
+    //console.log(arr);
+    var tmp = '';
+    if (arr) {
+        for (var i = 0; i < arr.length; i++) {
+            var temp = '';
+            if (i == 0) {
+                var firstClass = (id=="con_one_1")?'rankTop  rankTop-anchor':'rankTop rankTop1';
+                temp = '<li class="rankChamp"><span class="' +
+                firstClass +
+                '"><i class="crownIco"></i></span><div class="rankPicture"><a class="rankPic"><img src="' + arr[i].avatar + '" alt="" /><i>遮罩</i></a><p><a href="';
+                //temp = '<li class="mranking-lm lm1 f-cb"><div class="state-biao bc-pink">' + arr[i].rank + '</div><img class="mranking-img" src="' + arr[i].avatar+ '" width="60" height="60" title=""><b class="mranking-tt"><a class="c-pink" href="';
+            }
+            else {
+                temp = '<li><span class="rankTop rankTop' + arr[i].rank + '"></span><span class="rankLinks"> <a href="';
+                //temp = '<li class="mranking-lm lm2 m21 f-cb"><div class="state-biao">' + arr[i].rank + '</div><b class="mranking-tt"><a class="c6" href="';
+            }
+            if (type == 1) {
+                temp += '/' + arr[i].gid + '" target="_blank">';
+            }
+            else {
+                temp += 'javascript:;">';
+            }
+            temp += '' + arr[i].nick + '</a></span><span class="rankIco">';
+            if (type == 1) {
+                temp += '<img src="images/star/s' + arr[i].star + '.png">';
+            }
+            else {
+                //temp += 'images/title/t'+arr[i].title+'.gif"';
+                if (arr[i].vip) {
+                    temp += '<img src="images/vip/v' + arr[i].vip + '.gif">';
+                }
+            }
+            temp += '</span></li>';
+            tmp += temp;
+        }
+        if (arr.length == 0) {
+            tmp = '<span class="rankLinks">没有数据</span>';
+        }
+    } else {
+        tmp = '<span class="rankLinks">没有数据</span>';
+    }
+    //console.log(tmp);
+    $('#' + id).html(tmp);
+}
+get_rank();
+function cat_it(cat_id, cat_name) {
+    var url = '/room/list';
+    $.post(url, function (result) {
+            //console.log('cat_it. ' + result);
+            $('.mainContent').html(result);
+            //$('#hall_index').html('<h2 class="tt">返回大厅</h2>');
+        }
+    );
+}
+function load_family_recommend() {
+    var url = '/site/familyRecommend';
+    $.post(url, function (result) {
+            //console.log('cat_it. ' + result);
+            $('#family_com').html(result);
+            //$('#hall_index').html('<h2 class="tt">返回大厅</h2>');
+        }
+    );
+}
+load_family_recommend();
