@@ -240,6 +240,11 @@ chat.prototype = {
             '<a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + info.gid + ')">' + info.nickname + niceGid + '</a></span>';
         this.insert(this.getIconStr.call(this, info, strStart, strTxt + strCar + strEnd))
     },
+    /**
+     * Description: get user's icon info ele
+     *
+     * @method getIconStr
+     */
     getIconStr: function (info, start, end) {
         end = end || '';
         start = start || '';
@@ -251,11 +256,6 @@ chat.prototype = {
         var strAnchor = (isAnchor) ? '<i class="zhuboIco zb' + info.starlevel + '"></i>' : '';
         var strGoodCode = (info.nicegid + "").length < 8 ? '<i class="lhIco"></i>' : '';
         var strFamily = Base64.decode(info.family_name) != "" ? '<i class="clubIcoText"><em>' + Base64.decode(info.family_name) + '</em></i>' : '';
-        /**
-         * Description: how to display user info
-         *
-         * @method
-         */
         var infoEnd = end;
         var strFull = start
         if (info.roomer == 0) {//游客
@@ -269,16 +269,19 @@ chat.prototype = {
         }
         return strFull + infoEnd
     },
+    getSenderSpan: function (my_css, chatdata) {
+        return '<span class="' + my_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.uid + ')">' + chatdata.nickname + '</a></span> ';
+    },
     display_chatmessage: function (chatdata) {
         if (this.kw_filter) {
             chatdata.message = chatdata.message.replace(this.kw_filter, '***');
         }
         chatdata.message = chatdata.message.replace(/&#47;b(\d+)/g, "<img src='" + ImageBase + "/room/images/emotion/$1.gif'>");
         var start = '<div class="lcWord">';
-        var info = chatdata.fromu.appdata;
+        var infoSender = chatdata.fromu.appdata;
         if (chatdata.touid) {
-            var tou = chatdata.tou.appdata;
-            var togid = (tou.nicegid + "").length < 8 ? '(<u>' + tou.nicegid + '</u>)<i class="lhIco"></i>' : '(' + tou.nicegid + ')';
+            var infoReceiver = chatdata.tou.appdata;
+            var togid = (infoReceiver.nicegid + "").length < 8 ? '(<u>' + infoReceiver.nicegid + '</u>)<i class="lhIco"></i>' : '(' + infoReceiver.nicegid + ')';
         }
         var my_css = "cyan";
         var to_css = "cyan";
@@ -303,32 +306,28 @@ chat.prototype = {
         if (!chatdata.is_my && !chatdata.is_my_to) {
             to_css = "yellow";
         }
-        var end = ''
+        var strChat = ''
+        var strSender = ''
         if (chatdata.touid == 0) {
-            end += '<span class="greenLight"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.uid + ')">' + chatdata.nickname + '</a></span>' +
-            ' 说:<span class="' + msg_css + '">' + chatdata.message + '</span>';
+            strChat +=
+                this.getSenderSpan("greenLight", chatdata) +
+                ' 说:<span class="' + msg_css + '">' + chatdata.message + '</span>';
         }
         else {
-            var senderIcons = ''
-            if (chatdata.is_my) {
-                senderIcons = this.getIconStr.call(this, tou);
-            }
+            var receiverIcons = this.getIconStr.call(this, infoReceiver);
             if (chatdata.secret) {
-                end += '<span class="' + my_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.uid + ')">' + chatdata.nickname + '</a></span> ' +
-                '对' + senderIcons + '<span class="' + to_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.touid + ')">' + chatdata.to_nickname + togid + '</a></span>' +
+                strSender = this.getSenderSpan(my_css, chatdata);
+                var strReceiver = '<span class="' + to_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.touid + ')">' + chatdata.to_nickname + togid + '</a></span>';
+                strChat += strSender + '对' + receiverIcons + strReceiver +
                 '[悄悄的]说:<span class="' + msg_css + '">' + chatdata.message + '</span>';
             }
             else {
-                end += '<span class="' + my_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.uid + ')">' + chatdata.nickname + '</a></span>' +
-                ' 对 ' + senderIcons + '<span class="' + to_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.touid + ')">' + chatdata.to_nickname + togid + '</a></span>说:<span class="' + msg_css + '">' + chatdata.message + '</span>';
+                strChat += '<span class="' + my_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.uid + ')">' + chatdata.nickname + '</a></span>' +
+                ' 对 ' + receiverIcons + '<span class="' + to_css + '"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + chatdata.touid + ')">' + chatdata.to_nickname + togid + '</a></span>说:<span class="' + msg_css + '">' + chatdata.message + '</span>';
             }
-            end += '</div>';
+            strChat += '</div>';
         }
-        if (chatdata.is_my) {
-            this.insert(start + end)
-        } else {
-            this.insert(this.getIconStr.call(this, info, start, end))
-        }
+        this.insert(this.getIconStr.call(this, infoSender, start, strChat))
     }
 };
 function makeid() {

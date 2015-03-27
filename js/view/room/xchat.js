@@ -208,15 +208,18 @@ var chat_panel = {
     menu_flag: 0,
     init: function () {
         $("#message_btn").click(function (event) {
-            xMessager.message($("#message_input").val(), $("#secret_check").is(':checked'));
-            $("#message_input").val("");
+            sendChatToSwf($("#message_input"));
         });
         $("#message_to").change(function () {
             g_UserList.UserSelected(parseInt($(this).val()));
         });
-        SiteCommon.setChatDialog($("#message_input"), function ($ele) {
-            xMessager.message($ele.val(), $("#secret_check").is(':checked'));
+        function sendChatToSwf($ele) {
+            xMessager.message($ele.val(), Number($("#secret_check").is(':checked')));
             $ele.val("");
+        }
+
+        SiteCommon.setChatDialog($("#message_input"), function ($ele) {
+            sendChatToSwf($ele);
         });
         $("#m_gift").click(function (event) {
             chat_panel.set_gift_target();
@@ -816,7 +819,7 @@ var message_display = {
     chat: function (chatdata, is_my_message) {
         if (is_my_message) {
             uu89prv.display_chatmessage(chatdata);
-            if (chatdata.touid == 0) {
+            if (chatdata.secret == 0) {
                 uu89pub.display_chatmessage(chatdata);
             }
         }
