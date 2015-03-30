@@ -64,24 +64,20 @@ function SendGift() {
         return;
     }
 
-    //var url = "http://117.27.158.20/room/consume.php";
-    var url = "/room/consume.php";
+    var url = "/shop/buyGift";
     from_u = g_UserList.GetUser(userpara.gid);
     to_u = g_UserList.GetUser(gift_to_uid);
     var data = {
-        'CONSUMETYPE': 30,
-        'FROMGID': userpara.gid,
-        'TOGID': gift_to_uid,
-        'OBJ': {
-            'ID': gift_id,
-            'SUM': $('#gift_count').val(),
-            'ROOMID': room_id
-        }
+        'from_uid': userpara.gid,
+        'to_uid': gift_to_uid,
+        'gift_id': gift_id,
+        'sum': $('#gift_count').val(),
+        'room_id': room_id
     };
-    //console.log(data);
+    console.log(data);
     //return;
-    $.post(url, JSON.stringify(data), function (result) {
-        //console.log(result);
+    $.post(url, data, function (result) {
+        console.log(result);
         var r = jQuery.parseJSON(result);
         /*
          if (r.RES==0){

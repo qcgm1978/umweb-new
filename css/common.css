@@ -199,7 +199,7 @@ a.noBg i,
 /*分页*/
 .pageList{}
 .pageList a{display:inline-block;height:24px;line-height:24px;padding:0px 8px;border:1px solid #dfdfdf;color:#333;font-size:12px; vertical-align:top;}
-.pageList a:hover,.pageList a.current,.pageList a.current:hover{border:1px solid #f8dcec;background:#f8dcec;}
+.pageList a:hover,.pageList a.current,.pageList a.current:hover{border:1px solid #f8dcec;background:#ff99df;}
 .pageListClear{float:none;}
 
 .pageListNew{padding:8px 30px;text-align:right;}
@@ -255,18 +255,18 @@ a.orangeBtn i{cursor:pointer;display:inline-block;overflow:hidden;padding-right:
 a.orangeBtn:hover{background-position:left -1800px}
 a.orangeBtn:hover i{background-position:right -1828px;}
 
-a.pinkBtn,a.pinkBtn:hover{display:inline-block;overflow:hidden;margin:0px 5px;padding-left:18px;height:24px;line-height:24px;font-size:14px;color:#fff; vertical-align:middle;background-position:left -1350px;}
-a.pinkBtn i{cursor:pointer;display:inline-block;overflow:hidden;padding-right:18px;height:24px;font-style:normal;background-position:right -1376px;}
-a.pinkBtn:hover{background-position:left -1800px;}
-a.pinkBtn:hover i{background-position:right -1828px;}
+a.pinkBtn,a.pinkBtn:hover{display:inline-block;overflow:hidden;margin:0px 5px;padding-left:18px;height:24px;line-height:24px;font-size:14px;color:#fff; vertical-align:middle;background-position:left -1400px;}
+a.pinkBtn i{cursor:pointer;display:inline-block;overflow:hidden;padding-right:18px;height:24px;font-style:normal;background-position:right -1426px;}
+a.pinkBtn:hover{background-position:left -1350px;}
+a.pinkBtn:hover i{background-position:right -1376px;}
 
-a.whiteBtn,a.whiteBtn:hover{display:inline-block;overflow:hidden;margin:0px 15px;padding-left:18px;height:24px;line-height:24px;color:#FE0000;vertical-align:middle;background-position:left -1400px;}
-a.whiteBtn i{cursor:pointer;display:inline-block;overflow:hidden;padding-right:18px;height:24px;font-style:normal;background-position:right -1426px;}
+a.whiteBtn,a.whiteBtn:hover{display:inline-block;overflow:hidden;margin:0px 15px;padding-left:18px;height:24px;line-height:24px;color:#fff;vertical-align:middle;background-position:left -1400px;}
+a.whiteBtn i{cursor:pointer;display:inline-block;overflow:hidden;padding-right:18px;height:30px;font-style:normal;background-position:right -1426px;}
 a.whiteBtn:hover{background-position:left -1350px;color:#fff;}
 a.whiteBtn:hover i{background-position:right -1376px;}
 
-a.redBtn,a.redBtn:hover{display:inline-block;overflow:hidden;margin:0px 5px;padding-left:18px;height:24px;line-height:24px;color:#fff;vertical-align:middle;background-position:left -1800px;}
-a.redBtn i{cursor:pointer;display:inline-block;overflow:hidden;padding-right:18px;height:24px;font-style:normal;background-position:right -1828px;}
+a.redBtn,a.redBtn:hover{display:inline-block;overflow:hidden;margin:0px 5px;padding-left:18px;height:24px;line-height:24px;color:#fff;vertical-align:middle;background-position:left -1400px;}
+a.redBtn i{cursor:pointer;display:inline-block;overflow:hidden;padding-right:18px;height:24px;font-style:normal;background-position:right -1426px;}
 a.redBtn:hover{background-position:left -1350px;}
 a.redBtn:hover i{background-position:right -1376px;}
 
@@ -289,20 +289,20 @@ a.redSmall,a.redSmall:hover{
 	display:inline-block;
 	overflow:hidden;
 	padding-left:4px;
-	height:20px;
-	line-height:16px;
+	height:24px;
+	line-height:24px;
 	font-size:12px;
 	color:#fff;
 	vertical-align:middle;
-	background-position:left -2500px;
+	background-position:left -1400px;
 	margin-top: 0px;
 	margin-right: 6px;
 	margin-bottom: 0px;
 	margin-left: 10px;
 }
-a.redSmall i{cursor:pointer;display:inline-block;overflow:hidden;padding-right:4px;height:16px;font-style:normal;background-position:right -2534px;}
-a.redSmall:hover{background-position:left -2550px;color:#fff;}
-a.redSmall:hover i{background-position:right -2584px;}
+a.redSmall i{cursor:pointer;display:inline-block;overflow:hidden;padding-right:4px;height:24px;font-style:normal;background-position:right -1426px;}
+a.redSmall:hover{background-position:left -1350px;color:#fff;}
+a.redSmall:hover i{background-position:right -1376px;}
 
 /*
 a.redSmall1,a.redSmall1:hover{display:inline-block;overflow:hidden;margin:0px 5px;padding-left:4px;height:16px;line-height:16px;font-size:12px;color:#fff; vertical-align:middle;background-position:left -2500px;}*/
@@ -444,7 +444,7 @@ a.noBg:hover i{background-position:right -2584px;}
 /*排行数*/
 .rankTop{overflow:hidden;display:inline-block;width:26px;height:36px; vertical-align:middle;font-size:0px;line-height:0px;}
 .rankTop-anchor{background-position:-26px 0px;}
-.rankTop1{background-position:-52px 0px;}
+.rankTop1{background-position:-60px 0px;}
 .rankTop2{background-position:0px -44px;}
 .rankTop3{background-position:0px -94px;}
 .rankTop4{background-position:0px -144px;}
@@ -627,8 +627,8 @@ white-space:nowrap;font-style:normal;border-collapse:collapse;}
 .cvText{display:block;float:left;display:inline;margin-right:10px;line-height:26px;}
 .subIco{text-align:center;}
 .subIco1{text-align:left; padding-left:100px;}
-a.pubLink{padding:0px 10px;display:inline-block;height:26px;line-height:26px;font-size:14px;color:#e31b54;border:1px solid #c0c0c0;background:#fff;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}
-a.pubLink:hover{color:#e31b54;}
+a.pubLink{padding:0px 10px;display:inline-block;height:26px;line-height:26px;font-size:14px;color:#fff;/*border:1px solid #c0c0c0;*/background:#9528ff;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}
+a.pubLink:hover{background-color:#8319bd;}
 .pubform{line-height:24px;}
 .pubform ul{}
 .pubform li{vertical-align:top;padding:0px 0px 20px;}
@@ -682,10 +682,10 @@ a.pubLink:hover{color:#e31b54;}
 .goldCoin a{color:#6A6A6A;}
 .goldCoin a:hover{color:#E0255C;}
 
-.loginLink a{padding:0px 5px;color:#e41f57;}
-.loginLink a:hover{background:#e82867;color:#fff;}
-.registerLink a{padding:0px 5px;color:#e41f57;}
-.registerLink a:hover{background:#e82867;color:#fff;}
+.loginLink a{padding:0px 5px;color:#d01258;}
+.loginLink a:hover{background:#d01258;color:#fff;}
+.registerLink a{padding:0px 5px;color:#d01258;}
+.registerLink a:hover{background:#d01258;color:#fff;}
 
 .lrAfter .reCharge{}
 .lrAfter .reCharge a{padding:0px 5px;color:#d01258;}

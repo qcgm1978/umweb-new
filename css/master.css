@@ -114,6 +114,7 @@
 	padding-bottom: 5px;
 	line-height: 30px;
 }
+.serviceList1 p.first{text-indent:2em;}
 .serviceList1 p br{
 	color:#111;
 	padding-top: 5px;
@@ -121,7 +122,7 @@
 }
 
 
-.serviceList1 ul{}
+
 .serviceList1 li{vertical-align:top;padding:5px 0px 10px;}
 .serviceList1 li strong{
 	display:block;
@@ -189,7 +190,7 @@
 .rankList li .rankIco{position:absolute;right:7px;top:10px;}
 .rankList li .rankTop-anchor{position:relative;}
 .rankList li .rankTop1{position:relative;}
-.crownIco{position:absolute;right:-3px;top:-17px;background-position:0px -450px;width:25px;height:25px;}
+.crownIco{position:absolute;right:-5px;top:-18px;background-position:0px -450px;width:25px;height:25px;}
 .rankList li.rankChamp{height:48px;overflow:visible;}
 .rankList li.rankChamp .rankTop{overflow:visible;float:left;display:inline;margin:13px 5px 0px 0px;}
 .rankPicture{overflow:hidden;zoom:1;}
@@ -241,7 +242,7 @@
 .menuSide dl.current dd{display:block;}
 .thumContent{overflow:hidden;zoom:1;min-height:500px;line-height:24px;font-size:14px;color:#848484;}
 .thumContent p{padding:0px 0px 8px;}
-.thumContent h3{padding:0px 0px 5px;font-size:15px;color:#505050;}
+.thumContent h3{padding:0px 0px 10px;font-size:20px;color:#505050; text-align:center;}
 .tableData a:hover{text-decoration:underline;}
 
 /*账户充值*/
@@ -319,7 +320,7 @@
 .myInfor ul{padding-left:70px;}
 .myInfor li{width:50%;float:left;}
 .pubform li em.pfTitle{width:85px;text-align:right;}
-.personCenter .tableData th{background:#f8dcec;color:#e4007f;}
+.personCenter .tableData th{background:#e1e1e4;color:#000;}
 .myInforTou{
 	width:72%;
 	text-align:left;
@@ -412,7 +413,7 @@ a.buyIco:hover{color:#fff;background:url(img/buyIco01.gif) no-repeat;}
 /*VIP商城*/
 .VIPShop{}
 .VIPShop ul li{background:#fff;border:1px solid #b9b9b9;}
-.VIPShop ul li:hover{border:1px solid #e72b65;}
+.VIPShop ul li:hover{border:1px solid #d11796;}
 
 /*排行榜*/
 .rankWrap{overflow:hidden;position:relative;}

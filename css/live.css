@@ -184,7 +184,7 @@ a.lmaBut{display:block;float:right;display:inline;margin:6px 8px 0px 0px;width:2
 .livePresent span.lpCharge a{margin-right:0px;padding-left:8px;}
 .livePresent span.lpCharge a i{padding-right:8px;}
 .livePresent span .redSmall{
-    margin-top:4px;
+    /*margin-top:4px;*/
     margin-right: -5px;
 }
 

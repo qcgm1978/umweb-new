@@ -168,15 +168,15 @@ chat.prototype = {
         }
         var text = '<div class="lcWord">';
         if (gift.tou) {
-            var tou = gift.tou.appdata;
-            var toadminimg = tou.tolevelinroom == 900 && !tou.towatchman ? '<i class="manageIco"></i>' : '';
-            var towatchmanimg = tou.watchman ? '<i class="xunIco"></i>' : '';
-            var tosimg = tou.roomer ? '<i class="zhuboIco zb' + tou.starlevel + '"></i>' : '';
-            var tovimg = tou.vip2 ? '<i class="vipIco"></i>' : '';
-            var totimg = tou.vip && !tou.roomer ? '<i class="jwIco V' + tou.vip + '"></i>' : '';
-            var tofimg = Base64.decode(tou.family_name) != "0" ? '<i class="clubIcoText"><em>' + Base64.decode(tou.family_name) + '</em></i>' : '';
-            var togid = (tou.nicegid + "").length < 8 ? '(<u>' + tou.nicegid + '</u>)<i class="lhIco"></i>' : '(' + tou.nicegid + ')';
-            if (!tou.vip && !tou.roomer && !tou.watchman && (tou.nicegid + "").length <= 8) {
+            var receiverInfo = gift.tou.appdata;
+            var toadminimg = receiverInfo.tolevelinroom == 900 && !receiverInfo.towatchman ? '<i class="manageIco"></i>' : '';
+            var towatchmanimg = receiverInfo.watchman ? '<i class="xunIco"></i>' : '';
+            var tosimg = receiverInfo.roomer ? '<i class="zhuboIco zb' + receiverInfo.starlevel + '"></i>' : '';
+            var tovimg = receiverInfo.vip2 ? '<i class="vipIco"></i>' : '';
+            var totimg = receiverInfo.vip && !receiverInfo.roomer ? '<i class="jwIco V' + receiverInfo.vip + '"></i>' : '';
+            var tofimg = Base64.decode(receiverInfo.family_name) != "0" ? '<i class="clubIcoText"><em>' + Base64.decode(receiverInfo.family_name) + '</em></i>' : '';
+            var togid = (receiverInfo.nicegid + "").length < 8 ? '(<u>' + receiverInfo.nicegid + '</u>)<i class="lhIco"></i>' : '(' + receiverInfo.nicegid + ')';
+            if (!receiverInfo.vip && !receiverInfo.roomer && !receiverInfo.watchman && (receiverInfo.nicegid + "").length <= 8) {
                 totimg = '<i class="lmIco"></i>';
             }
         } else {
@@ -201,7 +201,16 @@ chat.prototype = {
         }
         var fgid = (senderInfo.nicegid + "").length < 8 ? '(<u>' + senderInfo.nicegid + '</u>)<i class="lhIco"></i>' : '(' + senderInfo.nicegid + ')';
         var senderIcons = this.getIconStr.call(this, senderInfo);
-        text += senderIcons + '<span class="blue"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + gift.from_uid + ')">' + gift.from_nickname + fgid + '</a></span> 送给 ' + tosimg + totimg + tovimg + tofimg + towatchmanimg + toadminimg + '<span class="yellow"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + gift.to_uid + ')">' + gift.to_nickname + togid + '</a></span> 送：<span class="pink">' + gift.sum + gift.unit + gift.gift_name + '</span>';
+        var senderEle = ''
+        var isFromMe = false;
+        if (gift.from_uid == userpara.uid) {
+            isFromMe = true;
+        }
+        senderEle = this.getUserNameEle(gift.fromu.appdata, isFromMe);
+        var receiverIcons = this.getIconStr.call(this, receiverInfo);
+        text += senderIcons +
+        senderEle +
+        ' 送给 ' + receiverIcons + '<span class="yellow"><a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + gift.to_uid + ')">' + gift.to_nickname + togid + '</a></span> 送：<span class="pink">' + gift.sum + gift.unit + gift.gift_name + '</span>';
         this.insert(text + '&nbsp;' + showimg + '</div>');
         window.setTimeout(function () {
             self.rolling();
@@ -220,6 +229,15 @@ chat.prototype = {
         var e_id_1 = user.sendwho.gid + "_" + makeid();
         this.insert('<a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + user.fromwho.gid + ')"><span class="username">' + user.fromwho.nickname + '</span></a>&nbsp;对&nbsp;<a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + user.sendwho.gid + ')"><span class="username">' + user.sendwho.nickname + '</span></a>&nbsp;说：' + fl);
     },
+    getUserNameEle: function (info, isMe) {
+        var niceGid = (info.nicegid !== 0) ? '(<u>' + info.nicegid + '</u>)' : '(' + info.gid + ')';
+        var color = (info.nicegid + "").length > 8 ? 'green' : 'purple'
+        var strTxt = '<span class="' +
+            color +
+            '">' +
+            '<a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + info.gid + ')">' + (isMe ? '我' : info.nickname ) + niceGid + '</a></span>';
+        return strTxt;
+    },
     // 人员进出房间
     disinout: function (info) {
         if (info.type != 1) { //只显示进入房间信息
@@ -232,12 +250,7 @@ chat.prototype = {
             strCar = info.carmsg;
             strEnd = '</div>';
         }
-        var color = (info.nicegid + "").length > 8 ? 'green' : 'purple'
-        var niceGid = (info.nicegid !== 0) ? '(<u>' + info.nicegid + '</u>)' : '(' + info.gid + ')';
-        var strTxt = '<span class="' +
-            color +
-            '">' +
-            '<a href="javascript:void(0)" onClick="select_it(' + this.chat_type + ',' + info.gid + ')">' + info.nickname + niceGid + '</a></span>';
+        var strTxt = this.getUserNameEle(info);
         this.insert(this.getIconStr.call(this, info, strStart, strTxt + strCar + strEnd))
     },
     /**
@@ -276,7 +289,9 @@ chat.prototype = {
         if (this.kw_filter) {
             chatdata.message = chatdata.message.replace(this.kw_filter, '***');
         }
-        chatdata.message = chatdata.message.replace(/&#47;b(\d+)/g, "<img src='" + ImageBase + "/room/images/emotion/$1.gif'>");
+        var emotionGif = SiteCommon.EMOTION_GIF_PATH + "$1.gif";
+        chatdata.message = chatdata.message.replace(/&#47;b(\d+)/g, "<img src='" + ImageBase + emotionGif +
+        "'>");
         var start = '<div class="lcWord">';
         var infoSender = chatdata.fromu.appdata;
         if (chatdata.touid) {
